@@ -1,0 +1,886 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    id: 'moviles',
+    title: 'Aplicaciones Móviles',
+    tagline: 'Apps nativas y cross-platform',
+    desc: 'Desarrollamos apps para iOS y Android. Elige la tecnología que mejor se adapte a tu proyecto: código nativo o una sola codebase para ambas plataformas.',
+    fullDesc: 'Tenemos experiencia con ambas aproximaciones. Las apps nativas ofrecen máximo rendimiento y acceso completo al hardware. Las apps cross-platform son más rápidas de desarrollar y mantienen una sola codebase.',
+    icon: '📱',
+    color: '#5856D6',
+    features: [
+      { title: 'iOS Nativo', desc: 'Swift, SwiftUI - máximo rendimiento en Apple' },
+      { title: 'Android Nativo', desc: 'Kotlin, Jetpack Compose - experiencia Material' },
+      { title: 'Flutter', desc: 'Una codebase para iOS y Android, rendimiento near-native' },
+      { title: 'React Native', desc: 'Una codebase con componentes nativos de UI' },
+    ],
+    tech: ['Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Flutter', 'React Native', 'Firebase'],
+    deliverable: 'App lista para App Store y Google Play',
+  },
+  {
+    id: 'web',
+    title: 'Aplicaciones Web',
+    tagline: 'Experiencias digitales memorables',
+    desc: 'Creamos web apps rápidas, seguras y escalables. Desde landing pages hasta plataformas enterprise con Next.js, React y Astro.',
+    fullDesc: 'Tu presencia digital es tu carta de presentación. Construimos experiencias que convierten visitantes en clientes y mantienen a los usuarios regresando.',
+    icon: '🌐',
+    color: '#34C759',
+    features: [
+      { title: 'SPAs & PWAs', desc: 'Aplicaciones que se sienten como nativas' },
+      { title: 'E-commerce', desc: 'Tiendas online que venden' },
+      { title: 'Dashboards', desc: 'Paneles de control intuitivos' },
+      { title: 'Portales', desc: 'Plataformas seguras para tu equipo' },
+    ],
+    tech: ['Next.js', 'React', 'Astro', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Vercel'],
+    deliverable: 'Web app deployada y lista para producción',
+  },
+  {
+    id: 'escritorio',
+    title: 'Software de Escritorio',
+    tagline: 'Rendimiento nativo, لأي plataforma',
+    desc: 'Aplicaciones de escritorio para macOS, Windows y Linux. El poder de código nativo con la flexibilidad de herramientas modernas.',
+    fullDesc: 'Cuando necesitás el máximo rendimiento y acceso al sistema, las apps de escritorio son la respuesta. Escritorio, punto de venta, herramientas internas - lo construimos.',
+    icon: '💻',
+    color: '#FF9500',
+    features: [
+      { title: 'macOS', desc: 'Apps nativas que lucen en tu Mac' },
+      { title: 'Windows', desc: 'Integración con APIs de Windows' },
+      { title: 'Linux', desc: 'Soluciones cross-platform' },
+      { title: 'Tauri', desc: 'Lightweight, rápido y seguro' },
+    ],
+    tech: ['Swift', 'SwiftUI', '.NET', 'Tauri', 'Rust', 'Electron'],
+    deliverable: 'Ejecutable para Windows, macOS y Linux',
+  },
+  {
+    id: 'ia',
+    title: 'Consultorías de IA',
+    tagline: 'La inteligencia que tu negocio necesita',
+    desc: 'Implementamos inteligencia artificial en tus procesos de negocio. Desde automatización hasta chatbots y análisis predictivo.',
+    fullDesc: 'La IA no es el futuro - es el presente. Te ayudamos a identificar dónde la IA puede transformar tu negocio y la implementamos de forma práctica.',
+    icon: '🤖',
+    color: '#0071E3',
+    features: [
+      { title: 'Automatización', desc: 'Eliminamos tareas repetitivas' },
+      { title: 'Chatbots', desc: 'Atención al cliente 24/7' },
+      { title: 'Análisis', desc: 'Insights de tus datos' },
+      { title: 'LLMs', desc: 'Modelos personalizados para tu negocio' },
+    ],
+    tech: ['OpenAI', 'Anthropic', 'LangChain', 'Python', 'TensorFlow', 'Vector Databases'],
+    deliverable: 'Integración de IA en tu stack',
+  },
+];
+
+const process = [
+  {
+    n: '01',
+    title: 'Discovery',
+    desc: 'Escuchamos tu idea yanalizamos tu mercado para crear un roadmap que funciona.',
+    details: ['Reunión inicial', 'Análisis de competencia', 'Definición de KPIs', 'Propuesta técnica'],
+  },
+  {
+    n: '02',
+    title: 'Diseño',
+    desc: 'Creamos wireframes, prototipos y el sistema de diseño quedefine tu producto.',
+    details: ['Wireframes', 'Prototipo interactivo', 'Diseño UI/UX', 'Design system'],
+  },
+  {
+    n: '03',
+    title: 'Desarrollo',
+    desc: 'Código limpio, tests automatizados y entregas parciales cada 2 semanas.',
+    details: ['Sprints ágiles', 'Code review', 'CI/CD', 'Testing automático'],
+  },
+  {
+    n: '04',
+    title: 'Lanzamiento',
+    desc: 'Deploy, QA y publicación en tiendas.Orientación post-lanzamiento.',
+    details: ['QA testing', 'Publicación', 'Documentación', 'Soporte 30 días'],
+  },
+];
+
+const faq = [
+  {
+    question: '¿Cuánto cuesta desarrollar una app?',
+    answer: 'Cada proyecto es único. Una app básica puede iniciar en $5,000-10,000 USD, mientras que aplicaciones más complejas pueden oscilar entre $20,000-100,000+ USD. Te proporcionamos un presupuesto detallado después del discovery.',
+  },
+  {
+    question: '¿Cuánto tiempo toma desarrollar una app?',
+    answer: 'Una app/simple puede tomar 4-8 semanas. Apps más complejas típicamente requieren 3-6 meses. El tiempo depende de la complejidad, plataformas y funcionalidades.',
+  },
+  {
+    question: '¿Ofrecen mantenimiento después del lanzamiento?',
+    answer: 'Sí, ofrecemo s soporte continuo y mantenimiento. Esto incluye actualizaciones para nuevas versiones de iOS/Android, correcciones de bugs y mejoras opcionales.',
+  },
+  {
+    question: '¿Pueden trabajar con código existente?',
+    answer: 'Sí, podemos trabajar con código legacy, realizar auditorías técnicas y continuar el desarrollo de apps existentes. Primero evaluamos el código actual.',
+  },
+];
+
+const metrics = [
+  { value: '50+', label: 'Proyectos entregados' },
+  { value: '5+', label: 'Años de experiencia' },
+  { value: '1M+', label: 'Usuarios de nuestras apps' },
+  { value: '99%', label: 'Satisfaction rate' },
+];
+---
+
+<Layout
+  title="Servicios — Creapolis"
+  description="Desarrollamos aplicaciones móviles, web y de escritorio. Consultorías de IA para empresas en México y Latinoamérica."
+>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
+      <a href="#contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/servicios">Servicios</a>
+    <a href="/#proceso">Proceso</a>
+    <a href="/blog">Blog</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-label">Servicios de desarrollo</span>
+        <h1>Transformamos ideas<br />en <em>productos digitales</em>.</h1>
+        <p class="hero-subtitle">
+          <span class="lead">Desarrollo multiplataforma de clase mundial.</span>
+          Apps móviles, web y de escritorio. Consultorías de IA que generan resultados tangibles.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">Ver servicios</a>
+          <a href="#contacto" class="btn btn-secondary">Conversar</a>
+        </div>
+      </div>
+
+      <div class="hero-metrics reveal">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric-value">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Tabs -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="services-tabs">
+        {services.map((service) => (
+          <a href={`#${service.id}`} class="tab-item" style={`--accent: ${service.color}`}>
+            <span class="tab-icon">{service.icon}</span>
+            <span class="tab-title">{service.title}</span>
+          </a>
+        ))}
+      </div>
+
+      {services.map((service) => (
+        <div id={service.id} class="service-section">
+          <div class="service-header">
+            <span class="service-icon">{service.icon}</span>
+            <div class="service-header-text">
+              <h2>{service.title}</h2>
+              <p class="service-tagline">{service.tagline}</p>
+            </div>
+          </div>
+
+          <div class="service-grid">
+            <div class="service-main">
+              <p class="service-desc">{service.desc}</p>
+              <p class="service-full">{service.fullDesc}</p>
+
+              <h3>Qué incluimos</h3>
+              <div class="features-grid">
+                {service.features.map((f) => (
+                  <div class="feature-item">
+                    <h4>{f.title}</h4>
+                    <p>{f.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <h3>Tecnologías</h3>
+              <div class="tech-stack">
+                {service.tech.map((t) => (
+                  <span class="tech-tag">{t}</span>
+                ))}
+              </div>
+
+              <div class="service-deliverable">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-11l4.5 2.5-4.5 2.5-1-1.5 3-1.5v4h-1v-4l3 1.5-1 1.5z" fill="currentColor"/>
+                </svg>
+                <span>{service.deliverable}</span>
+              </div>
+            </div>
+
+            <div class="service-visual" style={`--accent: ${service.color}`}>
+              <div class="visual-mockup">
+                <div class="mockup-screen">
+                  <div class="mockup-nav"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-card"></div>
+                    <div class="mockup-card"></div>
+                    <div class="mockup-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="proceso" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Proceso</span>
+        <h2>Cómo<br />trabajamos.</h2>
+        <p>Un proceso probado que garantiza resultados. Sin sorpresas, con comunicación constante.</p>
+      </div>
+
+      <div class="process-grid">
+        {process.map((step, i) => (
+          <div class="process-step reveal" style={`--delay: ${i * 0.1}s`}>
+            <span class="process-num">{step.n}</span>
+            <h3>{step.title}</h3>
+            <p>{step.desc}</p>
+            <ul class="process-details">
+              {step.details.map((d) => (
+                <li>{d}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">FAQ</span>
+        <h2>Preguntas<br />frecuentes.</h2>
+        <p>Todo lo que necesitás saber antes de iniciar.</p>
+      </div>
+
+      <div class="faq-list">
+        {faq.map((item, i) => (
+          <details class="faq-item reveal" style={`--delay: ${i * 0.1}s`}>
+            <summary>
+              <span>{item.question}</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" class="cta-section">
+    <div class="container">
+      <div class="cta-content reveal">
+        <h2>Hagamos realidad<br />tu proyecto.</h2>
+        <p>Cuéntanos qué necesitás. Te respondemos en 24 horas con una propuesta detallada.</p>
+        <a href="mailto:hola@creapolis.dev" class="cta-btn">
+          hola@creapolis.dev
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/proyectos">Proyectos</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: calc(80px + 56px) 24px 80px;
+    background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(ellipse, rgba(88, 86, 214, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-section .container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+    margin-bottom: 20px;
+  }
+
+  .hero-section h1 em {
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-subtitle .lead {
+    display: block;
+    font-weight: 500;
+    color: var(--color-text);
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-metrics {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .metric-item {
+    text-align: center;
+  }
+
+  .metric-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text);
+  }
+
+  .metric-label {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* Services Tabs */
+  .services-tabs {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+    scrollbar-width: none;
+  }
+
+  .services-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    color: var(--color-text);
+    white-space: nowrap;
+    transition: all 0.2s var(--ease-out);
+  }
+
+  .tab-item:hover {
+    border-color: var(--accent);
+    background: var(--color-bg);
+  }
+
+  .tab-icon {
+    font-size: 1.25rem;
+  }
+
+  .tab-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  /* Service Section */
+  .service-section {
+    scroll-margin-top: 100px;
+    margin-bottom: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .service-icon {
+    font-size: 3rem;
+  }
+
+  .service-header-text h2 {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .service-tagline {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 1024px) {
+    .service-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .service-main h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+
+  .service-desc {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+
+  .service-full {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .feature-item {
+    padding: 16px;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+  }
+
+  .feature-item h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .feature-item p {
+    font-size: 0.8125rem;
+    margin: 0;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+  }
+
+  .service-deliverable {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    color: var(--color-accent);
+  }
+
+  .service-deliverable span {
+    font-weight: 600;
+  }
+
+  .service-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual-mockup {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 9/16;
+    background: linear-gradient(160deg, var(--accent), #1a1a2e);
+    border-radius: 28px;
+    padding: 6px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .mockup-screen {
+    width: 100%;
+    height: 100%;
+    background: #0d0d14;
+    border-radius: 22px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mockup-nav {
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .mockup-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mockup-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 56px;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Process */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process-step {
+    padding: 28px;
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .process-num {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-border);
+    margin-bottom: 12px;
+  }
+
+  .process-step h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 8px;
+  }
+
+  .process-step > p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .process-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .process-details li {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .process-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary svg {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] summary svg {
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    padding: 0 24px 20px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: var(--color-text);
+    padding: 96px 24px;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .cta-content p {
+    color: var(--color-text-tertiary);
+    margin-bottom: 32px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 16px 32px;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: all 0.2s var(--ease-out);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    background: rgba(0, 113, 227, 0.05);
+  }
+
+  /* Sections */
+.section {
+    padding: 116px 0 80px;
+    scroll-margin-top: 56px;
+  }
+
+  .section-alt {
+    background: var(--color-bg-alt);
+  }
+</style>

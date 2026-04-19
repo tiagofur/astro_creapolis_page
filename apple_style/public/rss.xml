@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog — Creapolis</title>
+    <link>https://creapolis.dev</link>
+    <description>Artículos sobre desarrollo de software, tecnología y mejores prácticas.</description>
+    <language>es</language>
+    <atom:link href="https://creapolis.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>IA para análisis de datos: decisiones más inteligentes</title>
+      <link>https://creapolis.dev/blog/ia-analisis-datos</link>
+      <description>Cómo usar IA para analizar grandes volúmenes de datos y obtener insights accionables que impulsan el negocio.</description>
+      <pubDate>2025-03-01T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Automatización de procesos con IA: del caos al orden</title>
+      <link>https://creapolis.dev/blog/automatizacion-procesos-ia</link>
+      <description>Cómo identificar procesos ripe para automatización con IA y los pasos para implementarla correctamente.</description>
+      <pubDate>2025-02-15T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>IA para atención al cliente: chatbots que realmente funcionan</title>
+      <link>https://creapolis.dev/blog/ia-atencion-cliente</link>
+      <description>Cómo los chatbots con IA están transformando la atención al cliente. Casos de uso, implementaciones y resultados medibles.</description>
+      <pubDate>2025-02-01T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Cuánto cuesta desarrollar una app en 2025</title>
+      <link>https://creapolis.dev/blog/costo-desarrollo-app</link>
+      <description>Desglosamos los costos reales de desarrollo de apps móviles y web. No hay magic numbers, pero sí hay parámetros.</description>
+      <pubDate>2025-01-15T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Cómo implementar IA en tu empresa sin complicate</title>
+      <link>https://creapolis.dev/blog/implementar-ia-empresa</link>
+      <description>Guía práctica para integrar inteligencia artificial en procesos de negocio. Desde la evaluación hasta la implementación.</description>
+      <pubDate>2024-12-10T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Por qué elegimos desarrollo nativo sobre cross-platform</title>
+      <link>https://creapolis.dev/blog/por-que-desarrollo-nativo</link>
+      <description>Analizamos las ventajas del desarrollo nativo para iOS y Android, y cuándo tiene sentido usar tecnologías cross-platform.</description>
+      <pubDate>2024-12-01T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Flutter vs React Native vs Nativo: cuál elegir en 2025</title>
+      <link>https://creapolis.dev/blog/flutter-vs-react-native-vs-nativo</link>
+      <description>Comparamos las tres principales opciones para desarrollo móvil. Analizamos pros, contras y cuándo usar cada una.</description>
+      <pubDate>2024-11-20T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>Por qué dejar de usar WordPress para tu sitio web</title>
+      <link>https://creapolis.dev/blog/por-que-dejar-wordpress</link>
+      <description>WordPress fue great en su momento, pero hay opciones mejores para sitios modernos. Te explicamos por qué migrar.</description>
+      <pubDate>2024-10-15T00:00:00.000Z</pubDate>
+    </item>
+    
+    <item>
+      <title>El proceso que usamos para crear apps que la gente realmente usa</title>
+      <link>https://creapolis.dev/blog/proceso-desarrollo-apps</link>
+      <description>De la idea al lanzamiento: nuestro proceso de desarrollo en 4 etapas probadas.</description>
+      <pubDate>2024-09-01T00:00:00.000Z</pubDate>
+    </item>
+    
+  </channel>
+</rss>

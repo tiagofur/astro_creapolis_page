@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+const lastUpdated = '14 de marzo de 2026';
+---
+
+<Layout
+  title="Política de Privacidad — Creapolis"
+  description="Política de privacidad de las aplicaciones desarrolladas por Creapolis."
+>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-gradient-to-br from-violet to-cyan rounded-lg flex items-center justify-center">
+          <span class="text-white font-display font-bold text-sm">C</span>
+        </div>
+        <span class="font-display font-semibold text-text text-lg">Creapolis</span>
+      </a>
+      <a href="/terminos" class="text-sm font-medium text-text-secondary hover:text-text transition">
+        Términos →
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pt-32 pb-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface border border-border rounded-full mb-6">
+        <span class="text-xs font-medium text-text-secondary">Legal</span>
+      </div>
+      <h1 class="font-display font-bold text-5xl md:text-6xl text-text mb-6 tracking-tight">
+        Política de Privacidad
+      </h1>
+      <p class="text-lg text-text-secondary">
+        Última actualización: <strong class="text-text">{lastUpdated}</strong>
+      </p>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="prose prose-lg">
+
+        <div class="bg-violet/5 border border-violet/20 rounded-xl p-6 mb-8">
+          <p class="text-text m-0">
+            Esta política aplica a <strong>Pepinillo, Peliculas</strong> y demás aplicaciones de Creapolis.
+          </p>
+        </div>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">1. Información que recopilamos</h2>
+          <p class="text-text-secondary mb-4">
+            Creapolis <strong class="text-text">no recopila, almacena ni procesa datos personales</strong> directamente.
+            Los datos generados por el uso de la app (tareas, sesiones, listas) se almacenan <strong class="text-text">únicamente en tu dispositivo</strong>.
+          </p>
+          <p class="text-text-secondary">
+            Servicios de terceros (Firebase Crashlytics para análisis de errores, TMDB API en Peliculas) pueden recopilar
+            datos conforme a sus propias políticas de privacidad.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">2. Uso de la información</h2>
+          <p class="text-text-secondary">
+            Los datos recopilados por servicios de terceros se utilizan únicamente para:
+          </p>
+          <ul class="space-y-2 mt-4">
+            <li class="text-text-secondary">Detectar y corregir errores técnicos</li>
+            <li class="text-text-secondary">Mejorar la estabilidad del producto</li>
+            <li class="text-text-secondary">Proveer contenido solicitado</li>
+          </ul>
+          <p class="text-text-secondary mt-4">
+            <strong class="text-text">No vendemos ni compartimos</strong> datos con terceros con fines publicitarios.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">3. Tus derechos</h2>
+          <p class="text-text-secondary mb-4">
+            Tienes derecho a acceder, rectificar, eliminar tus datos y oponerte al procesamiento.
+            Para ejercer estos derechos, contacta: <a href="mailto:hola@creapolis.dev" class="text-violet hover:underline">hola@creapolis.dev</a>
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">4. Contacto</h2>
+          <div class="bg-surface border border-border rounded-xl p-6">
+            <p class="text-text font-semibold mb-2">Creapolis</p>
+            <p class="text-text-secondary">
+              <a href="mailto:hola@creapolis.dev" class="text-violet hover:underline">hola@creapolis.dev</a><br/>
+              <a href="https://creapolis.dev" class="text-violet hover:underline">creapolis.dev</a>
+            </p>
+          </div>
+        </section>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-border">
+          <a href="/terminos" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-text text-white rounded-lg font-medium hover:bg-text/90 transition">
+            Leer Términos de Uso
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a href="/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-surface border border-border text-text rounded-lg font-medium hover:border-text/20 transition">
+            ← Volver a inicio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-border py-12 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-2.5 mb-4">
+        <div class="w-8 h-8 bg-gradient-to-br from-violet to-cyan rounded-lg flex items-center justify-center">
+          <span class="text-white font-display font-bold text-sm">C</span>
+        </div>
+        <span class="font-display font-semibold text-text text-lg">Creapolis</span>
+      </div>
+      <p class="text-sm text-text-secondary">
+        © {new Date().getFullYear()} Creapolis. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+</Layout>
+
+<style>
+  .prose {
+    max-width: none;
+  }
+
+  .prose h2 {
+    margin-top: 3rem;
+  }
+
+  .prose ul {
+    padding-left: 1.5rem;
+  }
+
+  .prose li {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .prose li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #8B5CF6;
+  }
+
+  .prose a {
+    color: #8B5CF6;
+    text-decoration: none;
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+</style>

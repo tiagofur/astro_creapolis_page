@@ -1,0 +1,334 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const projectsData: Record<string, any> = {
+    'pepinillo': {
+      name: 'Pepinillo',
+      tagline: 'Pomodoro & Tasks',
+      desc: 'App de productividad todo en uno: Pomodoro configurable, gestión de tareas con prioridades, timer y estadísticas.',
+      fullDesc: 'Pepinillo es una aplicación de productividad diseñada para ayudarte a enfocarte y organizar tu trabajo. Combina la técnica Pomodoro con gestión de tareas en una interfaz limpia y mínima.',
+      platform: 'Android',
+      color: '#34C759',
+      tech: ['Kotlin', 'Jetpack Compose', 'Room', 'Coroutines', 'Material Design 3'],
+      features: [
+        'Temporizador Pomodoro configurable',
+        'Gestión de tareas con prioridades',
+        'Estadísticas de productividad',
+        'Modo focus sin distracciones',
+        'Sincronización de datos'
+      ],
+      link: 'https://play.google.com/store/apps/details?id=com.creapolis.pepinillo'
+    },
+    'peliculas': {
+      name: 'Peliculas',
+      tagline: 'Tu cine, a tu manera',
+      desc: 'Descubre, organiza y disfruta tus películas favoritas. Catálogo extenso, listas personalizadas y recomendaciones.',
+      fullDesc: 'Una aplicación completa para los amantes del cine. Explora un catálogo extenso, crea listas personalizadas, guarda tus favoritas y descubre nuevas películas basadas en tus gustos.',
+      platform: 'Android',
+      color: '#FF9500',
+      tech: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Coil', 'Room'],
+      features: [
+        'Exploración de catálogo de películas',
+        'Creación de listas personalizadas',
+        'Sistema de favoritos',
+        'Búsqueda avanzada',
+        'Detalles completos de cada película'
+      ],
+      link: 'https://play.google.com/store/apps/details?id=com.creapolis.peliculas'
+    },
+    'solennix': {
+      name: 'Solennix',
+      tagline: 'App todo-en-uno para organizadores de eventos',
+      desc: 'CRM, cotizaciones, inventario y dashboard para profesionales de eventos en Latinoamérica.',
+      fullDesc: 'Solennix es la app todo-en-uno para organizadores de eventos profesionales en Latinoamérica: bodas, quinceañeras, cumpleaños, eventos corporativos y sociales. Gestión completa desde el primer contacto hasta el reporte final.',
+      platform: 'iOS & Android',
+      color: '#5856D6',
+      tech: ['Swift', 'Kotlin', 'Firebase', 'Cloud Firestore'],
+      features: [
+        'Gestión de eventos con calendario y checklist',
+        'CRM de clientes con historial',
+        'Cotizaciones y contratos',
+        'Control de inventario',
+        'Dashboard con KPIs'
+      ],
+      linkApple: 'https://apps.apple.com/mx/app/solennix/id6760874129',
+      linkGoogle: 'https://play.google.com/store/apps/details?id=com.solennix.app',
+      link: 'https://solennix.com'
+    },
+  };
+
+  return Object.keys(projectsData).map((slug) => ({
+    params: { slug },
+    props: { project: projectsData[slug] },
+  }));
+}
+
+const { project } = Astro.props;
+
+if (!project) {
+  return Astro.redirect('/proyectos');
+}
+---
+
+<Layout 
+  title={`${project.name} — Creapolis`} 
+  description={project.desc}
+>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+
+      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/#servicios">Servicios</a>
+    <a href="/#proceso">Proceso</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contacto">Contacto</a>
+    <a href="/#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Project Header -->
+  <section class="project-header">
+    <div class="container">
+      <a href="/proyectos" class="back-link">← Volver a proyectos</a>
+      
+      <div class="project-badges">
+        <span class="project-platform" style={`background: ${project.color}20; color: ${project.color}`}>{project.platform}</span>
+      </div>
+
+      <h1>{project.name}</h1>
+      <p class="project-tagline">{project.tagline}</p>
+    </div>
+  </section>
+
+  <!-- Project Content -->
+  <section class="section">
+    <div class="container">
+      <div class="project-content">
+        <div class="project-visual-large" style={`--accent: ${project.color}`}></div>
+        
+        <div class="project-details">
+          <h2>Descripción</h2>
+          <p>{project.fullDesc}</p>
+
+          <h2>Características</h2>
+          <ul class="features-list">
+            {project.features.map((f: string) => <li>{f}</li>)}
+          </ul>
+
+          <h2>Tecnologías</h2>
+          <div class="tech-list">
+            {project.tech.map((t: string) => <span class="tech-item">{t}</span>)}
+          </div>
+
+          {project.linkApple && (
+            <a href={project.linkApple} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
+              App Store →
+            </a>
+          )}
+          {project.linkGoogle && (
+            <a href={project.linkGoogle} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
+              Google Play →
+            </a>
+          )}
+          {project.link && !project.linkApple && !project.linkGoogle && (
+            <a href={project.link} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
+              Ver en tienda →
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="cta-box">
+        <h2>¿Quieres algo similar?</h2>
+        <p>Contáctanos y platícanos de tu idea. Podemos construir algo igual de bueno o mejor.</p>
+        <a href="mailto:hola@creapolis.dev" class="btn btn-primary">Iniciar proyecto</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .project-header {
+    padding: 140px 24px 60px;
+    text-align: center;
+    background: var(--color-bg-alt);
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .project-badges {
+    margin-bottom: 16px;
+  }
+
+  .project-platform {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+  }
+
+  .project-header h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 8px;
+  }
+
+  .project-tagline {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+  }
+
+  .project-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 768px) {
+    .project-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .project-visual-large {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-details h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .project-details p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 32px;
+  }
+
+  .features-list li {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .features-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .project-link-btn {
+    display: inline-flex;
+    margin-top: 16px;
+    margin-right: 12px;
+  }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-item {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+  }
+
+  .cta-box {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 48px;
+    background: var(--color-bg);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .cta-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .cta-box p {
+    margin-bottom: 24px;
+  }
+</style>

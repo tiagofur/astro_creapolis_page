@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+const lastUpdated = '14 de marzo de 2026';
+---
+
+<Layout
+  title="Términos de Uso — Creapolis"
+  description="Términos y condiciones de uso de las aplicaciones desarrolladas por Creapolis."
+>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-gradient-to-br from-violet to-cyan rounded-lg flex items-center justify-center">
+          <span class="text-white font-display font-bold text-sm">C</span>
+        </div>
+        <span class="font-display font-semibold text-text text-lg">Creapolis</span>
+      </a>
+      <a href="/privacidad" class="text-sm font-medium text-text-secondary hover:text-text transition">
+        Privacidad →
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pt-32 pb-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface border border-border rounded-full mb-6">
+        <span class="text-xs font-medium text-text-secondary">Legal</span>
+      </div>
+      <h1 class="font-display font-bold text-5xl md:text-6xl text-text mb-6 tracking-tight">
+        Términos de Uso
+      </h1>
+      <p class="text-lg text-text-secondary">
+        Última actualización: <strong class="text-text">{lastUpdated}</strong>
+      </p>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="prose prose-lg">
+
+        <div class="bg-cyan/5 border border-cyan/20 rounded-xl p-6 mb-8">
+          <p class="text-text m-0">
+            Al usar las aplicaciones de Creapolis (<strong>Pepinillo, Peliculas</strong>), aceptas estos términos.
+          </p>
+        </div>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">1. Licencia de uso</h2>
+          <p class="text-text-secondary mb-4">
+            Te otorgamos una licencia <strong class="text-text">personal, no exclusiva, no transferible y revocable</strong> para
+            usar la aplicación en tus dispositivos para uso personal y no comercial.
+          </p>
+          <p class="text-text-secondary">
+            Queda prohibido: copiar, modificar, distribuir, realizar ingeniería inversa o usar con fines comerciales sin autorización.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">2. Plan gratuito y premium</h2>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-emerald/5 border border-emerald/20 rounded-xl p-6">
+              <p class="font-semibold text-text mb-2">Plan Gratuito</p>
+              <p class="text-sm text-text-secondary m-0">
+                Funciones básicas disponibles sin coste. Podemos modificar o limitar funciones gratuitas.
+              </p>
+            </div>
+            <div class="bg-amber/5 border border-amber/20 rounded-xl p-6">
+              <p class="font-semibold text-text mb-2">Plan Premium</p>
+              <p class="text-sm text-text-secondary m-0">
+                Funciones avanzadas mediante pago único o suscripción. Procesado por la tienda de apps.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">3. Discontinuación</h2>
+          <div class="bg-rose/5 border border-rose/20 rounded-xl p-6 mb-4">
+            <p class="text-text m-0">
+              Creapolis puede <strong>modificar, suspender o discontinuar</strong> cualquier app o función en cualquier momento sin previo aviso.
+            </p>
+          </div>
+          <p class="text-text-secondary">
+            No tenemos obligación de mantener servidores activos ni emitir actualizaciones por ningún período mínimo.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">4. Exención de garantías</h2>
+          <p class="text-text-secondary">
+            Las aplicaciones se proporcionan <strong class="text-text">"TAL CUAL"</strong> sin garantías de ningún tipo.
+            No garantizamos que sean ininterrumpidas, libres de errores o seguras.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="font-display font-bold text-2xl text-text mb-4">5. Contacto</h2>
+          <div class="bg-surface border border-border rounded-xl p-6">
+            <p class="text-text font-semibold mb-2">Creapolis</p>
+            <p class="text-text-secondary">
+              <a href="mailto:hola@creapolis.dev" class="text-cyan hover:underline">hola@creapolis.dev</a><br/>
+              <a href="https://creapolis.dev" class="text-cyan hover:underline">creapolis.dev</a>
+            </p>
+          </div>
+        </section>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-border">
+          <a href="/privacidad" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-text text-white rounded-lg font-medium hover:bg-text/90 transition">
+            Leer Política de Privacidad
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a href="/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-surface border border-border text-text rounded-lg font-medium hover:border-text/20 transition">
+            ← Volver a inicio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-border py-12 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-2.5 mb-4">
+        <div class="w-8 h-8 bg-gradient-to-br from-violet to-cyan rounded-lg flex items-center justify-center">
+          <span class="text-white font-display font-bold text-sm">C</span>
+        </div>
+        <span class="font-display font-semibold text-text text-lg">Creapolis</span>
+      </div>
+      <p class="text-sm text-text-secondary">
+        © {new Date().getFullYear()} Creapolis. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+</Layout>
+
+<style>
+  .prose {
+    max-width: none;
+  }
+
+  .prose h2 {
+    margin-top: 3rem;
+  }
+
+  .prose a {
+    color: #06B6D4;
+    text-decoration: none;
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+</style>

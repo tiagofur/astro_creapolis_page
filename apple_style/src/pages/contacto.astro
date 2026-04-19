@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contacto — Creapolis" description="Contáctanos para discutir tu proyecto de desarrollo de software.">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/contacto">Contacto</a>
+      </div>
+
+      <a href="/contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/servicios">Servicios</a>
+    <a href="/#proceso">Proceso</a>
+    <a href="/blog">Blog</a>
+    <a href="/contacto">Contacto</a>
+    <a href="/contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="page-label">Contacto</span>
+      <h1>Hablemos de<br />tu proyecto.</h1>
+      <p>Cuéntanos qué necesitas. Te respondemos en 24 horas.</p>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>¿Prefieres escribirnos directamente?</h2>
+          <p>También puedes contactarnos por email:</p>
+          <a href="mailto:hola@creapolis.dev" class="email-link">hola@creapolis.dev</a>
+          
+          <div class="contact-details">
+            <div class="detail-item">
+              <span class="detail-label">Ubicación</span>
+              <span class="detail-value">Monterrey, México</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Horario</span>
+              <span class="detail-value">Lun - Vie, 9am - 6pm CST</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="contact-form" class="contact-form">
+          <!-- Honeypot - hidden from humans -->
+          <div class="hp-field" style="position: absolute; left: -9999px;">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Timestamp challenge - bots won't have this -->
+          <input type="hidden" id="timestamp" name="timestamp" value="" />
+
+          <div class="form-group">
+            <label for="name">Nombre *</label>
+            <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="company">Empresa (opcional)</label>
+            <input type="text" id="company" name="company" placeholder="Nombre de tu empresa" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Mensaje *</label>
+            <textarea id="message" name="message" required rows="5" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">
+            <span class="btn-text">Enviar mensaje</span>
+            <span class="btn-loading" style="display: none;">Enviando...</span>
+          </button>
+
+          <div id="form-message" class="form-message" style="display: none;"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/proyectos">Proyectos</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const messageEl = document.getElementById('form-message');
+  const submitBtn = form.querySelector('.submit-btn');
+  const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement;
+  const btnLoading = submitBtn?.querySelector('.btn-loading') as HTMLElement;
+  const honeypot = document.getElementById('website') as HTMLInputElement;
+  const timestampInput = document.getElementById('timestamp') as HTMLInputElement;
+
+  // Set timestamp on page load (bots won't have this set by JS)
+  timestampInput.value = Date.now().toString();
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Honeypot check - if filled, it's a bot
+    if (honeypot?.value) {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-success';
+      messageEl.textContent = 'Thank you! We\'ll get back to you soon.';
+      form.reset();
+      return;
+    }
+
+    // Timestamp check - must be at least 2 seconds after page load
+    const submittedAt = Date.now();
+    const loadedAt = parseInt(timestampInput.value) || 0;
+    if (submittedAt - loadedAt < 2000) {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-error';
+      messageEl.textContent = 'Por favor, espera un momento antes de enviar.';
+      return;
+    }
+
+    // Show loading
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    submitBtn.setAttribute('disabled', 'true');
+
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      company: formData.get('company'),
+      message: formData.get('message'),
+      website: formData.get('website'), // Honeypot - bots fill this
+      timestamp: formData.get('timestamp'),
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      messageEl.style.display = 'block';
+      if (result.success) {
+        messageEl.className = 'form-message form-success';
+        messageEl.textContent = result.message;
+        form.reset();
+      } else {
+        messageEl.className = 'form-message form-error';
+        messageEl.textContent = result.message;
+      }
+    } catch (error) {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-error';
+      messageEl.textContent = 'Error de conexión. Puedes escribirnos directamente a hola@creapolis.dev';
+    } finally {
+      // Reset button
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+      submitBtn.removeAttribute('disabled');
+    }
+  });
+</script>
+
+<style>
+  .page-header {
+    padding: 140px 24px 80px;
+    text-align: center;
+    background: var(--color-bg-alt);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 16px;
+  }
+
+  .page-header p {
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.0625rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  .contact-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .contact-info > p {
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+
+  .email-link {
+    display: inline-block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 32px;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .detail-value {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .submit-btn {
+    padding: 16px 32px;
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .form-message {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+
+  .form-success {
+    background: rgba(52, 199, 89, 0.1);
+    color: #34C759;
+    border: 1px solid rgba(52, 199, 89, 0.2);
+  }
+
+  .form-error {
+    background: rgba(255, 59, 48, 0.1);
+    color: #FF3B30;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+  }
+</style>

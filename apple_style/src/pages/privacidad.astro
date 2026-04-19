@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacidad — Creapolis" description="Política de privacidad de Creapolis.">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
+      <button class="nav-mobile-toggle" aria-label="Menú"><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/#servicios">Servicios</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contacto">Contacto</a>
+    <a href="/#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <section class="legal-page">
+    <div class="container">
+      <h1>Política de Privacidad</h1>
+      <p class="last-updated">Última actualización: {new Date().getFullYear()}</p>
+
+      <h2>1. Información que recopilamos</h2>
+      <p>Creapolis no recopila información personal a través de este sitio web. Si decides contactarnos vía email, solo utilizaremos tu mensaje para responder a tu consulta.</p>
+
+      <h2>2. Cookies</h2>
+      <p>Este sitio no utiliza cookies de seguimiento ni herramientas de análisis que recopilen información personal.</p>
+
+      <h2>3. Enlaces a terceros</h2>
+      <p>Este sitio puede contener enlaces a otras páginas o aplicaciones desarrolladas por nosotros. No somos responsables de las prácticas de privacidad de terceros.</p>
+
+      <h2>4. Contacto</h2>
+      <p>Si tienes preguntas sobre esta política, contáctanos en: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="footer-logo-mark">C</div><span>Creapolis</span></div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 140px 24px 80px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .legal-page h1 { font-size: 2rem; margin-bottom: 8px; }
+  .last-updated { color: var(--color-text-tertiary); font-size: 0.875rem; margin-bottom: 40px; }
+  .legal-page h2 { font-size: 1.25rem; margin: 32px 0 12px; }
+  .legal-page p { font-size: 1rem; line-height: 1.7; margin-bottom: 16px; }
+  .legal-page a { color: var(--color-accent); }
+</style>

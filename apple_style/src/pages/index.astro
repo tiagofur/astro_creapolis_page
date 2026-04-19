@@ -1,0 +1,678 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const apps = [
+  {
+    name: 'Pepinillo',
+    tagline: 'Pomodoro & Tasks',
+    desc: 'App de productividad todo en uno: Pomodoro configurable, gestión de tareas con prioridades, timer y estadísticas.',
+    href: '/proyectos/pepinillo',
+    platform: 'Android',
+    color: '#34C759',
+  },
+  {
+    name: 'Peliculas',
+    tagline: 'Tu cine, a tu manera',
+    desc: 'Descubre, organiza y disfruta tus películas favoritas. Catálogo extenso, listas personalizadas y recomendaciones.',
+    href: '/proyectos/peliculas',
+    platform: 'Android',
+    color: '#FF9500',
+  },
+  {
+    name: 'Solennix',
+    tagline: 'App todo-en-uno para organizadores de eventos',
+    desc: 'CRM, cotizaciones, inventario y dashboard. Disponible en iOS, Android y Web.',
+    href: '/solennix',
+    platform: 'iOS & Android',
+    color: '#5856D6',
+  },
+];
+
+const services = [
+  {
+    title: 'Aplicaciones Móviles',
+    desc: 'iOS y Android. Nativas para máximo rendimiento o multiplataforma con Flutter y React Native.',
+  },
+  {
+    title: 'Aplicaciones Web',
+    desc: 'SPAs, portales, e-commerce y dashboards. Rápidas, seguras y escalables con las mejores tecnologías.',
+  },
+  {
+    title: 'Software de Escritorio',
+    desc: 'macOS, Windows y Linux. Aplicaciones nativas con el rendimiento y la experiencia que los usuarios merecen.',
+  },
+  {
+    title: 'Consultorías de IA',
+    desc: 'Implementación de inteligencia artificial en procesos empresariales. Minimiza errores, mejora productividad.',
+  },
+];
+
+const process = [
+  { n: '01', title: 'Discovery', desc: 'Escuchamos tu idea, analizamos el mercado y definimos el roadmap.' },
+  { n: '02', title: 'Diseño', desc: 'Wireframes, prototipos interactivos y sistema de diseño aprobado.' },
+  { n: '03', title: 'Desarrollo', desc: 'Código limpio, sprints cortos y entregas parciales visibles.' },
+  { n: '04', title: 'Lanzamiento', desc: 'Deploy, QA y publicación en tiendas con soporte post-lanzamiento.' },
+];
+
+const tech = ['Flutter', 'React Native', 'Next.js', 'Astro', 'Node.js', 'Kotlin', 'Swift', 'Tauri', 'PostgreSQL', 'Firebase'];
+---
+
+<Layout>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#blog">Blog</a>
+        <a href="/contacto">Contacto</a>
+      </div>
+
+      <a href="/contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="#apps">Apps</a>
+    <a href="/servicios">Servicios</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#blog">Blog</a>
+    <a href="/contacto">Contacto</a>
+    <a href="/contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <span class="hero-label">Desarrollo multiplataforma</span>
+      <h1 class="hero-title">
+        Software que<br />
+        transforma ideas<br />
+        en <em>productos</em>.
+      </h1>
+      <p class="hero-subtitle">
+        Creamos aplicaciones web, móviles y de escritorio con diseño premium y tecnología de vanguardia. De la idea al código.
+      </p>
+      <div class="hero-actions">
+        <a href="#apps" class="btn btn-primary">Ver apps</a>
+        <a href="/contacto" class="btn btn-secondary">Contactar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Apps -->
+  <section id="apps" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Nuestras apps</span>
+        <h2>Apps que demuestran<br />nuestra capacidad.</h2>
+        <p>Proyectos propios en producción, disponibles en las tiendas. Tecnología real, usuarios reales.</p>
+      </div>
+
+      <div class="apps-grid">
+        {apps.map((app) => (
+          <a href={app.href} class="app-card reveal">
+            <div class="app-visual" style={`--accent: ${app.color}`}>
+              <span class="app-platform">{app.platform}</span>
+            </div>
+            <div class="app-info">
+              <h3>{app.name}</h3>
+              <span class="app-tagline">{app.tagline}</span>
+              <p>{app.desc}</p>
+              <span class="app-link" style={`color: ${app.color}`}>Más información →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Servicios</span>
+        <h2>Lo que<br />construimos.</h2>
+        <p>Desde una landing page hasta una suite multiplataforma completa. Cubrimos todo el espectro del desarrollo de software.</p>
+      </div>
+
+      <div class="services-grid">
+        {services.map((s, i) => (
+          <div class="service-card reveal" style={`--delay: ${i * 0.1}s`}>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="tech-strip reveal">
+        {tech.map((t) => (
+          <span class="tech-badge">{t}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso -->
+  <section id="proceso" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Proceso</span>
+        <h2>Cómo<br />trabajamos.</h2>
+        <p>Un proceso probado que garantiza resultados. Sin sorpresas, con comunicación constante.</p>
+      </div>
+
+      <div class="process-grid">
+        {process.map((step) => (
+          <div class="process-step reveal">
+            <span class="process-num">{step.n}</span>
+            <h3>{step.title}</h3>
+            <p>{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Preview -->
+  <section id="blog" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Blog</span>
+        <h2>Ideas sobre<br />desarrollo y tecnología.</h2>
+        <p>Artículos sobre desarrollo de software, mejores prácticas y casos de uso.</p>
+      </div>
+
+      <div class="blog-preview reveal">
+        <a href="/blog" class="blog-link">Ver todos los artículos →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <span class="label">Nuestra historia</span>
+          <h2>Más de 5 años<br />creando software.</h2>
+          <p>
+            Creapolis es una empresa de desarrollo de software con sede en Monterrey, México. Nos especializamos en aplicaciones multiplataforma con un enfoque en usabilidad, diseño y rendimiento.
+          </p>
+          <p>
+            Trabajamos con empresas de todos los tamaños, desde startups hasta corporativos internacionales, creando experiencias digitales excepcionales.
+          </p>
+        </div>
+        <div class="about-values">
+          <div class="value-item reveal">
+            <h3>Desarrollo Ágil</h3>
+            <p>Metodologías ágiles para entregas rápidas y efectivas.</p>
+          </div>
+          <div class="value-item reveal">
+            <h3>Diseño Premium</h3>
+            <p>Interfaces cautivadoras y funcionales en cada proyecto.</p>
+          </div>
+          <div class="value-item reveal">
+            <h3>Soporte Dedicado</h3>
+            <p>Acompañamiento técnico para el éxito a largo plazo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="contact-section">
+    <div class="container">
+      <div class="contact-content reveal">
+        <span class="label" style="color: rgba(255,255,255,0.7);">Contacto</span>
+        <h2>¿Tienes una idea?<br />Hagámosla realidad.</h2>
+        <p>Cuéntanos qué quieres construir. Sin compromiso. Una conversación para entender tu visión.</p>
+        <a href="mailto:hola@creapolis.dev" class="contact-btn">
+          hola@creapolis.dev
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="#apps">Apps</a>
+        <a href="/servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    background: var(--color-bg);
+  }
+
+  .hero-content {
+    max-width: 720px;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 520px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-subtitle .lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTIONS
+     ═══════════════════════════════════════════════════════════════ */
+  .section-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 56px;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     APPS GRID
+     ═══════════════════════════════════════════════════════════════ */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .apps-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .app-card {
+    display: block;
+    background: var(--color-bg);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .app-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .app-card:hover .app-visual {
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+  }
+
+  .app-visual {
+    padding: 40px 24px;
+    background: var(--color-bg-alt);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    transition: background 0.3s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .app-visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, var(--accent), transparent 70%);
+    opacity: 0.05;
+    transition: opacity 0.3s var(--ease-out);
+  }
+
+  .app-card:hover .app-visual::before {
+    opacity: 0.1;
+  }
+
+  .app-platform {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0, 113, 227, 0.08);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+  }
+
+  .app-info {
+    padding: 24px;
+  }
+
+  .app-info h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .app-tagline {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 12px;
+  }
+
+  .app-info p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .app-link {
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SERVICES GRID
+     ═══════════════════════════════════════════════════════════════ */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .service-card {
+    background: var(--color-bg);
+    padding: 32px;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover {
+    background: var(--color-bg-alt);
+  }
+
+  .service-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .service-card p {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .tech-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 48px;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PROCESS GRID
+     ═══════════════════════════════════════════════════════════════ */
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process-step {
+    padding: 32px;
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .process-num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-border);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .process-step h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .process-step p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BLOG PREVIEW
+     ═══════════════════════════════════════════════════════════════ */
+  .blog-preview {
+    text-align: center;
+  }
+
+  .blog-link {
+    display: inline-block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════════════════════════════ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 20px;
+  }
+
+  .about-values {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .value-item {
+    padding: 24px;
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .value-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .value-item p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════════════════════════ */
+  .contact-section {
+    background: var(--color-text);
+    padding: 96px 24px;
+  }
+
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-content h2 {
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .contact-content p {
+    color: var(--color-text-tertiary);
+    margin-bottom: 32px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 16px 32px;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .contact-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  }
+</style>

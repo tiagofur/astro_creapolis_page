@@ -1,0 +1,237 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('proyectos');
+---
+
+<Layout title="Proyectos — Creapolis" description="Nuestros proyectos y aplicaciones desarrolladas.">
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+
+      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/#servicios">Servicios</a>
+    <a href="/#proceso">Proceso</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contacto">Contacto</a>
+    <a href="/#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="page-label">Proyectos</span>
+      <h1>Apps que demuestran<br />nuestra capacidad.</h1>
+      <p>Proyectos propios en producción, disponibles en las tiendas. Tecnología real, usuarios reales.</p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <a href={`/proyectos/${project.slug}`} class="project-card">
+            <div class="project-visual" style={`--accent: ${project.data.color}`}></div>
+            <div class="project-info">
+              <span class="project-platform" style={`color: ${project.data.color}`}>{project.data.platform}</span>
+              <h2>{project.data.name}</h2>
+              <p>{project.data.desc}</p>
+              <span class="project-link" style={`color: ${project.data.color}`}>Ver detalles →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Fallback: hardcoded apps from original site -->
+      <div class="projects-grid" id="fallback-projects">
+        <a href="/proyectos/pepinillo" class="project-card">
+          <div class="project-visual" style="--accent: #34C759"></div>
+          <div class="project-info">
+            <span class="project-platform" style="color: #34C759">Android</span>
+            <h2>Pepinillo</h2>
+            <p>App de productividad todo en uno: Pomodoro configurable, gestión de tareas con prioridades, timer y estadísticas.</p>
+            <span class="project-link" style="color: #34C759">Ver detalles →</span>
+          </div>
+        </a>
+
+        <a href="/proyectos/peliculas" class="project-card">
+          <div class="project-visual" style="--accent: #FF9500"></div>
+          <div class="project-info">
+            <span class="project-platform" style="color: #FF9500">Android</span>
+            <h2>Peliculas</h2>
+            <p>Descubre, organiza y disfruta tus películas favoritas. Catálogo extenso, listas personalizadas y recomendaciones.</p>
+            <span class="project-link" style="color: #FF9500">Ver detalles →</span>
+          </div>
+        </a>
+
+        <a href="/proyectos/solennix" class="project-card">
+          <div class="project-visual" style="--accent: #5856D6"></div>
+          <div class="project-info">
+            <span class="project-platform" style="color: #5856D6">Web App</span>
+            <h2>Solennix</h2>
+            <p>Plataforma todo-en-uno para organizadores de eventos: CRM, inventario, cotizaciones y reportes en tiempo real.</p>
+            <span class="project-link" style="color: #5856D6">Ver detalles →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .page-header {
+    padding: 140px 24px 80px;
+    text-align: center;
+    background: var(--color-bg-alt);
+  }
+
+  .page-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 16px;
+  }
+
+  .page-header p {
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.0625rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Hide fallback if we have real projects */
+  #fallback-projects {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    #fallback-projects {
+      display: grid;
+    }
+
+    .projects-grid:first-of-type {
+      display: none;
+    }
+  }
+
+  .project-card {
+    display: block;
+    background: var(--color-bg);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-visual {
+    height: 160px;
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-info {
+    padding: 24px;
+  }
+
+  .project-platform {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .project-info h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .project-info p {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .project-link {
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+</style>

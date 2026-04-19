@@ -1,0 +1,237 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('es-ES', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }).format(date);
+}
+---
+
+<Layout title={`${post.data.title} — Blog Creapolis`} description={post.data.description}>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+
+      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
+
+      <button class="nav-mobile-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/#servicios">Servicios</a>
+    <a href="/#proceso">Proceso</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contacto">Contacto</a>
+    <a href="/#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <!-- Article -->
+  <article class="article">
+    <div class="container">
+      <header class="article-header">
+        <a href="/blog" class="back-link">← Volver al blog</a>
+        
+        <div class="article-meta">
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          {post.data.tags.length > 0 && (
+            <span class="article-tags">
+              {post.data.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </span>
+          )}
+        </div>
+
+        <h1>{post.data.title}</h1>
+        <p class="article-description">{post.data.description}</p>
+      </header>
+
+      <div class="article-content">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#proceso">Proceso</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .article {
+    padding: 120px 0 80px;
+  }
+
+  .article-header {
+    max-width: 720px;
+    margin: 0 auto 48px;
+    text-align: left;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 16px;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 8px;
+  }
+
+  .tag {
+    color: var(--color-accent);
+  }
+
+  .article-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+
+  .article-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .article-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Markdown content styles */
+  .article-content :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 48px 0 16px;
+  }
+
+  .article-content :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 32px 0 12px;
+  }
+
+  .article-content :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: var(--color-text-secondary);
+  }
+
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-left: 24px;
+    color: var(--color-text-secondary);
+  }
+
+  .article-content :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .article-content :global(code) {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    font-size: 0.9em;
+    background: var(--color-bg-alt);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .article-content :global(pre) {
+    background: var(--color-text);
+    color: var(--color-bg);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+
+  .article-content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .article-content :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 20px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .article-content :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .article-content :global(strong) {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+</style>

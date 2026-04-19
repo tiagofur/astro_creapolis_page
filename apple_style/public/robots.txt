@@ -1,0 +1,5 @@
+# https://creapolis.dev/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://creapolis.dev/sitemap.xml

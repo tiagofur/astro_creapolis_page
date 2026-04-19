@@ -1,0 +1,620 @@
+---
+import Layout from '../layouts/Layout.astro';
+const lastUpdated = '16 de marzo de 2026';
+---
+
+<Layout
+  title="Política de Privacidad — Creapolis"
+  description="Política de privacidad de las aplicaciones desarrolladas por Creapolis: Pepinillo, Peliculas y demás productos."
+>
+
+  <!-- NAV -->
+  <nav class="legal-nav">
+    <div class="legal-nav-inner">
+      <a href="/" class="legal-nav-logo">
+        <div class="legal-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+      <a href="/terminos" class="legal-nav-link">Términos de uso →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="legal-hero">
+    <div class="legal-container">
+      <p class="legal-eyebrow">Legal</p>
+      <h1 class="legal-title">Política de<br/>Privacidad</h1>
+      <p class="legal-meta">
+        Última actualización: <strong>{lastUpdated}</strong> &nbsp;·&nbsp;
+        Aplica a: <strong>Pepinillo, Peliculas</strong> y demás aplicaciones de Creapolis
+      </p>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="legal-content">
+    <div class="legal-container">
+      <div class="prose">
+
+        <section>
+          <h2>1. Quiénes somos</h2>
+          <p>
+            Creapolis es una empresa de desarrollo de software con sede en México, responsable de las aplicaciones
+            móviles y servicios web publicados bajo los identificadores <code>dev.creapolis.*</code> y <code>mx.creapolis.*</code>.
+          </p>
+          <p>
+            Para cualquier consulta relacionada con esta política, puedes contactarnos en
+            <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Alcance de esta política</h2>
+          <p>
+            Esta Política de Privacidad aplica a todas las aplicaciones desarrolladas y publicadas por Creapolis,
+            incluyendo pero no limitado a:
+          </p>
+          <ul>
+            <li><strong>Pepinillo</strong> — aplicación de productividad (Pomodoro y gestión de tareas)</li>
+            <li><strong>Peliculas</strong> — aplicación de descubrimiento de películas y series</li>
+          </ul>
+          <p>
+            Cada aplicación puede tener características específicas que implican el uso de distintos servicios
+            de terceros. Estas diferencias se detallan en las secciones correspondientes.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Datos que recopilamos</h2>
+
+          <h3>3.1 Datos que <em>no</em> recopilamos directamente</h3>
+          <p>
+            Creapolis <strong>no recopila, almacena ni procesa datos de carácter personal</strong> de forma directa.
+            No solicitamos nombre, correo electrónico, número de teléfono, dirección u otra información de
+            identificación personal a través de nuestras aplicaciones, salvo que se indique explícitamente para
+            una función específica (como la creación de una cuenta).
+          </p>
+          <p>
+            Los datos generados por el uso de la aplicación (tareas, sesiones Pomodoro, listas de películas, etc.)
+            <strong>se almacenan únicamente en el dispositivo del usuario</strong> y no son transmitidos a servidores
+            de Creapolis.
+          </p>
+
+          <h3>3.2 Datos recopilados por servicios de terceros</h3>
+          <p>
+            Nuestras aplicaciones integran servicios de terceros que pueden recopilar datos de forma independiente
+            y conforme a sus propias políticas de privacidad. A continuación se detallan los servicios utilizados:
+          </p>
+        </section>
+
+        <section>
+          <h2>4. Servicios de terceros</h2>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <span class="info-badge">Todas las apps</span>
+              <h3>Firebase Crashlytics (Google)</h3>
+            </div>
+            <p>
+              Utilizamos Firebase Crashlytics para detectar y registrar errores y fallos de la aplicación,
+              lo que nos permite mejorar la estabilidad del producto. Este servicio recopila automáticamente:
+            </p>
+            <ul>
+              <li>Trazas de error (<em>stack traces</em>) en el momento del fallo</li>
+              <li>Estado de la aplicación al momento del error</li>
+              <li>Metadatos del dispositivo: modelo, versión del sistema operativo, memoria disponible</li>
+              <li>Un identificador de instalación único (<em>Installation UUID</em>), no vinculado a la identidad del usuario</li>
+              <li>Dirección IP (utilizada para seguridad, retenida brevemente)</li>
+            </ul>
+            <p>
+              Los datos de errores se conservan durante <strong>90 días</strong>. Este identificador no puede
+              utilizarse para identificarte personalmente.
+            </p>
+            <p>
+              Política de privacidad de Firebase:
+              <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>
+            </p>
+          </div>
+
+          <div class="info-card info-card-amber">
+            <div class="info-card-header">
+              <span class="info-badge info-badge-amber">Solo Peliculas</span>
+              <h3>The Movie Database (TMDB)</h3>
+            </div>
+            <p>
+              La aplicación Peliculas utiliza la API de TMDB para obtener información sobre películas, series,
+              actores y contenido audiovisual. Al consultar contenido dentro de la app, <strong>tu dirección IP
+              es transmitida a los servidores de TMDB</strong> como parte normal de la comunicación en red.
+            </p>
+            <p>
+              Creapolis no controla ni es responsable de los datos procesados por TMDB. Te recomendamos revisar
+              su política de privacidad:
+              <a href="https://www.themoviedb.org/privacy-policy" target="_blank" rel="noopener">themoviedb.org/privacy-policy</a>
+            </p>
+            <p class="info-note">
+              Este producto utiliza la API de TMDB pero no está respaldado ni certificado por TMDB.
+            </p>
+          </div>
+
+          <div class="info-card info-card-muted">
+            <div class="info-card-header">
+              <span class="info-badge info-badge-muted">Tiendas de aplicaciones</span>
+              <h3>Google Play / Apple App Store</h3>
+            </div>
+            <p>
+              La descarga e instalación de nuestras aplicaciones se realiza a través de plataformas de distribución
+              (Google Play Store, Apple App Store). Estas plataformas tienen sus propias políticas de privacidad y
+              pueden recopilar datos relacionados con la descarga, instalación y uso de aplicaciones.
+            </p>
+            <ul>
+              <li>Google Play: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+              <li>Apple App Store: <a href="https://www.apple.com/legal/privacy" target="_blank" rel="noopener">apple.com/legal/privacy</a></li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>5. Uso de la información</h2>
+          <p>Los datos que los servicios de terceros recopilan (descritos anteriormente) se utilizan únicamente para:</p>
+          <ul>
+            <li>Detectar y corregir errores técnicos en la aplicación</li>
+            <li>Mejorar la estabilidad y rendimiento del producto</li>
+            <li>Proveer el contenido solicitado por el usuario (en el caso de TMDB)</li>
+          </ul>
+          <p>
+            Creapolis <strong>no vende, alquila ni comparte</strong> ningún dato de usuario con terceros
+            con fines publicitarios o comerciales.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. Almacenamiento de datos en el dispositivo</h2>
+          <p>
+            La información generada por el uso de nuestras aplicaciones (tareas, configuración, historial de
+            sesiones, listas de favoritos, etc.) se almacena <strong>localmente en el dispositivo del usuario</strong>
+            mediante las APIs de almacenamiento del sistema operativo (Room Database, SharedPreferences, etc.).
+          </p>
+          <p>
+            Estos datos <strong>no se sincronizan con servidores externos</strong> de Creapolis. Si el usuario
+            desinstala la aplicación, estos datos se eliminan del dispositivo conforme al comportamiento
+            estándar del sistema operativo.
+          </p>
+          <p>
+            En versiones futuras que incluyan sincronización en la nube o cuentas de usuario, esta política
+            será actualizada para reflejar dichos cambios.
+          </p>
+        </section>
+
+        <section>
+          <h2>7. Compras dentro de la aplicación</h2>
+          <p>
+            Algunas aplicaciones de Creapolis ofrecen funciones de pago (plan Premium, compras únicas, etc.)
+            procesadas a través de las plataformas de distribución (Google Play Billing, Apple In-App Purchases).
+            <strong>Creapolis no procesa ni almacena datos de pago</strong> — toda la transacción es gestionada
+            directamente por la plataforma correspondiente.
+          </p>
+          <p>
+            Para información sobre el procesamiento de datos de pago, consulta la política de privacidad
+            de Google Play o Apple App Store según corresponda.
+          </p>
+        </section>
+
+        <section>
+          <h2>8. Menores de edad</h2>
+          <p>
+            Nuestras aplicaciones no están dirigidas a menores de 13 años y no recopilamos intencionalmente
+            información personal de niños. Si eres padre o tutor y crees que tu hijo ha proporcionado
+            información personal a través de una de nuestras aplicaciones, contáctanos en
+            <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a> y tomaremos las medidas necesarias.
+          </p>
+        </section>
+
+        <section>
+          <h2>9. Seguridad</h2>
+          <p>
+            Implementamos medidas técnicas razonables para proteger la integridad de las aplicaciones y
+            los datos almacenados localmente. Sin embargo, ningún sistema es completamente infalible.
+            Recomendamos mantener el sistema operativo y la aplicación actualizados para beneficiarse
+            de las últimas mejoras de seguridad.
+          </p>
+        </section>
+
+        <section>
+          <h2>10. Tus derechos</h2>
+          <p>
+            Si resides en la Unión Europea o en jurisdicciones con legislación equivalente (como la Ley
+            Federal de Protección de Datos Personales en México), tienes derecho a:
+          </p>
+          <ul>
+            <li>Acceder a los datos personales que tengamos sobre ti</li>
+            <li>Solicitar la rectificación de datos inexactos</li>
+            <li>Solicitar la eliminación de tus datos personales</li>
+            <li>Oponerte al procesamiento de tus datos</li>
+          </ul>
+          <p>
+            Para ejercer cualquiera de estos derechos, contáctanos en
+            <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.
+            Responderemos en un plazo máximo de 30 días hábiles.
+          </p>
+        </section>
+
+        <section>
+          <h2>11. Cambios en esta política</h2>
+          <p>
+            Creapolis se reserva el derecho de actualizar esta Política de Privacidad en cualquier momento.
+            Los cambios entrarán en vigor desde el momento de su publicación en esta página. Te notificaremos
+            sobre cambios significativos mediante un aviso dentro de la aplicación o a través de los canales
+            oficiales de Creapolis.
+          </p>
+          <p>
+            El uso continuado de la aplicación después de la publicación de cambios implica la aceptación
+            de la política actualizada. Te recomendamos revisar esta página periódicamente.
+          </p>
+        </section>
+
+        <section>
+          <h2>12. Contacto</h2>
+          <p>
+            Si tienes preguntas, dudas o solicitudes relacionadas con esta Política de Privacidad,
+            puedes contactarnos en:
+          </p>
+          <div class="contact-block">
+            <strong>Creapolis</strong><br/>
+            <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a><br/>
+            <a href="https://creapolis.dev" target="_blank" rel="noopener">creapolis.dev</a>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="bottom-actions">
+        <a href="/terminos" class="btn-primary">Leer Términos de Uso →</a>
+        <a href="/" class="btn-back">← Volver a Creapolis</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="legal-footer">
+    <div class="legal-container legal-footer-inner">
+      <div class="legal-footer-brand">
+        <div class="legal-logo-mark">C</div>
+        <span>Creapolis</span>
+      </div>
+      <p class="legal-footer-copy">© {new Date().getFullYear()} Creapolis</p>
+      <div class="legal-footer-links">
+        <a href="/privacidad" class="active">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</Layout>
+
+<style>
+  .legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Nav */
+  .legal-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid #E8E8ED;
+  }
+
+  .legal-nav-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .legal-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .legal-logo-mark {
+    width: 24px; height: 24px;
+    background: #1D1D1F;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    color: white;
+  }
+
+  .legal-nav-logo span {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1D1D1F;
+    letter-spacing: -0.01em;
+  }
+
+  .legal-nav-link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #0071E3;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .legal-nav-link:hover { color: #0077ED; }
+
+  /* Hero */
+  .legal-hero {
+    padding: calc(52px + 4rem) 0 3rem;
+    border-bottom: 1px solid #E8E8ED;
+  }
+
+  .legal-eyebrow {
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0071E3;
+  }
+
+  .legal-title {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #1D1D1F;
+    margin-top: 10px;
+  }
+
+  .legal-meta {
+    font-size: 0.85rem;
+    color: #86868B;
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  .legal-meta strong { color: #1D1D1F; }
+
+  /* Content */
+  .legal-content {
+    padding: 4rem 0 3rem;
+  }
+
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .prose section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .prose h2 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1D1D1F;
+    letter-spacing: -0.02em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E8E8ED;
+  }
+
+  .prose h3 {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1D1D1F;
+    margin-top: 4px;
+  }
+
+  .prose p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: #6E6E73;
+  }
+
+  .prose ul {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prose ul li {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #6E6E73;
+    list-style: none;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .prose ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0071E3;
+    opacity: 0.5;
+  }
+
+  .prose a {
+    color: #0071E3;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .prose a:hover { color: #0077ED; text-decoration: underline; }
+  .prose strong { color: #1D1D1F; }
+  .prose em { color: #0071E3; font-style: normal; }
+
+  .prose code {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.82rem;
+    background: #F5F5F7;
+    border: 1px solid #E8E8ED;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #6E6E73;
+  }
+
+  /* Info cards */
+  .info-card {
+    background: #F5F5F7;
+    border: 1px solid #E8E8ED;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .info-card-amber { border-left: 3px solid #FF9500; }
+  .info-card-muted { border-left: 3px solid #D2D2D7; }
+
+  .info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .info-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #0071E3;
+    background: rgba(0, 113, 227, 0.08);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .info-badge-amber {
+    color: #FF9500;
+    background: rgba(255, 149, 0, 0.08);
+  }
+
+  .info-badge-muted {
+    color: #86868B;
+    background: rgba(134, 134, 139, 0.08);
+  }
+
+  .info-note {
+    font-size: 0.82rem !important;
+    color: #86868B !important;
+    border-left: 2px solid rgba(255, 149, 0, 0.3);
+    padding-left: 12px;
+    font-style: italic;
+  }
+
+  .contact-block {
+    font-size: 0.92rem;
+    line-height: 2;
+    color: #6E6E73;
+    background: #F5F5F7;
+    border: 1px solid #E8E8ED;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: inline-block;
+  }
+
+  /* Bottom actions */
+  .bottom-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E8E8ED;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0071E3;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 12px 24px;
+    border-radius: 980px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: #0077ED; }
+
+  .btn-back {
+    font-size: 0.85rem;
+    color: #6E6E73;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .btn-back:hover { color: #1D1D1F; }
+
+  /* Footer */
+  .legal-footer {
+    border-top: 1px solid #E8E8ED;
+    padding: 24px 0;
+  }
+
+  .legal-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .legal-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legal-footer-brand span {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #1D1D1F;
+  }
+
+  .legal-footer-copy {
+    font-size: 0.78rem;
+    color: #86868B;
+  }
+
+  .legal-footer-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .legal-footer-links a {
+    font-size: 0.78rem;
+    color: #6E6E73;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .legal-footer-links a:hover { color: #1D1D1F; }
+  .legal-footer-links a.active { color: #0071E3; font-weight: 600; }
+</style>

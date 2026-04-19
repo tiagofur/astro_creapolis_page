@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Términos — Creapolis" description="Términos y condiciones de uso de Creapolis.">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
+      <button class="nav-mobile-toggle" aria-label="Menú"><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="/#apps">Apps</a>
+    <a href="/#servicios">Servicios</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contacto">Contacto</a>
+    <a href="/#contacto" class="cta">Iniciar proyecto</a>
+  </div>
+
+  <section class="legal-page">
+    <div class="container">
+      <h1>Términos y Condiciones</h1>
+      <p class="last-updated">Última actualización: {new Date().getFullYear()}</p>
+
+      <h2>1. Uso del sitio</h2>
+      <p>Este sitio web es propiedad de Creapolis. Al acceder y utilizar este sitio, aceptas estos términos en su totalidad.</p>
+
+      <h2>2. Propiedad intelectual</h2>
+      <p>Todo el contenido de este sitio, incluyendo texto, gráficos, logotipos e imágenes, es propiedad de Creapolis y está protegido por leyes de propiedad intelectual.</p>
+
+      <h2>3. Servicios</h2>
+      <p>Los servicios descritos en este sitio web son仅供参考. Los términos específicos de cada proyecto se definen en contratos separados.</p>
+
+      <h2>4. Limitación de responsabilidad</h2>
+      <p>Creapolis no garantiza que la información en este sitio sea precisa, completa o actualizada. El uso de la información es bajo tu propio riesgo.</p>
+
+      <h2>5. Contacto</h2>
+      <p>Para preguntas sobre estos términos, contáctanos en: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="footer-logo-mark">C</div><span>Creapolis</span></div>
+      <div class="footer-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/terminos">Términos</a>
+      </div>
+      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 140px 24px 80px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .legal-page h1 { font-size: 2rem; margin-bottom: 8px; }
+  .last-updated { color: var(--color-text-tertiary); font-size: 0.875rem; margin-bottom: 40px; }
+  .legal-page h2 { font-size: 1.25rem; margin: 32px 0 12px; }
+  .legal-page p { font-size: 1rem; line-height: 1.7; margin-bottom: 16px; }
+  .legal-page a { color: var(--color-accent); }
+</style>
