@@ -133,7 +133,7 @@ jobs:
               --name creapolis-api \
               --restart unless-stopped \
               --env-file /etc/creapolis/backend.env \
-              -p 127.0.0.1:3000:3000 \
+              -p 127.0.0.1:3100:3000 \
               "$IMAGE:latest"
 
             # Keep disk usage sane
