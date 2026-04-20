@@ -8,11 +8,11 @@
 
 const year = new Date().getFullYear();
 
-// TODO: reemplazar con URLs reales cuando estén
+// Social links — solo se muestran si tienen URL real
 const social = {
-  linkedin: '#',
-  github: '#',
-  twitter: '#',
+  linkedin: null,   // TODO: LinkedIn real
+  github: null,     // TODO: GitHub real
+  twitter: null,    // TODO: X/Twitter
 };
 ---
 
@@ -49,15 +49,21 @@ const social = {
         Estudio de una persona. Diseño, codeo y publico software que la gente de verdad usa.
       </p>
       <div class="footer-social">
-        <a href={social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="fsoc">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
-        </a>
-        <a href={social.github} target="_blank" rel="noopener" aria-label="GitHub" class="fsoc">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-        </a>
-        <a href={social.twitter} target="_blank" rel="noopener" aria-label="X / Twitter" class="fsoc">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
-        </a>
+        {social.linkedin && (
+          <a href={social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="fsoc">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
+          </a>
+        )}
+        {social.github && (
+          <a href={social.github} target="_blank" rel="noopener" aria-label="GitHub" class="fsoc">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+          </a>
+        )}
+        {social.twitter && (
+          <a href={social.twitter} target="_blank" rel="noopener" aria-label="X / Twitter" class="fsoc">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
+          </a>
+        )}
       </div>
     </div>
 

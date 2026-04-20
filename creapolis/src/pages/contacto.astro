@@ -130,8 +130,8 @@ import Footer from '../components/Footer.astro';
               </span>
               <span class="btn-loading" style="display:none">Enviando...</span>
             </button>
-            <span class="fine">Te respondemos &lt; 24h</span>
-            <span id="form-ok" class="ok chip live" hidden><span class="chip-dot"></span>¡Recibido! Te escribimos hoy</span>
+            <span class="fine">Te respondo &lt; 24h</span>
+            <span id="form-ok" class="ok chip live" hidden><span class="chip-dot"></span>¡Recibido! Te escribo hoy</span>
           </div>
 
           <div id="form-message" class="form-message" style="display:none"></div>
@@ -187,7 +187,7 @@ import Footer from '../components/Footer.astro';
     if (honeypot?.value) {
       messageEl.style.display = 'block';
       messageEl.className = 'form-message form-success';
-      messageEl.textContent = '¡Recibido! Te escribimos pronto.';
+      messageEl.textContent = '¡Recibido! Te escribo pronto.';
       form.reset();
       return;
     }
