@@ -1,8 +1,8 @@
 ---
 title: "Automatización de procesos con IA: del caos al orden"
 description: "Cómo identificar procesos ripe para automatización con IA y los pasos para implementarla correctamente."
-pubDate: 2025-02-15
-author: "Creapolis"
+pubDate: "2025-02-15"
+author: "tiagofur"
 tags: ["ia", "automatizacion", "procesos", "eficiencia"]
 draft: false
 ---

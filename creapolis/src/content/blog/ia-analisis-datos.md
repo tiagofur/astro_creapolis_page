@@ -1,8 +1,8 @@
 ---
 title: "IA para análisis de datos: decisiones más inteligentes"
 description: "Cómo usar IA para analizar grandes volúmenes de datos y obtener insights accionables que impulsan el negocio."
-pubDate: 2025-03-01
-author: "Creapolis"
+pubDate: "2025-03-01"
+author: "tiagofur"
 tags: ["ia", "datos", "analytics", "negocio"]
 draft: false
 ---

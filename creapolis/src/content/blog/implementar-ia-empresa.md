@@ -1,8 +1,8 @@
 ---
 title: "Cómo implementar IA en tu empresa sin complicate"
 description: "Guía práctica para integrar inteligencia artificial en procesos de negocio. Desde la evaluación hasta la implementación."
-pubDate: 2024-12-10
-author: "Creapolis"
+pubDate: "2024-12-10"
+author: "tiagofur"
 tags: ["ia", "empresa", "automatizacion", "productividad"]
 draft: false
 ---

@@ -1,322 +1,282 @@
-# 📋 Roadmap — Creapolis v2 Redesign
+# 📋 Roadmap — Creapolis v2
 
-> Plan de rediseño completo: migrar design system de `inspirations/` al proyecto Astro `apple_style/`
+> Plan de trabajo real del sitio. Migración inspirations → Astro completada en ~70%.
 > **Última actualización**: Abril 2026
 
 ---
 
-## 🚦 Estado General
+## 🚦 Estado general
 
 ```mermaid
 gantt
-    title Redesign Roadmap 2026
+    title Roadmap 2026
     dateFormat YYYY-MM-DD
-    section FASE 1 — Fundamentos
-    Componentizar Nav/Footer     :f1a, 2026-04-20, 2d
-    Migrar global.css (design v2) :f1b, after f1a, 2d
-    Layout.astro mejorado         :f1c, after f1b, 1d
-    section FASE 2 — Homepage
-    Hero con ribbon + showcase    :f2a, after f1c, 3d
-    Marquee + Products + Shelf    :f2b, after f2a, 2d
-    Servicios + Proceso + Mission :f2c, after f2b, 2d
-    Contact card                  :f2d, after f2c, 1d
-    section FASE 3 — Blog
-    Blog listing rediseñado       :f3a, after f2d, 2d
-    Blog post detail premium      :f3b, after f3a, 2d
-    section FASE 4 — Páginas
-    Servicios con estilo v2       :f4a, after f3b, 2d
-    Contacto estilo inspirations  :f4b, after f4a, 2d
-    Proyectos migrar a collections:f4c, after f4b, 1d
-    Solennix con nuevo estilo     :f4d, after f4c, 2d
-    section FASE 5 — Polish
-    Dark mode                     :f5a, after f4d, 3d
-    Animaciones GSAP              :f5b, after f5a, 3d
-    SEO + OG images               :f5c, after f5a, 2d
+    section FASE 1 — Fundamentos (✅ DONE)
+    Componentizar Nav/Footer/Ribbon :done, f1a, 2026-04-15, 2d
+    Migrar global.css a oklch       :done, f1b, after f1a, 2d
+    Layout.astro con Google Fonts   :done, f1c, after f1b, 1d
+    section FASE 2 — Homepage (✅ DONE)
+    Hero + showcase + ribbon        :done, f2a, after f1c, 3d
+    Marquee + Products + Shelf      :done, f2b, after f2a, 2d
+    Servicios + Proceso + Mission   :done, f2c, after f2b, 2d
+    Contact card                    :done, f2d, after f2c, 1d
+    Bloque Notas (blog latest)      :done, f2e, after f2d, 1d
+    section FASE 3 — Blog (✅ DONE)
+    Blog listing                    :done, f3a, after f2e, 2d
+    Blog detail premium             :done, f3b, after f3a, 2d
+    section FASE 4 — Páginas (🔄 IN PROGRESS)
+    Servicios v2                    :done, f4a, after f3b, 2d
+    Contacto v2                     :done, f4b, after f4a, 2d
+    Proyectos index                 :done, f4c, after f4b, 1d
+    Solennix v2                     :done, f4d, after f4c, 2d
+    Proyectos [slug] rediseño       :active, f4e, 2026-04-19, 3d
+    Legales expandidas              :f4f, after f4e, 2d
+    section FASE 5 — Contenido (🔲 PENDING)
+    Página "Sobre nosotros"         :f5a, after f4f, 2d
+    Sección testimonios             :f5b, after f5a, 2d
+    Reescribir copy servicios       :f5c, after f5b, 2d
+    section FASE 6 — Polish (🔲 PENDING)
+    Proyectos a content collection  :f6a, after f5c, 1d
+    Dark mode toggle                :f6b, after f6a, 2d
+    SEO + Schema + OG images        :f6c, after f6b, 3d
+    Lighthouse + perf               :f6d, after f6c, 2d
 ```
 
 ---
 
-## 🎯 FASE 1 — Fundamentos
+## ✅ FASE 1 — Fundamentos (completado)
 
-> **Prerequisito**: Todo lo demás depende de esto. No avanzar sin completar.
+**Resultado**: base sólida del design system v2.
 
-### 1.1 — Componentizar Nav + Footer
-
-**Problema**: Nav y footer están COPIADOS en 8 páginas. Cambiar un link = editar 8 archivos.
-
-**Solución**: Crear componentes Astro reutilizables.
-
-| Archivo | Contenido |
-|---------|-----------|
-| `src/components/Nav.astro` | Nav pill flotante, logo mark, links, CTA, burger |
-| `src/components/Footer.astro` | Footer con columns, links, copyright |
-| `src/components/Ribbon.astro` | SVG decorativo reutilizable (acepta variantes) |
-
-**Checklist**:
-- [ ] Crear `Nav.astro` con estilo pill flotante del design system v2
-- [ ] Crear `Footer.astro` con estilo columns de inspirations
-- [ ] Crear `Ribbon.astro` como componente reutilizable
-- [ ] Reemplazar nav/footer en TODAS las páginas
-- [ ] Verificar mobile menu funcional
-
-### 1.2 — Migrar Design System CSS
-
-**Problema**: `global.css` usa colores hex planos, system fonts, estilo Apple genérico.
-
-**Solución**: Reescribir con tokens oklch del prototipo inspirations.
-
-**Cambios clave en `global.css`**:
-- [ ] Reemplazar `:root` con variables oklch (ver [[Design System]])
-- [ ] Agregar Google Fonts: Geist + Geist Mono + Instrument Serif
-- [ ] Agregar classes: `.serif`, `.eyebrow`, `.chip`, `.ribbon`
-- [ ] Agregar `.reveal` con el sistema de animaciones nuevo
-- [ ] Agregar `.marquee` keyframe
-- [ ] Agregar radii: `--r-sm` a `--r-xl`
-- [ ] Agregar shadows con oklch
-- [ ] Actualizar buttons: `.btn-primary` usa `var(--ink)` no azul
-
-### 1.3 — Layout.astro mejorado
-
-- [ ] Agregar Google Fonts preload + stylesheet
-- [ ] Agregar `font-feature-settings: "ss01", "cv11"` en body
-- [ ] Actualizar meta theme-color
-- [ ] Script: reveal observer + nav scroll + ribbon parallax
+- ✅ `src/components/Nav.astro` — pill flotante con props `links` y `cta`.
+- ✅ `src/components/Footer.astro` — columns con links + copyright.
+- ✅ `src/components/Ribbon.astro` — SVG decorativo reutilizable.
+- ✅ Reemplazo de Nav/Footer en las 10 páginas (antes copiado inline).
+- ✅ `global.css` reescrito con tokens oklch, escala fluida, radii, shadows.
+- ✅ Google Fonts: Geist + Geist Mono + Instrument Serif en `Layout.astro`.
+- ✅ Classes utilitarias: `.serif`, `.eyebrow`, `.chip`, `.ribbon`, `.reveal`, `.marquee`.
+- ✅ Legacy aliases CSS preservados para zero regressions.
 
 ---
 
-## 🏠 FASE 2 — Homepage (`index.astro`)
+## ✅ FASE 2 — Homepage (completado)
 
-> Rediseño completo basado en `inspirations/index.html`
+`index.astro` rediseñado con el patrón completo v2.
 
-### 2.1 — Hero Section
-
-- [ ] Grid 2 cols (1.25fr + 1fr en desktop)
-- [ ] Copy side: eyebrow, h1 con serif accent, lead, CTAs, trust strip
-- [ ] Showcase side: 3 cards absolutas (phone, stat, chart)
-- [ ] Ribbon SVG de fondo con parallax
-- [ ] Radial gradients como fondo (iris-soft, coral-soft, lime-soft)
-
-### 2.2 — Marquee Trust Strip
-
-- [ ] Ticker horizontal con animación `marquee 32s linear infinite`
-- [ ] Background `var(--ink)`, texto `var(--paper)`
-- [ ] Items: "Código propio, no plantillas" etc.
-- [ ] Separadores ✦ en coral
-
-### 2.3 — Products Section
-
-- [ ] Cards con glow radial + device mockup
-- [ ] Chip "Live" verde
-- [ ] Tagline en serif italic con color del producto
-- [ ] Shelf "en desarrollo" con progress bars
-- [ ] Chips: Beta, Dev, Soon con colores
-
-### 2.4 — Servicios Section
-
-- [ ] Grid 4 cols con icon marks (serif italic)
-- [ ] Cada servicio con su accent color
-- [ ] Hover con border-color del accent
-
-### 2.5 — Proceso Section
-
-- [ ] Cards con bignum serif (5rem)
-- [ ] Colores alternados: iris → coral → lime → amber
-
-### 2.6 — Mission Section
-
-- [ ] Background `var(--ink)`, texto claro
-- [ ] Stats con números serif en colores
-- [ ] Ribbon SVG decorativo
-
-### 2.7 — Contact CTA
-
-- [ ] Card con gradient glow
-- [ ] Mini formulario inline
+- ✅ Hero full-height con ribbon SVG de fondo + showcase cards (phone, stat, chart).
+- ✅ Marquee trust strip con fondo `var(--ink)`.
+- ✅ Product cards con device mockups + chips de status.
+- ✅ Shelf "en desarrollo" con progress bars y rings.
+- ✅ Servicios grid con accent marks en serif italic.
+- ✅ Proceso con bignums serif alternados por color.
+- ✅ Mission section dark con stats serif y ribbon.
+- ✅ **Bloque "Notas"** con últimos 3 posts del blog (abril 2026).
+- ✅ Contact CTA con mini formulario.
 
 ---
 
-## 📝 FASE 3 — Blog
+## ✅ FASE 3 — Blog (completado)
 
-### 3.1 — Blog Listing (`blog/index.astro`)
+### 3.1 — `blog/index.astro`
 
-- [ ] Hero con eyebrow + título con serif accent
-- [ ] Cards de post con:
-  - [ ] Fecha en mono + tags como chips
-  - [ ] Título con hover effect
-  - [ ] Descripción truncada (-webkit-line-clamp: 2)
-  - [ ] Barra de color accent por tag
-- [ ] Featured post (primer post) con layout grande
-- [ ] Grid responsive: 1 → 2 → 3 cols
+- ✅ Header con eyebrow + título serif accent + decorative accents.
+- ✅ Featured post (más reciente) con layout grande.
+- ✅ Grid responsivo 1 → 2 → 3 cols.
+- ✅ Cards con fecha mono, tags coloreados por categoría, título con hover, descripción truncada, barra accent por tag.
+- ✅ 13 posts publicados.
 
-### 3.2 — Blog Post Detail (`blog/[slug].astro`)
+### 3.2 — `blog/[slug].astro`
 
-- [ ] Back link "← Volver al blog"
-- [ ] Article header: tags, date, title, description
-- [ ] Content area max-width 720px
-- [ ] Prose styles mejoradas:
-  - [ ] `h2` con border-top y spacing
-  - [ ] `blockquote` con border-left iris
-  - [ ] `code` inline con bg chalk
-  - [ ] `pre` con bg ink + radius
-  - [ ] Links con underline + color iris
-- [ ] "Artículos relacionados" al final
+- ✅ Hero oscuro con tag colors y byline.
+- ✅ Breadcrumb "← Volver" a blog.
+- ✅ Prose styles premium (h2 con border-top, blockquote, code, pre, links iris).
+- ⚠️ Pendiente: "artículos relacionados", share buttons, reading time estimado.
+
+---
+
+## 🔄 FASE 4 — Páginas internas (en progreso)
+
+### ✅ 4.1 — `servicios.astro`
+
+Hero con ribbon, tarjetas detalladas por servicio (Mobile, Web, Desktop, IA) con features + tech stacks + deliverables, proceso repetido, tech cloud de chips, formulario. Reveal animations.
+
+### ✅ 4.2 — `contacto.astro`
+
+Hero + grid 2 cols: sidebar (promesa card, email alt, 3-step process) + formulario con radio type picker + 6 budget pills + textarea. FAQ con 5 details/summary. Reveal animations.
+
+### ✅ 4.3 — `proyectos/index.astro`
+
+Hero + grid 3 cards de productos live (Solennix, Pepinillo, Películas) con device mockups.
+
+### ✅ 4.3 — `solennix.astro`
+
+Dedicated app page: hero, 6 feature cards, pricing table, testimonios, store badges iOS/Android.
+
+### 🔄 4.4 — `proyectos/[slug].astro` (PENDIENTE — próximo sprint)
+
+**Problema**: template genérico para Pepinillo y Películas se ve plano al lado de Solennix.
+
+- [ ] Hero con ribbon SVG + accent color del producto
+- [ ] Reveal animations
+- [ ] Bloque de screenshots / device mockups reales
+- [ ] Feature cards con mismo estilo que Solennix
+- [ ] Tech stack como chips (no lista plana)
+- [ ] Sección "cómo lo construimos" — breve case study
+- [ ] Store links con badges estilizados
+- [ ] CTA final relacionado al servicio
+
+### 🔄 4.5 — Legales (PENDIENTE)
+
+- [ ] ✅ Bug de encoding chino en `terminos.astro` corregido
+- [ ] Contenido real en privacidad: qué datos, cookies específicas, terceros reales, derechos ARCO
+- [ ] Contenido real en términos: garantías, SLA, ley aplicable, jurisdicción
+- [ ] Prose styles consistentes con el sistema v2
+
+---
+
+## 🔲 FASE 5 — Contenido (prioridad alta, próximo)
+
+> Esta fase es la que **más impacto de venta** tiene. Son consultoría y confianza.
+
+### 5.1 — Página "Sobre nosotros"
+
+- [ ] Foto / avatar del equipo
+- [ ] Historia breve de Creapolis (desde 2020, Monterrey, estudio de producto)
+- [ ] Filosofía: "código propio, no plantillas", obsesión por detalle, sprints con demo semanal
+- [ ] Links a perfiles (GitHub, LinkedIn)
+- [ ] CTA "agendar llamada"
+
+### 5.2 — Sección de testimonios
+
+- [ ] Mínimo 3 quotes con **nombre real + cargo + empresa + foto**
+- [ ] Integrar en: home (bloque nuevo entre mission y notas), solennix, contacto
+- [ ] Priorizar quotes con métricas (ej: "+42% ingresos en 3 meses")
+
+### 5.3 — Copy de servicios con diferenciación
+
+- [ ] Cada servicio con: problema típico → enfoque Creapolis → proof (proyecto real o métrica)
+- [ ] Mini case studies embebidos (2–3 líneas por servicio)
+- [ ] Menos "features" genéricas, más "acá está cómo lo hicimos"
+
+---
+
+## 🔲 FASE 6 — Polish
+
+### 6.1 — Proyectos a content collection
+
+- [ ] Mover data hardcoded de `[slug].astro` a `src/content/proyectos/*.md`
+- [ ] Poblar schema ya definido en `config.ts`
+- [ ] Regenerar rutas desde collection
+
+### 6.2 — Dark mode
+
+- [ ] CSS ya tiene tokens listos (`[data-theme=dark]`)
+- [ ] Toggle en Nav (sol / luna)
+- [ ] Persistencia localStorage
+- [ ] Respeta `prefers-color-scheme`
+- [ ] Transición suave entre modos
+
+### 6.3 — SEO
+
+- [ ] Schema.org BlogPosting en cada post
+- [ ] Schema.org Organization en home
+- [ ] OG images dinámicas (satori o vercel/og)
+- [ ] Internal links entre posts relacionados
+- [ ] Alt text auditado en todas las imágenes
+
+### 6.4 — Performance
+
+- [ ] Lighthouse audit con baseline
+- [ ] Image optimization (WebP)
+- [ ] Font subsetting
+- [ ] Preload critical assets
+
+### 6.5 — Nice-to-have
+
+- [ ] Página 404 personalizada
+- [ ] Formulario con endpoint de producción (no localhost)
+- [ ] Counter animado en stats
+- [ ] Artículos relacionados al final de cada post
 - [ ] Share buttons (Twitter, LinkedIn, copy link)
 - [ ] Reading time estimado
 
 ---
 
-## 🔧 FASE 4 — Páginas internas
-
-### 4.1 — Servicios (`servicios.astro`)
-
-- [ ] Hero con ribbon SVG
-- [ ] Tabs pills con icon y color por servicio
-- [ ] Features grid 2 cols dentro de cada servicio
-- [ ] Tech badges como pills
-- [ ] FAQ con details/summary estilo inspirations
-- [ ] CTA card con glow
-
-### 4.2 — Contacto (`contacto.astro`)
-
-Basado en `inspirations/contacto.html`:
-- [ ] Hero con eyebrow + título serif
-- [ ] Grid 2 cols: sidebar + formulario
-- [ ] Sidebar: promesa card (dark), email card, "qué pasa después"
-- [ ] Type picker (radio cards seleccionables)
-- [ ] Budget picker (pills seleccionables)
-- [ ] FAQ section
-
-### 4.3 — Proyectos
-
-- [ ] Mover data hardcoded a content collections
-- [ ] `proyectos/index.astro` con cards estilo inspirations
-- [ ] `proyectos/[slug].astro` con hero, features, tech stack
-- [ ] Solennix: mantener pricing + store links, aplicar nuevo estilo
-
-### 4.4 — Páginas legales
-
-- [ ] `privacidad.astro` y `terminos.astro` con styles nuevos
-- [ ] Prose styles consistentes
-
----
-
-## ✨ FASE 5 — Polish
-
-### 5.1 — Dark Mode
-
-- [ ] CSS variables para dark theme
-- [ ] Toggle en nav (sol/luna icon)
-- [ ] Persistir con localStorage
-- [ ] Respetar `prefers-color-scheme`
-- [ ] Transición suave entre modos
-
-### 5.2 — Animaciones avanzadas
-
-- [ ] Counter animado en stats (números que cuentan al scroll)
-- [ ] Stagger reveals mejorados (cards aparecen una por una)
-- [ ] SVG path drawing en ribbons
-- [ ] Card tilt 3D sutil en hover
-- [ ] Smooth scroll mejorado
-
-### 5.3 — SEO
-
-- [ ] OG images dinámicas (satori o vercel/og)
-- [ ] Schema.org BlogPosting en posts
-- [ ] Schema.org Organization en home
-- [ ] Internal links entre posts relacionados
-- [ ] Alt text en todas las imágenes
-
-### 5.4 — Performance
-
-- [ ] Lighthouse audit completo
-- [ ] Image optimization (WebP)
-- [ ] Font subsetting
-- [ ] Preload critical assets
-
----
-
-## 🐛 Issues conocidos (corregir durante redesign)
+## 🐛 Issues abiertos
 
 | # | Issue | Dónde | Severidad |
 |---|-------|-------|-----------|
-| 1 | Nav copiado en 8 páginas | Todas las páginas | 🔴 Alta |
-| 2 | `proyectos/` collection vacía | `content/proyectos/` | 🟡 Media |
-| 3 | Proyectos data hardcoded en `[slug].astro` | `proyectos/[slug].astro` | 🟡 Media |
-| 4 | Fallback projects grid con CSS hack | `proyectos/index.astro` | 🟡 Media |
-| 5 | Formulario apunta a `localhost:3000` | `contacto.astro` | 🟡 Media |
-| 6 | No hay 404 page | `src/pages/` | 🟢 Baja |
-| 7 | `#blog` link en nav va a sección que no existe | `index.astro` | 🟢 Baja |
-| 8 | Favicon es placeholder básico | `public/favicon.svg` | 🟢 Baja |
-| 9 | Algunos typos en español (ej: "ofrecemo s") | `servicios.astro` | 🟢 Baja |
-| 10 | `solennix.astro` es una page separada, no usa `[slug]` | Pages | 🟡 Media |
+| 1 | `proyectos/[slug].astro` genérico | `proyectos/[slug].astro` | 🔴 Alta |
+| 2 | Sin testimonios con caras reales | todas las páginas de venta | 🔴 Alta |
+| 3 | Sin página "sobre nosotros" | `src/pages/` | 🟡 Media |
+| 4 | Proyectos data hardcoded (no usa collection) | `proyectos/[slug].astro` | 🟡 Media |
+| 5 | Legales con contenido esqueleto | `privacidad.astro`, `terminos.astro` | 🟡 Media |
+| 6 | Copy de servicios repetitivo | `servicios.astro` | 🟡 Media |
+| 7 | Formulario apunta a `localhost:3000` | `contacto.astro`, `index.astro` | 🟡 Media |
+| 8 | Sin Schema.org ni OG images | `Layout.astro` | 🟡 Media |
+| 9 | Dark mode CSS listo, sin toggle | nav | 🟢 Baja |
+| 10 | Sin página 404 | `src/pages/` | 🟢 Baja |
+| 11 | Favicon placeholder | `public/favicon.svg` | 🟢 Baja |
 
 ---
 
-## 📊 Progreso
+## ✅ Sprint 4 completado (Abril 2026)
 
-### FASE 1 — Fundamentos
-
-| Tarea | Estado |
-|-------|--------|
-| Componentizar Nav | 🔲 Pendiente |
-| Componentizar Footer | 🔲 Pendiente |
-| Crear Ribbon component | 🔲 Pendiente |
-| Migrar global.css | 🔲 Pendiente |
-| Layout.astro mejorado | 🔲 Pendiente |
-
-### FASE 2 — Homepage
-
-| Tarea | Estado |
-|-------|--------|
-| Hero con ribbon + showcase | 🔲 Pendiente |
-| Marquee trust strip | 🔲 Pendiente |
-| Products + Shelf | 🔲 Pendiente |
-| Servicios cards | 🔲 Pendiente |
-| Proceso section | 🔲 Pendiente |
-| Mission + stats | 🔲 Pendiente |
-| Contact card | 🔲 Pendiente |
-
-### FASE 3 — Blog
-
-| Tarea | Estado |
-|-------|--------|
-| Blog listing rediseñado | 🔲 Pendiente |
-| Blog post premium | 🔲 Pendiente |
-
-### FASE 4 — Páginas
-
-| Tarea | Estado |
-|-------|--------|
-| Servicios estilo v2 | 🔲 Pendiente |
-| Contacto estilo inspirations | 🔲 Pendiente |
-| Proyectos en collections | 🔲 Pendiente |
-| Solennix nuevo estilo | 🔲 Pendiente |
-| Legales con nuevo estilo | 🔲 Pendiente |
-
-### FASE 5 — Polish
-
-| Tarea | Estado |
-|-------|--------|
-| Dark mode | 🔲 Pendiente |
-| Animaciones GSAP | 🔲 Pendiente |
-| SEO completo | 🔲 Pendiente |
-| Performance audit | 🔲 Pendiente |
+- **Página 404 custom** (`src/pages/404.astro`): hero con ribbon multi-hue, bignum "404" en serif con animación wobble sutil en el "0" del medio, 3 opciones linkeadas (Home / Blog / Contacto) con accent por color, copy on-brand ("Acá no hay nada. Todavía.").
+- **Schema.org mejorado en Layout.astro**:
+  - Author de BlogPosting cambiado de `Organization` a `Person` (Tiago David Furtado) — refleja la realidad de solo dev.
+  - Organization ahora incluye `founder` (Person), `address` (Monterrey/NL/MX), y `sameAs` con slots placeholder.
+  - Person schema emitido consistentemente en blog posts y como publisher.founder en home.
+  - Description default actualizada a primera persona singular ("Diseño y construcción...").
+- **TODOs marcados**: `sameAs` array con comentarios de LinkedIn/GitHub/X placeholders — reemplazar cuando estén los URLs reales.
 
 ---
 
-## ✅ Completado antes del redesign (Q1 2026)
+## ✅ Sprint 3 completado (Abril 2026)
 
-- [x] Setup Astro project
-- [x] Design System v1 (Apple style)
-- [x] 12 Blog posts publicados
-- [x] Proyectos catalog
-- [x] Servicios page
-- [x] Contact form con backend Go
-- [x] Responsive design
-- [x] Animation utilities
-- [x] RSS feed
-- [x] Sitemap + robots.txt
-- [x] Obsidian vault con documentación
+- **Copy de servicios reescrito con diferenciación real**: cada servicio (móvil, web, escritorio, IA) ahora tiene tagline propio, descripción con problema + enfoque, 4 features CONCRETAS (no buzzwords), stack específico, deliverable tangible, y bloque **"Dónde lo apliqué"** (mini case study) que linkea a proyecto real: Pepinillo/Películas para móvil, el propio sitio para web, Pepinillo Desktop para escritorio, Aether para IA.
+- **Process reescrito en primera persona**: "Escucho tu idea" (no "Escuchamos"). Detalles más concretos (demo semanal, código en tu repo, tests en lo crítico).
+- **Meta description de servicios** en primera persona singular.
+- **Privacidad reescrita con sustancia real**: 10 secciones cubriendo LFPDPPP de México (ARCO rights, responsable, finalidades primarias/secundarias, proveedores, cookies, cambios). Marcada con TODOs donde hace falta info del negocio (RFC, proveedores concretos) y revisión legal.
+- **Términos reescritos con sustancia real**: 11 secciones cubriendo IP, servicios descritos, formulario, blog, limitación de responsabilidad, jurisdicción (Monterrey/NL), y aclaración IMPORTANTE: los servicios contratados van en contrato SEPARADO, no en estos términos. TODOs marcados para revisión con abogado antes de clientes pagos.
+- **Estilo legal consistente con v2**: hero con gradient soft iris/coral, intro box con accent, h2 con border-top, tipografía del sistema.
+
+⚠️ **NOTA CRÍTICA**: los legales tienen contenido sustancioso pero NO son revisión legal profesional. Antes de firmar contratos comerciales reales, llevarlos a abogado.
+
+---
+
+## ✅ Sprint 2 completado (Abril 2026)
+
+- **`proyectos/[slug].astro` rediseñado al nivel Solennix**: hero con ribbon per-proyecto, chips row, store buttons, phone mockup estilo Solennix, info strip dark, grid de 6 features con icon letters, case-study de 3 capítulos, tech chips con accent, download CTA dark, contact CTA. Aplicado a Pepinillo (lime) y Películas (coral).
+- **Fix URL duplicada**: `proyectos/solennix` → redirige al real `/solennix` (el slug compartido ya no genera esa ruta).
+- **Nueva página `/sobre`**: historia honesta (solo dev desde 2019), timeline, 4 valores, stack por categorías, foto placeholder, links placeholder (LinkedIn/GitHub/X pendientes).
+- **Nav + Footer actualizados**: link a `/sobre` visible.
+- **Stats del home corregidas a honestidad**: se removieron claims inflados ("50+ proyectos", "1M+ usuarios", "9/10 clientes que vuelven") y se reemplazaron por realidad verificable ("5+ años", "3 apps propias", "1 persona · cero intermediarios", "<24h respuesta").
+- **Copy mission a primera persona**: "No es una agencia. Es un desarrollador que vive en el producto".
+- **Audit y corrección de lenguaje plural inflado** en index, servicios, contacto y blog — eliminado "equipo/nosotros" que contradecía la realidad de solo dev.
+- **Testimonios POSPUESTOS**: no hay clientes con quote real disponible — sección no se crea hasta tener material auténtico.
+
+---
+
+## ✅ Completado en sprints previos
+
+- Setup Astro 5.0+ con Content Collections
+- Design System v1 (Apple style) → migrado a v2 oklch
+- 13 blog posts publicados
+- Catálogo de proyectos
+- Servicios page v2
+- Contacto v2 con backend Go
+- Solennix page dedicada v2
+- Responsive design
+- Animation utilities (reveal, marquee)
+- RSS feed + sitemap + robots.txt
+- Obsidian vault con documentación
+- Componentización (Nav, Footer, Ribbon)
+- Migración global.css a oklch
+- Homepage v2 completa
+- Blog index + detail v2
+- **Bloque "Notas" en home** (abril 2026)
+- **Fix bug encoding chino en términos** (abril 2026)
 
 ---
 

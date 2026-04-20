@@ -1,9 +1,9 @@
 ---
 title: "Cuánto cuesta desarrollar una app en 2025"
 description: "Desglosamos los costos reales de desarrollo de apps móviles y web. No hay magic numbers, pero sí hay parámetros."
-pubDate: 2025-01-15
-author: "Creapolis"
-tags: ["costos", "presupuesto", "desarrollo"]
+pubDate: "2025-01-15"
+author: "tiagofur"
+tags: ["costos", "pricing", "desarrollo"]
 draft: false
 ---
 

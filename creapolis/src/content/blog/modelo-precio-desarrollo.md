@@ -1,9 +1,9 @@
 ---
 title: "Modelos de precio para desarrollo de software: cómo cobramos"
 description: "Transparentamos cómo定价amos proyectos. Por qué no usamos hourly rate y qué modelo funciona mejor para cada caso."
-pubDate: 2025-03-25
-author: "Creapolis"
-tags: ["precios", "modelo", "desarrollo", "presupuesto"]
+pubDate: "2025-03-25"
+author: "tiagofur"
+tags: ["pricing", "modelo", "desarrollo"]
 draft: false
 ---
 

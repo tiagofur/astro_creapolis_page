@@ -1,8 +1,8 @@
 ---
 title: "Por qué tus herramientas de desarrollo importan (más de lo que crees)"
 description: "La tecnología que usas afecta tu productividad, la calidad del código y el mantenimiento a largo plazo. Cómo elegir bien."
-pubDate: 2025-03-20
-author: "Creapolis"
+pubDate: "2025-03-20"
+author: "tiagofur"
 tags: ["desarrollo", "herramientas", "productividad", "tech"]
 draft: false
 ---

@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://creapolis.dev/sitemap.xml
+Sitemap: https://creapolis.dev/sitemap-index.xml

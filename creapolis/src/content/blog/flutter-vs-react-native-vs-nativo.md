@@ -1,8 +1,8 @@
 ---
 title: "Flutter vs React Native vs Nativo: cuál elegir en 2025"
 description: "Comparamos las tres principales opciones para desarrollo móvil. Analizamos pros, contras y cuándo usar cada una."
-pubDate: 2024-11-20
-author: "Creapolis"
+pubDate: "2024-11-20"
+author: "tiagofur"
 tags: ["mobile", "flutter", "react-native", "desarrollo"]
 draft: false
 ---

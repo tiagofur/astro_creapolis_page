@@ -7,10 +7,13 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "normalize:blog": "node scripts/normalize-blog.mjs",
+    "normalize:blog:dry": "node scripts/normalize-blog.mjs --dry"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "astro": "^5.0.0"
   }
 }

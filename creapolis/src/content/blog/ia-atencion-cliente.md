@@ -1,8 +1,8 @@
 ---
 title: "IA para atención al cliente: chatbots que realmente funcionan"
 description: "Cómo los chatbots con IA están transformando la atención al cliente. Casos de uso, implementaciones y resultados medibles."
-pubDate: 2025-02-01
-author: "Creapolis"
+pubDate: "2025-02-01"
+author: "tiagofur"
 tags: ["ia", "chatbot", "atencion-cliente", "automatizacion"]
 draft: false
 ---

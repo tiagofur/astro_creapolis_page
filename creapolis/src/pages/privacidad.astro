@@ -1,75 +1,158 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+// NOTA: Este aviso está escrito para un sitio marketing de consultoría (solo dev).
+// Cubre lo básico según la LFPDPPP de México. Antes de tomar clientes comerciales
+// grandes, llevalo a un abogado para adaptarlo a tu RFC, domicilio fiscal y servicios exactos.
+const lastUpdated = '19 de abril de 2026'; // TODO: actualizar al modificar la política
 ---
 
-<Layout title="Privacidad — Creapolis" description="Política de privacidad de Creapolis.">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <div class="nav-logo-mark">C</div>
-        <span>Creapolis</span>
-      </a>
-      <div class="nav-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/blog">Blog</a>
-        <a href="/#contacto">Contacto</a>
-      </div>
-      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
-      <button class="nav-mobile-toggle" aria-label="Menú"><span></span><span></span></button>
-    </div>
-  </nav>
-  <div class="mobile-menu">
-    <a href="/#apps">Apps</a>
-    <a href="/#servicios">Servicios</a>
-    <a href="/blog">Blog</a>
-    <a href="/#contacto">Contacto</a>
-    <a href="/#contacto" class="cta">Iniciar proyecto</a>
-  </div>
+<Layout title="Aviso de privacidad — Creapolis" description="Aviso de privacidad de Creapolis: cómo recopilamos, usamos y protegemos tus datos personales.">
+  <Nav />
 
   <section class="legal-page">
-    <div class="container">
-      <h1>Política de Privacidad</h1>
-      <p class="last-updated">Última actualización: {new Date().getFullYear()}</p>
+    <div class="legal-inner">
+      <div class="legal-head">
+        <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
+        <h1>Aviso de <span class="serif">privacidad</span></h1>
+        <p class="last-updated">Última actualización: {lastUpdated}</p>
+      </div>
 
-      <h2>1. Información que recopilamos</h2>
-      <p>Creapolis no recopila información personal a través de este sitio web. Si decides contactarnos vía email, solo utilizaremos tu mensaje para responder a tu consulta.</p>
+      <p class="intro">Este aviso describe qué datos personales recabamos cuando interactuás con Creapolis, con qué fines los usamos, con quién los compartimos y cómo ejercés tus derechos sobre ellos. Si algo no te queda claro, escribinos a <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a> y lo resolvemos.</p>
 
-      <h2>2. Cookies</h2>
-      <p>Este sitio no utiliza cookies de seguimiento ni herramientas de análisis que recopilen información personal.</p>
+      <h2>1. Responsable del tratamiento</h2>
+      <p>
+        El responsable del tratamiento de tus datos personales es Creapolis, estudio de desarrollo de software operado por
+        <strong>Tiago David Furtado</strong>, con domicilio en Monterrey, México.
+        <!-- TODO: si ya registraste persona moral o RFC, reemplazar con razón social + domicilio fiscal completo -->
+        Para cualquier asunto relacionado con tus datos personales podés contactarnos en <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.
+      </p>
 
-      <h2>3. Enlaces a terceros</h2>
-      <p>Este sitio puede contener enlaces a otras páginas o aplicaciones desarrolladas por nosotros. No somos responsables de las prácticas de privacidad de terceros.</p>
+      <h2>2. Qué datos recabamos</h2>
+      <p>Sólo recabamos los datos que vos nos das voluntariamente. Específicamente:</p>
+      <ul>
+        <li><strong>Datos de contacto</strong> que envías al formulario (nombre, correo electrónico, empresa opcional) o por email directo.</li>
+        <li><strong>Contenido de tu mensaje</strong>: cualquier información que incluyas al describir tu proyecto, consulta o requerimiento.</li>
+        <li><strong>Datos técnicos anónimos de navegación</strong>: dirección IP, tipo de dispositivo, navegador, páginas visitadas — usados exclusivamente para métricas agregadas de funcionamiento del sitio.</li>
+      </ul>
+      <p>No solicitamos ni almacenamos datos sensibles (origen racial, salud, creencias religiosas, preferencias sexuales, información financiera).</p>
 
-      <h2>4. Contacto</h2>
-      <p>Si tienes preguntas sobre esta política, contáctanos en: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></p>
+      <h2>3. Para qué usamos tus datos</h2>
+      <p>Tus datos personales se usan únicamente para las siguientes finalidades:</p>
+      <ul>
+        <li><strong>Primarias</strong>: responder a tu consulta, elaborar una propuesta comercial, y dar seguimiento al proyecto si decidimos trabajar juntos.</li>
+        <li><strong>Secundarias (opcionales)</strong>: enviarte ocasionalmente novedades sobre Creapolis si vos nos das consentimiento explícito. Podés oponerte en cualquier momento escribiéndonos.</li>
+      </ul>
+      <p>No usamos tus datos para perfilamiento automatizado, publicidad dirigida ni los vendemos a terceros. Punto.</p>
+
+      <h2>4. Con quién compartimos tus datos</h2>
+      <p>Tus datos no se comparten con terceros, con las siguientes excepciones necesarias para operar:</p>
+      <ul>
+        <li><strong>Proveedores de infraestructura</strong> que procesan datos en nuestro nombre, bajo acuerdos de confidencialidad: hosting del sitio, servicio de correo, y servicios de analítica anónima.</li>
+        <li><strong>Autoridades competentes</strong> cuando exista requerimiento legal válido.</li>
+      </ul>
+      <p>
+        <!-- TODO: listar aquí los proveedores concretos cuando estén definidos (Vercel, Resend, Plausible, Google Analytics, etc.) -->
+        Podemos listar proveedores específicos a solicitud.
+      </p>
+
+      <h2>5. Tus derechos (ARCO)</h2>
+      <p>De acuerdo con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), tenés derecho a:</p>
+      <ul>
+        <li><strong>Acceder</strong> a los datos personales que tenemos sobre vos.</li>
+        <li><strong>Rectificar</strong> los que sean inexactos o incompletos.</li>
+        <li><strong>Cancelar</strong> los datos cuando consideres que no son necesarios para las finalidades descritas.</li>
+        <li><strong>Oponerte</strong> al uso de tus datos para fines específicos.</li>
+      </ul>
+      <p>Para ejercer cualquiera de estos derechos, escribinos a <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a> con el asunto "Ejercicio de derechos ARCO". Te respondemos dentro de los 20 días hábiles que marca la ley.</p>
+
+      <h2>6. Cómo protegemos tus datos</h2>
+      <p>
+        Aplicamos medidas técnicas y administrativas razonables para proteger tus datos: cifrado en tránsito (HTTPS),
+        acceso restringido, y almacenamiento en proveedores que cumplen estándares de seguridad reconocidos.
+        Ningún sistema es infalible: si ocurriera un incidente que afecte tus datos, te notificaríamos en el menor tiempo posible junto con las medidas tomadas.
+      </p>
+
+      <h2>7. Cookies y tecnologías similares</h2>
+      <p>
+        Este sitio no utiliza cookies de seguimiento publicitario. Puede utilizar cookies técnicas mínimas necesarias para el funcionamiento del sitio y, de manera opcional, cookies de analítica anónima para entender qué contenido sirve y qué no.
+        <!-- TODO: si activás Plausible / GA / Umami, actualizar con lista concreta y respetar preferencia del usuario -->
+      </p>
+
+      <h2>8. Enlaces a sitios de terceros</h2>
+      <p>Este sitio contiene enlaces a otras plataformas (tiendas de apps, redes sociales, GitHub, LinkedIn). No somos responsables por las políticas de privacidad de esos servicios — te recomendamos revisarlas antes de interactuar con ellos.</p>
+
+      <h2>9. Cambios a este aviso</h2>
+      <p>Si actualizamos este aviso, publicaremos la nueva versión acá con una nueva fecha de "última actualización". Cambios sustanciales se notificarán a quienes hayan iniciado contacto con nosotros.</p>
+
+      <h2>10. Contacto</h2>
+      <p>Para cualquier duda, reclamo o ejercicio de derechos sobre tus datos personales: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.</p>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand"><div class="footer-logo-mark">C</div><span>Creapolis</span></div>
-      <div class="footer-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacidad">Privacidad</a>
-        <a href="/terminos">Términos</a>
-      </div>
-      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <Footer />
 </Layout>
 
 <style>
   .legal-page {
-    padding: 140px 24px 80px;
-    max-width: 720px;
+    padding: 140px var(--gutter) 100px;
+    background:
+      radial-gradient(60% 40% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
+      var(--paper);
+    min-height: 80vh;
+  }
+  .legal-inner {
+    max-width: 760px;
     margin: 0 auto;
   }
-  .legal-page h1 { font-size: 2rem; margin-bottom: 8px; }
-  .last-updated { color: var(--color-text-tertiary); font-size: 0.875rem; margin-bottom: 40px; }
-  .legal-page h2 { font-size: 1.25rem; margin: 32px 0 12px; }
-  .legal-page p { font-size: 1rem; line-height: 1.7; margin-bottom: 16px; }
-  .legal-page a { color: var(--color-accent); }
+  .legal-head { margin-bottom: 40px; }
+  .legal-head h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 12px;
+  }
+  .legal-head h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--iris);
+  }
+  .last-updated {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .legal-page p.intro {
+    font-size: 1.1rem; line-height: 1.6;
+    color: var(--ink-2);
+    padding: 20px 24px;
+    background: var(--chalk);
+    border-left: 3px solid var(--iris);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    margin: 0 0 40px;
+  }
+  .legal-page h2 {
+    font-size: 1.25rem; line-height: 1.3;
+    margin: 40px 0 14px;
+    color: var(--ink);
+    padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  .legal-page p, .legal-page li {
+    font-size: 1rem; line-height: 1.7;
+    color: var(--ink-2);
+    margin-bottom: 14px;
+  }
+  .legal-page ul {
+    padding-left: 24px; margin-bottom: 18px;
+  }
+  .legal-page ul li { margin-bottom: 10px; }
+  .legal-page strong { color: var(--ink); font-weight: 500; }
+  .legal-page a {
+    color: var(--iris);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .legal-page a:hover { color: var(--coral); }
 </style>

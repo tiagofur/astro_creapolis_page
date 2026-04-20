@@ -1,8 +1,8 @@
 ---
 title: "El proceso que usamos para crear apps que la gente realmente usa"
 description: "De la idea al lanzamiento: nuestro proceso de desarrollo en 4 etapas probadas."
-pubDate: 2024-09-01
-author: "Creapolis"
+pubDate: "2024-09-01"
+author: "tiagofur"
 tags: ["proceso", "desarrollo", "metodologia"]
 draft: false
 ---

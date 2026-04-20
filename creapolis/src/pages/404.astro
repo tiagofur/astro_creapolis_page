@@ -1,0 +1,197 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Página no encontrada — Creapolis"
+  description="La página que buscás no existe. Te llevamos de vuelta al camino."
+>
+  <Nav />
+
+  <section class="nf-page">
+    <div class="ribbon" aria-hidden="true">
+      <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="nf-rib" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.4"/>
+            <stop offset="50%" stop-color="oklch(0.62 0.2 285)" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="oklch(0.84 0.18 128)" stop-opacity="0.35"/>
+          </linearGradient>
+        </defs>
+        <path
+          d="M -100,400 C 300,200 600,500 900,300 C 1100,150 1300,400 1500,250"
+          fill="none"
+          stroke="url(#nf-rib)"
+          stroke-width="110"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+
+    <div class="wrap">
+      <div class="nf-content reveal">
+        <div class="chips-row">
+          <span class="chip" style="color: var(--coral); background: var(--coral-soft); border-color: color-mix(in oklch, var(--coral) 25%, var(--line));">
+            <span class="chip-dot" style="background: var(--coral)"></span>
+            Error 404
+          </span>
+        </div>
+
+        <div class="nf-bignum" aria-hidden="true">
+          <span class="digit">4</span>
+          <span class="digit middle">0</span>
+          <span class="digit">4</span>
+        </div>
+
+        <h1>Acá no hay nada.<br/><span class="serif">Todavía</span>.</h1>
+        <p class="lead">La URL que pediste no existe, o movimos algo de lugar y se nos olvidó dejar señal. Lo que es seguro es que no querés quedarte mirando este 404 — te dejo tres caminos.</p>
+
+        <div class="nf-options">
+          <a href="/" class="nf-opt reveal reveal-delay-1">
+            <div class="opt-num">01</div>
+            <h3>Al inicio</h3>
+            <p>Ver apps, servicios, blog y todo lo demás.</p>
+            <span class="opt-link">Ir al home
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </a>
+
+          <a href="/blog" class="nf-opt reveal reveal-delay-2">
+            <div class="opt-num">02</div>
+            <h3>Notas de taller</h3>
+            <p>Lo que aprendo construyendo apps reales.</p>
+            <span class="opt-link">Ver el blog
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </a>
+
+          <a href="/contacto" class="nf-opt reveal reveal-delay-3">
+            <div class="opt-num">03</div>
+            <h3>Contame qué pasó</h3>
+            <p>Si llegaste acá por un link roto, avisame y lo arreglo.</p>
+            <span class="opt-link">Escribir
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .nf-page {
+    position: relative;
+    overflow: clip;
+    padding: 140px var(--gutter) 100px;
+    min-height: 80vh;
+    background:
+      radial-gradient(60% 50% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
+      var(--paper);
+  }
+  .nf-page .ribbon { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .nf-page .ribbon svg { width: 100%; height: 100%; }
+  .nf-page .wrap {
+    position: relative; z-index: 1;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .nf-content { text-align: center; }
+
+  .chips-row {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .nf-bignum {
+    display: flex; justify-content: center; align-items: center;
+    gap: clamp(8px, 2vw, 24px);
+    margin-bottom: 24px;
+    user-select: none;
+  }
+  .nf-bignum .digit {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(7rem, 22vw, 16rem);
+    line-height: 1;
+    color: var(--ink);
+  }
+  .nf-bignum .digit.middle {
+    color: var(--coral);
+    animation: nf-wobble 3.5s var(--ease) infinite;
+    display: inline-block;
+  }
+  @keyframes nf-wobble {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-6deg); }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.05; letter-spacing: -0.025em;
+    color: var(--ink); margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--iris);
+  }
+  p.lead {
+    font-size: 1.08rem; line-height: 1.6;
+    color: var(--ink-2); max-width: 52ch;
+    margin: 0 auto 48px;
+  }
+
+  .nf-options {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+    max-width: 760px; margin: 0 auto;
+    text-align: left;
+  }
+  @media (min-width: 780px) {
+    .nf-options { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .nf-opt {
+    position: relative;
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 28px 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    text-decoration: none; color: inherit;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .nf-opt:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-2);
+  }
+  .nf-opt:nth-child(1):hover { border-color: var(--iris); }
+  .nf-opt:nth-child(2):hover { border-color: var(--coral); }
+  .nf-opt:nth-child(3):hover { border-color: var(--lime); }
+
+  .opt-num {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .nf-opt h3 { font-size: 1.15rem; margin: 0; color: var(--ink); }
+  .nf-opt p {
+    font-size: 0.92rem; line-height: 1.55;
+    color: var(--ink-2); margin: 0; flex: 1;
+  }
+  .opt-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--iris);
+    transition: gap 0.2s var(--ease);
+  }
+  .nf-opt:nth-child(2) .opt-link { color: var(--coral); }
+  .nf-opt:nth-child(3) .opt-link { color: var(--lime); }
+  .nf-opt:hover .opt-link { gap: 10px; }
+</style>

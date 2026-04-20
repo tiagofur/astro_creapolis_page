@@ -4,24 +4,20 @@ const blog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    description: z.string().default(''),
     pubDate: z.coerce.date(),
-    author: z.string().default('Creapolis'),
+    author: z.string().default('tiagofur'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Campos legacy de la exportación desde WordPress — se ignoran en render
+    // pero permitimos su presencia para no invalidar posts.
+    slug: z.string().optional(),
+    originalUrl: z.string().optional(),
+    categories: z.array(z.string()).optional(),
   }),
 });
 
-const proyectos = defineCollection({
-  type: 'content',
-  schema: z.object({
-    name: z.string(),
-    tagline: z.string(),
-    desc: z.string(),
-    platform: z.string(),
-    color: z.string(),
-    featured: z.boolean().default(false),
-  }),
-});
+// Nota: los proyectos viven hardcoded en src/pages/proyectos/[slug].astro
+// por ahora. Cuando se migren a markdown, reactivar esta collection.
 
-export const collections = { blog, proyectos };
+export const collections = { blog };

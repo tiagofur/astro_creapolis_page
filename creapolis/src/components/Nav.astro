@@ -1,0 +1,74 @@
+---
+/**
+ * Nav — Creapolis shared navigation
+ *
+ * Props:
+ *   links — override the default nav links array
+ *   cta   — override CTA { text, href }
+ *
+ * Default links use absolute paths (/servicios, /contacto) so they
+ * work from ANY page. Pages with local sections pass custom links.
+ * Active state is detected by matching Astro.url.pathname to href.
+ */
+
+interface Link { label: string; href: string }
+interface CTA { text: string; href: string }
+
+interface Props {
+  links?: Link[];
+  cta?: CTA;
+}
+
+const defaultLinks: Link[] = [
+  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contacto', href: '/contacto' },
+];
+
+const defaultCTA: CTA = { text: 'Iniciar proyecto', href: '/contacto' };
+
+const { links = defaultLinks, cta = defaultCTA } = Astro.props;
+
+/**
+ * Detect active link: exact match for full paths,
+ * or startsWith for anchor-based home links.
+ */
+const currentPath = Astro.url.pathname;
+function isActive(href: string): boolean {
+  if (href.startsWith('/#')) return currentPath === '/';
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href) || currentPath === href;
+}
+---
+
+<nav class="nav" aria-label="Principal">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Creapolis home">
+      <div class="nav-logo-mark">C</div>
+      <span>Creapolis</span>
+    </a>
+
+    <div class="nav-links">
+      {links.map((l) => (
+        <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
+      ))}
+    </div>
+
+    <a href={cta.href} class="nav-cta">{cta.text}</a>
+
+    <button class="nav-mobile-toggle" aria-label="Menú">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  {links.map((l) => (
+    <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
+  ))}
+  <a href={cta.href} class="cta">{cta.text}</a>
+</div>

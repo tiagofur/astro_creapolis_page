@@ -1,78 +1,157 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+// NOTA: Estos términos cubren el USO DEL SITIO y la relación previa a un contrato.
+// Los términos del servicio de desarrollo (contrato de consultoría, IP, pagos, NDAs)
+// SIEMPRE van en un contrato separado — NO en los términos del sitio web.
+// Antes de tomar clientes pagos, llevá este documento y tu contrato estándar a un abogado.
+const lastUpdated = '19 de abril de 2026'; // TODO: actualizar al modificar los términos
 ---
 
-<Layout title="Términos — Creapolis" description="Términos y condiciones de uso de Creapolis.">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <div class="nav-logo-mark">C</div>
-        <span>Creapolis</span>
-      </a>
-      <div class="nav-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/blog">Blog</a>
-        <a href="/#contacto">Contacto</a>
-      </div>
-      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
-      <button class="nav-mobile-toggle" aria-label="Menú"><span></span><span></span></button>
-    </div>
-  </nav>
-  <div class="mobile-menu">
-    <a href="/#apps">Apps</a>
-    <a href="/#servicios">Servicios</a>
-    <a href="/blog">Blog</a>
-    <a href="/#contacto">Contacto</a>
-    <a href="/#contacto" class="cta">Iniciar proyecto</a>
-  </div>
+<Layout title="Términos de uso — Creapolis" description="Términos y condiciones de uso del sitio web de Creapolis.">
+  <Nav />
 
   <section class="legal-page">
-    <div class="container">
-      <h1>Términos y Condiciones</h1>
-      <p class="last-updated">Última actualización: {new Date().getFullYear()}</p>
+    <div class="legal-inner">
+      <div class="legal-head">
+        <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
+        <h1>Términos de <span class="serif">uso</span></h1>
+        <p class="last-updated">Última actualización: {lastUpdated}</p>
+      </div>
 
-      <h2>1. Uso del sitio</h2>
-      <p>Este sitio web es propiedad de Creapolis. Al acceder y utilizar este sitio, aceptas estos términos en su totalidad.</p>
+      <p class="intro">Estos términos regulan el uso del sitio web <strong>creapolis.dev</strong>. Los servicios concretos de desarrollo, consultoría o implementación se rigen por un contrato separado que firmamos antes de arrancar cualquier trabajo — no por este aviso.</p>
 
-      <h2>2. Propiedad intelectual</h2>
-      <p>Todo el contenido de este sitio, incluyendo texto, gráficos, logotipos e imágenes, es propiedad de Creapolis y está protegido por leyes de propiedad intelectual.</p>
+      <h2>1. Aceptación</h2>
+      <p>Al acceder o navegar en este sitio aceptás estos términos. Si no estás de acuerdo con alguno de ellos, por favor no utilices el sitio.</p>
 
-      <h2>3. Servicios</h2>
-      <p>Los servicios descritos en este sitio web son仅供参考. Los términos específicos de cada proyecto se definen en contratos separados.</p>
+      <h2>2. Sobre Creapolis</h2>
+      <p>
+        Creapolis es un estudio de desarrollo de software operado por <strong>Tiago David Furtado</strong>, con base en Monterrey, México.
+        <!-- TODO: si registrás persona moral (SA de CV, SAS, etc.) reemplazar con razón social + RFC -->
+        Este sitio tiene fines informativos y comerciales: describe los servicios disponibles, los proyectos propios, y el contenido editorial publicado.
+      </p>
 
-      <h2>4. Limitación de responsabilidad</h2>
-      <p>Creapolis no garantiza que la información en este sitio sea precisa, completa o actualizada. El uso de la información es bajo tu propio riesgo.</p>
+      <h2>3. Propiedad intelectual</h2>
+      <p>Todo el contenido publicado en este sitio — textos, imágenes, código del sitio, logotipo, diseño, y artículos del blog — es propiedad de Creapolis y/o Tiago David Furtado, y está protegido por la legislación mexicana e internacional en materia de propiedad intelectual.</p>
+      <p>Podés:</p>
+      <ul>
+        <li>Leer, imprimir y compartir enlaces al contenido para uso personal o informativo.</li>
+        <li>Citar fragmentos del blog con atribución clara y enlace al artículo original.</li>
+      </ul>
+      <p>No podés:</p>
+      <ul>
+        <li>Reproducir el contenido de forma completa en otros sitios sin autorización escrita.</li>
+        <li>Usar el logotipo, la marca o los elementos visuales de Creapolis en tus productos o comunicaciones.</li>
+        <li>Reutilizar el código del sitio sin autorización explícita.</li>
+      </ul>
 
-      <h2>5. Contacto</h2>
-      <p>Para preguntas sobre estos términos, contáctanos en: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></p>
+      <h2>4. Servicios descritos en el sitio</h2>
+      <p>Los servicios descritos en las páginas de este sitio (apps móviles, web, escritorio, consultoría de IA) tienen carácter únicamente informativo. Los términos específicos de cada proyecto — alcance, cronograma, precio, entregables, propiedad intelectual del trabajo final, garantías — se definen en un <strong>contrato de servicios separado</strong> firmado antes del inicio del trabajo.</p>
+      <p>Ningún contenido de este sitio constituye una oferta vinculante ni un contrato. Una cotización enviada por correo tampoco lo es hasta que esté firmada por ambas partes.</p>
+
+      <h2>5. Formulario de contacto</h2>
+      <p>Al enviar un formulario o mensaje:</p>
+      <ul>
+        <li>Aceptás el tratamiento de tus datos según el <a href="/privacidad">Aviso de privacidad</a>.</li>
+        <li>Te comprometés a proporcionar información veraz.</li>
+        <li>Entendés que recibir respuesta no implica obligación de contratar ni ser contratado — es el inicio de una conversación.</li>
+      </ul>
+
+      <h2>6. Contenido del blog</h2>
+      <p>Los artículos publicados en el blog son opinión técnica del autor basada en experiencia real de desarrollo. Son de buena fe y se actualizan cuando cambia la realidad técnica que describen, pero:</p>
+      <ul>
+        <li>No constituyen asesoría profesional, legal, financiera o médica.</li>
+        <li>No garantizan resultados específicos al aplicar los conceptos descritos.</li>
+        <li>No reemplazan la decisión informada de un consultor o experto para tu caso concreto.</li>
+      </ul>
+
+      <h2>7. Enlaces a terceros</h2>
+      <p>Este sitio contiene enlaces a plataformas externas (tiendas de apps, GitHub, LinkedIn, herramientas mencionadas en el blog). Esos sitios tienen sus propios términos y políticas — te recomendamos revisarlos. Creapolis no tiene control sobre ellos ni responsabilidad por su contenido.</p>
+
+      <h2>8. Limitación de responsabilidad</h2>
+      <p>
+        El contenido del sitio se proporciona "tal cual", sin garantías de disponibilidad ininterrumpida, exactitud absoluta, o ausencia de errores. Creapolis no será responsable por daños derivados del uso o imposibilidad de uso del sitio, incluyendo pérdida de datos o interrupciones.
+        <!-- TODO: revisar con abogado la cláusula de limitación según jurisdicción -->
+      </p>
+      <p>Nota: esta limitación aplica al USO DEL SITIO. Los proyectos contratados tienen su propio esquema de responsabilidad, SLA y garantías definidos en el contrato específico.</p>
+
+      <h2>9. Modificaciones</h2>
+      <p>Estos términos pueden modificarse en cualquier momento. La versión vigente es siempre la publicada en esta página con su fecha de "última actualización" al inicio. El uso continuado del sitio después de una modificación implica aceptación de los nuevos términos.</p>
+
+      <h2>10. Legislación aplicable y jurisdicción</h2>
+      <p>
+        Estos términos se rigen por las leyes de los <strong>Estados Unidos Mexicanos</strong>. Cualquier controversia derivada del uso de este sitio se someterá a los tribunales competentes de la ciudad de <strong>Monterrey, Nuevo León</strong>, renunciando a cualquier otro fuero que pudiera corresponder.
+        <!-- TODO: confirmar con abogado la jurisdicción y si aplica cláusula de arbitraje -->
+      </p>
+
+      <h2>11. Contacto</h2>
+      <p>Para dudas sobre estos términos: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.</p>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand"><div class="footer-logo-mark">C</div><span>Creapolis</span></div>
-      <div class="footer-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacidad">Privacidad</a>
-        <a href="/terminos">Términos</a>
-      </div>
-      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <Footer />
 </Layout>
 
 <style>
   .legal-page {
-    padding: 140px 24px 80px;
-    max-width: 720px;
+    padding: 140px var(--gutter) 100px;
+    background:
+      radial-gradient(60% 40% at 50% 0%, var(--coral-soft) 0%, transparent 60%),
+      var(--paper);
+    min-height: 80vh;
+  }
+  .legal-inner {
+    max-width: 760px;
     margin: 0 auto;
   }
-  .legal-page h1 { font-size: 2rem; margin-bottom: 8px; }
-  .last-updated { color: var(--color-text-tertiary); font-size: 0.875rem; margin-bottom: 40px; }
-  .legal-page h2 { font-size: 1.25rem; margin: 32px 0 12px; }
-  .legal-page p { font-size: 1rem; line-height: 1.7; margin-bottom: 16px; }
-  .legal-page a { color: var(--color-accent); }
+  .legal-head { margin-bottom: 40px; }
+  .legal-head h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 12px;
+  }
+  .legal-head h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .last-updated {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .legal-page p.intro {
+    font-size: 1.1rem; line-height: 1.6;
+    color: var(--ink-2);
+    padding: 20px 24px;
+    background: var(--chalk);
+    border-left: 3px solid var(--coral);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    margin: 0 0 40px;
+  }
+  .legal-page h2 {
+    font-size: 1.25rem; line-height: 1.3;
+    margin: 40px 0 14px;
+    color: var(--ink);
+    padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  .legal-page p, .legal-page li {
+    font-size: 1rem; line-height: 1.7;
+    color: var(--ink-2);
+    margin-bottom: 14px;
+  }
+  .legal-page ul {
+    padding-left: 24px; margin-bottom: 18px;
+  }
+  .legal-page ul li { margin-bottom: 10px; }
+  .legal-page strong { color: var(--ink); font-weight: 500; }
+  .legal-page a {
+    color: var(--coral);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .legal-page a:hover { color: var(--iris); }
 </style>

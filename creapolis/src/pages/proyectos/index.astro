@@ -1,237 +1,267 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 
-const projects = await getCollection('proyectos');
+const apps = [
+  {
+    name: 'Solennix',
+    tagline: 'todo-en-uno para eventos',
+    desc: 'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
+    href: '/solennix',
+    platform: 'iOS · Android · Web',
+    color: 'var(--iris)',
+    status: 'live',
+    deviceRows: [[3], [2], [1]],
+  },
+  {
+    name: 'Pepinillo',
+    tagline: 'Pomodoro, tareas y timer',
+    desc: 'Productividad todo-en-uno: Pomodoro configurable, tareas con prioridades y subtasks, calendario, timer y estadísticas.',
+    href: '/proyectos/pepinillo',
+    platform: 'Android',
+    color: 'var(--lime)',
+    status: 'live',
+    deviceRows: [[2], [3]],
+  },
+  {
+    name: 'Películas',
+    tagline: 'tu cine, a tu manera',
+    desc: 'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones basadas en tus gustos.',
+    href: '/proyectos/peliculas',
+    platform: 'Android',
+    color: 'var(--coral)',
+    status: 'live',
+    deviceRows: [[3], [2]],
+  },
+];
 ---
 
 <Layout title="Proyectos — Creapolis" description="Nuestros proyectos y aplicaciones desarrolladas.">
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <div class="nav-logo-mark">C</div>
-        <span>Creapolis</span>
-      </a>
+  <Nav />
 
-      <div class="nav-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/#proceso">Proceso</a>
-        <a href="/blog">Blog</a>
-        <a href="/#contacto">Contacto</a>
+  <header class="page-hero" id="main-content">
+    <div class="wrap">
+      <div class="page-copy reveal">
+        <div class="eyebrow" style="margin-bottom:20px">
+          <span>Proyectos · En producción</span>
+        </div>
+        <h1>Apps que demuestran<br/><span class="serif">nuestra capacidad</span>.</h1>
+        <p class="lead">Proyectos propios en producción, disponibles en las tiendas. Tecnología real, usuarios reales.</p>
       </div>
-
-      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
-
-      <button class="nav-mobile-toggle" aria-label="Menú">
-        <span></span>
-        <span></span>
-      </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <a href="/#apps">Apps</a>
-    <a href="/#servicios">Servicios</a>
-    <a href="/#proceso">Proceso</a>
-    <a href="/blog">Blog</a>
-    <a href="/#contacto">Contacto</a>
-    <a href="/#contacto" class="cta">Iniciar proyecto</a>
-  </div>
-
-  <!-- Header -->
-  <section class="page-header">
-    <div class="container">
-      <span class="page-label">Proyectos</span>
-      <h1>Apps que demuestran<br />nuestra capacidad.</h1>
-      <p>Proyectos propios en producción, disponibles en las tiendas. Tecnología real, usuarios reales.</p>
-    </div>
-  </section>
-
-  <!-- Projects Grid -->
   <section class="section">
-    <div class="container">
-      <div class="projects-grid">
-        {projects.map((project) => (
-          <a href={`/proyectos/${project.slug}`} class="project-card">
-            <div class="project-visual" style={`--accent: ${project.data.color}`}></div>
-            <div class="project-info">
-              <span class="project-platform" style={`color: ${project.data.color}`}>{project.data.platform}</span>
-              <h2>{project.data.name}</h2>
-              <p>{project.data.desc}</p>
-              <span class="project-link" style={`color: ${project.data.color}`}>Ver detalles →</span>
+    <div class="wrap">
+      <div class="products">
+        {apps.map((app, i) => (
+          <a href={app.href} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${app.color}`}>
+            <div class="product-vis">
+              <div class="glow"></div>
+              <div class="device">
+                <div class="title"></div>
+                {app.deviceRows.map((row) => (
+                  <div class="row">
+                    {row.map(() => <div class="bit"></div>)}
+                  </div>
+                ))}
+                <div class="big"></div>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="head">
+                <h3>{app.name}</h3>
+                <span class="chip live"><span class="chip-dot"></span>Live</span>
+              </div>
+              <span class="tagline serif">{app.tagline}</span>
+              <p>{app.desc}</p>
+              <div class="foot">
+                <span class="plat">{app.platform}</span>
+                <span>Ver detalles →</span>
+              </div>
             </div>
           </a>
         ))}
       </div>
-
-      <!-- Fallback: hardcoded apps from original site -->
-      <div class="projects-grid" id="fallback-projects">
-        <a href="/proyectos/pepinillo" class="project-card">
-          <div class="project-visual" style="--accent: #34C759"></div>
-          <div class="project-info">
-            <span class="project-platform" style="color: #34C759">Android</span>
-            <h2>Pepinillo</h2>
-            <p>App de productividad todo en uno: Pomodoro configurable, gestión de tareas con prioridades, timer y estadísticas.</p>
-            <span class="project-link" style="color: #34C759">Ver detalles →</span>
-          </div>
-        </a>
-
-        <a href="/proyectos/peliculas" class="project-card">
-          <div class="project-visual" style="--accent: #FF9500"></div>
-          <div class="project-info">
-            <span class="project-platform" style="color: #FF9500">Android</span>
-            <h2>Peliculas</h2>
-            <p>Descubre, organiza y disfruta tus películas favoritas. Catálogo extenso, listas personalizadas y recomendaciones.</p>
-            <span class="project-link" style="color: #FF9500">Ver detalles →</span>
-          </div>
-        </a>
-
-        <a href="/proyectos/solennix" class="project-card">
-          <div class="project-visual" style="--accent: #5856D6"></div>
-          <div class="project-info">
-            <span class="project-platform" style="color: #5856D6">Web App</span>
-            <h2>Solennix</h2>
-            <p>Plataforma todo-en-uno para organizadores de eventos: CRM, inventario, cotizaciones y reportes en tiempo real.</p>
-            <span class="project-link" style="color: #5856D6">Ver detalles →</span>
-          </div>
-        </a>
-      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo-mark">C</div>
-        <span>Creapolis</span>
-      </div>
-      <div class="footer-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/#proceso">Proceso</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacidad">Privacidad</a>
-        <a href="/terminos">Términos</a>
-      </div>
-      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <Footer />
 </Layout>
 
 <style>
-  .page-header {
-    padding: 140px 24px 80px;
-    text-align: center;
-    background: var(--color-bg-alt);
+  .page-hero {
+    position: relative;
+    padding: 160px var(--gutter) 80px;
+    overflow: clip;
+    background:
+      radial-gradient(60% 50% at 80% 10%, var(--iris-soft) 0%, transparent 60%),
+      radial-gradient(50% 45% at 10% 80%, var(--coral-soft) 0%, transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, var(--lime-soft) 0%, transparent 70%),
+      var(--paper);
   }
 
-  .page-label {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-bottom: 16px;
+  .page-copy {
+    max-width: 680px;
   }
 
-  .page-header h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 16px;
+  .page-copy h1 {
+    margin-bottom: 20px;
   }
 
-  .page-header p {
-    max-width: 500px;
-    margin: 0 auto;
-    font-size: 1.0625rem;
+  .page-copy h1 .serif {
+    color: var(--iris);
+    font-size: 1.02em;
   }
 
-  .projects-grid {
+  .page-copy .lead {
+    max-width: 48ch;
+  }
+
+  .products {
     display: grid;
+    gap: 20px;
     grid-template-columns: 1fr;
-    gap: 24px;
   }
 
-  @media (min-width: 768px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  @media (min-width: 720px) {
+    .products { grid-template-columns: repeat(2, 1fr); }
   }
 
-  @media (min-width: 1024px) {
-    .projects-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  @media (min-width: 1080px) {
+    .products { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* Hide fallback if we have real projects */
-  #fallback-projects {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    #fallback-projects {
-      display: grid;
-    }
-
-    .projects-grid:first-of-type {
-      display: none;
-    }
-  }
-
-  .project-card {
-    display: block;
-    background: var(--color-bg);
-    border-radius: var(--radius-xl);
+  .product {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
     text-decoration: none;
     color: inherit;
-    border: 1px solid var(--color-border);
-    transition: all 0.3s var(--ease-out);
   }
 
-  .project-card:hover {
+  .product:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--sh-3);
+    border-color: var(--line-2);
   }
 
-  .project-visual {
-    height: 160px;
-    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
-    border-bottom: 1px solid var(--color-border);
+  .product-vis {
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+    background: var(--chalk);
   }
 
-  .project-info {
-    padding: 24px;
+  .product-vis .glow {
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(circle at 50% 40%, var(--product-color), transparent 60%);
+    opacity: 0.28;
   }
 
-  .project-platform {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
+  .product-vis .device {
+    position: absolute;
+    inset: 12% 18% 0 18%;
+    background: var(--ink);
+    border-radius: 22px 22px 0 0;
+    padding: 14px 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .project-info h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+  .product-vis .device::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 5px;
+    background: oklch(0.3 0.01 265);
+    border-radius: 4px;
   }
 
-  .project-info p {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    margin-bottom: 16px;
+  .product-vis .device .title {
+    height: 10px;
+    width: 60%;
+    background: var(--paper);
+    border-radius: 3px;
+    margin-top: 10px;
   }
 
-  .project-link {
-    font-size: 0.8125rem;
-    font-weight: 600;
+  .product-vis .device .row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .product-vis .device .row .bit {
+    flex: 1;
+    height: 26px;
+    background: color-mix(in oklch, var(--product-color) 40%, var(--ink));
+    border-radius: 6px;
+  }
+
+  .product-vis .device .row .bit:nth-child(2) {
+    background: color-mix(in oklch, var(--product-color) 70%, var(--ink));
+  }
+
+  .product-vis .device .big {
+    flex: 1;
+    background: color-mix(in oklch, var(--product-color) 80%, var(--ink));
+    border-radius: 10px 10px 0 0;
+    margin-top: 2px;
+  }
+
+  .product-meta {
+    padding: 22px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .product-meta .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .product-meta h3 {
+    font-size: 1.35rem;
+  }
+
+  .product-meta .tagline {
+    color: var(--product-color);
+    font-size: 1.05rem;
+  }
+
+  .product-meta p {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+  }
+
+  .product-meta .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+
+  .product-meta .foot .plat {
+    font-family: var(--font-mono);
+    color: var(--ink-3);
+    font-size: 0.78rem;
   }
 </style>

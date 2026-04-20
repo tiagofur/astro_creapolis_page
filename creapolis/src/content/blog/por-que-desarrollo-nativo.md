@@ -1,9 +1,9 @@
 ---
 title: "Por qué elegimos desarrollo nativo sobre cross-platform"
 description: "Analizamos las ventajas del desarrollo nativo para iOS y Android, y cuándo tiene sentido usar tecnologías cross-platform."
-pubDate: 2024-12-01
-author: "Creapolis"
-tags: ["desarrollo", "mobile", "ios", "android", "native"]
+pubDate: "2024-12-01"
+author: "tiagofur"
+tags: ["desarrollo", "mobile", "nativo"]
 draft: false
 ---
 

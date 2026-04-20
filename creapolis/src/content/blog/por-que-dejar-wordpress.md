@@ -1,8 +1,8 @@
 ---
 title: "Por qué lasciar de usar WordPress para tu sitio web"
 description: "WordPress fue great en su momento, pero hay opciones mejores para sitios modernos. Te explicamos por qué migrar."
-pubDate: 2024-10-15
-author: "Creapolis"
+pubDate: "2024-10-15"
+author: "tiagofur"
 tags: ["web", "wordpress", "astro", "jamstack"]
 draft: false
 ---

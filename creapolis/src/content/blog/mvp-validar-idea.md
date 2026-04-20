@@ -1,8 +1,8 @@
 ---
 title: "MVP: la forma más inteligente de validar tu idea"
 description: "Por qué empezar con un MVP es la mejor estrategia para startups. Cómo definir el scope correcto y validar antes de invertir."
-pubDate: 2025-03-15
-author: "Creapolis"
+pubDate: "2025-03-15"
+author: "tiagofur"
 tags: ["startup", "mvp", "producto", "estrategia"]
 draft: false
 ---

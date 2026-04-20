@@ -1,334 +1,661 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 
 export function getStaticPaths() {
   const projectsData: Record<string, any> = {
     'pepinillo': {
       name: 'Pepinillo',
-      tagline: 'Pomodoro & Tasks',
-      desc: 'App de productividad todo en uno: Pomodoro configurable, gestión de tareas con prioridades, timer y estadísticas.',
-      fullDesc: 'Pepinillo es una aplicación de productividad diseñada para ayudarte a enfocarte y organizar tu trabajo. Combina la técnica Pomodoro con gestión de tareas en una interfaz limpia y mínima.',
-      platform: 'Android',
-      color: '#34C759',
-      tech: ['Kotlin', 'Jetpack Compose', 'Room', 'Coroutines', 'Material Design 3'],
-      features: [
-        'Temporizador Pomodoro configurable',
-        'Gestión de tareas con prioridades',
-        'Estadísticas de productividad',
-        'Modo focus sin distracciones',
-        'Sincronización de datos'
+      storeName: 'Pikle',
+      tagline: 'Enfoque sin fricción',
+      subtitle: 'Pomodoro, tareas y timer para Android',
+      lead: 'Una app de productividad que no te pide aprenderla. Abrís, elegís la tarea, arranca el Pomodoro. Así de simple.',
+      color: 'var(--lime)',
+      colorSoft: 'var(--lime-soft)',
+      ribbonStops: [
+        { offset: '0%', color: 'oklch(0.84 0.18 128)', opacity: '0.4' },
+        { offset: '100%', color: 'oklch(0.72 0.14 235)', opacity: '0.3' },
       ],
-      link: 'https://play.google.com/store/apps/details?id=com.creapolis.pepinillo'
+      category: 'Productividad',
+      platform: 'Android',
+      languages: 'ES · EN',
+      featureLabel: 'Módulos · Lo que hace',
+      headline: 'Productividad sin ceremonia.',
+      headlineAccent: 'Sólo lo que usás todos los días.',
+      features: [
+        { letter: 'P', title: 'Pomodoro configurable', desc: 'Ajustá duración de focus, descansos cortos y largos. Vinculá una tarea a la sesión y concentrarte en una sola cosa.' },
+        { letter: 'T', title: 'Tareas con prioridad', desc: 'Lista con prioridades, fechas de vencimiento y subtasks como checklist. Buscá y filtrá por estado: pendientes, completadas, hoy, vencidas.' },
+        { letter: 'C', title: 'Vista calendario', desc: 'Organizá tus tareas por fecha. Tocá un día y mirá qué tenés que hacer. Sin fricción, sin menús anidados.' },
+        { letter: 'S', title: 'Estadísticas honestas', desc: 'Dashboard con actividad, promedios y horas de focus reales. Sin gamificación ni streaks que estresan.' },
+        { letter: '⏱', title: 'Timer + Stopwatch', desc: 'Cuando no necesitás Pomodoro, usá el countdown configurable o el cronómetro. Todo en una sola app.' },
+        { letter: '◐', title: 'Temas y personalización', desc: 'Light/dark automático, colores personalizables. La versión Premium desbloquea temas extra y sincronización multi-dispositivo.' },
+      ],
+      mockup: {
+        headTitle: 'Hoy',
+        headSub: '3 tareas activas',
+        stats: [
+          { v: '12', l: 'Pomodoros' },
+          { v: '4.2h', l: 'Focus' },
+          { v: '8', l: 'Tareas' },
+        ],
+        listLabel: 'En progreso',
+        listItems: [
+          { color: 'var(--lime)', name: 'Diseño landing', tag: '25 min' },
+          { color: 'var(--iris)', name: 'Revisar PRs', tag: '10 min' },
+          { color: 'var(--amber)', name: 'Email cliente', tag: '5 min' },
+        ],
+      },
+      story: [
+        {
+          title: 'El problema',
+          text: 'Las apps de productividad están llenas de funciones que nadie usa. Menús anidados, etiquetas, gamificación, racha de días. Todo para que abras la app, no para que trabajes.',
+        },
+        {
+          title: 'El enfoque',
+          text: 'Pepinillo arrancó con dos cosas: Pomodoro y tareas. Cada feature nuevo responde a "¿esto me ayuda a terminar la tarea, o me distrae?". El calendario, el timer, las subtasks — todo entró porque lo necesitaba yo primero.',
+        },
+        {
+          title: 'Lo que aprendí',
+          text: 'Menos es más cuando cada elemento tiene un propósito. La app más usada es la que no tenés que pensar para abrir. Jetpack Compose me permitió iterar el diseño cinco veces sin reescribir la lógica. Crashlytics me enseña dónde se rompe antes de que el usuario me escriba.',
+        },
+      ],
+      tech: ['Kotlin', 'Jetpack Compose', 'Room', 'Coroutines', 'Material You', 'WorkManager', 'Firebase Crashlytics'],
+      storeLinks: {
+        google: 'https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo',
+      },
     },
     'peliculas': {
-      name: 'Peliculas',
+      name: 'Películas',
       tagline: 'Tu cine, a tu manera',
-      desc: 'Descubre, organiza y disfruta tus películas favoritas. Catálogo extenso, listas personalizadas y recomendaciones.',
-      fullDesc: 'Una aplicación completa para los amantes del cine. Explora un catálogo extenso, crea listas personalizadas, guarda tus favoritas y descubre nuevas películas basadas en tus gustos.',
+      subtitle: 'Catálogo, listas y recomendaciones para Android',
+      lead: 'Descubrí qué mirar esta noche, guardá lo que te gustó, y olvidate de buscar en tres apps distintas qué película era esa.',
+      color: 'var(--coral)',
+      colorSoft: 'var(--coral-soft)',
+      ribbonStops: [
+        { offset: '0%', color: 'oklch(0.72 0.18 32)', opacity: '0.4' },
+        { offset: '100%', color: 'oklch(0.78 0.16 70)', opacity: '0.3' },
+      ],
+      category: 'Entretenimiento',
       platform: 'Android',
-      color: '#FF9500',
-      tech: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Coil', 'Room'],
+      languages: 'ES · EN',
+      featureLabel: 'Módulos · Lo que hace',
+      headline: 'Todo tu cine,',
+      headlineAccent: 'en una sola app.',
       features: [
-        'Exploración de catálogo de películas',
-        'Creación de listas personalizadas',
-        'Sistema de favoritos',
-        'Búsqueda avanzada',
-        'Detalles completos de cada película'
+        { letter: 'E', title: 'Explorá catálogo', desc: 'Miles de películas y series, desde los estrenos hasta los clásicos. Buscá por título, actor, director o género.' },
+        { letter: 'L', title: 'Listas personalizadas', desc: 'Crea listas por géneros, décadas, o lo que se te ocurra. "Para el domingo", "Con mi vieja", como quieras. Tus favoritos con un tap.' },
+        { letter: 'Q', title: 'Búsqueda avanzada', desc: 'Filtrá por año, género, calificación, actores o duración. Encontrá exactamente lo que tenés ganas de ver.' },
+        { letter: 'i', title: 'Detalles completos', desc: 'Reparto, puntuación, trailer, trivia y sinopsis. Todo en una vista, sin abrir cinco apps. Recomendaciones basadas en lo que guardaste.' },
+        { letter: '⟳', title: 'Sync multi-dispositivo', desc: 'Tus listas y favoritos en cualquier dispositivo. Tu cuenta, tu colección, donde estés.' },
+        { letter: '⚡', title: 'Rápida y moderna', desc: 'Interfaz fluida con cache agresivo de posters, transiciones animadas, y soporte para Android 15. Sin lag, sin esperas.' },
       ],
-      link: 'https://play.google.com/store/apps/details?id=com.creapolis.peliculas'
-    },
-    'solennix': {
-      name: 'Solennix',
-      tagline: 'App todo-en-uno para organizadores de eventos',
-      desc: 'CRM, cotizaciones, inventario y dashboard para profesionales de eventos en Latinoamérica.',
-      fullDesc: 'Solennix es la app todo-en-uno para organizadores de eventos profesionales en Latinoamérica: bodas, quinceañeras, cumpleaños, eventos corporativos y sociales. Gestión completa desde el primer contacto hasta el reporte final.',
-      platform: 'iOS & Android',
-      color: '#5856D6',
-      tech: ['Swift', 'Kotlin', 'Firebase', 'Cloud Firestore'],
-      features: [
-        'Gestión de eventos con calendario y checklist',
-        'CRM de clientes con historial',
-        'Cotizaciones y contratos',
-        'Control de inventario',
-        'Dashboard con KPIs'
+      mockup: {
+        headTitle: 'Tu lista',
+        headSub: '24 películas guardadas',
+        stats: [
+          { v: '124', l: 'Vistas' },
+          { v: '4.6', l: 'Promedio' },
+          { v: '8', l: 'Listas' },
+        ],
+        listLabel: 'Para ver',
+        listItems: [
+          { color: 'var(--coral)', name: 'El padrino', tag: '1972' },
+          { color: 'var(--iris)', name: 'Interstellar', tag: '2014' },
+          { color: 'var(--amber)', name: 'Whiplash', tag: '2014' },
+        ],
+      },
+      story: [
+        {
+          title: 'El problema',
+          text: 'Querés ver una película y terminás viendo tres apps de streaming en paralelo para averiguar dónde está. Una lista que te armaste en una app no sirve en otra. Caos.',
+        },
+        {
+          title: 'El enfoque',
+          text: 'Películas es una capa propia sobre datos abiertos de cine. Guardás lo que te importa, creás listas con el criterio que quieras, y la app te dice dónde mirarla. El catálogo sigue siendo infinito — pero tu selección es tuya.',
+        },
+        {
+          title: 'Lo que aprendí',
+          text: 'Las imágenes son todo en este tipo de app. Coil con cache agresivo, posters pre-cargados, transiciones animadas entre lista y detalle. La app se siente rápida porque nunca ves un hueco donde debería ir una portada. Android 15 me obligó a repensar permisos y batería — y el resultado fue mejor para el usuario.',
+        },
       ],
-      linkApple: 'https://apps.apple.com/mx/app/solennix/id6760874129',
-      linkGoogle: 'https://play.google.com/store/apps/details?id=com.solennix.app',
-      link: 'https://solennix.com'
+      tech: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Coil', 'Room', 'Hilt'],
+      storeLinks: {
+        google: 'https://play.google.com/store/apps/details?id=mx.creapolis.peliculas',
+      },
     },
   };
 
   return Object.keys(projectsData).map((slug) => ({
     params: { slug },
-    props: { project: projectsData[slug] },
+    props: { project: projectsData[slug], slug },
   }));
 }
 
-const { project } = Astro.props;
+const { project, slug } = Astro.props;
 
 if (!project) {
   return Astro.redirect('/proyectos');
 }
+
+const gradientId = `prib-${slug}`;
 ---
 
-<Layout 
-  title={`${project.name} — Creapolis`} 
-  description={project.desc}
+<Layout
+  title={`${project.name} — Creapolis`}
+  description={project.lead}
 >
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <div class="nav-logo-mark">C</div>
-        <span>Creapolis</span>
+  <Nav />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO — ribbon + chips + mockup
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="p-hero" style={`--p-color: ${project.color}; --p-soft: ${project.colorSoft}`}>
+    <div class="ribbon" aria-hidden="true">
+      <svg viewBox="0 0 1400 800" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            {project.ribbonStops.map((s: any) => (
+              <stop offset={s.offset} stop-color={s.color} stop-opacity={s.opacity} />
+            ))}
+          </linearGradient>
+        </defs>
+        <path
+          d="M -100,500 C 300,300 500,650 800,400 C 1100,150 1300,550 1500,300"
+          fill="none"
+          stroke={`url(#${gradientId})`}
+          stroke-width="100"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+
+    <div class="wrap">
+      <a href="/proyectos" class="back-link reveal">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8M6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Volver a proyectos
       </a>
 
-      <div class="nav-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/#proceso">Proceso</a>
-        <a href="/blog">Blog</a>
-        <a href="/#contacto">Contacto</a>
+      <div class="hero-grid">
+        <div class="hero-copy reveal reveal-delay-1">
+          <div class="chips-row">
+            <span class="chip live"><span class="chip-dot"></span>En producción</span>
+            <span class="chip proj-chip">Por Creapolis</span>
+          </div>
+          <h1>
+            <span class="serif">{project.name}.</span><br/>
+            {project.headline}<br/>
+            <span class="accent">{project.headlineAccent}</span>
+          </h1>
+          <p class="tag">{project.lead}</p>
+
+          <div class="stores">
+            {project.storeLinks.apple && (
+              <a class="store" href={project.storeLinks.apple} target="_blank" rel="noopener">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.7 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.94.88-3.7.88-.78 0-1.95-.86-3.22-.84a4.72 4.72 0 0 0-3.98 2.42c-1.7 2.95-.43 7.3 1.22 9.7.8 1.17 1.76 2.48 3.02 2.44 1.22-.05 1.68-.78 3.15-.78 1.46 0 1.88.78 3.17.75 1.31-.02 2.14-1.18 2.94-2.36a10.5 10.5 0 0 0 1.34-2.73 4.25 4.25 0 0 1-2.49-3.86zM14.5 5.25a4.3 4.3 0 0 0 1-3.25 4.47 4.47 0 0 0-2.9 1.5 4.16 4.16 0 0 0-1.02 3.15 3.67 3.67 0 0 0 2.92-1.4z"/></svg>
+                <span><span class="small">Descargá en</span><span class="big">App Store</span></span>
+              </a>
+            )}
+            {project.storeLinks.google && (
+              <a class="store" href={project.storeLinks.google} target="_blank" rel="noopener">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.9C3.2 2.1 3 2.5 3 3v18c0 .5.2.9.6 1.1l10.5-10.2L3.6 1.9zm12 10.6l2.7 2.6-3.8 2.2-2-1.9 3.1-2.9zm0-1.9l-3-2.9 2.4-1.4 3.4 2-2.8 2.3zM4.7 2.4l10.2 10-10.2 10v-20z"/></svg>
+                <span><span class="small">Descargá en</span><span class="big">Google Play</span></span>
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div class="phone-wrap reveal reveal-delay-2">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="ps-head">
+                <div>
+                  <h4>{project.mockup.headTitle}</h4>
+                  <div class="sub">{project.mockup.headSub}</div>
+                </div>
+                <div class="ps-avatar" style={`background: ${project.color}`}></div>
+              </div>
+              <div class="ps-stats">
+                {project.mockup.stats.map((s: any) => (
+                  <div class="ps-stat"><div class="v">{s.v}</div><div class="l">{s.l}</div></div>
+                ))}
+              </div>
+              <div class="ps-label">{project.mockup.listLabel}</div>
+              <div class="ps-list">
+                {project.mockup.listItems.map((it: any) => (
+                  <div class="ps-item"><span class="dot" style={`background: ${it.color}`}></span><span class="name">{it.name}</span><span class="date">{it.tag}</span></div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="phone-glow" aria-hidden="true"></div>
+        </div>
       </div>
-
-      <a href="/#contacto" class="nav-cta">Iniciar proyecto</a>
-
-      <button class="nav-mobile-toggle" aria-label="Menú">
-        <span></span>
-        <span></span>
-      </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <a href="/#apps">Apps</a>
-    <a href="/#servicios">Servicios</a>
-    <a href="/#proceso">Proceso</a>
-    <a href="/blog">Blog</a>
-    <a href="/#contacto">Contacto</a>
-    <a href="/#contacto" class="cta">Iniciar proyecto</a>
-  </div>
-
-  <!-- Project Header -->
-  <section class="project-header">
-    <div class="container">
-      <a href="/proyectos" class="back-link">← Volver a proyectos</a>
-      
-      <div class="project-badges">
-        <span class="project-platform" style={`background: ${project.color}20; color: ${project.color}`}>{project.platform}</span>
-      </div>
-
-      <h1>{project.name}</h1>
-      <p class="project-tagline">{project.tagline}</p>
+  <!-- ═══════════════════════════════════════════════════════════════
+       INFO STRIP
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="info-strip">
+    <div class="row wrap">
+      <div class="info-cell"><div class="v">{project.platform}</div><div class="l">Plataforma</div></div>
+      <div class="info-cell"><div class="v">{project.category}</div><div class="l">Categoría</div></div>
+      <div class="info-cell"><div class="v">{project.languages}</div><div class="l">Idiomas</div></div>
+      <div class="info-cell"><div class="v">Gratis</div><div class="l">Precio</div></div>
     </div>
   </section>
 
-  <!-- Project Content -->
-  <section class="section">
-    <div class="container">
-      <div class="project-content">
-        <div class="project-visual-large" style={`--accent: ${project.color}`}></div>
-        
-        <div class="project-details">
-          <h2>Descripción</h2>
-          <p>{project.fullDesc}</p>
+  <!-- ═══════════════════════════════════════════════════════════════
+       FEATURES
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="features" class="section">
+    <div class="wrap">
+      <div class="products-header">
+        <div class="reveal">
+          <div class="eyebrow" style="margin-bottom:18px"><span>{project.featureLabel}</span></div>
+          <h2>Construida <span class="serif">con criterio</span>,<br/>no con un checklist.</h2>
+        </div>
+        <p class="reveal reveal-delay-1">Cada módulo responde a un uso real. Nada de funciones decorativas que suman en la demo y estorban en el día a día.</p>
+      </div>
 
-          <h2>Características</h2>
-          <ul class="features-list">
-            {project.features.map((f: string) => <li>{f}</li>)}
-          </ul>
-
-          <h2>Tecnologías</h2>
-          <div class="tech-list">
-            {project.tech.map((t: string) => <span class="tech-item">{t}</span>)}
+      <div class="features">
+        {project.features.map((feature: any, i: number) => (
+          <div class={`feature reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+            <div class="icon" style={`--accent-color: ${project.color}`}>{feature.letter}</div>
+            <h3>{feature.title}</h3>
+            <p>{feature.desc}</p>
           </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-          {project.linkApple && (
-            <a href={project.linkApple} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
-              App Store →
-            </a>
-          )}
-          {project.linkGoogle && (
-            <a href={project.linkGoogle} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
-              Google Play →
-            </a>
-          )}
-          {project.link && !project.linkApple && !project.linkGoogle && (
-            <a href={project.link} target="_blank" rel="noopener" class="btn btn-secondary project-link-btn">
-              Ver en tienda →
-            </a>
-          )}
+  <!-- ═══════════════════════════════════════════════════════════════
+       CASE STUDY — cómo la construimos
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="section case-study" style="background: var(--chalk)">
+    <div class="wrap">
+      <div class="case-head reveal">
+        <div class="eyebrow" style="margin-bottom:16px"><span>Cómo la construimos</span></div>
+        <h2>Tres decisiones que <span class="serif">importaron</span>.</h2>
+      </div>
+
+      <div class="case-grid">
+        {project.story.map((chapter: any, i: number) => (
+          <div class={`case-block reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+            <div class="case-num" style={`color: ${project.color}`}>{String(i + 1).padStart(2, '0')}</div>
+            <h3>{chapter.title}</h3>
+            <p>{chapter.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="tech-block reveal">
+        <div class="eyebrow" style="margin-bottom:14px"><span>Stack</span></div>
+        <div class="tech-chips">
+          {project.tech.map((t: string) => (
+            <span class="tech-chip" style={`--accent-color: ${project.color}`}>{t}</span>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="cta-box">
-        <h2>¿Quieres algo similar?</h2>
-        <p>Contáctanos y platícanos de tu idea. Podemos construir algo igual de bueno o mejor.</p>
-        <a href="mailto:hola@creapolis.dev" class="btn btn-primary">Iniciar proyecto</a>
+  <!-- ═══════════════════════════════════════════════════════════════
+       DOWNLOAD CTA
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="download">
+    <div class="wrap reveal">
+      <div class="eyebrow" style="margin-bottom:16px; color: var(--ink-3)"><span>Descargá</span></div>
+      <h2>Probala <span class="serif">hoy mismo</span>.</h2>
+      <p>Gratis, sin cuentas, sin anuncios molestos. Abrís y usás.</p>
+      <div class="download-btns">
+        {project.storeLinks.apple && (
+          <a class="store" href={project.storeLinks.apple} target="_blank" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.7 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.94.88-3.7.88-.78 0-1.95-.86-3.22-.84a4.72 4.72 0 0 0-3.98 2.42c-1.7 2.95-.43 7.3 1.22 9.7.8 1.17 1.76 2.48 3.02 2.44 1.22-.05 1.68-.78 3.15-.78 1.46 0 1.88.78 3.17.75 1.31-.02 2.14-1.18 2.94-2.36a10.5 10.5 0 0 0 1.34-2.73 4.25 4.25 0 0 1-2.49-3.86zM14.5 5.25a4.3 4.3 0 0 0 1-3.25 4.47 4.47 0 0 0-2.9 1.5 4.16 4.16 0 0 0-1.02 3.15 3.67 3.67 0 0 0 2.92-1.4z"/></svg>
+            <span><span class="small">Descargá en</span><span class="big">App Store</span></span>
+          </a>
+        )}
+        {project.storeLinks.google && (
+          <a class="store" href={project.storeLinks.google} target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.9C3.2 2.1 3 2.5 3 3v18c0 .5.2.9.6 1.1l10.5-10.2L3.6 1.9z"/></svg>
+            <span><span class="small">Descargá en</span><span class="big">Google Play</span></span>
+          </a>
+        )}
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo-mark">C</div>
-        <span>Creapolis</span>
+  <!-- ═══════════════════════════════════════════════════════════════
+       CONTACT CTA
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="contacto" class="contact-cta">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div class="eyebrow" style="margin-bottom:16px"><span>¿Algo parecido?</span></div>
+        <h2>¿Necesitás algo <span class="serif">similar</span>?</h2>
+        <p class="lead">Si te gustó esta app y querés una para tu industria o tu idea, hablamos. Construyo cosas así todos los días.</p>
+        <div class="cta-row">
+          <a href="/contacto" class="btn btn-primary btn-lg">Iniciar proyecto
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="/proyectos" class="btn btn-ghost btn-lg">Ver otros proyectos</a>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="/#apps">Apps</a>
-        <a href="/#servicios">Servicios</a>
-        <a href="/#proceso">Proceso</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacidad">Privacidad</a>
-        <a href="/terminos">Términos</a>
-      </div>
-      <p class="footer-copy">© {new Date().getFullYear()} Creapolis. Todos los derechos reservados.</p>
     </div>
-  </footer>
+  </section>
+
+  <Footer />
 </Layout>
 
 <style>
-  .project-header {
-    padding: 140px 24px 60px;
-    text-align: center;
-    background: var(--color-bg-alt);
+  /* ═══════════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════════ */
+  .p-hero {
+    position: relative;
+    overflow: clip;
+    padding: 120px var(--gutter) clamp(60px, 8vw, 100px);
+    background:
+      radial-gradient(60% 50% at 50% 0%, var(--p-soft) 0%, transparent 60%),
+      var(--paper);
   }
+  .p-hero .ribbon { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .p-hero .ribbon svg { width: 100%; height: 100%; }
+  .p-hero .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; }
 
   .back-link {
-    display: inline-block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-bottom: 24px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    font-weight: 500; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 32px;
+    transition: color 0.2s;
   }
+  .back-link:hover { color: var(--p-color); }
 
-  .back-link:hover {
-    color: var(--color-accent);
-  }
-
-  .project-badges {
-    margin-bottom: 16px;
-  }
-
-  .project-platform {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-  }
-
-  .project-header h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    margin-bottom: 8px;
-  }
-
-  .project-tagline {
-    font-size: 1.25rem;
-    color: var(--color-text-secondary);
-  }
-
-  .project-content {
-    display: grid;
+  .hero-grid {
+    display: grid; gap: 48px;
     grid-template-columns: 1fr;
-    gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 64px; }
   }
 
-  @media (min-width: 768px) {
-    .project-content {
-      grid-template-columns: 1fr 1fr;
-    }
+  .chips-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .proj-chip {
+    color: var(--p-color);
+    background: var(--p-soft);
+    border-color: color-mix(in oklch, var(--p-color) 25%, var(--line));
   }
 
-  .project-visual-large {
-    aspect-ratio: 4/3;
-    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border);
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1; letter-spacing: -0.025em;
+    color: var(--ink); margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .hero-copy h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--p-color);
+  }
+  .hero-copy h1 .accent {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--ink-2);
+  }
+  .hero-copy .tag {
+    font-size: 1.1rem; line-height: 1.55;
+    color: var(--ink-2); max-width: 48ch; margin: 0 0 32px;
   }
 
-  .project-details h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 12px;
+  .stores { display: flex; flex-wrap: wrap; gap: 12px; }
+  .store {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 18px;
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--r-md);
+    text-decoration: none;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+  .store:hover { transform: translateY(-2px); box-shadow: var(--sh-3); }
+  .store .small { display: block; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; }
+  .store .big { display: block; font-size: 1.02rem; font-weight: 500; }
+
+  /* Phone mockup */
+  .phone-wrap { position: relative; display: flex; justify-content: center; }
+  .phone-glow {
+    position: absolute; inset: -20%;
+    background: radial-gradient(circle, var(--p-color) 0%, transparent 60%);
+    opacity: 0.18; z-index: 0; pointer-events: none;
+  }
+  .phone {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 320px;
+    aspect-ratio: 9 / 18;
+    background: var(--ink);
+    border-radius: 40px;
+    padding: 14px;
+    box-shadow: var(--sh-3);
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: var(--paper);
+    border-radius: 28px;
+    padding: 22px 18px;
+    display: flex; flex-direction: column; gap: 16px;
+    overflow: hidden;
+  }
+  .ps-head { display: flex; justify-content: space-between; align-items: center; }
+  .ps-head h4 { font-family: var(--font-serif); font-style: italic; font-size: 1.5rem; margin: 0; color: var(--ink); }
+  .ps-head .sub { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .ps-avatar { width: 34px; height: 34px; border-radius: 999px; opacity: 0.9; }
+  .ps-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ps-stat {
+    background: var(--chalk); border-radius: var(--r-sm);
+    padding: 10px 8px; text-align: center;
+  }
+  .ps-stat .v { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--ink); line-height: 1; }
+  .ps-stat .l { font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+  .ps-label { font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ps-list { display: flex; flex-direction: column; gap: 8px; }
+  .ps-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--chalk); border-radius: var(--r-sm);
+  }
+  .ps-item .dot { width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; }
+  .ps-item .name { flex: 1; font-size: 0.82rem; color: var(--ink); }
+  .ps-item .date { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-3); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     INFO STRIP
+     ═══════════════════════════════════════════════════════════════ */
+  .info-strip {
+    background: var(--ink); color: var(--paper);
+    padding: 28px var(--gutter);
+  }
+  .info-strip .row {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px 32px;
+  }
+  @media (min-width: 720px) { .info-strip .row { grid-template-columns: repeat(4, 1fr); } }
+  .info-cell .v {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1;
+    color: var(--paper);
+  }
+  .info-cell .l {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: oklch(0.72 0.01 265); margin-top: 6px;
   }
 
-  .project-details p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 32px;
-  }
-
-  .features-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 32px;
-  }
-
-  .features-list li {
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    padding: 8px 0;
-    padding-left: 20px;
+  /* ═══════════════════════════════════════════════════════════════
+     FEATURES
+     ═══════════════════════════════════════════════════════════════ */
+  .section {
+    padding: clamp(64px, 9vw, 120px) var(--gutter);
     position: relative;
   }
+  .section .wrap { max-width: var(--max); margin: 0 auto; }
 
-  .features-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--color-accent);
-    font-weight: 600;
+  .products-header {
+    display: grid; gap: 24px; align-items: end;
+    grid-template-columns: 1fr; margin-bottom: 56px;
+  }
+  @media (min-width: 760px) {
+    .products-header { grid-template-columns: 1.4fr 1fr; gap: 48px; }
+  }
+  .products-header h2 {
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0;
+    text-wrap: balance;
+  }
+  .products-header h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--p-color);
+  }
+  .products-header p {
+    color: var(--ink-2); font-size: 1rem;
+    line-height: 1.55; max-width: 40ch; margin: 0;
   }
 
-  .project-link-btn {
-    display: inline-flex;
-    margin-top: 16px;
-    margin-right: 12px;
+  .features {
+    display: grid; gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .features { grid-template-columns: repeat(3, 1fr); } }
+
+  .feature {
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .feature:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--p-color); }
+  .feature .icon {
+    --accent-color: var(--p-color);
+    width: 48px; height: 48px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-style: italic; font-size: 1.6rem;
+    color: var(--accent-color);
+    background: color-mix(in oklch, var(--accent-color) 14%, var(--paper));
+    border-radius: var(--r-md);
+    margin-bottom: 16px;
+  }
+  .feature h3 { font-size: 1.1rem; line-height: 1.3; margin: 0 0 8px; color: var(--ink); }
+  .feature p { font-size: 0.92rem; line-height: 1.55; color: var(--ink-2); margin: 0; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CASE STUDY
+     ═══════════════════════════════════════════════════════════════ */
+  .case-head { max-width: 640px; margin-bottom: 56px; }
+  .case-head h2 {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0;
+    text-wrap: balance;
+  }
+  .case-head h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--p-color);
   }
 
-  .tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .case-grid {
+    display: grid; gap: 32px;
+    grid-template-columns: 1fr;
+    margin-bottom: 64px;
+  }
+  @media (min-width: 800px) { .case-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .case-block { padding: 28px; border-top: 2px solid var(--line); }
+  .case-num {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 3rem; line-height: 1;
+    margin-bottom: 16px;
+  }
+  .case-block h3 { font-size: 1.15rem; margin: 0 0 10px; color: var(--ink); }
+  .case-block p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  .tech-block { padding-top: 24px; border-top: 1px solid var(--line); }
+  .tech-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tech-chip {
+    --accent-color: var(--p-color);
+    display: inline-flex; align-items: center;
+    padding: 8px 16px;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--accent-color);
+    background: color-mix(in oklch, var(--accent-color) 10%, var(--paper));
+    border: 1px solid color-mix(in oklch, var(--accent-color) 25%, var(--line));
+    border-radius: 999px;
   }
 
-  .tech-item {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-  }
-
-  .cta-box {
+  /* ═══════════════════════════════════════════════════════════════
+     DOWNLOAD
+     ═══════════════════════════════════════════════════════════════ */
+  .download {
+    padding: clamp(72px, 10vw, 120px) var(--gutter);
+    background: var(--ink); color: var(--paper);
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 48px;
-    background: var(--color-bg);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border);
+  }
+  .download .wrap { max-width: 640px; margin: 0 auto; }
+  .download h2 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--paper); margin: 0 0 16px;
+  }
+  .download h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--p-color);
+  }
+  .download p { color: oklch(0.82 0.01 265); font-size: 1.05rem; margin: 0 0 32px; }
+  .download .eyebrow span { color: oklch(0.72 0.01 265); }
+  .download-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .download .store {
+    background: var(--paper); color: var(--ink);
   }
 
-  .cta-box h2 {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
+  /* ═══════════════════════════════════════════════════════════════
+     CONTACT CTA
+     ═══════════════════════════════════════════════════════════════ */
+  .contact-cta { padding: clamp(64px, 9vw, 120px) var(--gutter); background: var(--paper); }
+  .contact-cta .wrap { max-width: var(--max); margin: 0 auto; }
+  .contact-card {
+    max-width: 760px; margin: 0 auto;
+    padding: clamp(40px, 6vw, 64px);
+    text-align: center;
+    background: linear-gradient(180deg, var(--paper), var(--chalk));
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-3);
+    position: relative;
+    overflow: clip;
   }
-
-  .cta-box p {
-    margin-bottom: 24px;
+  .contact-card::before {
+    content: ''; position: absolute;
+    inset: -40% -20% auto auto;
+    width: 70%; height: 180%;
+    background: radial-gradient(circle, var(--p-soft) 0%, transparent 60%);
+    z-index: 0;
   }
+  .contact-card > * { position: relative; z-index: 1; }
+  .contact-card h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin: 0 0 14px; color: var(--ink);
+  }
+  .contact-card h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--p-color);
+  }
+  .contact-card p.lead {
+    font-size: 1.05rem; color: var(--ink-2);
+    max-width: 44ch; margin: 0 auto 32px;
+  }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 </style>
