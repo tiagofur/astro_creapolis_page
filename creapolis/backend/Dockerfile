@@ -8,16 +8,14 @@ RUN apk add --no-cache ca-certificates git
 
 WORKDIR /src
 
-# Copy module definition first to maximize Docker layer cache
-COPY go.mod go.sum ./
-
-# go.sum is intentionally minimal (chi + cors only) so we run `go mod tidy`
-# to resolve the MySQL driver and rebuild the checksum file inside the image.
-# This keeps the build reproducible from go.mod alone.
-RUN go mod tidy
-
-# Now copy the rest of the source
+# Copy all source first (go.sum tracked in the repo is intentionally minimal,
+# so we regenerate it here after everything is in place).
 COPY . .
+
+# Resolve dependencies and (re)generate go.sum for the MySQL driver.
+# Running tidy AFTER the full COPY avoids having the full-source copy
+# overwrite an already-regenerated go.sum layer.
+RUN go mod tidy
 
 # Build a fully static binary (no libc dependency → works on scratch/distroless)
 # CGO_ENABLED=0 is important because the MySQL driver is pure Go.
