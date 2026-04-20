@@ -356,10 +356,14 @@ func sendEmailNotification(c *Contact) {
 	addr := fmt.Sprintf("%s:%s", smtpHost, smtpPort)
 	auth := smtp.PlainAuth("", smtpUser, smtpPass, smtpHost)
 
+	// Allow skipping TLS verification for same-host Postfix relays that use
+	// Plesk's default self-signed cert. Enable only via env var.
+	insecure := strings.EqualFold(os.Getenv("SMTP_INSECURE_SKIP_VERIFY"), "true")
+
 	var err error
 	if smtpPort == "465" {
 		// Implicit TLS (IONOS uses port 465)
-		err = sendMailTLS(addr, auth, from.Address, []string{to.Address}, []byte(msg.String()))
+		err = sendMailTLS(addr, auth, from.Address, []string{to.Address}, []byte(msg.String()), insecure)
 	} else {
 		// STARTTLS (port 587)
 		err = smtp.SendMail(addr, auth, from.Address, []string{to.Address}, []byte(msg.String()))
@@ -372,10 +376,16 @@ func sendEmailNotification(c *Contact) {
 	}
 }
 
-// sendMailTLS sends email via implicit TLS (port 465)
-func sendMailTLS(addr string, auth smtp.Auth, from string, to []string, msg []byte) error {
+// sendMailTLS sends email via implicit TLS (port 465).
+// If insecureSkipVerify is true, the server's certificate is not validated —
+// only appropriate for SMTP relays reached over trusted local networks
+// (e.g. the Docker bridge to a same-host Postfix with a self-signed cert).
+func sendMailTLS(addr string, auth smtp.Auth, from string, to []string, msg []byte, insecureSkipVerify bool) error {
 	host := strings.Split(addr, ":")[0]
-	tlsConfig := &tls.Config{ServerName: host}
+	tlsConfig := &tls.Config{
+		ServerName:         host,
+		InsecureSkipVerify: insecureSkipVerify,
+	}
 
 	conn, err := tls.Dial("tcp", addr, tlsConfig)
 	if err != nil {
