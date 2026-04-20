@@ -1,0 +1,15 @@
+# Compiled binary (we rebuild inside the image)
+server
+
+# Editor / OS cruft
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Git metadata
+.git/
+.gitignore
+
+# Docs that don't need to ship in the image
+README.md

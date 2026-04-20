@@ -1,6 +1,6 @@
 # Backend — Contact Form API
 
-## Go + Chi router + PostgreSQL
+## Go + Chi router + MariaDB
 
 Servidor en Go para recibir submissions del formulario de contacto con protección anti-spam.
 
@@ -10,7 +10,7 @@ Servidor en Go para recibir submissions del formulario de contacto con protecci�
 - ✅ Rate limiting (5 req/min por IP)
 - ✅ Timestamp challenge (anti-bot rápido)
 - ✅ Validación de email
-- ✅ Guardar en PostgreSQL
+- ✅ Guardar en MariaDB / MySQL
 - ✅ Email notifications (logs en desarrollo)
 
 ## Correr
@@ -25,9 +25,30 @@ El servidor corre en `http://localhost:3000`
 ## Environment Variables
 
 ```bash
+# Server
 PORT=3000
-DATABASE_URL=postgres://user:pass@localhost:5432/creapolis?sslmode=disable
+
+# Database (MariaDB/MySQL DSN — formato Go driver)
+# user:password@tcp(host:port)/dbname?parseTime=true&charset=utf8mb4&loc=Local
+DATABASE_URL=creapolis_api:tu-password@tcp(localhost:3306)/creapolis_dev?parseTime=true&charset=utf8mb4&loc=Local
+
+# SMTP (Plesk Mail — para enviar notificaciones del formulario)
+SMTP_HOST=creapolis.dev
+SMTP_PORT=465
+SMTP_USER=no-reply@creapolis.dev
+SMTP_PASS=tu-password-de-email
+
+# Email destino para notificaciones (opcional, default: SMTP_USER)
+NOTIFY_EMAIL=tiagofur@gmail.com
 ```
+
+### Configuración SMTP (Plesk Mail)
+
+1. Ingresá al panel de Plesk → Correo → `no-reply@creapolis.dev`
+2. El servidor SMTP es el host principal: `creapolis.dev` (o la IP del VPS, `74.208.234.244`)
+3. Puerto: `465` (TLS implícito) o `587` (STARTTLS)
+4. Usuario: `no-reply@creapolis.dev`, contraseña: la que se generó al crear el buzón
+5. Las notificaciones se envían a `NOTIFY_EMAIL` (por defecto, el mismo `SMTP_USER`)
 
 ## Base de datos
 
@@ -60,12 +81,13 @@ Content-Type: application/json
 
 ## Producción
 
-Para producción:
+Para producción en el VPS de IONOS con Plesk:
 
-1. **Database** — Configurar `DATABASE_URL` con tu PostgreSQL
-2. **CORS** — Actualizar dominios permitidos en `main.go`
-3. **Email** — Implementar `sendEmailNotification()` con SendGrid/AWS SES
-4. **HTTPS** — Usar nginx con TLS o deploy en servicio con SSL
+1. **Database** — Configurar `DATABASE_URL` con la MariaDB de Plesk (`creapolis_dev`)
+2. **CORS** — Los orígenes ya están configurados (`creapolis.dev`, `www.creapolis.dev`)
+3. **Email** — Usar las credenciales SMTP de `no-reply@creapolis.dev` (Plesk Mail)
+4. **HTTPS** — El proxy inverso de Plesk sobre `api.creapolis.dev` maneja el TLS (Let's Encrypt)
+5. **Deploy** — Imagen Docker publicada en GHCR vía GitHub Actions; Plesk Docker la corre en el VPS
 
 ## Estructura
 
