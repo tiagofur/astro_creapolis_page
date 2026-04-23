@@ -1,92 +1,33 @@
 ---
-import type { Lang } from "../../i18n/ui";
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import { getSolennixData } from '../../i18n/data/solennix';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
 }
 
 const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const { features, pricing, phone } = getSolennixData(lang);
 
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 
-const solennix = {
-  name: 'Solennix',
-  tagline: 'La app todo-en-uno para organizadores de eventos',
-  subtitle: 'Gestión de eventos profesionales en Latinoamérica',
-  desc: 'Solennix es la app todo-en-uno para organizadores de eventos profesionales en Latinoamérica: bodas, quinceañeras, cumpleaños, eventos corporativos y sociales.',
-  fullDesc: 'Solennix te devuelve el control de tu operación para que dediques tu energía a lo que importa: crear eventos memorables. Gestión completa desde el primer contacto hasta el reporte final.',
-  color: '#5856D6',
-  platform: 'iOS & Android',
-  size: '24.6 MB',
-  developer: 'Tiago David Furtado',
-  version: 'iOS 17.0+',
-  features: [
-    {
-      icon: '📅',
-      title: 'Gestión de Eventos',
-      desc: 'Calendario con todos tus eventos, detalles completos, checklist de tareas y estados claros'
-    },
-    {
-      icon: '👥',
-      title: 'CRM de Clientes',
-      desc: 'Base de datos completa con historial, notas, contactos y eventos asociados'
-    },
-    {
-      icon: '💰',
-      title: 'Cotizaciones y Contratos',
-      desc: 'Genera cotizaciones profesionales en segundos y conviértelas en contratos'
-    },
-    {
-      icon: '📦',
-      title: 'Inventario',
-      desc: 'Control de equipos reutilizables e insumos con tracking de stock en tiempo real'
-    },
-    {
-      icon: '📊',
-      title: 'Dashboard',
-      desc: 'KPIs clave: ingresos, eventos del mes, clientes activos y visión clara del negocio'
-    },
-    {
-      icon: '🎨',
-      title: 'Diseño Premium',
-      desc: 'Interfaz cálida y profesional. Light y Dark mode incluido'
-    }
-  ],
-  pricing: [
-    {
-      plan: 'Gratis',
-      price: '$0',
-      features: ['Funciones esenciales', 'Gestión básica de eventos', ' hasta 3 eventos']
-    },
-    {
-      plan: 'Pro',
-      price: '$149/mes',
-      features: ['Cotizaciones ilimitadas', 'Inventario avanzado', 'Eventos ilimitados', 'Exportar PDF']
-    },
-    {
-      plan: 'Business',
-      price: 'Custom',
-      features: ['Equipo multiusuario', 'Reportes avanzados', 'API access', 'Soporte prioritario']
-    }
-  ],
-  storeLinks: {
-    apple: 'https://apps.apple.com/mx/app/solennix/id6760874129',
-    google: 'https://play.google.com/store/apps/details?id=com.solennix.app',
-    web: 'https://solennix.com'
-  }
+const storeLinks = {
+  apple: 'https://apps.apple.com/mx/app/solennix/id6760874129',
+  google: 'https://play.google.com/store/apps/details?id=com.solennix.app',
+  web: 'https://solennix.com',
 };
-
-const featureLetters = ['E', 'C', '$', 'I', 'D', 'P'];
-const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
+const size = '24.6 MB';
 ---
 
 <Layout lang={lang}
-  title={`${solennix.name} — Creapolis`}
-  description={solennix.desc}
+  title="Solennix — Creapolis"
+  description={t('solennix.hero.desc')}
 >
-  <Nav lang={lang} lang={lang} />
+  <Nav lang={lang} />
 
   <header class="s-hero" id="main-content">
     <div class="ribbon" aria-hidden="true">
@@ -104,27 +45,27 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
     <div class="wrap">
       <div class="reveal">
         <div class="chips-row">
-          <span class="chip live"><span class="chip-dot"></span>En producción</span>
-          <span class="chip" style="color:var(--iris);background:var(--iris-soft);border-color:color-mix(in oklch, var(--iris) 25%, var(--line))">Por Creapolis</span>
+          <span class="chip live"><span class="chip-dot"></span>{t('solennix.hero.chip.prod')}</span>
+          <span class="chip" style="color:var(--iris);background:var(--iris-soft);border-color:color-mix(in oklch, var(--iris) 25%, var(--line))">{t('solennix.hero.chip.by')}</span>
         </div>
-        <h1><span class="serif">{solennix.name}.</span><br/>Eventos<br/>sin caos.</h1>
-        <p class="tag">La app todo-en-uno para organizadores profesionales en Latinoamérica. CRM, cotizaciones, inventario y dashboard en un mismo lugar. Bodas, XV, corporativos — lo que se te ocurra.</p>
+        <h1><span class="serif">{t('solennix.hero.title.serif')}</span><br/>{t('solennix.hero.title.p1')}<br/>{t('solennix.hero.title.p2')}</h1>
+        <p class="tag">{t('solennix.hero.desc')}</p>
 
         <div class="stores">
-          <a class="store" href={solennix.storeLinks.apple} target="_blank" rel="noopener">
+          <a class="store" href={storeLinks.apple} target="_blank" rel="noopener">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.7 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.94.88-3.7.88-.78 0-1.95-.86-3.22-.84a4.72 4.72 0 0 0-3.98 2.42c-1.7 2.95-.43 7.3 1.22 9.7.8 1.17 1.76 2.48 3.02 2.44 1.22-.05 1.68-.78 3.15-.78 1.46 0 1.88.78 3.17.75 1.31-.02 2.14-1.18 2.94-2.36a10.5 10.5 0 0 0 1.34-2.73 4.25 4.25 0 0 1-2.49-3.86zM14.5 5.25a4.3 4.3 0 0 0 1-3.25 4.47 4.47 0 0 0-2.9 1.5 4.16 4.16 0 0 0-1.02 3.15 3.67 3.67 0 0 0 2.92-1.4z"/></svg>
-            <span><span class="small">Descarga en</span><span class="big">App Store</span></span>
+            <span><span class="small">{t('solennix.download')}</span><span class="big">App Store</span></span>
           </a>
-          <a class="store" href={solennix.storeLinks.google} target="_blank" rel="noopener">
+          <a class="store" href={storeLinks.google} target="_blank" rel="noopener">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.9C3.2 2.1 3 2.5 3 3v18c0 .5.2.9.6 1.1l10.5-10.2L3.6 1.9zm12 10.6l2.7 2.6-3.8 2.2-2-1.9 3.1-2.9zm0-1.9l-3-2.9 2.4-1.4 3.4 2-2.8 2.3zM4.7 2.4l10.2 10-10.2 10v-20z"/></svg>
-            <span><span class="small">Descarga en</span><span class="big">Google Play</span></span>
+            <span><span class="small">{t('solennix.download')}</span><span class="big">Google Play</span></span>
           </a>
         </div>
 
         <div class="rating">
           <span class="stars">★★★★★</span>
           <strong style="font-weight:500">4.9</strong>
-          <span style="color:var(--ink-3)">· 240+ reseñas verificadas</span>
+          <span style="color:var(--ink-3)">{t('solennix.rating.count')}</span>
         </div>
       </div>
 
@@ -133,21 +74,21 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
           <div class="phone-screen">
             <div class="ps-head">
               <div>
-                <h4>Marzo</h4>
-                <div class="sub">3 eventos activos</div>
+                <h4>{phone.headTitle}</h4>
+                <div class="sub">{phone.headSub}</div>
               </div>
               <div class="ps-avatar"></div>
             </div>
             <div class="ps-stats">
-              <div class="ps-stat"><div class="v">12</div><div class="l">Eventos</div></div>
-              <div class="ps-stat"><div class="v">$45k</div><div class="l">Ingreso</div></div>
-              <div class="ps-stat"><div class="v">8</div><div class="l">Clientes</div></div>
+              {phone.stats.map((s) => (
+                <div class="ps-stat"><div class="v">{s.v}</div><div class="l">{s.l}</div></div>
+              ))}
             </div>
-            <div class="ps-label">Próximos</div>
+            <div class="ps-label">{phone.label}</div>
             <div class="ps-list">
-              <div class="ps-item"><span class="dot" style="background:var(--coral)"></span><span class="name">Boda García</span><span class="date">15 Feb</span></div>
-              <div class="ps-item"><span class="dot" style="background:var(--lime)"></span><span class="name">XV de María</span><span class="date">22 Feb</span></div>
-              <div class="ps-item"><span class="dot" style="background:var(--sky)"></span><span class="name">Corporativo Tech</span><span class="date">1 Mar</span></div>
+              {phone.items.map((it) => (
+                <div class="ps-item"><span class="dot" style={`background:${it.color}`}></span><span class="name">{it.name}</span><span class="date">{it.date}</span></div>
+              ))}
             </div>
           </div>
         </div>
@@ -157,10 +98,10 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
 
   <section class="info-strip">
     <div class="row wrap">
-      <div class="info-cell"><div class="v">iOS · Android</div><div class="l">Plataformas</div></div>
-      <div class="info-cell"><div class="v">{solennix.size}</div><div class="l">Tamaño</div></div>
-      <div class="info-cell"><div class="v">Gratis + Pro</div><div class="l">Planes</div></div>
-      <div class="info-cell"><div class="v">ES · EN</div><div class="l">Idiomas</div></div>
+      <div class="info-cell"><div class="v">{t('solennix.info.platforms.value')}</div><div class="l">{t('solennix.info.platforms.label')}</div></div>
+      <div class="info-cell"><div class="v">{size}</div><div class="l">{t('solennix.info.size.label')}</div></div>
+      <div class="info-cell"><div class="v">{t('solennix.info.plans.value')}</div><div class="l">{t('solennix.info.plans.label')}</div></div>
+      <div class="info-cell"><div class="v">{t('solennix.info.langs.value')}</div><div class="l">{t('solennix.info.langs.label')}</div></div>
     </div>
   </section>
 
@@ -168,16 +109,16 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
     <div class="wrap">
       <div class="products-header">
         <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>Funciones · Lo que hace</span></div>
-          <h2>Todo lo que necesitás,<br/><span class="serif">en un mismo lugar.</span></h2>
+          <div class="eyebrow" style="margin-bottom:18px"><span>{t('solennix.features.eyebrow')}</span></div>
+          <h2>{t('solennix.features.title.p1')}<br/><span class="serif">{t('solennix.features.title.serif')}</span></h2>
         </div>
-        <p class="reveal reveal-delay-1">Una suite pensada por y para organizadores de eventos. Sin módulos inútiles, sin curvas de aprendizaje de dos semanas.</p>
+        <p class="reveal reveal-delay-1">{t('solennix.features.desc')}</p>
       </div>
 
       <div class="features">
-        {solennix.features.map((feature, i) => (
+        {features.map((feature, i) => (
           <div class={`feature reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
-            <div class="icon">{featureLetters[i]}</div>
+            <div class="icon">{feature.letter}</div>
             <h3>{feature.title}</h3>
             <p>{feature.desc}</p>
           </div>
@@ -190,19 +131,19 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
     <div class="wrap">
       <div class="products-header">
         <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>Planes</span></div>
-          <h2>Empieza gratis.<br/>Crece <span class="serif">cuando quieras</span>.</h2>
+          <div class="eyebrow" style="margin-bottom:18px"><span>{t('solennix.pricing.eyebrow')}</span></div>
+          <h2>{t('solennix.pricing.title.p1')}<br/><span class="serif">{t('solennix.pricing.title.serif')}</span></h2>
         </div>
-        <p class="reveal reveal-delay-1">Sin contratos anuales, sin letra chica. Cambia de plan o cancela cuando quieras desde la app.</p>
+        <p class="reveal reveal-delay-1">{t('solennix.pricing.desc')}</p>
       </div>
 
       <div class="pricing">
-        {solennix.pricing.map((plan, i) => (
+        {pricing.map((plan, i) => (
           <div class={`price reveal${i === 1 ? ' feat reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
-            {i === 1 && <span class="price-badge">Más popular</span>}
-            <span class="tag">{planTags[i]}</span>
+            {i === 1 && <span class="price-badge">{t('solennix.pricing.popular')}</span>}
+            <span class="tag">{plan.tag}</span>
             <h3>{plan.plan}</h3>
-            <div class="n" set:html={i === 1 ? plan.price.replace('/mes', '<small>/ mes</small>') : plan.price} />
+            <div class="n">{plan.price}{i === 1 && !plan.priceNoSuffix && <small>{t('solennix.pricing.pro.suffix')}</small>}</div>
             <ul>
               {plan.features.map((f) => (
                 <li>
@@ -212,9 +153,9 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
               ))}
             </ul>
             <div class="btn-wrap">
-              {i === 0 && <a href={solennix.storeLinks.apple} class="btn btn-ghost">Descargar gratis</a>}
-              {i === 1 && <a href={solennix.storeLinks.apple} class="btn" style="background:var(--lime);color:var(--ink)">Comenzar prueba</a>}
-              {i === 2 && <a href="mailto:hola@creapolis.dev" class="btn btn-ghost">Contactar ventas</a>}
+              {i === 0 && <a href={storeLinks.apple} class="btn btn-ghost">{plan.btn}</a>}
+              {i === 1 && <a href={storeLinks.apple} class="btn" style="background:var(--lime);color:var(--ink)">{plan.btn}</a>}
+              {i === 2 && <a href="mailto:hola@creapolis.dev" class="btn btn-ghost">{plan.btn}</a>}
             </div>
           </div>
         ))}
@@ -224,18 +165,18 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
 
   <section id="download" class="download">
     <div class="wrap reveal">
-      <h2>Empezá <span class="serif">hoy mismo</span>.</h2>
-      <p>Tu primer evento organizado en minutos. Sin tarjeta, sin compromiso.</p>
+      <h2>{t('solennix.download.title.p1')} <span class="serif">{t('solennix.download.title.serif')}</span>.</h2>
+      <p>{t('solennix.download.desc')}</p>
       <div class="download-btns">
-        <a class="store" href={solennix.storeLinks.apple} target="_blank" rel="noopener">
+        <a class="store" href={storeLinks.apple} target="_blank" rel="noopener">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.7 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.94.88-3.7.88-.78 0-1.95-.86-3.22-.84a4.72 4.72 0 0 0-3.98 2.42c-1.7 2.95-.43 7.3 1.22 9.7.8 1.17 1.76 2.48 3.02 2.44 1.22-.05 1.68-.78 3.15-.78 1.46 0 1.88.78 3.17.75 1.31-.02 2.14-1.18 2.94-2.36a10.5 10.5 0 0 0 1.34-2.73 4.25 4.25 0 0 1-2.49-3.86zM14.5 5.25a4.3 4.3 0 0 0 1-3.25 4.47 4.47 0 0 0-2.9 1.5 4.16 4.16 0 0 0-1.02 3.15 3.67 3.67 0 0 0 2.92-1.4z"/></svg>
-          <span><span class="small">Descarga en</span><span class="big">App Store</span></span>
+          <span><span class="small">{t('solennix.download')}</span><span class="big">App Store</span></span>
         </a>
-        <a class="store" href={solennix.storeLinks.google} target="_blank" rel="noopener">
+        <a class="store" href={storeLinks.google} target="_blank" rel="noopener">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.9C3.2 2.1 3 2.5 3 3v18c0 .5.2.9.6 1.1l10.5-10.2L3.6 1.9z"/></svg>
-          <span><span class="small">Descarga en</span><span class="big">Google Play</span></span>
+          <span><span class="small">{t('solennix.download')}</span><span class="big">Google Play</span></span>
         </a>
-        <a class="btn btn-ghost btn-lg" href={solennix.storeLinks.web} target="_blank" rel="noopener">{solennix.storeLinks.web} →</a>
+        <a class="btn btn-ghost btn-lg" href={storeLinks.web} target="_blank" rel="noopener">{storeLinks.web} →</a>
       </div>
     </div>
   </section>
@@ -243,10 +184,10 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
   <section id="contacto" class="contact-cta">
     <div class="wrap">
       <div class="contact-card reveal">
-        <div class="eyebrow" style="margin-bottom:16px"><span>¿Algo parecido?</span></div>
-        <h2>¿Necesitás algo <span class="serif">igual de bueno</span>?</h2>
-        <p class="lead">Si te gustó Solennix y querés algo similar para tu industria, hablamos. Hacemos estas cosas todos los días.</p>
-        <a href="mailto:hola@creapolis.dev" class="btn btn-primary btn-lg">Iniciar proyecto
+        <div class="eyebrow" style="margin-bottom:16px"><span>{t('solennix.cta.eyebrow')}</span></div>
+        <h2>{t('solennix.cta.title.p1')} <span class="serif">{t('solennix.cta.title.serif')}</span>?</h2>
+        <p class="lead">{t('solennix.cta.lead')}</p>
+        <a href="mailto:hola@creapolis.dev" class="btn btn-primary btn-lg">{t('solennix.cta.btn')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>

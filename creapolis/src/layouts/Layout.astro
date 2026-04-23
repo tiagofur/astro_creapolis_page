@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { type Lang, defaultLang } from '../i18n/ui';
 import { getLangFromUrl, getAlternateLink } from '../i18n/utils';
+import LanguageBanner from '../components/LanguageBanner.astro';
 
 interface Props {
   title?: string;
@@ -159,6 +160,7 @@ const jsonLd = article
   <body>
     <a href="#main-content" class="skip-link">{lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}</a>
     <slot />
+    <LanguageBanner lang={lang} />
   </body>
 </html>
 

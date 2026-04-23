@@ -8,6 +8,7 @@ const lang = Astro.params.lang as Lang;
 import Layout from '../../../layouts/Layout.astro';
 import Nav from '../../../components/Nav.astro';
 import Footer from '../../../components/Footer.astro';
+import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
 import { getCollection } from 'astro:content';
 import { getPostDescription } from '../../../utils/post';
 
@@ -86,6 +87,7 @@ const totalPosts = sortedPosts.length;
 
 <Layout lang={lang} title="Notas — Creapolis" description="Notas de producto, tecnología y aprendizajes construyendo software. Escritas desde Creapolis.">
   <Nav lang={lang} />
+  <BlogSpanishNotice lang={lang} currentPath={Astro.url.pathname} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        HEADER — gradient bg + decorative accents

@@ -1,0 +1,67 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath } from '../../i18n/utils';
+import { getPepinilloSupportData } from '../../i18n/data/pepinillo-support';
+import PepinilloSupportLayout from './PepinilloSupportLayout.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tp = getPepinilloSupportData(lang).tips;
+---
+
+<PepinilloSupportLayout lang={lang}>
+  <section class="sup-page">
+    <div class="sup-inner">
+      <div class="sup-head reveal">
+        <div class="eyebrow" style="margin-bottom:14px"><span>{tp.eyebrow}</span></div>
+        <h1>{tp.title} <span class="serif">{tp.titleSerif}</span>.</h1>
+        <p class="subtitle">{tp.subtitle}</p>
+      </div>
+
+      <div class="tips-grid">
+        {tp.items.map((tip) => (
+          <article class="tip-card reveal">
+            <div class="tip-icon">{tip.icon}</div>
+            <h2>{tip.title}</h2>
+            <p>{tip.desc}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="sup-next reveal">
+        <h3>{tp.nextTitle}</h3>
+        <div class="sup-link-grid">
+          {tp.nextCards.map((c) => (
+            <a href={getLocalizedPath(lang, c.href)} class="sup-next-card">
+              <span class="next-icon">{c.icon}</span>
+              <div>
+                <span class="next-title">{c.title}</span>
+                <span class="next-desc">{c.desc}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</PepinilloSupportLayout>
+
+<style>
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .tip-card {
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .tip-card:hover { box-shadow: var(--sh-2); border-color: oklch(0.84 0.18 128 / 0.4); }
+  .tip-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .tip-card h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+  .tip-card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
+</style>

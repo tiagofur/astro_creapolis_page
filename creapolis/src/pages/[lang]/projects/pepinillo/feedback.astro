@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import PepinilloFeedbackContent from '../../../../components/pages/PepinilloFeedbackContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'en' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Feedback & Support — Pepinillo" description="Get support for Pepinillo, report a bug, or send us a feature request. We're here to help.">
+  <PepinilloFeedbackContent lang={lang} />
+</Layout>

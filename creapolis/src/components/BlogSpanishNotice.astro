@@ -1,0 +1,73 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { lang: Lang; currentPath: string }
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+
+if (lang !== 'en') return null;
+
+const esHref = currentPath.replace(/^\/en\//, '/es/');
+---
+
+<div class="blog-es-notice" role="note">
+  <div class="wrap">
+    <div class="icon" aria-hidden="true">ℹ️</div>
+    <div class="body">
+      <strong>{t('blog.enOnly.title')}</strong>
+      <span>{t('blog.enOnly.desc')}</span>
+    </div>
+    <a href={esHref} class="cta">{t('blog.enOnly.cta')} →</a>
+  </div>
+</div>
+
+<style>
+  .blog-es-notice {
+    background: var(--amber-soft, oklch(0.95 0.06 85));
+    border-bottom: 1px solid color-mix(in oklch, var(--amber, oklch(0.78 0.16 70)) 25%, var(--line));
+    padding: 16px var(--gutter);
+    margin-top: 72px;
+  }
+  .blog-es-notice .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .blog-es-notice .icon { font-size: 1.2rem; flex-shrink: 0; }
+  .blog-es-notice .body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 240px;
+  }
+  .blog-es-notice .body strong {
+    font-size: 0.9rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .blog-es-notice .body span {
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .blog-es-notice .cta {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--ink);
+    border-radius: var(--r-pill);
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+  }
+  .blog-es-notice .cta:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+</style>

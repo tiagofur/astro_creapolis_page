@@ -18,6 +18,27 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
+  redirects: {
+    '/servicios': '/es/servicios',
+    '/services': '/en/services',
+    '/contacto': '/es/contacto',
+    '/contact': '/en/contact',
+    '/sobre': '/es/sobre',
+    '/about': '/en/about',
+    '/proyectos': '/es/proyectos',
+    '/projects': '/en/projects',
+    '/blog': '/es/blog',
+    '/solennix': '/es/solennix',
+    '/pepinillo': '/es/proyectos/pepinillo',
+    '/pepinillo/guide': '/en/projects/pepinillo/guide',
+    '/pepinillo/tips': '/en/projects/pepinillo/tips',
+    '/pepinillo/feedback': '/en/projects/pepinillo/feedback',
+    '/proyectos/pepinillo': '/es/proyectos/pepinillo',
+    '/proyectos/pepinillo/guide': '/es/proyectos/pepinillo/guide',
+    '/proyectos/pepinillo/tips': '/es/proyectos/pepinillo/tips',
+    '/proyectos/pepinillo/feedback': '/es/proyectos/pepinillo/feedback',
+    '/proyectos/peliculas': '/es/proyectos/peliculas',
+  },
   integrations: [
     sitemap({
       i18n: {

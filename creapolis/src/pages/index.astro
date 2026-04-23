@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Creapolis</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://creapolis.dev/en/">
+  <link rel="alternate" hreflang="es-ES" href="https://creapolis.dev/es/">
+  <link rel="alternate" hreflang="en-US" href="https://creapolis.dev/en/">
+  <link rel="alternate" hreflang="x-default" href="https://creapolis.dev/en/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      try {
+        var stored = null;
+        try { stored = localStorage.getItem('creapolis-lang'); } catch (e) {}
+        var nav = ((navigator.language || navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
+        var lang = stored || (nav.indexOf('es') === 0 || nav.indexOf('pt') === 0 ? 'es' : 'en');
+        if (lang !== 'es' && lang !== 'en') lang = 'en';
+        location.replace('/' + lang + '/');
+      } catch (e) {
+        location.replace('/en/');
+      }
+    })();
+  </script>
+  <meta http-equiv="refresh" content="0;url=/en/">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; color: #1a1a1a; background: #fafaf9; }
+    .fallback { text-align: center; }
+    .fallback a { color: #5B4FBE; text-decoration: none; padding: 8px 16px; }
+    .fallback a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="fallback">
+    <p>Redirecting…</p>
+    <p><a href="/en/">English</a> · <a href="/es/">Español</a></p>
+  </div>
+</body>
+</html>

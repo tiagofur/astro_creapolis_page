@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import PepinilloTipsContent from '../../../../components/pages/PepinilloTipsContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'en' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Focus Tips & Techniques — Pepinillo" description="Master deep work with proven focus strategies. Tips for Pomodoro, Flowtime, and Time Blocking in Pepinillo.">
+  <PepinilloTipsContent lang={lang} />
+</Layout>

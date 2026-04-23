@@ -3,6 +3,7 @@ import type { Lang } from "../../../i18n/ui";
 import Layout from '../../../layouts/Layout.astro';
 import Nav from '../../../components/Nav.astro';
 import Footer from '../../../components/Footer.astro';
+import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
 import { getCollection, render } from 'astro:content';
 import { getPostDescription } from '../../../utils/post';
 
@@ -84,6 +85,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
   }}
 >
   <Nav lang={lang} />
+  <BlogSpanishNotice lang={lang} currentPath={Astro.url.pathname} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        ARTICLE HERO — dark bg with colored accent
