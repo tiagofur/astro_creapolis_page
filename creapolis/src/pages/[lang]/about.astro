@@ -1,0 +1,564 @@
+---
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+// Placeholder links — reemplazar con URLs reales cuando estén disponibles
+const links = {
+  linkedin: '#',  // TODO: LinkedIn real
+  github: '#',    // TODO: GitHub real
+  twitter: null,  // TODO: X/Twitter — deshabilitado hasta tener presencia activa
+};
+
+const timeline = [
+  {
+    year: '2019',
+    title: 'Primer commit en Flutter',
+    desc: 'Arranqué con Flutter buscando un stack que me dejara enviar a iOS y Android sin duplicar esfuerzo. Paralelo: Node.js para backend.',
+  },
+  {
+    year: '2020',
+    title: 'Nace Creapolis',
+    desc: 'Empecé a firmar trabajo bajo el nombre Creapolis. Proyectos personales, experimentos, y primeras colaboraciones.',
+  },
+  {
+    year: '2022',
+    title: 'Primeras apps en tiendas',
+    desc: 'Pepinillo y Películas llegaron a Google Play. No son unicornios — son ejercicios honestos de producto: ¿qué pasa cuando una sola persona decide y construye?',
+  },
+  {
+    year: '2024',
+    title: 'Solennix',
+    desc: 'La primera app propia pensada como producto comercial. iOS, Android y web. Gestión de eventos para LATAM. Acá el estudio dejó de ser sólo código y empezó a ser producto con usuarios reales.',
+  },
+  {
+    year: 'Hoy',
+    title: 'Estudio de una persona',
+    desc: 'Consultoría directa, apps propias en producción, y varios productos en el horno. Sin intermediarios, sin agencia, sin handoffs.',
+  },
+];
+
+const values = [
+  {
+    letter: 'C',
+    title: 'Conceptos antes que código',
+    desc: 'No escribo una línea hasta entender el problema. Si no podés explicar por qué existe una feature, no debería existir.',
+  },
+  {
+    letter: 'D',
+    title: 'Directo, sin intermediarios',
+    desc: 'Hablás con quien escribe el código. Sin project managers, sin traducciones, sin "pregunto al equipo y te aviso".',
+  },
+  {
+    letter: 'H',
+    title: 'Honestidad sobre marketing',
+    desc: 'Te digo qué puedo y qué no. Si algo no lo sé, lo investigo. Si algo no se puede, te lo digo antes de cobrarte.',
+  },
+  {
+    letter: 'P',
+    title: 'Producto sobre brief',
+    desc: 'El brief es el punto de partida, no la Biblia. Construyo lo que la gente va a usar, no lo que está escrito en un PDF.',
+  },
+];
+
+const stack = [
+  { group: 'Mobile', items: ['Flutter', 'Swift', 'Kotlin', 'Jetpack Compose', 'SwiftUI'] },
+  { group: 'Backend', items: ['Node.js', 'TypeScript', 'Go', 'Firebase', 'PostgreSQL'] },
+  { group: 'Web', items: ['Astro', 'Next.js', 'React', 'Tailwind'] },
+  { group: 'IA', items: ['OpenAI API', 'Anthropic', 'LangChain', 'Prompt engineering'] },
+];
+---
+
+<Layout lang={lang} title="Sobre — Creapolis" description="Creapolis es un estudio de una persona: código propio, consultoría directa, y apps que la gente de verdad usa.">
+  <Nav lang={lang} lang={lang} />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="s-hero" id="main-content">
+    <div class="ribbon" aria-hidden="true">
+      <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sobre-rib" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="oklch(0.62 0.2 285)" stop-opacity="0.4"/>
+            <stop offset="50%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="oklch(0.84 0.18 128)" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+        <path d="M -100,400 C 300,200 500,500 800,300 C 1100,100 1300,400 1500,250"
+              fill="none" stroke="url(#sobre-rib)" stroke-width="100" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="wrap reveal">
+      <div class="chips-row">
+        <span class="chip live"><span class="chip-dot"></span>Solo dev</span>
+        <span class="chip mx-chip">Monterrey · MX</span>
+      </div>
+      <h1>Una persona.<br/><span class="serif">Un estudio.</span><br/>Cero intermediarios.</h1>
+      <p class="lead">Creapolis es un estudio de una sola persona. Hablás conmigo, te contesto yo, escribo el código yo. Sin agencias, sin traductores, sin handoffs. Lo que prometo es lo que entrego — y lo entrego yo.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PORTRAIT
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="section portrait-section">
+    <div class="wrap">
+      <div class="portrait-grid">
+        <div class="portrait-visual reveal">
+          <div class="portrait-frame">
+            <!-- TODO: reemplazar con foto real. Recomendado: cuadrada, mínimo 600x600, fondo neutro. -->
+            <div class="portrait-placeholder" aria-label="Foto de Tiago">
+              <span class="initial">T</span>
+            </div>
+          </div>
+          <div class="portrait-links">
+            <a href={links.linkedin} target="_blank" rel="noopener" class="plink">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
+              LinkedIn
+            </a>
+            <a href={links.github} target="_blank" rel="noopener" class="plink">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+              GitHub
+            </a>
+            {links.twitter && (
+              <a href={links.twitter} target="_blank" rel="noopener" class="plink">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
+                X
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div class="portrait-copy reveal reveal-delay-1">
+          <div class="eyebrow" style="margin-bottom:16px"><span>Hola</span></div>
+          <h2>Soy <span class="serif">Tiago</span>.</h2>
+          <p class="intro">Desde 2019 estoy construyendo software — al principio como estudio, después como hobby obsesivo, y ahora como trabajo. Arranqué con Flutter porque quería enviar a iOS y Android sin duplicar código, y me quedé en mobile porque es donde se ve si sabés producto o sólo tirás features.</p>
+          <p>El backend me lo enseñó Node. La infraestructura me la enseñó equivocarme. La IA me la está enseñando el hype vs. lo que realmente funciona en producción — estoy aprendiendo en vivo, y te cuento lo que vale y lo que no.</p>
+          <p>Creapolis no es una agencia disfrazada. Es una persona — yo — que diseña, codea, publica y mantiene. Si me contratás, hablás conmigo. Si te entrego algo, lo escribí yo. No hay equipo detrás que vaya a cambiar el juego a mitad de proyecto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TIMELINE
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="section timeline-section" style="background: var(--chalk)">
+    <div class="wrap">
+      <div class="tl-head reveal">
+        <div class="eyebrow" style="margin-bottom:18px"><span>Trayectoria</span></div>
+        <h2>De un repo vacío <span class="serif">a tres apps en tiendas</span>.</h2>
+        <p>No es una línea recta. Es años de mezclar estudio, experimentación y proyectos que a veces fueron a producción y a veces murieron en el commit número 47. Todo cuenta.</p>
+      </div>
+
+      <div class="timeline">
+        {timeline.map((item, i) => (
+          <div class={`tl-item reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`}>
+            <div class="tl-year">{item.year}</div>
+            <div class="tl-body">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VALUES
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="products-header">
+        <div class="reveal">
+          <div class="eyebrow" style="margin-bottom:18px"><span>Cómo trabajo</span></div>
+          <h2>Cuatro principios<br/><span class="serif">no negociables</span>.</h2>
+        </div>
+        <p class="reveal reveal-delay-1">Ninguno es revolucionario. Todos son raros en la industria. Acá te los dejo por escrito para que sepas qué esperar antes de contratarme.</p>
+      </div>
+
+      <div class="values-grid">
+        {values.map((v, i) => (
+          <div class={`value-card reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+            <div class="v-letter">{v.letter}</div>
+            <h3>{v.title}</h3>
+            <p>{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       STACK
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="section stack-section" style="background: var(--ink); color: var(--paper)">
+    <div class="wrap">
+      <div class="stack-head reveal">
+        <div class="eyebrow" style="margin-bottom:18px; color: oklch(0.72 0.01 265)"><span>Stack</span></div>
+        <h2>Lo que uso <span class="serif">a diario</span>.</h2>
+        <p>No es una lista de lo que puse en el CV hace tres años. Es lo que escribo esta semana. Si no está acá, o no lo domino o no vale la pena.</p>
+      </div>
+
+      <div class="stack-grid">
+        {stack.map((group, i) => (
+          <div class={`stack-group reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+            <div class="sg-label">{group.group}</div>
+            <div class="sg-chips">
+              {group.items.map((item) => <span class="sg-chip">{item}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CTA
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="contact-cta">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div class="eyebrow" style="margin-bottom:16px"><span>Hablemos</span></div>
+        <h2>¿Te suena <span class="serif">esta forma de trabajar</span>?</h2>
+        <p class="lead">Si buscás un colaborador directo, que pregunta antes de codear y que te contesta el mismo día — estamos en la misma página.</p>
+        <div class="cta-row">
+          <a href={`/${lang}/contact`} class="btn btn-primary btn-lg">Iniciar conversación
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang={lang} />
+</Layout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════════ */
+  .s-hero {
+    position: relative;
+    overflow: clip;
+    padding: 140px var(--gutter) 80px;
+    background:
+      radial-gradient(70% 50% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
+      var(--paper);
+  }
+  .s-hero .ribbon { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .s-hero .ribbon svg { width: 100%; height: 100%; }
+  .s-hero .wrap {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+
+  .chips-row {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .mx-chip {
+    color: var(--iris);
+    background: var(--iris-soft);
+    border-color: color-mix(in oklch, var(--iris) 25%, var(--line));
+  }
+
+  .s-hero h1 {
+    font-size: clamp(2.8rem, 6.4vw, 5rem);
+    line-height: 1; letter-spacing: -0.025em;
+    color: var(--ink); margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .s-hero h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .s-hero p.lead {
+    font-size: 1.12rem; line-height: 1.55;
+    color: var(--ink-2); max-width: 58ch; margin: 0 auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PORTRAIT
+     ═══════════════════════════════════════════════════════════════ */
+  .section {
+    padding: clamp(64px, 9vw, 120px) var(--gutter);
+    position: relative;
+  }
+  .section .wrap { max-width: var(--max); margin: 0 auto; }
+
+  .portrait-grid {
+    display: grid; gap: 48px;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 880px) {
+    .portrait-grid { grid-template-columns: 360px 1fr; gap: 64px; }
+  }
+
+  .portrait-frame {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--line);
+    background: var(--chalk);
+    overflow: hidden;
+    box-shadow: var(--sh-2);
+  }
+  .portrait-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--coral-soft), var(--iris-soft));
+  }
+  .portrait-placeholder .initial {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 6rem; line-height: 1;
+    color: var(--iris);
+  }
+  .portrait-placeholder .label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  .portrait-links {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 20px;
+  }
+  .plink {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    font-size: 0.86rem; color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    text-decoration: none;
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .plink:hover { transform: translateY(-2px); border-color: var(--iris); color: var(--iris); }
+
+  .portrait-copy h2 {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 24px;
+  }
+  .portrait-copy h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--iris);
+  }
+  .portrait-copy p {
+    font-size: 1.02rem; line-height: 1.7;
+    color: var(--ink-2); margin: 0 0 18px;
+    max-width: 58ch;
+  }
+  .portrait-copy p.intro { font-size: 1.1rem; color: var(--ink); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TIMELINE
+     ═══════════════════════════════════════════════════════════════ */
+  .tl-head { max-width: 640px; margin-bottom: 56px; }
+  .tl-head h2 {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .tl-head h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .tl-head p { font-size: 1rem; color: var(--ink-2); max-width: 56ch; }
+
+  .timeline {
+    position: relative;
+    display: flex; flex-direction: column;
+    gap: 32px;
+    max-width: 760px;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 110px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--line);
+  }
+  @media (max-width: 640px) {
+    .timeline::before { left: 60px; }
+  }
+
+  .tl-item {
+    display: grid; grid-template-columns: 100px 1fr;
+    gap: 32px;
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    .tl-item { grid-template-columns: 50px 1fr; gap: 20px; }
+  }
+
+  .tl-year {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1.4rem; color: var(--iris);
+    line-height: 1.2;
+    position: relative;
+    padding-right: 24px;
+    text-align: right;
+  }
+  .tl-year::after {
+    content: ''; position: absolute;
+    right: -6px; top: 8px;
+    width: 12px; height: 12px; border-radius: 999px;
+    background: var(--paper);
+    border: 2px solid var(--coral);
+    z-index: 1;
+  }
+
+  .tl-body {
+    padding-left: 20px;
+  }
+  .tl-body h3 {
+    font-size: 1.1rem; margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .tl-body p {
+    font-size: 0.95rem; line-height: 1.6;
+    color: var(--ink-2); margin: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     VALUES
+     ═══════════════════════════════════════════════════════════════ */
+  .products-header {
+    display: grid; gap: 24px; align-items: end;
+    grid-template-columns: 1fr; margin-bottom: 48px;
+  }
+  @media (min-width: 760px) {
+    .products-header { grid-template-columns: 1.4fr 1fr; gap: 48px; }
+  }
+  .products-header h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0;
+    text-wrap: balance;
+  }
+  .products-header h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .products-header p {
+    color: var(--ink-2); font-size: 1rem; line-height: 1.55;
+    max-width: 40ch; margin: 0;
+  }
+
+  .values-grid {
+    display: grid; gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .value-card {
+    padding: 32px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .value-card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--iris); }
+  .v-letter {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 3.2rem; line-height: 1;
+    color: var(--iris);
+    margin-bottom: 16px;
+  }
+  .value-card:nth-child(2) .v-letter { color: var(--coral); }
+  .value-card:nth-child(3) .v-letter { color: var(--lime); }
+  .value-card:nth-child(4) .v-letter { color: var(--amber); }
+  .value-card h3 { font-size: 1.2rem; margin: 0 0 10px; color: var(--ink); }
+  .value-card p { font-size: 0.98rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     STACK
+     ═══════════════════════════════════════════════════════════════ */
+  .stack-head { max-width: 640px; margin-bottom: 56px; }
+  .stack-head h2 {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--paper); margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  .stack-head h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--lime);
+  }
+  .stack-head p { color: oklch(0.82 0.01 265); font-size: 1rem; max-width: 56ch; }
+
+  .stack-grid {
+    display: grid; gap: 32px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .stack-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .stack-group { border-top: 1px solid oklch(0.35 0.015 265); padding-top: 20px; }
+  .sg-label {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--lime); margin-bottom: 14px;
+  }
+  .sg-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sg-chip {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    color: var(--paper);
+    background: oklch(0.28 0.02 265);
+    border-radius: 999px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════════════ */
+  .contact-cta { padding: clamp(64px, 9vw, 120px) var(--gutter); background: var(--paper); }
+  .contact-cta .wrap { max-width: var(--max); margin: 0 auto; }
+  .contact-card {
+    max-width: 760px; margin: 0 auto;
+    padding: clamp(40px, 6vw, 64px);
+    text-align: center;
+    background: linear-gradient(180deg, var(--paper), var(--chalk));
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-3);
+    position: relative;
+    overflow: clip;
+  }
+  .contact-card::before {
+    content: ''; position: absolute;
+    inset: -40% -20% auto auto;
+    width: 70%; height: 180%;
+    background: radial-gradient(circle, var(--coral-soft) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .contact-card > * { position: relative; z-index: 1; }
+  .contact-card h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin: 0 0 14px; color: var(--ink);
+  }
+  .contact-card h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .contact-card p.lead {
+    font-size: 1.05rem; color: var(--ink-2);
+    max-width: 44ch; margin: 0 auto 32px;
+  }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+</style>

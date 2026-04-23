@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getAlternateLink } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
 interface Link { label: string; href: string }
@@ -35,8 +35,8 @@ function isActive(href: string): boolean {
 
 const homeHref = getLocalizedPath(lang, '/');
 const altLang: Lang = lang === 'es' ? 'en' : 'es';
-const altPath = currentPath.replace(`/${lang}/`, `/${altLang}/`).replace(`/${lang}`, `/${altLang}`);
-const altHref = altPath || `/${altLang}/`;
+const alternates = getAlternateLink(Astro.url);
+const altHref = alternates.find((a) => a.lang === altLang)?.href ?? `/${altLang}/`;
 ---
 
 <nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>

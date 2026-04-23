@@ -104,11 +104,17 @@ const social = {
         &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')} <span class="serif-it">{t('footer.care')}</span>.
       </p>
       <div class="footer-legal-links">
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href={lang === 'en' ? '/privacy-policy' : '/privacidad'}>
+          {lang === 'en' ? 'Privacy Policy' : 'Privacidad'}
+        </a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href="/terminos">{lang === 'en' ? 'Terms' : 'Términos'}</a>
+        <a href={lang === 'en' ? '/terms-of-use' : '/terminos'}>
+          {lang === 'en' ? 'Terms' : 'Términos'}
+        </a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href="/delete-account">Delete Account</a>
+        <a href={lang === 'en' ? '/delete-account' : '/eliminar-cuenta'}>
+          {lang === 'en' ? 'Delete Account' : 'Eliminar cuenta'}
+        </a>
       </div>
     </div>
   </div>

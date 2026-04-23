@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { type Lang, defaultLang } from '../i18n/ui';
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, getAlternateLink } from '../i18n/utils';
 
 interface Props {
   title?: string;
@@ -103,9 +103,10 @@ const jsonLd = article
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Alternate language links -->
-    {lang === 'es' && <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace('/es/', '/en/'), Astro.site).href} />}
-    {lang === 'en' && <link rel="alternate" hreflang="es" href={new URL(Astro.url.pathname.replace('/en/', '/es/'), Astro.site).href} />}
+    <!-- Alternate language links (slug-aware: uses getAlternateLink to translate slugs) -->
+    {getAlternateLink(Astro.url).map(({ lang: l, href }) => (
+      <link rel="alternate" hreflang={l === 'es' ? 'es-ES' : 'en-US'} href={new URL(href, Astro.site).href} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
 
     <!-- Open Graph -->
@@ -114,6 +115,7 @@ const jsonLd = article
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_MX'} />
     <meta property="og:site_name" content="Creapolis" />
     <meta property="og:image" content={ogImage} />
 

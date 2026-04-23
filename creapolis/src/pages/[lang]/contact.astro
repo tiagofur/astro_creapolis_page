@@ -1,0 +1,619 @@
+---
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }];
+}
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout lang={lang} title="Contact — Creapolis" description="Tell me about your project. I respond within 24 hours.">
+  <Nav lang={lang} />
+
+  <header class="c-hero" id="main-content">
+    <div class="ribbon" aria-hidden="true">
+      <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="crib" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="oklch(0.62 0.2 285)" stop-opacity="0.35"/>
+          </linearGradient>
+        </defs>
+        <path d="M -100,400 C 300,250 600,500 900,300 C 1100,150 1300,400 1500,250"
+              fill="none" stroke="url(#crib)" stroke-width="90" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="wrap reveal">
+      <div class="eyebrow" style="justify-content:center"><span>Contact</span></div>
+      <h1>Tell me your idea.<br/>I respond the <span class="serif">same day</span>.</h1>
+      <p>No endless forms or hold music. Two minutes of your time, 24 hours on mine, a concrete proposal in your inbox.</p>
+    </div>
+  </header>
+
+  <section id="form" class="form-section">
+    <div class="form-grid">
+
+      <aside class="side">
+        <div class="side-card promise reveal">
+          <div class="eyebrow accent" style="--accent-color: var(--lime); color: var(--lime); margin-bottom:8px"><span>My promise</span></div>
+          <h3>I reply fast. For real.</h3>
+          <p>You are not a ticket in a helpdesk. Your message goes straight to me — and I reply the same business day.</p>
+          <div class="metric">
+            <span class="big">&lt; 24h</span>
+            <span class="lbl">Response time · last 90 days</span>
+          </div>
+        </div>
+
+        <div class="side-card reveal reveal-delay-1">
+          <h3>Or write directly</h3>
+          <p>If you prefer email without the form:</p>
+          <a href="mailto:hola@creapolis.dev">hola@creapolis.dev →</a>
+          <div class="row" style="margin-top:18px">
+            <div class="kv"><span class="k">Office</span><span class="v">Monterrey, México</span></div>
+            <div class="kv"><span class="k">Hours</span><span class="v">Lun–Vie · 9–18 CST</span></div>
+            <div class="kv"><span class="k">Language</span><span class="v">Español · English</span></div>
+          </div>
+        </div>
+
+        <div class="side-card reveal reveal-delay-2">
+          <h3>What happens next</h3>
+          <div class="row" style="margin-top:8px">
+            <div class="step">
+              <span class="chip step-num">1</span>
+              <div><div class="step-title">I read your message</div><div class="step-sub">Same business day</div></div>
+            </div>
+            <div class="step">
+              <span class="chip step-num">2</span>
+              <div><div class="step-title">30-min call</div><div class="step-sub">I understand context and scope</div></div>
+            </div>
+            <div class="step">
+              <span class="chip step-num">3</span>
+              <div><div class="step-title">Concrete proposal</div><div class="step-sub">Price, timeline and deliverables</div></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="form-card reveal reveal-delay-1">
+        <h2>Let's start <span class="serif">here</span>.</h2>
+        <p class="intro">Just the basics. The rest we figure out on the call.</p>
+
+        <form id="contact-form" class="big" autocomplete="on">
+          <div class="hp-field" style="position: absolute; left: -9999px;">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" id="timestamp" name="timestamp" value="" />
+
+          <div class="two">
+            <label>Name
+              <input type="text" id="name" name="name" required placeholder="María González" />
+            </label>
+            <label>Email
+              <input type="email" id="email" name="email" required placeholder="maria@empresa.com" />
+            </label>
+          </div>
+
+          <label>Company <span class="optional-tag">· optional</span>
+            <input type="text" id="company" name="company" placeholder="Your company name" />
+          </label>
+
+          <div>
+            <div class="pick-label">What do you want to build?</div>
+            <div class="type-pick">
+              <input type="radio" name="type" id="t1" value="Mobile app" checked /><label for="t1" class="opt"><span class="n">01</span><span class="t">Mobile app</span></label>
+              <input type="radio" name="type" id="t2" value="Web app" /><label for="t2" class="opt"><span class="n">02</span><span class="t">Web app</span></label>
+              <input type="radio" name="type" id="t3" value="Desktop software" /><label for="t3" class="opt"><span class="n">03</span><span class="t">Desktop software</span></label>
+              <input type="radio" name="type" id="t4" value="AI integration" /><label for="t4" class="opt"><span class="n">04</span><span class="t">AI integration</span></label>
+              <input type="radio" name="type" id="t5" value="Design / UI" /><label for="t5" class="opt"><span class="n">05</span><span class="t">Design / UI</span></label>
+              <input type="radio" name="type" id="t6" value="Not sure yet" /><label for="t6" class="opt"><span class="n">06</span><span class="t">Not sure yet</span></label>
+            </div>
+          </div>
+
+          <div>
+            <div class="pick-label">Approximate budget</div>
+            <div class="budget-pick">
+              <input type="radio" name="budget" id="b1" value="< $10k" /><label for="b1" class="pill">&lt; $10k</label>
+              <input type="radio" name="budget" id="b2" value="$10–25k" checked /><label for="b2" class="pill">$10–25k</label>
+              <input type="radio" name="budget" id="b3" value="$25–50k" /><label for="b3" class="pill">$25–50k</label>
+              <input type="radio" name="budget" id="b4" value="$50–100k" /><label for="b4" class="pill">$50–100k</label>
+              <input type="radio" name="budget" id="b5" value="$100k+" /><label for="b5" class="pill">$100k+</label>
+              <input type="radio" name="budget" id="b6" value="Not sure yet" /><label for="b6" class="pill">Not sure yet</label>
+            </div>
+          </div>
+
+          <label>Tell me a bit more
+            <textarea id="message" name="message" required placeholder="A couple of lines will do: what you want to build, for whom, and any important dates."></textarea>
+          </label>
+
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary btn-lg submit-btn">
+              <span class="btn-text">Send message
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <span class="btn-loading" style="display:none">Sending...</span>
+            </button>
+            <span class="fine">I reply &lt; 24h</span>
+            <span id="form-ok" class="ok chip live" hidden><span class="chip-dot"></span>Received! I'll write you today</span>
+          </div>
+
+          <div id="form-message" class="form-message" style="display:none"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:14px"><span>Frequently asked questions</span></div>
+    <h2>What people usually ask before reaching out.</h2>
+
+    <details>
+      <summary>How much does it cost to develop an app?<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M4 9H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="ans">It depends on scope. A simple app starts at $5–10k USD; a complex platform can range from $25k to $100k+. After discovery I give you a fixed budget with dates.</div>
+    </details>
+    <details>
+      <summary>How long does it take?<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M4 9H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="ans">4–8 weeks for a simple app; 3–6 months for large projects. I do demos every Friday, so you always know exactly where things stand.</div>
+    </details>
+    <details>
+      <summary>Do you offer post-launch support?<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M4 9H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="ans">Yes. The first 30 days post-launch are covered at no cost. After that you can hire a monthly retainer or pay by the hour — you decide.</div>
+    </details>
+    <details>
+      <summary>Can you work with existing code?<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M4 9H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="ans">Yes. I do technical audits, refactors and project continuations. First I evaluate the current code so you know what to keep and what to replace.</div>
+    </details>
+    <details>
+      <summary>Do you sign NDAs?<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4V14M4 9H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="ans">No problem. I have a standard mutual NDA template, or we can sign yours. Send it over email and I return it signed the same day.</div>
+    </details>
+  </section>
+
+  <Footer lang={lang} />
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const messageEl = document.getElementById('form-message');
+  const submitBtn = form.querySelector('.submit-btn');
+  const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement;
+  const btnLoading = submitBtn?.querySelector('.btn-loading') as HTMLElement;
+  const honeypot = document.getElementById('website') as HTMLInputElement;
+  const timestampInput = document.getElementById('timestamp') as HTMLInputElement;
+  const formOk = document.getElementById('form-ok') as HTMLElement;
+
+  timestampInput.value = Date.now().toString();
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (honeypot?.value) {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-success';
+      messageEl.textContent = "Received! I'll write you soon.";
+      form.reset();
+      return;
+    }
+
+    const submittedAt = Date.now();
+    const loadedAt = parseInt(timestampInput.value) || 0;
+    if (submittedAt - loadedAt < 2000) {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-error';
+      messageEl.textContent = 'Please wait a moment before sending.';
+      return;
+    }
+
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    submitBtn.setAttribute('disabled', 'true');
+
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      company: formData.get('company'),
+      type: formData.get('type'),
+      budget: formData.get('budget'),
+      message: formData.get('message'),
+      website: formData.get('website'),
+      timestamp: formData.get('timestamp'),
+    };
+
+    try {
+      const apiUrl = import.meta.env.API_URL || '/api/contact';
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      messageEl.style.display = 'block';
+      if (result.success) {
+        messageEl.className = 'form-message form-success';
+        messageEl.textContent = result.message;
+        formOk.hidden = false;
+        form.reset();
+      } else {
+        messageEl.className = 'form-message form-error';
+        messageEl.textContent = result.message;
+      }
+    } catch {
+      messageEl.style.display = 'block';
+      messageEl.className = 'form-message form-error';
+      messageEl.textContent = 'Connection error. You can write directly to hola@creapolis.dev';
+    } finally {
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+      submitBtn.removeAttribute('disabled');
+    }
+  });
+</script>
+
+<style>
+  .c-hero {
+    position: relative;
+    padding: 160px var(--gutter) 60px;
+    background:
+      radial-gradient(50% 40% at 80% 15%, var(--coral-soft) 0%, transparent 60%),
+      radial-gradient(50% 50% at 10% 90%, var(--iris-soft) 0%, transparent 70%),
+      var(--paper);
+    overflow: clip;
+  }
+  .c-hero .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    text-align: center;
+  }
+  .c-hero h1 {
+    font-size: clamp(3rem, 7.5vw, 5.4rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+    margin: 18px 0 24px;
+  }
+  .c-hero h1 .serif { color: var(--iris); }
+  .c-hero p {
+    font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+    color: var(--ink-2);
+    max-width: 54ch;
+    margin: 0 auto;
+  }
+
+  .form-section {
+    padding: 40px var(--gutter) clamp(80px, 10vw, 140px);
+  }
+  .form-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  @media (min-width: 980px) {
+    .form-grid {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 40px;
+    }
+  }
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .side-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px;
+  }
+  .side-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .side-card p, .side-card a {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+  }
+  .side-card a {
+    color: var(--iris);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .side-card .row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .side-card .kv {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.88rem;
+  }
+  .side-card .kv:last-child { border-bottom: 0; }
+  .side-card .kv .k {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .side-card .kv .v { color: var(--ink); font-weight: 450; }
+
+  .side-card.promise {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .side-card.promise h3 { color: var(--paper); }
+  .side-card.promise p { color: oklch(0.8 0.01 265); }
+  .promise .metric {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid oklch(0.32 0.015 265);
+  }
+  .promise .metric .big {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--lime);
+  }
+  .promise .metric .lbl {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: oklch(0.7 0.01 265);
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    padding: 2px 10px;
+  }
+  .step-title { font-weight: 500; font-size: 0.92rem; }
+  .step-sub { font-size: 0.82rem; color: var(--ink-3); }
+
+  .form-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: clamp(28px, 4vw, 48px);
+    position: relative;
+    overflow: clip;
+    box-shadow: var(--sh-2);
+  }
+  .form-card::before {
+    content: "";
+    position: absolute;
+    inset: -40% -30% auto auto;
+    width: 80%;
+    height: 180%;
+    background: radial-gradient(circle, var(--iris-soft) 0%, transparent 60%);
+    z-index: 0;
+    opacity: 0.6;
+  }
+  .form-card > * { position: relative; z-index: 1; }
+  .form-card h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 8px;
+  }
+  .form-card h2 .serif { color: var(--iris); }
+  .form-card .intro {
+    font-size: 0.98rem;
+    color: var(--ink-2);
+    margin-bottom: 28px;
+  }
+
+  form.big { display: grid; gap: 16px; }
+  form.big .two {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 640px) {
+    form.big .two { grid-template-columns: 1fr 1fr; }
+  }
+  form.big label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  form.big input,
+  form.big textarea,
+  form.big select {
+    padding: 14px 16px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line-2);
+    background: var(--paper);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  form.big input:focus,
+  form.big textarea:focus,
+  form.big select:focus {
+    outline: none;
+    border-color: var(--iris);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--iris) 18%, transparent);
+    background: var(--paper);
+  }
+  form.big textarea { resize: vertical; min-height: 140px; }
+
+  .optional-tag {
+    text-transform: none;
+    font-family: var(--font-sans);
+    letter-spacing: normal;
+    color: var(--ink-4);
+    font-size: 0.75rem;
+  }
+  .pick-label {
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  .type-pick {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (min-width: 640px) {
+    .type-pick { grid-template-columns: repeat(3, 1fr); }
+  }
+  .type-pick input { position: absolute; opacity: 0; pointer-events: none; }
+  .type-pick label.opt {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    padding: 14px 14px 12px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: var(--font-sans);
+    color: var(--ink);
+  }
+  .type-pick label.opt:hover { border-color: var(--iris); background: var(--chalk); }
+  .type-pick input:checked + label.opt { border-color: var(--iris); background: var(--iris-soft); }
+  .type-pick label.opt .n {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .type-pick label.opt .t { font-size: 0.95rem; font-weight: 500; }
+
+  .budget-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+  .budget-pick input { position: absolute; opacity: 0; pointer-events: none; }
+  .budget-pick label.pill {
+    padding: 10px 16px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-2);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    text-transform: none;
+    letter-spacing: normal;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .budget-pick label.pill:hover { border-color: var(--iris); color: var(--ink); }
+  .budget-pick input:checked + label.pill {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .submit-row .fine {
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .submit-row .ok { margin-left: auto; }
+
+  .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+  .form-message {
+    padding: 16px;
+    border-radius: var(--r-md);
+    font-size: 0.9375rem;
+  }
+  .form-success {
+    background: rgba(52, 199, 89, 0.1);
+    color: #34C759;
+    border: 1px solid rgba(52, 199, 89, 0.2);
+  }
+  .form-error {
+    background: rgba(255, 59, 48, 0.1);
+    color: #FF3B30;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+  }
+
+  .faq {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: clamp(60px, 8vw, 100px) var(--gutter);
+    border-top: 1px solid var(--line);
+  }
+  .faq h2 { margin-bottom: 32px; text-align: center; }
+  .faq h2 .serif { color: var(--iris); }
+  details {
+    background: var(--chalk);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 4px;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  details[open] { background: var(--paper); }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary svg {
+    flex-shrink: 0;
+    transition: transform 0.25s var(--ease);
+    color: var(--ink-3);
+  }
+  details[open] summary svg { transform: rotate(45deg); color: var(--iris); }
+  details .ans {
+    padding: 0 22px 20px;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+</style>
