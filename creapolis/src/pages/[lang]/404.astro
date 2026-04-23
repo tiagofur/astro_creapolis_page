@@ -1,14 +1,21 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 ---
 
-<Layout
+<Layout lang={lang}
   title="Página no encontrada — Creapolis"
   description="La página que buscás no existe. Te llevamos de vuelta al camino."
 >
-  <Nav />
+  <Nav lang={lang} />
 
   <section class="nf-page">
     <div class="ribbon" aria-hidden="true">
@@ -49,7 +56,7 @@ import Footer from '../components/Footer.astro';
         <p class="lead">La URL que pediste no existe, o movimos algo de lugar y se nos olvidó dejar señal. Lo que es seguro es que no querés quedarte mirando este 404 — te dejo tres caminos.</p>
 
         <div class="nf-options">
-          <a href="/" class="nf-opt reveal reveal-delay-1">
+          <a href={`/${lang}/`} class="nf-opt reveal reveal-delay-1">
             <div class="opt-num">01</div>
             <h3>Al inicio</h3>
             <p>Ver apps, servicios, blog y todo lo demás.</p>
@@ -58,7 +65,7 @@ import Footer from '../components/Footer.astro';
             </span>
           </a>
 
-          <a href="/blog" class="nf-opt reveal reveal-delay-2">
+          <a href={`/${lang}/blog`} class="nf-opt reveal reveal-delay-2">
             <div class="opt-num">02</div>
             <h3>Notas de taller</h3>
             <p>Lo que aprendo construyendo apps reales.</p>
@@ -67,7 +74,7 @@ import Footer from '../components/Footer.astro';
             </span>
           </a>
 
-          <a href="/contacto" class="nf-opt reveal reveal-delay-3">
+          <a href={`/${lang}/contacto`} class="nf-opt reveal reveal-delay-3">
             <div class="opt-num">03</div>
             <h3>Contame qué pasó</h3>
             <p>Si llegaste acá por un link roto, avisame y lo arreglo.</p>
@@ -80,7 +87,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

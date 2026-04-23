@@ -1,7 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
+}
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 
 const services = [
   {
@@ -22,7 +28,7 @@ const services = [
     proof: {
       label: 'Dónde lo apliqué',
       text: 'Pepinillo (Android, Jetpack Compose) y Películas (Android, Kotlin) en Google Play. Solennix en iOS, Android y web — gestión real de eventos con CRM e inventario.',
-      link: '/proyectos',
+      link: `/${lang}/proyectos`,
       linkLabel: 'Ver proyectos reales',
     },
   },
@@ -44,7 +50,7 @@ const services = [
     proof: {
       label: 'Dónde lo apliqué',
       text: 'Este mismo sitio. Astro + oklch + Google Fonts + backend en Go para el formulario. Tokens de diseño custom, animaciones con Intersection Observer, performance-first.',
-      link: '/',
+      link: `/${lang}/`,
       linkLabel: 'Ver el sitio (sos vos ahora)',
     },
   },
@@ -66,7 +72,7 @@ const services = [
     proof: {
       label: 'Dónde lo apliqué',
       text: 'Pepinillo Desktop (en desarrollo, Tauri + Rust) — versión de escritorio con sincronización y widgets de enfoque. Herramientas internas para flujos de eventos.',
-      link: '/#shelf',
+      link: `/${lang}/#shelf`,
       linkLabel: 'Ver qué está en construcción',
     },
   },
@@ -88,7 +94,7 @@ const services = [
     proof: {
       label: 'Dónde lo apliqué',
       text: 'Serene (en desarrollo) — diario de gratitud con IA consciente para ansiedad y burnout. IA con límites definidos: no diagnostica, no alucina, no reemplaza un terapeuta.',
-      link: '/#shelf',
+      link: `/${lang}/#shelf`,
       linkLabel: 'Ver Serene en desarrollo',
     },
   },
@@ -122,11 +128,11 @@ const process = [
 ];
 ---
 
-<Layout
+<Layout lang={lang}
   title="Servicios — Creapolis"
   description="Desarrollo apps móviles, web y de escritorio. Consultoría de IA práctica para empresas en México y LATAM."
 >
-  <Nav />
+  <Nav lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        PAGE HEADER
@@ -300,7 +306,7 @@ const process = [
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

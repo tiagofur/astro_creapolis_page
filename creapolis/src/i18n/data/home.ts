@@ -1,0 +1,173 @@
+import type { Lang } from '../ui';
+
+export interface HomeApps {
+  name: string;
+  tagline: string;
+  desc: string;
+  href: string;
+  platform: string;
+  color: string;
+  status: string;
+  deviceRows: number[][];
+}
+
+export interface HomeShelf {
+  ring: string;
+  name: string;
+  status: string;
+  statusLabel: string;
+  desc: string;
+  progress: number;
+  color: string;
+  bg: string;
+}
+
+export interface HomeService {
+  num: string;
+  mark: string;
+  title: string;
+  desc: string;
+}
+
+export interface HomeStep {
+  n: string;
+  title: string;
+  desc: string;
+}
+
+export interface HomeStat {
+  n: string;
+  label: string;
+  color: string;
+}
+
+const apps: Record<Lang, HomeApps[]> = {
+  es: [
+    {
+      name: 'Solennix',
+      tagline: 'todo-en-uno para eventos',
+      desc: 'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
+      href: '/solennix',
+      platform: 'iOS · Android · Web',
+      color: 'var(--iris)',
+      status: 'live',
+      deviceRows: [[3], [2], [1]],
+    },
+    {
+      name: 'Pepinillo',
+      tagline: 'Pomodoro, tareas y timer',
+      desc: 'Productividad todo-en-uno: Pomodoro configurable, tareas con prioridades y subtasks, calendario, timer y estadísticas.',
+      href: '/proyectos/pepinillo',
+      platform: 'Android',
+      color: 'var(--lime)',
+      status: 'live',
+      deviceRows: [[2], [3]],
+    },
+    {
+      name: 'Películas',
+      tagline: 'tu cine, a tu manera',
+      desc: 'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones basadas en tus gustos.',
+      href: '/proyectos/peliculas',
+      platform: 'Android',
+      color: 'var(--coral)',
+      status: 'live',
+      deviceRows: [[3], [2]],
+    },
+  ],
+  en: [
+    {
+      name: 'Solennix',
+      tagline: 'all-in-one for events',
+      desc: 'CRM, quotes, inventory, and dashboard for professional event organizers in Latin America.',
+      href: '/solennix',
+      platform: 'iOS · Android · Web',
+      color: 'var(--iris)',
+      status: 'live',
+      deviceRows: [[3], [2], [1]],
+    },
+    {
+      name: 'Pepinillo',
+      tagline: 'Pomodoro, tasks & timer',
+      desc: 'All-in-one productivity: configurable Pomodoro, tasks with priorities and subtasks, calendar, timer, and statistics.',
+      href: '/proyectos/pepinillo',
+      platform: 'Android',
+      color: 'var(--lime)',
+      status: 'live',
+      deviceRows: [[2], [3]],
+    },
+    {
+      name: 'Películas',
+      tagline: 'your movies, your way',
+      desc: 'Movies and series catalog, custom lists, advanced search, and recommendations based on your taste.',
+      href: '/proyectos/peliculas',
+      platform: 'Android',
+      color: 'var(--coral)',
+      status: 'live',
+      deviceRows: [[3], [2]],
+    },
+  ],
+};
+
+const shelf: Record<Lang, HomeShelf[]> = {
+  es: [
+    { ring: 'Sx', name: 'Solennix · Mejora continua', status: 'active', statusLabel: 'En producción', desc: 'Iteración constante: nuevas features por feedback de usuarios reales, estabilidad y preparación para escalar.', progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
+    { ring: 'Se', name: 'Serene · Diario de gratitud', status: 'dev', statusLabel: 'En desarrollo', desc: 'Diario de gratitud con IA consciente para ansiedad, burnout y depresión. Feedback terapéutico responsable — sin alucinaciones, sin diagnósticos, sin dañar.', progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
+    { ring: 'Pe', name: 'Pepinillo para iOS', status: 'dev', statusLabel: 'En desarrollo', desc: 'La app de productividad que ya funciona en Android, camino al iPhone. Próximo paso: migrar Android a nativo y construir versión desktop.', progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
+    { ring: '?', name: 'En exploración · Asistente conectado', status: 'soon', statusLabel: 'Concepto', desc: 'Idea explorando: un asistente que unifica WhatsApp, correo y CRM en un solo hilo para PyMEs. Todavía sin nombre definido.', progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
+  ],
+  en: [
+    { ring: 'Sx', name: 'Solennix · Continuous improvement', status: 'active', statusLabel: 'In production', desc: 'Constant iteration: new features from real user feedback, stability, and preparing to scale.', progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
+    { ring: 'Se', name: 'Serene · Gratitude journal', status: 'dev', statusLabel: 'In development', desc: 'Gratitude journal with conscious AI for anxiety, burnout, and depression. Responsible therapeutic feedback — no hallucinations, no diagnoses, no harm.', progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
+    { ring: 'Pe', name: 'Pepinillo for iOS', status: 'dev', statusLabel: 'In development', desc: 'The productivity app that already works on Android, heading to iPhone. Next step: migrate Android to native and build desktop version.', progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
+    { ring: '?', name: 'Exploring · Connected assistant', status: 'soon', statusLabel: 'Concept', desc: 'Exploring an idea: an assistant that unifies WhatsApp, email, and CRM into a single thread for SMBs. Still no defined name.', progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
+  ],
+};
+
+const services: Record<Lang, HomeService[]> = {
+  es: [
+    { num: '01 / Móvil', mark: 'm', title: 'Apps móviles', desc: 'iOS y Android, nativas o multiplataforma. Publicamos, damos soporte y mantenemos stores.' },
+    { num: '02 / Web', mark: 'w', title: 'Apps web', desc: 'SPAs, e-commerce y dashboards con Next.js y Astro. Rápidas, seguras y medibles.' },
+    { num: '03 / Desktop', mark: 'd', title: 'Software de escritorio', desc: 'macOS, Windows y Linux. Tauri + Rust para rendimiento nativo y bundles pequeños.' },
+    { num: '04 / IA', mark: 'i', title: 'Consultoría de IA', desc: 'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.' },
+  ],
+  en: [
+    { num: '01 / Mobile', mark: 'm', title: 'Mobile apps', desc: 'iOS and Android, native or cross-platform. We publish, support, and maintain stores.' },
+    { num: '02 / Web', mark: 'w', title: 'Web apps', desc: 'SPAs, e-commerce, and dashboards with Next.js and Astro. Fast, secure, and measurable.' },
+    { num: '03 / Desktop', mark: 'd', title: 'Desktop software', desc: 'macOS, Windows, and Linux. Tauri + Rust for native performance and small bundles.' },
+    { num: '04 / AI', mark: 'i', title: 'AI consulting', desc: 'Process automation, chatbots, analytics. Practical implementation, not theory.' },
+  ],
+};
+
+const steps: Record<Lang, HomeStep[]> = {
+  es: [
+    { n: '1', title: 'Descubrir', desc: 'Llamada de 45 min, lectura del mercado, roadmap con fechas realistas y presupuesto.' },
+    { n: '2', title: 'Diseñar', desc: 'Wireframes, prototipo navegable en Figma y sistema de diseño documentado.' },
+    { n: '3', title: 'Construir', desc: 'Sprints de 2 semanas. Demo cada viernes. Código en tu repo desde el día uno.' },
+    { n: '4', title: 'Lanzar', desc: 'QA, publicación en stores, métricas. 30 días de soporte incluidos post-lanzamiento.' },
+  ],
+  en: [
+    { n: '1', title: 'Discover', desc: '45-min call, market research, roadmap with realistic dates and budget.' },
+    { n: '2', title: 'Design', desc: 'Wireframes, navigable prototype in Figma, and documented design system.' },
+    { n: '3', title: 'Build', desc: '2-week sprints. Demo every Friday. Code in your repo from day one.' },
+    { n: '4', title: 'Launch', desc: 'QA, store publishing, metrics. 30 days of included post-launch support.' },
+  ],
+};
+
+const stats: Record<Lang, HomeStat[]> = {
+  es: [
+    { n: '5+ años', label: 'Construyendo producto', color: 'c1' },
+    { n: '3 apps', label: 'Propias en tiendas', color: 'c2' },
+    { n: '1 persona', label: 'Cero intermediarios', color: 'c3' },
+    { n: '< 24h', label: 'Respuesta a cada mensaje', color: 'c4' },
+  ],
+  en: [
+    { n: '5+ years', label: 'Building product', color: 'c1' },
+    { n: '3 apps', label: 'Own apps in stores', color: 'c2' },
+    { n: '1 person', label: 'Zero middlemen', color: 'c3' },
+    { n: '< 24h', label: 'Response to every message', color: 'c4' },
+  ],
+};
+
+export function getHomeData(lang: Lang) {
+  return { apps: apps[lang], shelf: shelf[lang], services: services[lang], steps: steps[lang], stats: stats[lang] };
+}

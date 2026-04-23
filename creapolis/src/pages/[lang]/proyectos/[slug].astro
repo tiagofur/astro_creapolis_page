@@ -1,7 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import type { Lang } from "../../../i18n/ui";
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 
 export function getStaticPaths() {
   const projectsData: Record<string, any> = {
@@ -131,26 +132,30 @@ export function getStaticPaths() {
     },
   };
 
-  return Object.keys(projectsData).map((slug) => ({
-    params: { slug },
-    props: { project: projectsData[slug], slug },
-  }));
+  const langs: Lang[] = ['es', 'en'];
+  return langs.flatMap(lang =>
+    Object.keys(projectsData).map((slug) => ({
+      params: { lang, slug },
+      props: { project: projectsData[slug], slug },
+    }))
+  );
 }
 
+const lang = Astro.params.lang as Lang;
 const { project, slug } = Astro.props;
 
 if (!project) {
-  return Astro.redirect('/proyectos');
+  return Astro.redirect(`/${lang}/proyectos`);
 }
 
 const gradientId = `prib-${slug}`;
 ---
 
-<Layout
+<Layout lang={lang}
   title={`${project.name} — Creapolis`}
   description={project.lead}
 >
-  <Nav />
+  <Nav lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — ribbon + chips + mockup
@@ -176,7 +181,7 @@ const gradientId = `prib-${slug}`;
     </div>
 
     <div class="wrap">
-      <a href="/proyectos" class="back-link reveal">
+      <a href={`/${lang}/proyectos`} class="back-link reveal">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8M6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         Volver a proyectos
       </a>
@@ -344,7 +349,7 @@ const gradientId = `prib-${slug}`;
         </div>
         <div class="resources-grid">
           {project.resources.map((r: any) => (
-            <a href={r.href} class="resource-card reveal">
+            <a href={`/${lang}${r.href}`} class="resource-card reveal">
               <div class="res-icon">{r.icon}</div>
               <div>
                 <h3>{r.title}</h3>
@@ -368,16 +373,16 @@ const gradientId = `prib-${slug}`;
         <h2>¿Necesitás algo <span class="serif">similar</span>?</h2>
         <p class="lead">Si te gustó esta app y querés una para tu industria o tu idea, hablamos. Construyo cosas así todos los días.</p>
         <div class="cta-row">
-          <a href="/contacto" class="btn btn-primary btn-lg">Iniciar proyecto
+          <a href={`/${lang}/contacto`} class="btn btn-primary btn-lg">Iniciar proyecto
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
-          <a href="/proyectos" class="btn btn-ghost btn-lg">Ver otros proyectos</a>
+          <a href={`/${lang}/proyectos`} class="btn btn-ghost btn-lg">Ver otros proyectos</a>
         </div>
       </div>
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

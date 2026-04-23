@@ -1,10 +1,13 @@
 ---
 import '../styles/global.css';
+import { type Lang, defaultLang } from '../i18n/ui';
+import { getLangFromUrl } from '../i18n/utils';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  lang?: Lang;
   article?: {
     publishedTime: string;
     modifiedTime?: string;
@@ -17,11 +20,15 @@ const {
   title = 'Creapolis — Software que transforma ideas en productos',
   description = 'Estudio de desarrollo en Monterrey. Diseño y construcción de apps móviles, web y de escritorio, con consultoría de IA práctica.',
   ogImage = '/og-default.png',
+  lang = getLangFromUrl(Astro.url),
   article,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title.includes('Creapolis') ? title : `${title} — Creapolis`;
+const htmlLang = lang === 'en' ? 'en' : 'es';
+const ogLocale = lang === 'en' ? 'en_US' : 'es_MX';
+const inLanguage = lang === 'en' ? 'en-US' : 'es-MX';
 
 // Person + Organization shared schema (single dev studio)
 // TODO: reemplazar los sameAs con URLs reales cuando estén
@@ -69,7 +76,7 @@ const jsonLd = article
         : founder,
       publisher: organization,
       keywords: article.tags?.join(', '),
-      inLanguage: 'es-MX',
+      inLanguage,
     }
   : {
       '@context': 'https://schema.org',
@@ -77,7 +84,7 @@ const jsonLd = article
       name: 'Creapolis',
       url: 'https://creapolis.dev',
       description,
-      inLanguage: 'es-MX',
+      inLanguage,
       publisher: organization,
       potentialAction: {
         '@type': 'SearchAction',
@@ -88,7 +95,7 @@ const jsonLd = article
 ---
 
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang={htmlLang} dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -96,12 +103,17 @@ const jsonLd = article
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Alternate language links -->
+    {lang === 'es' && <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace('/es/', '/en/'), Astro.site).href} />}
+    {lang === 'en' && <link rel="alternate" hreflang="es" href={new URL(Astro.url.pathname.replace('/en/', '/es/'), Astro.site).href} />}
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="Creapolis" />
     <meta property="og:image" content={ogImage} />
 
@@ -143,7 +155,7 @@ const jsonLd = article
     <title>{fullTitle}</title>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+    <a href="#main-content" class="skip-link">{lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}</a>
     <slot />
   </body>
 </html>

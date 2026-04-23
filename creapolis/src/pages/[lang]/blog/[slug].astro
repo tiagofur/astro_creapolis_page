@@ -1,18 +1,23 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import type { Lang } from "../../../i18n/ui";
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
-import { getPostDescription } from '../../utils/post';
+import { getPostDescription } from '../../../utils/post';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const langs: Lang[] = ['es', 'en'];
+  return langs.flatMap(lang =>
+    posts.map((post) => ({
+      params: { lang, slug: post.slug },
+      props: { post },
+    }))
+  );
 }
 
+const lang = Astro.params.lang as Lang;
 const { post } = Astro.props;
 const { Content } = await render(post);
 const description = getPostDescription(post);
@@ -69,7 +74,7 @@ const mainTag = post.data.tags[0] || 'desarrollo';
 const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📝' };
 ---
 
-<Layout
+<Layout lang={lang}
   title={post.data.title}
   description={description || post.data.title}
   article={{
@@ -78,7 +83,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
     tags: post.data.tags,
   }}
 >
-  <Nav />
+  <Nav lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        ARTICLE HERO — dark bg with colored accent
@@ -89,7 +94,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
       <div class="hero-inner">
         <!-- Left: article info -->
         <div class="hero-content reveal">
-          <a href="/blog" class="back-link">
+          <a href={`/${lang}/blog`} class="back-link">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M8 2L2 8M2 8V3M2 8H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Todas las notas
           </a>
@@ -166,7 +171,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
           <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}>
             <h4 class="sidebar-title">¿Necesitas ayuda?</h4>
             <p>Agenda una llamada y te asesoramos sin compromiso.</p>
-            <a href="/contacto" class="btn btn-primary" style="width: 100%">Hablemos</a>
+            <a href={`/${lang}/contacto`} class="btn btn-primary" style="width: 100%">Hablemos</a>
           </div>
         </aside>
       </div>
@@ -175,7 +180,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
       <div class="article-footer reveal">
         <div class="footer-divider"></div>
         <div class="footer-inner">
-          <a href="/blog" class="btn btn-ghost">
+          <a href={`/${lang}/blog`} class="btn btn-ghost">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M8 2L2 8M2 8V3M2 8H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Todas las notas
           </a>
@@ -188,7 +193,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
     </div>
   </article>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

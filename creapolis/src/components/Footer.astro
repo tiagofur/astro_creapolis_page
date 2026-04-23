@@ -1,23 +1,19 @@
 ---
-/**
- * Footer — Creapolis shared footer
- *
- * Dark v2 footer with multi-column layout, ribbon accent strip,
- * social links, and legal bottom bar.
- */
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 
 const year = new Date().getFullYear();
+const lang: Lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-// Social links — solo se muestran si tienen URL real
 const social = {
-  linkedin: null,   // TODO: LinkedIn real
-  github: null,     // TODO: GitHub real
-  twitter: null,    // TODO: X/Twitter
+  linkedin: null,
+  github: null,
+  twitter: null,
 };
 ---
 
 <footer class="footer">
-  <!-- Top accent ribbon -->
   <div class="footer-ribbon" aria-hidden="true">
     <svg viewBox="0 0 1400 80" preserveAspectRatio="none">
       <defs>
@@ -39,14 +35,13 @@ const social = {
   </div>
 
   <div class="footer-main">
-    <!-- Brand column -->
     <div class="footer-brand-col">
-      <a href="/" class="footer-brand-link" aria-label="Creapolis home">
+      <a href={getLocalizedPath(lang, '/')} class="footer-brand-link" aria-label="Creapolis home">
         <div class="footer-logo-mark">C</div>
         <span class="footer-brand-name">Creapolis</span>
       </a>
       <p class="footer-tagline">
-        Estudio de una persona. Diseño, codeo y publico software que la gente de verdad usa.
+        {t('footer.tagline')}
       </p>
       <div class="footer-social">
         {social.linkedin && (
@@ -67,53 +62,51 @@ const social = {
       </div>
     </div>
 
-    <!-- Navigation columns -->
     <div class="footer-nav">
       <div class="fcol">
-        <h5>Sitio</h5>
-        <a href="/">Inicio</a>
-        <a href="/#apps">Apps</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/blog">Blog</a>
+        <h5>{t('footer.site')}</h5>
+        <a href={getLocalizedPath(lang, '/')}>{t('footer.home')}</a>
+        <a href={getLocalizedPath(lang, '/#apps')}>{t('footer.apps')}</a>
+        <a href={getLocalizedPath(lang, '/servicios')}>{t('footer.services')}</a>
+        <a href={getLocalizedPath(lang, '/sobre')}>{t('footer.about')}</a>
+        <a href={getLocalizedPath(lang, '/blog')}>{t('footer.blog')}</a>
       </div>
 
       <div class="fcol">
-        <h5>Proyectos</h5>
-        <a href="/proyectos">Todos</a>
-        <a href="/solennix">Solennix</a>
-        <a href="/proyectos/pepinillo">Pepinillo</a>
-        <a href="/proyectos/peliculas">Películas</a>
+        <h5>{t('footer.projects')}</h5>
+        <a href={getLocalizedPath(lang, '/proyectos')}>{t('footer.all')}</a>
+        <a href={getLocalizedPath(lang, '/solennix')}>Solennix</a>
+        <a href={getLocalizedPath(lang, '/proyectos/pepinillo')}>Pepinillo</a>
+        <a href={getLocalizedPath(lang, '/proyectos/peliculas')}>Películas</a>
       </div>
 
       <div class="fcol">
-        <h5>Contacto</h5>
-        <a href="/contacto">Formulario</a>
+        <h5>{t('footer.contact')}</h5>
+        <a href={getLocalizedPath(lang, '/contacto')}>{t('footer.form')}</a>
         <a href="mailto:hola@creapolis.dev" class="fcol-email">
           hola@creapolis.dev
           <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
         <div class="fcol-meta">
           <span class="chip-dot"></span>
-          <span>Monterrey · MX</span>
+          <span>{t('footer.location')}</span>
         </div>
         <div class="fcol-meta">
-         <span>Respuesta &lt; 24h</span>
+         <span>{t('footer.response')}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom legal strip -->
   <div class="footer-legal">
     <div class="footer-legal-inner">
       <p class="footer-copyright">
-        &copy; {year} Creapolis · Tiago David Furtado. Hecho con <span class="serif-it">cuidado</span>.
+        &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')} <span class="serif-it">{t('footer.care')}</span>.
       </p>
       <div class="footer-legal-links">
         <a href="/privacy-policy">Privacy Policy</a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href="/terminos">Términos</a>
+        <a href="/terminos">{lang === 'en' ? 'Terms' : 'Términos'}</a>
         <span class="sep" aria-hidden="true">·</span>
         <a href="/delete-account">Delete Account</a>
       </div>

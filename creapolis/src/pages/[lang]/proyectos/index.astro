@@ -1,14 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import type { Lang } from "../../../i18n/ui";
+export function getStaticPaths() {
+  return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
+}
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 
 const apps = [
   {
     name: 'Solennix',
     tagline: 'todo-en-uno para eventos',
     desc: 'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
-    href: '/solennix',
+    href: `/${lang}/solennix`,
     platform: 'iOS · Android · Web',
     color: 'var(--iris)',
     status: 'live',
@@ -18,7 +24,7 @@ const apps = [
     name: 'Pepinillo',
     tagline: 'Pomodoro, tareas y timer',
     desc: 'Productividad todo-en-uno: Pomodoro configurable, tareas con prioridades y subtasks, calendario, timer y estadísticas.',
-    href: '/proyectos/pepinillo',
+    href: `/${lang}/proyectos/pepinillo`,
     platform: 'Android',
     color: 'var(--lime)',
     status: 'live',
@@ -28,7 +34,7 @@ const apps = [
     name: 'Películas',
     tagline: 'tu cine, a tu manera',
     desc: 'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones basadas en tus gustos.',
-    href: '/proyectos/peliculas',
+    href: `/${lang}/proyectos/peliculas`,
     platform: 'Android',
     color: 'var(--coral)',
     status: 'live',
@@ -37,8 +43,8 @@ const apps = [
 ];
 ---
 
-<Layout title="Proyectos — Creapolis" description="Nuestros proyectos y aplicaciones desarrolladas.">
-  <Nav />
+<Layout lang={lang} title="Proyectos — Creapolis" description="Nuestros proyectos y aplicaciones desarrolladas.">
+  <Nav lang={lang} />
 
   <header class="page-hero" id="main-content">
     <div class="wrap">
@@ -87,7 +93,7 @@ const apps = [
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

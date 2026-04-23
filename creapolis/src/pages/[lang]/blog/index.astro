@@ -1,9 +1,15 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import type { Lang } from "../../../i18n/ui";
+export function getStaticPaths() {
+  return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
+}
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
-import { getPostDescription } from '../../utils/post';
+import { getPostDescription } from '../../../utils/post';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -78,8 +84,8 @@ const topTags = [...tagCounts.entries()]
 const totalPosts = sortedPosts.length;
 ---
 
-<Layout title="Notas — Creapolis" description="Notas de producto, tecnología y aprendizajes construyendo software. Escritas desde Creapolis.">
-  <Nav />
+<Layout lang={lang} title="Notas — Creapolis" description="Notas de producto, tecnología y aprendizajes construyendo software. Escritas desde Creapolis.">
+  <Nav lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        HEADER — gradient bg + decorative accents
@@ -126,7 +132,7 @@ const totalPosts = sortedPosts.length;
     <section class="section featured-section" style="padding-top: clamp(32px, 4vw, 48px)">
       <div class="wrap">
         <a
-          href={`/blog/${featured.slug}`}
+          href={`/${lang}/blog/${featured.slug}`}
           class="featured-card reveal"
           data-post-tags={featured.data.tags.join(',')}
         >
@@ -182,7 +188,7 @@ const totalPosts = sortedPosts.length;
           const colorVar = (canonicalTag && tagColors[canonicalTag]?.replace('--', '')) || 'default';
           return (
             <a
-              href={`/blog/${post.slug}`}
+              href={`/${lang}/blog/${post.slug}`}
               class={`post-card reveal${i > 0 && i <= 3 ? ` reveal-delay-${i}` : ''}`}
               data-post-tags={post.data.tags.join(',')}
             >
@@ -230,7 +236,7 @@ const totalPosts = sortedPosts.length;
           <h3>¿Te gustó lo que leíste <span class="serif">y tenés un proyecto</span>?</h3>
           <p>Si algo de lo que escribió te resonó y tenés una idea que querés llevar a cabo, conversemos. Te respondo el mismo día.</p>
           <div class="newsletter-form">
-            <a href="/contacto" class="btn btn-primary btn-lg">Iniciar conversación
+            <a href={`/${lang}/contacto`} class="btn btn-primary btn-lg">Iniciar conversación
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </a>
           </div>
@@ -239,7 +245,7 @@ const totalPosts = sortedPosts.length;
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

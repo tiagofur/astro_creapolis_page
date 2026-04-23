@@ -1,7 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 
 // Placeholder links — reemplazar con URLs reales cuando estén disponibles
 const links = {
@@ -69,8 +76,8 @@ const stack = [
 ];
 ---
 
-<Layout title="Sobre — Creapolis" description="Creapolis es un estudio de una persona: código propio, consultoría directa, y apps que la gente de verdad usa.">
-  <Nav />
+<Layout lang={lang} title="Sobre — Creapolis" description="Creapolis es un estudio de una persona: código propio, consultoría directa, y apps que la gente de verdad usa.">
+  <Nav lang={lang} lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        HERO
@@ -225,7 +232,7 @@ const stack = [
         <h2>¿Te suena <span class="serif">esta forma de trabajar</span>?</h2>
         <p class="lead">Si buscás un colaborador directo, que pregunta antes de codear y que te contesta el mismo día — estamos en la misma página.</p>
         <div class="cta-row">
-          <a href="/contacto" class="btn btn-primary btn-lg">Iniciar conversación
+          <a href={`/${lang}/contacto`} class="btn btn-primary btn-lg">Iniciar conversación
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
           <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
@@ -234,7 +241,7 @@ const stack = [
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

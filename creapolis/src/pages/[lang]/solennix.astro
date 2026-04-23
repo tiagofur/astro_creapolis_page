@@ -1,7 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import type { Lang } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 
 const solennix = {
   name: 'Solennix',
@@ -74,11 +82,11 @@ const featureLetters = ['E', 'C', '$', 'I', 'D', 'P'];
 const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
 ---
 
-<Layout
+<Layout lang={lang}
   title={`${solennix.name} — Creapolis`}
   description={solennix.desc}
 >
-  <Nav />
+  <Nav lang={lang} lang={lang} />
 
   <header class="s-hero" id="main-content">
     <div class="ribbon" aria-hidden="true">
@@ -245,7 +253,7 @@ const planTags = ['01 / Gratis', '02 / Pro', '03 / Enterprise'];
     </div>
   </section>
 
-  <Footer />
+  <Footer lang={lang} />
 </Layout>
 
 <style>

@@ -1,51 +1,47 @@
 ---
-/**
- * Nav — Creapolis shared navigation
- *
- * Props:
- *   links — override the default nav links array
- *   cta   — override CTA { text, href }
- *
- * Default links use absolute paths (/servicios, /contacto) so they
- * work from ANY page. Pages with local sections pass custom links.
- * Active state is detected by matching Astro.url.pathname to href.
- */
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 
 interface Link { label: string; href: string }
 interface CTA { text: string; href: string }
 
 interface Props {
+  lang?: Lang;
   links?: Link[];
   cta?: CTA;
 }
 
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const defaultLinks: Link[] = [
-  { label: 'Proyectos', href: '/proyectos' },
-  { label: 'Servicios', href: '/servicios' },
-  { label: 'Sobre', href: '/sobre' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contacto', href: '/contacto' },
+  { label: t('nav.projects'), href: getLocalizedPath(lang, '/proyectos') },
+  { label: t('nav.services'), href: getLocalizedPath(lang, '/servicios') },
+  { label: t('nav.about'), href: getLocalizedPath(lang, '/sobre') },
+  { label: t('nav.blog'), href: getLocalizedPath(lang, '/blog') },
+  { label: t('nav.contact'), href: getLocalizedPath(lang, '/contacto') },
 ];
 
-const defaultCTA: CTA = { text: 'Iniciar proyecto', href: '/contacto' };
+const defaultCTA: CTA = { text: t('nav.cta'), href: getLocalizedPath(lang, '/contacto') };
 
 const { links = defaultLinks, cta = defaultCTA } = Astro.props;
 
-/**
- * Detect active link: exact match for full paths,
- * or startsWith for anchor-based home links.
- */
 const currentPath = Astro.url.pathname;
 function isActive(href: string): boolean {
-  if (href.startsWith('/#')) return currentPath === '/';
-  if (href === '/') return currentPath === '/';
+  if (href.startsWith('/#')) return currentPath === `/${lang}/` || currentPath === `/${lang}`;
+  if (href === `/${lang}/` || href === `/${lang}`) return currentPath === `/${lang}/` || currentPath === `/${lang}`;
   return currentPath.startsWith(href) || currentPath === href;
 }
+
+const homeHref = getLocalizedPath(lang, '/');
+const altLang: Lang = lang === 'es' ? 'en' : 'es';
+const altPath = currentPath.replace(`/${lang}/`, `/${altLang}/`).replace(`/${lang}`, `/${altLang}`);
+const altHref = altPath || `/${altLang}/`;
 ---
 
-<nav class="nav" aria-label="Principal">
+<nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Creapolis home">
+    <a href={homeHref} class="nav-logo" aria-label="Creapolis home">
       <div class="nav-logo-mark">C</div>
       <span>Creapolis</span>
     </a>
@@ -54,11 +50,14 @@ function isActive(href: string): boolean {
       {links.map((l) => (
         <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
       ))}
+      <a href={altHref} class="nav-lang-toggle" aria-label={`Switch to ${altLang === 'en' ? 'English' : 'Español'}`}>
+        {altLang === 'en' ? 'EN' : 'ES'}
+      </a>
     </div>
 
     <a href={cta.href} class="nav-cta">{cta.text}</a>
 
-    <button class="nav-mobile-toggle" aria-label="Menú">
+    <button class="nav-mobile-toggle" aria-label={t('nav.menu')}>
       <span></span>
       <span></span>
     </button>
@@ -70,5 +69,36 @@ function isActive(href: string): boolean {
   {links.map((l) => (
     <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
   ))}
+  <a href={altHref} class="mobile-lang">{altLang === 'en' ? 'English' : 'Español'}</a>
   <a href={cta.href} class="cta">{cta.text}</a>
 </div>
+
+<style>
+  .nav-lang-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-2);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .nav-lang-toggle:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--chalk);
+  }
+  .mobile-lang {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    text-decoration: none;
+    padding: 8px 0;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+  }
+</style>
