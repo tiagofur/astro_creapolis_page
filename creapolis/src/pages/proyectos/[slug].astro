@@ -64,6 +64,11 @@ export function getStaticPaths() {
       storeLinks: {
         google: 'https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo',
       },
+      resources: [
+        { icon: '📖', title: 'Quick Start Guide', desc: 'Set up your first session in under 2 minutes.', href: '/proyectos/pepinillo/guide' },
+        { icon: '🧠', title: 'Focus Tips & Techniques', desc: 'Master deep work with proven strategies.', href: '/proyectos/pepinillo/tips' },
+        { icon: '💬', title: 'Feedback & Support', desc: 'Bug report? Feature idea? We\'re here.', href: '/proyectos/pepinillo/feedback' },
+      ],
     },
     'peliculas': {
       name: 'Películas',
@@ -328,7 +333,33 @@ const gradientId = `prib-${slug}`;
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       CONTACT CTA
+       RESOURCES (guide, tips, support)
+       ═══════════════════════════════════════════════════════════════ -->
+  {project.resources && (
+    <section class="section resources-section">
+      <div class="wrap">
+        <div class="reveal" style="margin-bottom:48px">
+          <div class="eyebrow" style="margin-bottom:16px"><span>Recursos</span></div>
+          <h2>Get the most out of <span class="serif">{project.name}</span>.</h2>
+        </div>
+        <div class="resources-grid">
+          {project.resources.map((r: any) => (
+            <a href={r.href} class="resource-card reveal">
+              <div class="res-icon">{r.icon}</div>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.desc}</p>
+                <span class="res-link">Read more →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════
+        CONTACT CTA
        ═══════════════════════════════════════════════════════════════ -->
   <section id="contacto" class="contact-cta">
     <div class="wrap">
@@ -619,6 +650,73 @@ const gradientId = `prib-${slug}`;
   .download-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .download .store {
     background: var(--paper); color: var(--ink);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESOURCES
+     ═══════════════════════════════════════════════════════════════ */
+  .resources-section { background: var(--chalk); }
+  .resources-section h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .resources-section h2 .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--p-color);
+  }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .resource-card {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+    align-items: flex-start;
+  }
+  .resource-card:hover {
+    box-shadow: var(--sh-2);
+    border-color: var(--p-color);
+  }
+  .res-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--p-soft);
+    border-radius: var(--r-sm);
+  }
+  .resource-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+  .resource-card p {
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin: 0 0 8px;
+  }
+  .res-link {
+    font-size: 0.85rem;
+    color: var(--p-color);
+    font-weight: 500;
   }
 
   /* ═══════════════════════════════════════════════════════════════

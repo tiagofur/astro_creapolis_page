@@ -1,16 +1,16 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 
 const pepNav = [
-  { label: 'Features', href: '/pepinillo#features' },
-  { label: 'Guide', href: '/pepinillo/guide' },
-  { label: 'Tips', href: '/pepinillo/tips' },
-  { label: 'Support', href: '/pepinillo/feedback' },
+  { label: 'Features', href: '/proyectos/pepinillo#features' },
+  { label: 'Guide', href: '/proyectos/pepinillo/guide' },
+  { label: 'Tips', href: '/proyectos/pepinillo/tips' },
+  { label: 'Support', href: '/proyectos/pepinillo/feedback' },
 ];
 
-const pepCTA = { text: 'Download', href: 'https://apps.apple.com/app/pepinillo' };
+const pepCTA = { text: 'Download', href: 'https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo' };
 
 const tips = [
   {
@@ -74,14 +74,14 @@ const tips = [
       <div class="next-links reveal">
         <h3>Keep going</h3>
         <div class="link-grid">
-          <a href="/pepinillo/guide" class="next-card">
+          <a href="/proyectos/pepinillo/guide" class="next-card">
             <span class="next-icon">📖</span>
             <div>
               <span class="next-title">Quick Start Guide</span>
               <span class="next-desc">Set up your first session in under 2 minutes.</span>
             </div>
           </a>
-          <a href="/pepinillo/feedback" class="next-card">
+          <a href="/proyectos/pepinillo/feedback" class="next-card">
             <span class="next-icon">💬</span>
             <div>
               <span class="next-title">Feedback & Support</span>
@@ -128,7 +128,7 @@ const tips = [
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
-    color: var(--pep-accent);
+    color: var(--lime);
   }
 
   .subtitle {
@@ -214,7 +214,7 @@ const tips = [
   }
 
   .next-card:hover {
-    border-color: var(--pep-accent);
+    border-color: var(--lime);
   }
 
   .next-icon {
@@ -244,7 +244,7 @@ const tips = [
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--pep-accent);
+    color: var(--lime);
     background: var(--lime-soft);
     border: 1px solid oklch(0.84 0.18 128 / 0.25);
     border-radius: var(--r-pill);
