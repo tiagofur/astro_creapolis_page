@@ -2,12 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import LegalPrivacyEN from '../components/LegalPrivacyEN.astro';
 
-const lastUpdated = '22 de abril de 2026';
+const email = "hola@creapolis.dev";
+const twitter = "@creapolisdev";
+const lastUpdated = 'April 23, 2026';
 ---
 
-<Layout title="Privacy Policy — Creapolis" description="Privacy policy for Creapolis apps and website: how we collect, use, store and protect your personal data.">
+<Layout
+  title="Privacy Policy — Pepinillo"
+  description="Pepinillo Privacy Policy: We value your privacy. Your tasks and focus history are stored locally on your device."
+>
   <Nav />
 
   <section class="legal-page">
@@ -18,7 +22,44 @@ const lastUpdated = '22 de abril de 2026';
         <p class="last-updated">Last updated: {lastUpdated}</p>
       </div>
 
-      <LegalPrivacyEN />
+      <p class="intro">At Pepinillo, we believe focus should be simple and private. Here is how we protect your data:</p>
+
+      <div class="privacy-grid">
+        <article class="privacy-card">
+          <h2>📱 Local Data</h2>
+          <p>Your tasks and focus history are stored on your device. Nothing leaves your phone or computer without permission.</p>
+        </article>
+
+        <article class="privacy-card">
+          <h2>☁️ iCloud Sync (Optional)</h2>
+          <p>If you enable sync, data goes only to your personal Apple iCloud account. We never see your data.</p>
+        </article>
+
+        <article class="privacy-card">
+          <h2>🚫 No Tracking</h2>
+          <p>We do not use third-party analytics or tracking SDKs. Your privacy is built-in, not added later.</p>
+        </article>
+
+        <article class="privacy-card">
+          <h2>❤️ Apple Health Integration</h2>
+          <p>If you grant permission, we log "Mindful Minutes" to Apple Health. This data lives in your device and Apple Health only. You can revoke access anytime.</p>
+        </article>
+
+        <article class="privacy-card">
+          <h2>🔒 Encryption</h2>
+          <p>Your iCloud data is encrypted in transit using Apple's secure protocols. We don't add our own trackers or keyloggers.</p>
+        </article>
+
+        <article class="privacy-card">
+          <h2>⚠️ No Cloud Backups (Yet)</h2>
+          <p>All your focus data lives on your device. If you lose it, it's gone — unless you have iCloud sync enabled.</p>
+        </article>
+      </div>
+
+      <section class="contact">
+        <h3>Contact</h3>
+        <p>Questions about our privacy? Email <a href={`mailto:{email}`}>{email}</a> or DM <a href={`https://x.com/{twitter}`} target="_blank" rel="noopener noreferrer">@{twitter}</a>.</p>
+      </section>
     </div>
   </section>
 
@@ -51,5 +92,40 @@ const lastUpdated = '22 de abril de 2026';
     font-family: var(--font-mono); font-size: 0.78rem;
     color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em;
     margin: 0;
+  }
+  .intro {
+    font-size: 1.5rem; line-height: 1.6;
+    color: var(--ink-2); margin-bottom: 40px;
+  }
+  .privacy-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .privacy-card {
+    background: var(--paper-soft);
+    padding: 32px;
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--iris);
+  }
+  .privacy-card h2 {
+    font-size: 1.5rem; margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .privacy-card p {
+    font-size: 1.05rem; line-height: 1.6;
+    color: var(--ink-3); margin: 0;
+  }
+  .contact {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--iris-soft);
+  }
+  .contact h3 {
+    font-size: 1rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-3); margin-bottom: 8px;
+  }
+  .contact a {
+    color: var(--iris); text-decoration: underline;
   }
 </style>

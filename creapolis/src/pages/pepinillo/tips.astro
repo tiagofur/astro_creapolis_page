@@ -14,41 +14,41 @@ const pepCTA = { text: 'Download', href: 'https://apps.apple.com/app/pepinillo' 
 
 const tips = [
   {
-    tag: 'Getting Started',
+    icon: '⏰',
     title: 'The 5-Minute Rule',
-    desc: 'If a task feels daunting, set a 5-minute Pomodoro and commit to starting — just starting. Once you\'re in motion, momentum takes over. You\'ll almost always keep going past those 5 minutes.',
+    desc: 'If a task feels daunting, set a 5-minute timer. Usually, once you start, you\'ll want to keep going. The hardest part is starting.',
   },
   {
-    tag: 'Productivity',
-    title: 'Task Batching',
-    desc: 'Use Time Block mode to group similar small tasks together — emails, code reviews, admin work. Switching between different types of tasks burns cognitive energy. Protect it.',
+    icon: '📦',
+    title: 'Batching',
+    desc: 'Use Time Blocks to group similar small tasks together. Get things done faster by focusing on one type of work at a time.',
   },
   {
-    tag: 'Advanced',
+    icon: '🌊',
     title: 'The Flowtime Advantage',
-    desc: 'If you find Pomodoro breaks pull you out of deep work, try Flowtime. It lets you work as long as you\'re in the zone — no interruptions — and only suggests a break when your concentration naturally dips.',
+    desc: 'If you find Pomodoro breaks distracting, try Flowtime mode. It lets you work as long as you\'re in "flow" and only suggests a break when your concentration dips.',
   },
   {
-    tag: 'Environment',
-    title: 'Protect Your Context',
-    desc: 'Before starting a session, close every unrelated tab and app. Put your phone on Do Not Disturb. The goal is zero-cost resumption: if you\'re interrupted, you want to get back instantly.',
+    icon: '🧘',
+    title: 'Embrace Boredom',
+    desc: 'Don\'t reach for your phone during breaks. Sit, stretch, or just breathe. Train your brain to rest without distraction.',
   },
   {
-    tag: 'Breaks',
-    title: 'Actually Take Breaks',
-    desc: 'A break staring at your phone is not a break. Stand up, step outside, look at something more than 20 feet away. 5 real minutes of rest beats 20 minutes of passive scrolling every time.',
+    icon: '🔄',
+    title: 'Create Rituals',
+    desc: 'Start and end work sessions with a simple ritual. It signals to your brain when to focus and when to rest. Consistency builds habits.',
   },
   {
-    tag: 'Review',
-    title: 'End-of-Day Review',
-    desc: 'Check your focus history before closing out for the day. How many sessions did you complete? How long were they? Patterns reveal your real productive hours — schedule deep work accordingly.',
+    icon: '📊',
+    title: 'Review Your Week',
+    desc: 'Check your focus history at the end of each week. See where your time went and adjust. What gets measured gets managed.',
   },
 ];
 ---
 
 <Layout
   title="Focus Tips & Techniques — Pepinillo"
-  description="Master your focus with proven deep work techniques. Tips for Pomodoro, Flowtime, Time Blocking, environment design, and building sustainable focus habits."
+  description="Master deep work with proven focus strategies. Tips for Pomodoro, Flowtime, and Time Blocking in Pepinillo."
 >
   <Nav links={pepNav} cta={pepCTA} />
 
@@ -56,42 +56,38 @@ const tips = [
     <div class="tips-inner">
 
       <div class="tips-head reveal">
-        <div class="eyebrow" style="margin-bottom:14px"><span>Focus Tips & Techniques</span></div>
-        <h1>Master your <span class="serif">focus</span>.</h1>
-        <p class="subtitle">Deep work is a skill. Like any skill, it improves with deliberate practice — and the right tools.</p>
+        <div class="eyebrow" style="margin-bottom:14px"><span>Focus Techniques</span></div>
+        <h1>Mastering your <span class="serif">focus</span>.</h1>
+        <p class="subtitle">Proven strategies to get more done with less distraction. Pick what works for you.</p>
       </div>
 
       <div class="tips-grid">
-        {tips.map((tip, i) => (
-          <article class={`tip-card reveal${i % 3 === 1 ? ' reveal-delay-1' : ''}${i % 3 === 2 ? ' reveal-delay-2' : ''}`}>
-            <span class="tip-tag">{tip.tag}</span>
+        {tips.map((tip) => (
+          <article class="tip-card reveal">
+            <div class="tip-icon">{tip.icon}</div>
             <h2>{tip.title}</h2>
             <p>{tip.desc}</p>
           </article>
         ))}
       </div>
 
-      <div class="cta-block reveal">
-        <div class="cta-inner">
-          <h2>Ready to put this into practice?</h2>
-          <p>Download Pepinillo and start your first focused session in under a minute.</p>
-          <div class="cta-links">
-            <a
-              href="https://apps.apple.com/app/pepinillo"
-              class="store-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.05 12.04a4.4 4.4 0 0 1 2.1-3.7 4.5 4.5 0 0 0-3.55-1.92c-1.5-.15-2.94.88-3.7.88-.78 0-1.95-.86-3.22-.84a4.72 4.72 0 0 0-3.98 2.42c-1.7 2.95-.43 7.3 1.22 9.7.8 1.17 1.76 2.48 3.02 2.44 1.22-.05 1.68-.78 3.15-.78 1.46 0 1.88.78 3.17.75 1.31-.02 2.14-1.18 2.94-2.36a10.5 10.5 0 0 0 1.34-2.73 4.25 4.25 0 0 1-2.49-3.86zM14.5 5.25a4.3 4.3 0 0 0 1-3.25 4.47 4.47 0 0 0-2.9 1.5 4.16 4.16 0 0 0-1.02 3.15 3.67 3.67 0 0 0 2.92-1.4z"/>
-              </svg>
-              <span>
-                <span class="s">Download on the</span>
-                <span class="b">App Store</span>
-              </span>
-            </a>
-            <a href="/pepinillo/guide" class="btn-outline">Quick Start Guide →</a>
-          </div>
+      <div class="next-links reveal">
+        <h3>Keep going</h3>
+        <div class="link-grid">
+          <a href="/pepinillo/guide" class="next-card">
+            <span class="next-icon">📖</span>
+            <div>
+              <span class="next-title">Quick Start Guide</span>
+              <span class="next-desc">Set up your first session in under 2 minutes.</span>
+            </div>
+          </a>
+          <a href="/pepinillo/feedback" class="next-card">
+            <span class="next-icon">💬</span>
+            <div>
+              <span class="next-title">Feedback & Support</span>
+              <span class="next-desc">Have a question? We're here to help.</span>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -111,13 +107,13 @@ const tips = [
   }
 
   .tips-inner {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
   }
 
   .tips-head {
+    text-align: center;
     margin-bottom: 64px;
-    max-width: 600px;
   }
 
   .tips-head h1 {
@@ -140,18 +136,21 @@ const tips = [
     color: var(--ink-2);
     line-height: 1.65;
     margin: 0;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* Tips grid */
+  /* Tips Grid */
   .tips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 16px;
     margin-bottom: 80px;
   }
 
   .tip-card {
-    padding: 30px;
+    padding: 32px;
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: var(--r-lg);
@@ -160,106 +159,81 @@ const tips = [
 
   .tip-card:hover {
     box-shadow: var(--sh-2);
-    border-color: var(--line-2);
+    border-color: oklch(0.84 0.18 128 / 0.4);
   }
 
-  .tip-tag {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: oklch(0.45 0.15 128);
-    background: var(--lime-soft);
-    border: 1px solid oklch(0.84 0.18 128 / 0.25);
-    border-radius: var(--r-pill);
-    padding: 3px 10px;
-    margin-bottom: 14px;
+  .tip-icon {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
   }
 
   .tip-card h2 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--ink);
-    margin: 0 0 10px;
-    letter-spacing: -0.01em;
+    margin: 0 0 8px;
   }
 
   .tip-card p {
-    font-size: 0.93rem;
+    font-size: 0.9rem;
     color: var(--ink-2);
-    line-height: 1.65;
+    line-height: 1.6;
     margin: 0;
   }
 
-  /* CTA block */
-  .cta-block {
+  /* Next Links */
+  .next-links {
     border-top: 1px solid var(--line);
-    padding-top: 64px;
+    padding-top: 48px;
   }
 
-  .cta-inner {
-    text-align: center;
-    max-width: 520px;
-    margin: 0 auto;
+  .next-links h3 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    margin: 0 0 20px;
   }
 
-  .cta-inner h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    margin: 0 0 12px;
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
   }
 
-  .cta-inner p {
-    font-size: 1rem;
-    color: var(--ink-2);
-    margin: 0 0 32px;
-    line-height: 1.6;
-  }
-
-  .cta-links {
+  .next-card {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  /* Store button */
-  .store-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    background: var(--ink);
-    color: var(--paper);
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--line);
     border-radius: var(--r-md);
     text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .store-btn:hover { opacity: 0.82; }
-  .store-btn span { display: flex; flex-direction: column; }
-  .store-btn .s { font-size: 0.68rem; opacity: 0.7; line-height: 1; }
-  .store-btn .b { font-size: 0.95rem; font-weight: 600; line-height: 1.3; }
-
-  /* Outline button */
-  .btn-outline {
-    display: inline-flex;
+    color: inherit;
+    transition: border-color 0.15s var(--ease);
     align-items: center;
-    padding: 10px 20px;
-    border: 1px solid var(--line-2);
-    border-radius: var(--r-md);
-    color: var(--ink-2);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: border-color 0.15s, color 0.15s;
   }
 
-  .btn-outline:hover {
+  .next-card:hover {
     border-color: var(--pep-accent);
-    color: var(--pep-accent);
+  }
+
+  .next-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .next-title {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .next-desc {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink-2);
   }
 
   /* Eyebrow */
@@ -276,6 +250,4 @@ const tips = [
     border-radius: var(--r-pill);
     padding: 5px 12px;
   }
-
-  .reveal { opacity: 0; transform: translateY(20px); }
 </style>
