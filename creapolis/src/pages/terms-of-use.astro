@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const lastUpdated = 'April 23, 2026';
+---
+
+<Layout
+  title="Terms of Use — Pepinillo"
+  description="Terms of use for Pepinillo, the deep work timer by Creapolis. Understand your rights and responsibilities when using the app."
+>
+  <Nav />
+
+  <section class="legal-page">
+    <div class="legal-inner">
+      <div class="legal-head">
+        <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
+        <h1>Terms of <span class="serif">Use</span></h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+      </div>
+
+      <p class="intro">These Terms of Use govern your use of <strong>Pepinillo</strong> (the "App"), a focus timer application for iPhone, iPad, Mac, and Apple Watch, developed by <strong>Creapolis</strong> (operated by Tiago David Furtado, Monterrey, Nuevo León, Mexico). By downloading or using the App, you agree to these terms. If you do not agree, please do not use the App.</p>
+
+      <h2>1. Acceptance</h2>
+      <p>By downloading, installing, or using Pepinillo, you confirm that you have read, understood, and agree to be bound by these Terms and our <a href="/privacy-policy">Privacy Policy</a>.</p>
+
+      <h2>2. License</h2>
+      <p>Subject to your compliance with these Terms, Creapolis grants you a limited, non-exclusive, non-transferable, revocable license to use the App on devices you own or control, solely for your personal, non-commercial purposes.</p>
+      <p>You may not:</p>
+      <ul>
+        <li>Copy, modify, or create derivative works of the App.</li>
+        <li>Reverse engineer, decompile, or disassemble the App.</li>
+        <li>Rent, lease, sell, redistribute, or sublicense the App.</li>
+        <li>Remove or obscure any copyright or proprietary notices.</li>
+      </ul>
+
+      <h2>3. Subscriptions & Payments</h2>
+      <p>Pepinillo offers free features and optional Pro features available via subscription or one-time lifetime purchase. All purchases and subscriptions are processed through the <strong>Apple App Store</strong>.</p>
+      <ul>
+        <li><strong>Billing:</strong> Subscriptions are billed through your Apple ID. Prices are shown clearly before purchase in the App Store.</li>
+        <li><strong>Auto-renewal:</strong> Subscriptions renew automatically at the end of each billing period unless cancelled at least 24 hours before the renewal date.</li>
+        <li><strong>Free Trial:</strong> If a free trial is offered, it is clearly indicated before purchase. Unused trial time is forfeited upon purchase of a subscription.</li>
+        <li><strong>Cancellation:</strong> You may cancel anytime via <strong>Settings → Apple ID → Subscriptions</strong> on your device. Access continues until the end of the current billing period.</li>
+        <li><strong>Refunds:</strong> Refund requests are handled by Apple. Visit <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a> to request a refund.</li>
+      </ul>
+
+      <h2>4. Privacy</h2>
+      <p>Your tasks, sessions, and focus history are stored locally on your device. If you enable iCloud Sync, data is synced through your personal Apple iCloud account — Creapolis does not have access to it. We do not use third-party analytics or tracking SDKs. See our full <a href="/privacy-policy">Privacy Policy</a> for details.</p>
+
+      <h2>5. Apple Health</h2>
+      <p>With your explicit permission, Pepinillo may log "Mindful Minutes" to Apple Health at the end of a focus session. This data is written to your device's Health app and never leaves your device. You can revoke this permission at any time in <strong>Settings → Privacy & Security → Health → Pepinillo</strong>.</p>
+
+      <h2>6. Acceptable Use</h2>
+      <p>You agree to use the App only for lawful purposes and in a way that does not infringe the rights of others. You may not use the App to interfere with or disrupt our services or servers.</p>
+
+      <h2>7. Intellectual Property</h2>
+      <p>The App, including its design, code, icons, and all content, is the intellectual property of Creapolis and is protected by applicable copyright and trademark laws. All rights not explicitly granted in these Terms are reserved.</p>
+
+      <h2>8. Disclaimer of Warranties</h2>
+      <p>The App is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the App will be error-free or uninterrupted.</p>
+
+      <h2>9. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, Creapolis shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the App, even if we have been advised of the possibility of such damages.</p>
+
+      <h2>10. Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. If we make material changes, we will notify you through the App or by updating the "Last Updated" date above. Your continued use of the App after changes are posted constitutes your acceptance of the updated Terms.</p>
+
+      <h2>11. Governing Law</h2>
+      <p>These Terms are governed by the laws of Mexico, without regard to its conflict of law provisions. Any disputes shall be subject to the exclusive jurisdiction of the courts of Nuevo León, Mexico.</p>
+
+      <h2>12. Contact</h2>
+      <p>For questions about these Terms, contact us at <a href="mailto:support@creapolis.dev">support@creapolis.dev</a> or reach out on X <a href="https://x.com/creapolisdev" target="_blank" rel="noopener noreferrer">@creapolisdev</a>.</p>
+
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 140px var(--gutter) 100px;
+    background:
+      radial-gradient(60% 40% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
+      var(--paper);
+    min-height: 80vh;
+  }
+
+  .legal-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .legal-head { margin-bottom: 40px; }
+
+  .legal-head h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+
+  .legal-head h1 .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--iris);
+  }
+
+  .last-updated {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  .intro {
+    font-size: 1.05rem;
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin: 0 0 40px;
+    padding: 24px;
+    background: var(--chalk);
+    border-radius: var(--r-md);
+    border-left: 3px solid var(--iris);
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 40px 0 12px;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin: 0 0 16px;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin: 0 0 16px;
+  }
+
+  li {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin-bottom: 6px;
+  }
+
+  a {
+    color: var(--iris);
+    text-decoration: none;
+  }
+
+  a:hover { text-decoration: underline; }
+
+  strong { color: var(--ink); }
+
+  .eyebrow { display: inline-flex; }
+
+  .eyebrow span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--iris);
+    background: var(--iris-soft);
+    border: 1px solid oklch(0.62 0.2 285 / 0.2);
+    border-radius: var(--r-pill);
+    padding: 5px 12px;
+  }
+</style>
