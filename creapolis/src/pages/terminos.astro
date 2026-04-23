@@ -3,14 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-// NOTA: Estos términos cubren el USO DEL SITIO y la relación previa a un contrato.
-// Los términos del servicio de desarrollo (contrato de consultoría, IP, pagos, NDAs)
-// SIEMPRE van en un contrato separado — NO en los términos del sitio web.
-// Antes de tomar clientes pagos, llevá este documento y tu contrato estándar a un abogado.
-const lastUpdated = '19 de abril de 2026'; // TODO: actualizar al modificar los términos
+const lastUpdated = '22 de abril de 2026';
 ---
 
-<Layout title="Términos de uso — Creapolis" description="Términos y condiciones de uso del sitio web de Creapolis.">
+<Layout title="Términos de uso — Creapolis" description="Términos y condiciones de uso del sitio web y las aplicaciones móviles de Creapolis.">
   <Nav />
 
   <section class="legal-page">
@@ -21,73 +17,124 @@ const lastUpdated = '19 de abril de 2026'; // TODO: actualizar al modificar los 
         <p class="last-updated">Última actualización: {lastUpdated}</p>
       </div>
 
-      <p class="intro">Estos términos regulan el uso del sitio web <strong>creapolis.dev</strong>. Los servicios concretos de desarrollo, consultoría o implementación se rigen por un contrato separado que firmamos antes de arrancar cualquier trabajo — no por este aviso.</p>
+      <p class="intro">Estos términos regulan el uso del sitio web <strong>creapolis.dev</strong> y de todas las aplicaciones móviles publicadas por Creapolis (Solennix, Pikle, Películas y futuras apps). Al usar cualquiera de nuestros productos, aceptás estos términos. Si no estás de acuerdo, por favor no los utilices.</p>
 
       <h2>1. Aceptación</h2>
-      <p>Al acceder o navegar en este sitio aceptás estos términos. Si no estás de acuerdo con alguno de ellos, por favor no utilices el sitio.</p>
+      <p>Al acceder al sitio web, descargar o usar cualquiera de nuestras apps, aceptás estos términos y nuestra <a href="/privacidad">Política de privacidad</a>. Si no estás de acuerdo con alguno, no uses nuestros productos.</p>
 
       <h2>2. Sobre Creapolis</h2>
       <p>
-        Creapolis es un estudio de desarrollo de software operado por <strong>Tiago David Furtado</strong>, con base en Monterrey, México.
-        <!-- TODO: si registrás persona moral (SA de CV, SAS, etc.) reemplazar con razón social + RFC -->
-        Este sitio tiene fines informativos y comerciales: describe los servicios disponibles, los proyectos propios, y el contenido editorial publicado.
+        Creapolis es un estudio de desarrollo de software operado por <strong>Tiago David Furtado</strong>, con base en Monterrey, Nuevo León, México.
+        El sitio web tiene fines informativos y comerciales. Las apps son productos de software que proveen funcionalidades específicas según se describe en cada tienda de aplicaciones.
       </p>
 
-      <h2>3. Propiedad intelectual</h2>
-      <p>Todo el contenido publicado en este sitio — textos, imágenes, código del sitio, logotipo, diseño, y artículos del blog — es propiedad de Creapolis y/o Tiago David Furtado, y está protegido por la legislación mexicana e internacional en materia de propiedad intelectual.</p>
-      <p>Podés:</p>
+      <h2>3. Cuentas de usuario</h2>
+      <p>Algunas de nuestras apps requieren que crees una cuenta. Al hacerlo:</p>
       <ul>
-        <li>Leer, imprimir y compartir enlaces al contenido para uso personal o informativo.</li>
-        <li>Citar fragmentos del blog con atribución clara y enlace al artículo original.</li>
+        <li>Debés proporcionar información veraz y actualizada.</li>
+        <li>Sos responsable de mantener la confidencialidad de tus credenciales.</li>
+        <li>Sos responsable de toda actividad realizada con tu cuenta.</li>
+        <li>Debés notificarnos de inmediato si detectás uso no autorizado en <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.</li>
       </ul>
-      <p>No podés:</p>
+      <p>Podés eliminar tu cuenta en cualquier momento. Ver <a href="/eliminar-cuenta">Eliminar cuenta</a>.</p>
+
+      <h2>4. Suscripciones y pagos</h2>
+      <p>Algunas de nuestras apps ofrecen planes de suscripción de pago. Los términos específicos:</p>
       <ul>
-        <li>Reproducir el contenido de forma completa en otros sitios sin autorización escrita.</li>
-        <li>Usar el logotipo, la marca o los elementos visuales de Creapolis en tus productos o comunicaciones.</li>
-        <li>Reutilizar el código del sitio sin autorización explícita.</li>
+        <li><strong>Procesamiento de pagos:</strong> todas las transacciones se procesan a través de Google Play Billing o Apple App Store (StoreKit). Creapolis no almacena ni tiene acceso a los datos completos de tu tarjeta de crédito.</li>
+        <li><strong>Planes:</strong> cada app describe sus planes disponibles (gratuito, Pro, Business, etc.) con las funcionalidades incluidas. Los precios se muestran claramente antes de la compra en la tienda correspondiente.</li>
+        <li><strong>Renovación automática:</strong> las suscripciones se renuevan automáticamente al final de cada período (mensual o anual), a menos que las canceles antes de la fecha de renovación.</li>
+        <li><strong>Prueba gratuita:</strong> si ofrecemos prueba gratuita, se indica claramente antes de la suscripción. Al final de la prueba, se cobra automáticamente el plan seleccionado a menos que canceles antes. No se pierde acceso a la funcionalidad gratuita.</li>
+        <li><strong>Cambios de precio:</strong> si modificamos el precio de una suscripción, te notificaremos con al menos 30 días de anticipación. Podés cancelar antes de que entre en vigor el nuevo precio.</li>
+        <li><strong>Cancelación:</strong> podés cancelar tu suscripción en cualquier momento desde Google Play Store o App Store. La cancelación surte efecto al final del período de facturación actual — seguí teniendo acceso hasta entonces.</li>
+        <li><strong>Reembolsos:</strong> los reembolsos se procesan según las políticas de Google Play o App Store. Creapolis no gestiona reembolsos directamente; debés solicitarlos a través de la tienda donde realizaste la compra.</li>
       </ul>
 
-      <h2>4. Servicios descritos en el sitio</h2>
-      <p>Los servicios descritos en las páginas de este sitio (apps móviles, web, escritorio, consultoría de IA) tienen carácter únicamente informativo. Los términos específicos de cada proyecto — alcance, cronograma, precio, entregables, propiedad intelectual del trabajo final, garantías — se definen en un <strong>contrato de servicios separado</strong> firmado antes del inicio del trabajo.</p>
-      <p>Ningún contenido de este sitio constituye una oferta vinculante ni un contrato. Una cotización enviada por correo tampoco lo es hasta que esté firmada por ambas partes.</p>
+      <h2>5. Contenido del usuario</h2>
+      <p>El contenido que creás en nuestras apps (eventos, tareas, contactos, cotizaciones, notas, fotos) es tuyo. Creapolis no accede a tu contenido excepto para:</p>
+      <ul>
+        <li>Prestar el servicio solicitado (almacenamiento, sincronización, procesamiento).</li>
+        <li>Responder a requerimientos legales válidos.</li>
+        <li>Prevenir fraude o actividades ilícitas.</li>
+      </ul>
+      <p>No usamos tu contenido para fines publicitarios, de entrenamiento de modelos, ni lo compartimos con terceros.</p>
 
-      <h2>5. Formulario de contacto</h2>
-      <p>Al enviar un formulario o mensaje:</p>
+      <h2>6. Uso aceptable</h2>
+      <p>Al usar nuestros productos, te comprometés a:</p>
+      <ul>
+        <li>No usar las apps para actividades ilegales, fraudulentas o que dañen a terceros.</li>
+        <li>No intentar acceder de forma no autorizada a nuestros sistemas o a las cuentas de otros usuarios.</li>
+        <li>No revertir la ingeniería, descompilar o modificar el código de nuestras apps.</li>
+        <li>No usar automatización (bots, scraping) para interactuar con nuestros servicios.</li>
+        <li>No subir contenido malicioso, virus o código dañino.</li>
+      </ul>
+      <p>El incumplimiento puede resultar en la suspensión o cancelación de tu cuenta sin reembolso.</p>
+
+      <h2>7. Propiedad intelectual</h2>
+      <p>Todo el contenido del sitio web — textos, imágenes, código, logotipo, diseño y artículos del blog — es propiedad de Creapolis y/o Tiago David Furtado, protegido por la legislación mexicana e internacional.</p>
+      <p>El software de nuestras apps, su diseño, iconos, marcas y elementos visuales son propiedad de Creapolis. Tu licencia de uso es personal, no exclusiva y revocable.</p>
+      <p>Podés compartir enlaces al contenido del sitio con atribución. No podés reproducirlo completo sin autorización escrita, ni usar nuestra marca en tus productos.</p>
+
+      <h2>8. Servicios de consultoría (sitio web)</h2>
+      <p>Los servicios descritos en creapolis.dev (desarrollo de apps, web, escritorio, consultoría de IA) tienen carácter informativo. Los términos específicos de cada proyecto se definen en un <strong>contrato separado</strong> firmado antes del inicio del trabajo. Ningún contenido del sitio constituye una oferta vinculante.</p>
+
+      <h2>9. Formulario de contacto (sitio web)</h2>
+      <p>Al enviar un formulario o mensaje desde el sitio:</p>
       <ul>
         <li>Aceptás el tratamiento de tus datos según el <a href="/privacidad">Aviso de privacidad</a>.</li>
         <li>Te comprometés a proporcionar información veraz.</li>
-        <li>Entendés que recibir respuesta no implica obligación de contratar ni ser contratado — es el inicio de una conversación.</li>
+        <li>Entendés que recibir respuesta no implica obligación de contratar.</li>
       </ul>
 
-      <h2>6. Contenido del blog</h2>
-      <p>Los artículos publicados en el blog son opinión técnica del autor basada en experiencia real de desarrollo. Son de buena fe y se actualizan cuando cambia la realidad técnica que describen, pero:</p>
+      <h2>10. Contenido del blog</h2>
+      <p>Los artículos del blog son opinión técnica basada en experiencia real. No constituyen asesoría profesional, legal o financiera. No garantizan resultados específicos.</p>
+
+      <h2>11. Disponibilidad del servicio</h2>
+      <p>
+        Nos esforzamos por mantener nuestros productos disponibles y funcionando correctamente. Sin embargo:
+      </p>
       <ul>
-        <li>No constituyen asesoría profesional, legal, financiera o médica.</li>
-        <li>No garantizan resultados específicos al aplicar los conceptos descritos.</li>
-        <li>No reemplazan la decisión informada de un consultor o experto para tu caso concreto.</li>
+        <li>No garantizamos disponibilidad ininterrumpida. Podemos realizar mantenimiento programado, del cual te notificaremos cuando sea posible.</li>
+        <li>Las funcionalidades pueden cambiar, agregarse o eliminarse con actualizaciones de la app.</li>
+        <li>Algunas funciones requieren conexión a internet. Sin conexión, algunas características pueden no estar disponibles.</li>
       </ul>
 
-      <h2>7. Enlaces a terceros</h2>
-      <p>Este sitio contiene enlaces a plataformas externas (tiendas de apps, GitHub, LinkedIn, herramientas mencionadas en el blog). Esos sitios tienen sus propios términos y políticas — te recomendamos revisarlos. Creapolis no tiene control sobre ellos ni responsabilidad por su contenido.</p>
-
-      <h2>8. Limitación de responsabilidad</h2>
+      <h2>12. Limitación de responsabilidad</h2>
       <p>
-        El contenido del sitio se proporciona "tal cual", sin garantías de disponibilidad ininterrumpida, exactitud absoluta, o ausencia de errores. Creapolis no será responsable por daños derivados del uso o imposibilidad de uso del sitio, incluyendo pérdida de datos o interrupciones.
-        <!-- TODO: revisar con abogado la cláusula de limitación según jurisdicción -->
+        Nuestros productos se proporcionan "tal cual", sin garantías de disponibilidad ininterrumpida, exactitud absoluta o ausencia de errores. En la máxima medida permitida por la ley:
       </p>
-      <p>Nota: esta limitación aplica al USO DEL SITIO. Los proyectos contratados tienen su propio esquema de responsabilidad, SLA y garantías definidos en el contrato específico.</p>
+      <ul>
+        <li>Creapolis no será responsable por daños indirectos, incidentales, consecuentes o pérdidas de datos derivados del uso o imposibilidad de uso de nuestros productos.</li>
+        <li>La responsabilidad total de Creapolis frente a vos no excederá el monto que hayas pagado en los últimos 12 meses por el servicio específico en cuestión.</li>
+      </ul>
+      <p>Esta limitación aplica al USO DEL SITIO Y LAS APPS. Los proyectos de consultoría contratados tienen su propio esquema de responsabilidad definido en el contrato específico.</p>
 
-      <h2>9. Modificaciones</h2>
-      <p>Estos términos pueden modificarse en cualquier momento. La versión vigente es siempre la publicada en esta página con su fecha de "última actualización" al inicio. El uso continuado del sitio después de una modificación implica aceptación de los nuevos términos.</p>
+      <h2>13. Suspensión y terminación</h2>
+      <p>Podemos suspender o terminar tu cuenta si:</p>
+      <ul>
+        <li>Incumplís estos términos de uso.</li>
+        <li>Realizás actividades fraudulentas o ilegales.</li>
+        <li>No utilizás la cuenta durante más de 24 meses consecutivos (inactividad).</li>
+      </ul>
+      <p>En caso de terminación por incumplimiento, no se otorgan reembolsos. En caso de inactividad, te notificaremos por email antes de la eliminación.</p>
 
-      <h2>10. Legislación aplicable y jurisdicción</h2>
+      <h2>14. Enlaces a terceros</h2>
+      <p>Nuestros productos contienen enlaces a plataformas externas (tiendas de apps, GitHub, herramientas mencionadas en el blog). No somos responsables de sus términos ni políticas.</p>
+
+      <h2>15. Modificaciones</h2>
+      <p>Estos términos pueden modificarse en cualquier momento. La versión vigente es siempre la publicada en esta página. Cambios significativos se notificarán a través de la app o por correo electrónico. El uso continuado después de una modificación implica aceptación.</p>
+
+      <h2>16. Legislación aplicable y jurisdicción</h2>
       <p>
-        Estos términos se rigen por las leyes de los <strong>Estados Unidos Mexicanos</strong>. Cualquier controversia derivada del uso de este sitio se someterá a los tribunales competentes de la ciudad de <strong>Monterrey, Nuevo León</strong>, renunciando a cualquier otro fuero que pudiera corresponder.
-        <!-- TODO: confirmar con abogado la jurisdicción y si aplica cláusula de arbitraje -->
+        Estos términos se rigen por las leyes de los <strong>Estados Unidos Mexicanos</strong>. Controversias: tribunales competentes de <strong>Monterrey, Nuevo León</strong>. Para usuarios en la Unión Europea o California, se aplican las protecciones locales correspondientes sin perjuicio de esta cláusula.
       </p>
 
-      <h2>11. Contacto</h2>
+      <h2>17. Contacto</h2>
       <p>Para dudas sobre estos términos: <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.</p>
+      <ul>
+        <li><strong>Política de privacidad:</strong> <a href="/privacidad">creapolis.dev/privacidad</a></li>
+        <li><strong>Eliminar cuenta:</strong> <a href="/eliminar-cuenta">creapolis.dev/eliminar-cuenta</a></li>
+      </ul>
     </div>
   </section>
 

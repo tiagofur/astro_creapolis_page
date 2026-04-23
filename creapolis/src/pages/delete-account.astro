@@ -1,0 +1,290 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const lastUpdated = '22 de abril de 2026';
+---
+
+<Layout title="Delete Account — Creapolis" description="Delete your account from any Creapolis app and all associated data permanently.">
+  <Nav />
+
+  <section class="legal-page">
+    <div class="legal-inner">
+      <div class="legal-head">
+        <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
+        <h1>Delete My <span class="serif">Account</span></h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+      </div>
+
+      <p class="intro">This page allows you to request deletion of your account in any Creapolis application (Solennix, Pikle, Películas and future apps) and all associated personal data. Deletion is permanent and irreversible.</p>
+
+      <p class="lang-note">También disponible en <a href="/eliminar-cuenta">español</a>.</p>
+
+      <h2>What gets deleted?</h2>
+      <ul>
+        <li><strong>Profile:</strong> name, email, phone, business name.</li>
+        <li><strong>Operational data:</strong> everything you created — events, tasks, contacts, quotes, contracts, inventory, statistics, notes.</li>
+        <li><strong>Photos &amp; files:</strong> any images or documents you attached.</li>
+        <li><strong>Preferences:</strong> app settings, themes, notifications.</li>
+        <li><strong>Authentication:</strong> credentials, active sessions.</li>
+      </ul>
+
+      <h2>What does NOT get deleted?</h2>
+      <ul>
+        <li><strong>Store billing data:</strong> payment and subscription history processed by Google Play or App Store is retained per their policies. Contact Google or Apple directly to delete that data.</li>
+        <li><strong>Anonymous aggregated data:</strong> usage statistics that no longer identify you may be retained for service improvement.</li>
+        <li><strong>Crash reports:</strong> error reports sent to Firebase Crashlytics do not contain personal data and are retained for up to 90 days.</li>
+      </ul>
+
+      <h2>Deletion timeline</h2>
+      <p>Once confirmed, all your data is deleted within <strong>30 calendar days</strong>. During this period your data remains inactive and inaccessible. You will receive a confirmation email once deletion is complete.</p>
+
+      <h2>How to delete your account</h2>
+
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <h3>From the app</h3>
+        <p>Open the app → Settings → Account → <strong>Delete account</strong>. Confirm with your password and the request is processed automatically.</p>
+      </div>
+
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <h3>By email</h3>
+        <p>Send an email to <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a> with:</p>
+        <ul>
+          <li>Subject: <strong>"Delete my account"</strong></li>
+          <li>App name (Solennix, Pikle, Películas)</li>
+          <li>Email address associated with your account</li>
+        </ul>
+        <p>The email must be sent from the address linked to your account. We respond within 5 business days.</p>
+      </div>
+
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <h3>Using this form</h3>
+        <p>Fill in the details below and we will process your request:</p>
+      </div>
+
+      <form class="delete-form" action="mailto:hola@creapolis.dev" method="POST" enctype="text/plain">
+        <div class="form-group">
+          <label for="app">Application</label>
+          <select id="app" name="app" required>
+            <option value="">Select the app</option>
+            <option value="Solennix">Solennix</option>
+            <option value="Pikle">Pikle (Pepinillo)</option>
+            <option value="Peliculas">Películas</option>
+            <option value="otra">Other Creapolis app</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="email">Account email address</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="nombre">Your full name</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" required />
+            <span>I understand this action is permanent and irreversible. All my data will be deleted.</span>
+          </label>
+        </div>
+        <button type="submit" class="btn-delete">Request account deletion</button>
+        <p class="form-note">On submit, your email client opens with a pre-filled request. You can also write to us directly at <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a>.</p>
+      </form>
+
+      <h2>Changed your mind?</h2>
+      <p>Contact us within 7 days of your request at <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a> and we will cancel the process. After that period, deletion continues and cannot be reversed.</p>
+
+      <h2>Active subscription?</h2>
+      <p>If you have an active paid subscription, <strong>cancel it first</strong> from your store before deleting the account:</p>
+      <ul>
+        <li><strong>Google Play:</strong> Play Store → Profile → Payments &amp; subscriptions → Subscriptions → [App] → Cancel.</li>
+        <li><strong>App Store:</strong> Settings → Your name → Subscriptions → [App] → Cancel subscription.</li>
+      </ul>
+      <p>Deleting your account does not automatically cancel subscriptions processed by Google or Apple.</p>
+
+      <h2>Contact</h2>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></li>
+        <li><strong>Responsible:</strong> Tiago David Furtado — Creapolis</li>
+        <li><strong>Privacy policy:</strong> <a href="/privacy-policy">creapolis.dev/privacy-policy</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 140px var(--gutter) 100px;
+    background:
+      radial-gradient(60% 40% at 50% 0%, var(--coral-soft) 0%, transparent 60%),
+      var(--paper);
+    min-height: 80vh;
+  }
+  .legal-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .legal-head { margin-bottom: 40px; }
+  .legal-head h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 12px;
+  }
+  .legal-head h1 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--coral);
+  }
+  .last-updated {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .legal-page p.intro {
+    font-size: 1.1rem; line-height: 1.6;
+    color: var(--ink-2);
+    padding: 20px 24px;
+    background: var(--chalk);
+    border-left: 3px solid var(--coral);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    margin: 0 0 16px;
+  }
+  .lang-note {
+    font-family: var(--font-mono); font-size: 0.85rem;
+    color: var(--ink-3);
+    margin: 0 0 40px;
+    padding-left: 28px;
+  }
+  .lang-note a { color: var(--iris); }
+  .legal-page h2 {
+    font-size: 1.25rem; line-height: 1.3;
+    margin: 40px 0 14px;
+    color: var(--ink);
+    padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  .legal-page h3 {
+    font-size: 1.08rem; line-height: 1.3;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .legal-page p, .legal-page li {
+    font-size: 1rem; line-height: 1.7;
+    color: var(--ink-2);
+    margin-bottom: 14px;
+  }
+  .legal-page ul {
+    padding-left: 24px; margin-bottom: 18px;
+  }
+  .legal-page ul li { margin-bottom: 10px; }
+  .legal-page strong { color: var(--ink); font-weight: 500; }
+  .legal-page a {
+    color: var(--coral);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .legal-page a:hover { color: var(--iris); }
+
+  .method-card {
+    padding: 24px;
+    background: var(--chalk);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    margin: 16px 0;
+    position: relative;
+  }
+  .method-num {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 2rem; color: var(--coral);
+    opacity: 0.3;
+    position: absolute; top: 16px; right: 20px;
+  }
+  .method-card h3 {
+    font-size: 1.1rem; margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .method-card p { font-size: 0.95rem; margin-bottom: 8px; }
+  .method-card ul { margin-bottom: 8px; }
+
+  .delete-form {
+    margin-top: 24px;
+    padding: 32px;
+    background: var(--paper);
+    border: 2px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .form-group input[type="email"],
+  .form-group input[type="text"],
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--chalk);
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--coral) 15%, transparent);
+  }
+  .checkbox-label {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .checkbox-label input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--coral);
+  }
+  .checkbox-label span {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    background: var(--coral);
+    color: white;
+    border: none;
+    border-radius: var(--r-md);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px color-mix(in oklch, var(--coral) 30%, transparent);
+  }
+  .form-note {
+    font-size: 0.82rem !important;
+    color: var(--ink-3) !important;
+    margin-top: 14px !important;
+  }
+</style>

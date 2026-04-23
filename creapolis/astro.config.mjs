@@ -12,7 +12,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/privacidad') && !page.includes('/terminos'),
+      filter: (page) => !page.includes('/privacidad') && !page.includes('/terminos') && !page.includes('/eliminar-cuenta') && !page.includes('/privacy-policy') && !page.includes('/delete-account'),
       changefreq: 'weekly',
       priority: 0.7,
     }),
