@@ -9,13 +9,17 @@ const alternates = getAlternateLink(Astro.url);
 const other = alternates.find((a) => a.lang !== lang);
 if (!other) return null;
 
-const otherLabel = other.lang === 'en' ? 'English' : 'Español';
-const otherFlag = other.lang === 'en' ? '🇬🇧' : '🇪🇸';
-const message = other.lang === 'en'
-  ? 'This page is also available in English'
-  : 'Esta página también está disponible en español';
-const cta = other.lang === 'en' ? 'Switch' : 'Cambiar';
-const dismiss = other.lang === 'en' ? 'Dismiss' : 'Cerrar';
+const langLabels: Record<string, string> = { en: 'English', es: 'Español', pt: 'Português' };
+const langFlags: Record<string, string> = { en: '🇬🇧', es: '🇪🇸', pt: '🇧🇷' };
+const langMessages: Record<string, { msg: string; cta: string; dismiss: string }> = {
+  en: { msg: 'This page is also available in English', cta: 'Switch', dismiss: 'Dismiss' },
+  es: { msg: 'Esta página también está disponible en español', cta: 'Cambiar', dismiss: 'Cerrar' },
+  pt: { msg: 'Esta página também está disponível em português', cta: 'Mudar', dismiss: 'Fechar' },
+};
+
+const otherLabel = langLabels[other.lang] || other.lang;
+const otherFlag = langFlags[other.lang] || '🌐';
+const { msg, cta, dismiss } = langMessages[other.lang] || langMessages.en;
 ---
 
 <div class="lang-banner" id="language-banner" hidden
@@ -24,7 +28,7 @@ const dismiss = other.lang === 'en' ? 'Dismiss' : 'Cerrar';
 >
   <div class="lb-wrap">
     <span class="lb-flag" aria-hidden="true">{otherFlag}</span>
-    <span class="lb-msg">{message}</span>
+    <span class="lb-msg">{msg}</span>
     <a href={other.href} class="lb-cta" data-lb-switch>{cta} → {otherLabel}</a>
     <button type="button" class="lb-dismiss" aria-label={dismiss} data-lb-dismiss>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -59,7 +63,8 @@ const dismiss = other.lang === 'en' ? 'Dismiss' : 'Cerrar';
     const nav = (navigator.language || 'en').toLowerCase();
     const browserPrefersOther =
       (otherLang === 'en' && (nav.startsWith('en'))) ||
-      (otherLang === 'es' && (nav.startsWith('es') || nav.startsWith('pt')));
+      (otherLang === 'es' && (nav.startsWith('es') || nav.startsWith('pt'))) ||
+      (otherLang === 'pt' && (nav.startsWith('pt')));
 
     if (!browserPrefersOther) return;
 

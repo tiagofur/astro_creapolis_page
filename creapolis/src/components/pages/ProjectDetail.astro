@@ -102,7 +102,7 @@ const gradientId = `prib-${slug}`;
     <div class="info-cell"><div class="v">{project.platform}</div><div class="l">{t('project.info.platform')}</div></div>
     <div class="info-cell"><div class="v">{project.category}</div><div class="l">{t('project.info.category')}</div></div>
     <div class="info-cell"><div class="v">{project.languages}</div><div class="l">{t('project.info.languages')}</div></div>
-    <div class="info-cell"><div class="v">{t('project.info.free')}</div><div class="l">{t('project.info.price')}</div></div>
+    <div class="info-cell"><div class="v">{project.price ?? t('project.info.free')}</div><div class="l">{t('project.info.price')}</div></div>
   </div>
 </section>
 

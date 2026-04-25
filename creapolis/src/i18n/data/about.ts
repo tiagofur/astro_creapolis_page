@@ -19,6 +19,13 @@ const timeline: Record<Lang, TimelineItem[]> = {
     { year: '2024', title: 'Solennix', desc: 'The first own app conceived as a commercial product. iOS, Android, and web. Event management for LATAM. This is where the studio stopped being just code and started being product with real users.' },
     { year: 'Today', title: 'One-person studio', desc: 'Direct consulting, own apps in production, and several products in the oven. No middlemen, no agency, no handoffs.' },
   ],
+  pt: [
+    { year: '2019', title: 'Primeiro commit em Flutter', desc: 'Comecei com Flutter buscando um stack que me permitisse enviar para iOS e Android sem duplicar esforço. Paralelo: Node.js para backend.' },
+    { year: '2020', title: 'Nasce a Creapolis', desc: 'Comecei a assinar trabalho sob o nome Creapolis. Projetos pessoais, experimentos e primeiras colaborações.' },
+    { year: '2022', title: 'Primeiros apps nas lojas', desc: 'Pepinillo e Películas chegaram ao Google Play. Não são unicórnios — são exercícios honestos de produto: o que acontece quando uma só pessoa decide e constrói?' },
+    { year: '2024', title: 'Solennix', desc: 'O primeiro app próprio pensado como produto comercial. iOS, Android e web. Gestão de eventos para LATAM. Aqui o estúdio deixou de ser só código e começou a ser produto com usuários reais.' },
+    { year: 'Hoje', title: 'Estúdio de uma pessoa', desc: 'Consultoria direta, apps próprios em produção e vários produtos no forno. Sem intermediários, sem agência, sem handoffs.' },
+  ],
 };
 
 const values: Record<Lang, ValueItem[]> = {
@@ -33,6 +40,12 @@ const values: Record<Lang, ValueItem[]> = {
     { letter: 'D', title: 'Direct, no middlemen', desc: 'You talk to whoever writes the code. No project managers, no translations, no "let me ask the team and get back to you".' },
     { letter: 'H', title: 'Honesty over marketing', desc: 'I tell you what I can and can\'t do. If I don\'t know something, I research it. If something can\'t be done, I tell you before billing you.' },
     { letter: 'P', title: 'Product over brief', desc: 'The brief is the starting point, not the Bible. I build what people will actually use, not what\'s written in a PDF.' },
+  ],
+  pt: [
+    { letter: 'C', title: 'Conceitos antes do código', desc: 'Não escrevo uma linha até entender o problema. Se não consegue explicar por que uma feature existe, não deveria existir.' },
+    { letter: 'D', title: 'Direto, sem intermediários', desc: 'Você fala com quem escreve o código. Sem gerentes de projeto, sem traduções, sem "deixo perguntar ao time e te aviso".' },
+    { letter: 'H', title: 'Honestidade sobre marketing', desc: 'Te digo o que posso e o que não posso. Se não sei algo, pesquiso. Se algo não dá, te digo antes de te cobrar.' },
+    { letter: 'P', title: 'Produto sobre brief', desc: 'O brief é o ponto de partida, não a Bíblia. Construo o que as pessoas vão usar, não o que está escrito em um PDF.' },
   ],
 };
 
@@ -49,11 +62,18 @@ const stack: Record<Lang, StackGroup[]> = {
     { group: 'Web', items: ['Astro', 'Next.js', 'React', 'Tailwind'] },
     { group: 'AI', items: ['OpenAI API', 'Anthropic', 'LangChain', 'Prompt engineering'] },
   ],
+  pt: [
+    { group: 'Mobile', items: ['Flutter', 'Swift', 'Kotlin', 'Jetpack Compose', 'SwiftUI'] },
+    { group: 'Backend', items: ['Node.js', 'TypeScript', 'Go', 'Firebase', 'PostgreSQL'] },
+    { group: 'Web', items: ['Astro', 'Next.js', 'React', 'Tailwind'] },
+    { group: 'IA', items: ['OpenAI API', 'Anthropic', 'LangChain', 'Prompt engineering'] },
+  ],
 };
 
 const heroChips: Record<Lang, { dev: string; location: string }> = {
   es: { dev: 'Solo dev', location: 'Monterrey · MX' },
   en: { dev: 'Solo dev', location: 'Monterrey · MX' },
+  pt: { dev: 'Solo dev', location: 'Monterrey · MX' },
 };
 
 export function getAboutData(lang: Lang) {

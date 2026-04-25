@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../../../i18n/ui';
+import Layout from '../../../layouts/Layout.astro';
+import ProjectDetail from '../../../components/pages/ProjectDetail.astro';
+import { getProjectData, PROJECT_SLUGS } from '../../../i18n/data/projects';
+
+export function getStaticPaths() {
+  return PROJECT_SLUGS.map((slug) => ({
+    params: { lang: 'pt', slug },
+  }));
+}
+
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as string;
+const project = getProjectData(lang, slug);
+const title = project ? `${project.name} — Creapolis` : 'Creapolis';
+const description = project?.lead ?? '';
+---
+
+<Layout lang={lang} title={title} description={description}>
+  <ProjectDetail lang={lang} slug={slug} />
+</Layout>

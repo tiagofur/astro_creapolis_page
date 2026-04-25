@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import SGGuideContent from '../../../../components/pages/SGGuideContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'pt' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Guia rápido — Subscription Guardian" description="Comece a usar o Subscription Guardian em menos de 2 minutos. Aprenda a cadastrar assinaturas, configurar alertas e controlar seu Burn Rate.">
+  <SGGuideContent lang={lang} />
+</Layout>

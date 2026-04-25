@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import SGFeedbackContent from '../../../../components/pages/SGFeedbackContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'en' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Feedback & Support — Subscription Guardian" description="Bug? Feature request? Questions? We're here to help. FAQ and contact channels for Subscription Guardian.">
+  <SGFeedbackContent lang={lang} />
+</Layout>

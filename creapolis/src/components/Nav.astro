@@ -34,9 +34,20 @@ function isActive(href: string): boolean {
 }
 
 const homeHref = getLocalizedPath(lang, '/');
-const altLang: Lang = lang === 'es' ? 'en' : 'es';
 const alternates = getAlternateLink(Astro.url);
-const altHref = alternates.find((a) => a.lang === altLang)?.href ?? `/${altLang}/`;
+const otherLangs = alternates.filter((a) => a.lang !== lang);
+
+const langLabels: Record<Lang, string> = {
+  es: 'ES',
+  en: 'EN',
+  pt: 'PT',
+};
+
+const langNames: Record<Lang, string> = {
+  es: 'Español',
+  en: 'English',
+  pt: 'Português',
+};
 ---
 
 <nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
@@ -50,9 +61,29 @@ const altHref = alternates.find((a) => a.lang === altLang)?.href ?? `/${altLang}
       {links.map((l) => (
         <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
       ))}
-      <a href={altHref} class="nav-lang-toggle" aria-label={`Switch to ${altLang === 'en' ? 'English' : 'Español'}`}>
-        {altLang === 'en' ? 'EN' : 'ES'}
-      </a>
+
+      <!-- Language Selector -->
+      <div class="lang-selector">
+        <button class="lang-current" aria-expanded="false" aria-haspopup="listbox" aria-label={t('nav.lang')}>
+          <svg class="lang-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+            <ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 8h12" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="lang-label">{langLabels[lang]}</span>
+          <svg class="lang-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="lang-dropdown" role="listbox" aria-label={t('nav.lang')}>
+          {otherLangs.map(({ lang: l, href }) => (
+            <a href={href} role="option" aria-label={langNames[l]}>
+              <span class="lang-option-label">{langLabels[l]}</span>
+              <span class="lang-option-name">{langNames[l]}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
 
     <a href={cta.href} class="nav-cta">{cta.text}</a>
@@ -69,36 +100,182 @@ const altHref = alternates.find((a) => a.lang === altLang)?.href ?? `/${altLang}
   {links.map((l) => (
     <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
   ))}
-  <a href={altHref} class="mobile-lang">{altLang === 'en' ? 'English' : 'Español'}</a>
+  <div class="mobile-lang-group">
+    <span class="mobile-lang-label">{t('nav.lang')}</span>
+    <div class="mobile-lang-options">
+      {alternates.map(({ lang: l, href }) => (
+        <a href={href} class:list={[l === lang && 'active']}>{langNames[l]}</a>
+      ))}
+    </div>
+  </div>
   <a href={cta.href} class="cta">{cta.text}</a>
 </div>
 
+<script>
+  const langSelector = document.querySelector('.lang-selector');
+  const langCurrent = document.querySelector('.lang-current');
+  const langDropdown = document.querySelector('.lang-dropdown');
+
+  if (langSelector && langCurrent && langDropdown) {
+    langCurrent.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = langSelector.classList.toggle('open');
+      langCurrent.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!langSelector.contains(e.target as Node)) {
+        langSelector.classList.remove('open');
+        langCurrent.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  const mobileToggle = document.querySelector('.nav-mobile-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const body = document.body;
+
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      body.classList.toggle('menu-open');
+    });
+  }
+</script>
+
 <style>
-  .nav-lang-toggle {
+  /* ─── Language Selector ─── */
+  .lang-selector {
+    position: relative;
+  }
+
+  .lang-current {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-2);
+    background: transparent;
+    color: var(--ink-3);
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    text-decoration: none;
-    padding: 4px 10px;
-    border-radius: var(--r-pill);
-    border: 1px solid var(--line-2);
+    cursor: pointer;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .nav-lang-toggle:hover {
+
+  .lang-current:hover {
     color: var(--ink);
     border-color: var(--ink);
     background: var(--chalk);
   }
-  .mobile-lang {
+
+  .lang-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .lang-chevron {
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+
+  .lang-selector.open .lang-chevron {
+    transform: rotate(180deg);
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    padding: 6px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    z-index: 100;
+  }
+
+  .lang-selector.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--r-md);
+    text-decoration: none;
+    color: var(--ink-2);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .lang-dropdown a:hover {
+    background: var(--chalk);
+    color: var(--ink);
+  }
+
+  .lang-option-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
+
+  .lang-option-name {
+    font-size: 0.9rem;
+  }
+
+  /* ─── Mobile Menu ─── */
+  .mobile-lang-group {
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+  }
+
+  .mobile-lang-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+
+  .mobile-lang-options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobile-lang-options a {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--ink-3);
     text-decoration: none;
     padding: 8px 0;
-    border-top: 1px solid var(--line);
-    margin-top: 8px;
+    border-radius: var(--r-md);
+    transition: color 0.2s;
+  }
+
+  .mobile-lang-options a.active {
+    color: var(--iris);
+    font-weight: 500;
+  }
+
+  .mobile-lang-options a:hover {
+    color: var(--ink);
   }
 </style>

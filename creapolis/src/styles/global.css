@@ -37,6 +37,8 @@
   --pep-soft: var(--lime-soft);
   --pel-accent: var(--coral);
   --pel-soft: var(--coral-soft);
+  --sg-accent: var(--sky);
+  --sg-soft: var(--sky-soft);
 
   /* Typography */
   --font-sans: 'Geist', 'Geist Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;

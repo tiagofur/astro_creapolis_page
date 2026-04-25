@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import SGTipsContent from '../../../../components/pages/SGTipsContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'es' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Tips de suscripciones — Subscription Guardian" description="Estrategias prácticas para reducir la fatiga de suscripciones sin sacrificar lo que te importa.">
+  <SGTipsContent lang={lang} />
+</Layout>

@@ -6,17 +6,18 @@ import { ui, defaultLang, type Lang, type UIKey } from './ui';
  * Used by getLocalizedPath() and getAlternateLink() to generate correct URLs.
  */
 const slugMap: Record<string, Record<Lang, string>> = {
-  contacto: { es: 'contacto', en: 'contact' },
-  servicios: { es: 'servicios', en: 'services' },
-  sobre: { es: 'sobre', en: 'about' },
-  proyectos: { es: 'proyectos', en: 'projects' },
+  contacto: { es: 'contacto', en: 'contact', pt: 'contato' },
+  servicios: { es: 'servicios', en: 'services', pt: 'servicos' },
+  sobre: { es: 'sobre', en: 'about', pt: 'sobre' },
+  proyectos: { es: 'proyectos', en: 'projects', pt: 'projetos' },
 };
 
-// Reverse map: localized slug → canonical key, per language
-const reverseSlugMap: Record<Lang, Record<string, string>> = { es: {}, en: {} };
+// Reverse map: localized slug → canonical key, per language (dynamically built)
+const reverseSlugMap: Record<string, Record<string, string>> = {};
 for (const [canonical, translations] of Object.entries(slugMap)) {
   for (const [lang, slug] of Object.entries(translations)) {
-    reverseSlugMap[lang as Lang][slug] = canonical;
+    if (!reverseSlugMap[lang]) reverseSlugMap[lang] = {};
+    reverseSlugMap[lang][slug] = canonical;
   }
 }
 
@@ -66,21 +67,21 @@ export function getLocalizedPath(lang: Lang, path: string): string {
 export function getAlternateLink(url: URL): { lang: Lang; href: string }[] {
   const currentLang = getLangFromUrl(url);
   const segments = url.pathname.split('/').filter(Boolean).slice(1); // remove lang prefix
-  const otherLang: Lang = currentLang === 'es' ? 'en' : 'es';
 
-  // Convert current slugs to canonical, then to other language
+  // Convert current slugs to canonical
   const canonicalSegments = segments.map(s => canonicalSlug(s, currentLang));
-  const otherSegments = canonicalSegments.map(s => translateSlug(s, otherLang));
-  const otherPath = otherSegments.length ? '/' + otherSegments.join('/') : '';
 
-  return [
-    { lang: currentLang, href: url.pathname },
-    { lang: otherLang, href: `/${otherLang}${otherPath}` },
-  ];
+  // Generate links for all languages
+  return (Object.keys(ui) as Lang[]).map(lang => {
+    if (lang === currentLang) return { lang, href: url.pathname };
+    const translated = canonicalSegments.map(s => translateSlug(s, lang));
+    const path = translated.length ? '/' + translated.join('/') : '';
+    return { lang, href: `/${lang}${path}` };
+  });
 }
 
 export function formatDate(date: Date, lang: Lang): string {
-  const locale = lang === 'es' ? 'es-ES' : 'en-US';
+  const locale = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-ES';
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'short',

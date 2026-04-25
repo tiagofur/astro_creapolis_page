@@ -8,11 +8,16 @@ import Footer from '../Footer.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const { apps } = getHomeData(lang);
+const { apps, shelf, services, steps, stats } = getHomeData(lang);
+
+const contactPath = getLocalizedPath(lang, '/contacto');
+const servicesPath = getLocalizedPath(lang, '/servicios');
+const aboutPath = getLocalizedPath(lang, '/sobre');
 ---
 
 <Nav lang={lang} />
 
+<!-- ─── HERO ─── -->
 <header class="page-hero" id="main-content">
   <div class="wrap">
     <div class="page-copy reveal">
@@ -25,6 +30,7 @@ const { apps } = getHomeData(lang);
   </div>
 </header>
 
+<!-- ─── APPS GRID ─── -->
 <section class="section">
   <div class="wrap">
     <div class="products">
@@ -60,9 +66,138 @@ const { apps } = getHomeData(lang);
   </div>
 </section>
 
+<!-- ─── SHELF ─── -->
+<section class="section" style="background:var(--chalk)">
+  <div class="wrap">
+    <div class="shelf-header reveal">
+      <div class="eyebrow" style="margin-bottom:18px"><span>{t('apps.shelf.eyebrow')}</span></div>
+      <h2>{t('apps.shelf.title')}</h2>
+    </div>
+
+    <div class="shelf-grid">
+      {shelf.map((item, i) => (
+        <div class={`shelf-item reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--shelf-color: ${item.color}; --shelf-bg: ${item.bg}`}>
+          <div class="shelf-top">
+            <div class="shelf-ring">{item.ring}</div>
+            <div class="shelf-info">
+              <h3>{item.name}</h3>
+              <span class={`shelf-status status-${item.status}`}>
+                <span class="status-dot"></span>
+                {item.statusLabel}
+              </span>
+            </div>
+          </div>
+          <p class="shelf-desc">{item.desc}</p>
+          <div class="shelf-progress">
+            <div class="shelf-progress-bar" style={`width: ${item.progress}%`}></div>
+          </div>
+          <span class="shelf-pct">{item.progress}%</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.eyebrow')}</span></div>
+        <h2>{t('services.title')}<br/><span class="serif">{t('services.title.serif')}</span></h2>
+      </div>
+      <p>{t('services.desc')}</p>
+    </div>
+
+    <div class="svc-grid">
+      {services.map((s, i) => (
+        <div class={`svc-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
+          <span class="svc-num">{s.num}</span>
+          <div class="svc-mark" aria-hidden="true">{s.mark}</div>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="sec-footer reveal">
+      <a href={servicesPath} class="link-arrow">
+        {t('services.more')}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section class="section" style="background:var(--chalk)">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:18px"><span>{t('process.eyebrow')}</span></div>
+        <h2>{t('process.title')}<br/><span class="serif">{t('process.title.serif')}</span>.</h2>
+      </div>
+      <p>{t('process.desc')}</p>
+    </div>
+
+    <div class="proc-grid">
+      {steps.map((step, i) => (
+        <div class={`step-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
+          <span class="step-bignum">{step.n}</span>
+          <h4>{step.title}</h4>
+          <p>{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── MISSION ─── -->
+<section class="section">
+  <div class="wrap">
+    <div class="mission-grid">
+      <div class="mission-copy reveal">
+        <div class="eyebrow" style="margin-bottom:18px"><span>{t('mission.eyebrow')}</span></div>
+        <h2>{t('mission.title.p1')}<br/>{t('mission.title.p2')} <span class="serif">{t('mission.title.serif')}</span>.</h2>
+        <p class="mission-desc">{t('mission.desc')}</p>
+        <a href={aboutPath} class="btn btn-primary">{t('mission.cta')}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <div class="stats-grid reveal reveal-delay-1">
+        {stats.map((s, i) => (
+          <div class="stat-item">
+            <span class="stat-num">{s.n}</span>
+            <span class="stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="section contact-cta">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.cta.eyebrow')}</span></div>
+      <h2>{t('contact.cta.title.p1')}<br/>{t('contact.cta.title.p2')} <span class="serif">{t('contact.cta.title.serif')}</span>.</h2>
+      <p class="lead">{t('contact.cta.lead')}</p>
+      <div class="cta-row">
+        <a href={contactPath} class="btn btn-primary btn-lg">{t('nav.cta')}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <Footer lang={lang} />
 
 <style>
+  /* ─── HERO ─── */
   .page-hero {
     position: relative;
     padding: 160px var(--gutter) 80px;
@@ -78,6 +213,38 @@ const { apps } = getHomeData(lang);
   .page-copy h1 .serif { color: var(--iris); font-size: 1.02em; }
   .page-copy .lead { max-width: 48ch; }
 
+  /* ─── SECTION HEADER (shared) ─── */
+  .sec-header {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1fr;
+    margin-bottom: 56px;
+    align-items: end;
+  }
+  @media (min-width: 720px) { .sec-header { grid-template-columns: 1.1fr 1fr; gap: 48px; } }
+  .sec-header h2 { max-width: 14ch; }
+  .sec-header h2 .serif { color: var(--iris); }
+  .sec-header p { font-size: 1.05rem; max-width: 48ch; color: var(--ink-2); }
+
+  .sec-footer {
+    margin-top: 40px;
+    text-align: center;
+  }
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--iris);
+    text-decoration: none;
+    transition: gap 0.2s var(--ease);
+  }
+  .link-arrow:hover { gap: 10px; }
+
+  /* ─── APPS GRID ─── */
   .products {
     display: grid;
     gap: 20px;
@@ -129,25 +296,21 @@ const { apps } = getHomeData(lang);
   .product-vis .device::before {
     content: "";
     position: absolute;
-    top: 6px;
-    left: 50%;
+    top: 6px; left: 50%;
     transform: translateX(-50%);
-    width: 44px;
-    height: 5px;
+    width: 44px; height: 5px;
     background: oklch(0.3 0.01 265);
     border-radius: 4px;
   }
   .product-vis .device .title {
-    height: 10px;
-    width: 60%;
+    height: 10px; width: 60%;
     background: var(--paper);
     border-radius: 3px;
     margin-top: 10px;
   }
   .product-vis .device .row { display: flex; gap: 6px; }
   .product-vis .device .row .bit {
-    flex: 1;
-    height: 26px;
+    flex: 1; height: 26px;
     background: color-mix(in oklch, var(--product-color) 40%, var(--ink));
     border-radius: 6px;
   }
@@ -175,14 +338,8 @@ const { apps } = getHomeData(lang);
     gap: 10px;
   }
   .product-meta h3 { font-size: 1.35rem; }
-  .product-meta .tagline {
-    color: var(--product-color);
-    font-size: 1.05rem;
-  }
-  .product-meta p {
-    font-size: 0.92rem;
-    color: var(--ink-2);
-  }
+  .product-meta .tagline { color: var(--product-color); font-size: 1.05rem; }
+  .product-meta p { font-size: 0.92rem; color: var(--ink-2); }
   .product-meta .foot {
     display: flex;
     justify-content: space-between;
@@ -197,4 +354,289 @@ const { apps } = getHomeData(lang);
     color: var(--ink-3);
     font-size: 0.78rem;
   }
+
+  /* ─── SHELF ─── */
+  .shelf-header { margin-bottom: 48px; }
+  .shelf-header h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .shelf-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .shelf-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .shelf-item {
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    border-left: 3px solid var(--shelf-color);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .shelf-item:hover { transform: translateY(-2px); box-shadow: var(--sh-2); }
+
+  .shelf-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .shelf-ring {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: var(--shelf-bg);
+    color: var(--shelf-color);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .shelf-info { min-width: 0; }
+  .shelf-info h3 { font-size: 1.05rem; margin-bottom: 4px; }
+  .shelf-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 999px;
+    background: var(--ink-4);
+  }
+  .status-active .status-dot { background: var(--lime); }
+  .status-dev .status-dot { background: var(--amber); }
+  .status-soon .status-dot { background: var(--ink-4); }
+
+  .shelf-desc {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .shelf-progress {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .shelf-progress-bar {
+    height: 100%;
+    background: var(--shelf-color);
+    border-radius: 2px;
+    transition: width 0.6s var(--ease);
+  }
+  .shelf-pct {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+  }
+
+  /* ─── SERVICES ─── */
+  .svc-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1080px) { .svc-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .svc-card {
+    padding: 28px 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .svc-card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
+  .svc-card:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
+  .svc-card:nth-child(1):hover { border-color: var(--iris); }
+  .svc-card:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
+  .svc-card:nth-child(2):hover { border-color: var(--lime); }
+  .svc-card:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
+  .svc-card:nth-child(3):hover { border-color: var(--coral); }
+  .svc-card:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
+  .svc-card:nth-child(4):hover { border-color: var(--sky); }
+
+  .svc-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .svc-mark {
+    position: absolute;
+    top: -8px; right: -4px;
+    width: 56px; height: 56px;
+    border-radius: 999px;
+    background: var(--svc-soft);
+    opacity: 0.5;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--svc-color);
+  }
+  .svc-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+  .svc-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; }
+
+  /* ─── PROCESS ─── */
+  .proc-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .proc-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1080px) { .proc-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .step-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card:nth-child(1) { --step-color: var(--iris); }
+  .step-card:nth-child(2) { --step-color: var(--coral); }
+  .step-card:nth-child(3) { --step-color: var(--lime); }
+  .step-card:nth-child(4) { --step-color: var(--amber); }
+
+  .step-bignum {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 4rem;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: var(--step-color);
+  }
+  .step-card h4 { font-size: 1.1rem; margin: 14px 0 8px; }
+  .step-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; }
+
+  /* ─── MISSION + STATS ─── */
+  .mission-grid {
+    display: grid;
+    gap: 56px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 880px) { .mission-grid { grid-template-columns: 1.2fr 1fr; gap: 72px; } }
+
+  .mission-copy h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .mission-copy h2 .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--coral);
+  }
+  .mission-desc {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 52ch;
+    margin-bottom: 28px;
+  }
+
+  .stats-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat-item {
+    text-align: center;
+    padding: 28px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .stat-item:nth-child(1) { --stat-color: var(--iris); }
+  .stat-item:nth-child(2) { --stat-color: var(--lime); }
+  .stat-item:nth-child(3) { --stat-color: var(--coral); }
+  .stat-item:nth-child(4) { --stat-color: var(--amber); }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--stat-color);
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── CTA ─── */
+  .contact-cta { background: var(--paper); }
+  .contact-cta .wrap { max-width: var(--max); margin: 0 auto; }
+  .contact-card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 64px);
+    text-align: center;
+    background: linear-gradient(180deg, var(--paper), var(--chalk));
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-3);
+    position: relative;
+    overflow: clip;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    inset: -40% -20% auto auto;
+    width: 70%; height: 180%;
+    background: radial-gradient(circle, var(--iris-soft) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .contact-card > * { position: relative; z-index: 1; }
+  .contact-card h2 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .contact-card h2 .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--iris);
+  }
+  .contact-card p.lead {
+    font-size: 1.05rem;
+    color: var(--ink-2);
+    max-width: 44ch;
+    margin: 0 auto 32px;
+  }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 </style>

@@ -1,0 +1,12 @@
+---
+import type { Lang } from '../../../../i18n/ui';
+import Layout from '../../../../layouts/Layout.astro';
+import PepinilloGuideContent from '../../../../components/pages/PepinilloGuideContent.astro';
+
+export function getStaticPaths() { return [{ params: { lang: 'pt' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+
+<Layout lang={lang} title="Guia rápido — Pepinillo" description="Comece a usar o Pepinillo em menos de 2 minutos. Aprenda a escolher um modo, vincular tarefas e se concentrar.">
+  <PepinilloGuideContent lang={lang} />
+</Layout>

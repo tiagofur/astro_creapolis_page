@@ -78,6 +78,7 @@ const social = {
         <a href={getLocalizedPath(lang, '/solennix')}>Solennix</a>
         <a href={getLocalizedPath(lang, '/proyectos/pepinillo')}>Pepinillo</a>
         <a href={getLocalizedPath(lang, '/proyectos/peliculas')}>Películas</a>
+        <a href={getLocalizedPath(lang, '/proyectos/subscription-guardian')}>Subscription Guardian</a>
       </div>
 
       <div class="fcol">
@@ -104,16 +105,16 @@ const social = {
         &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')} <span class="serif-it">{t('footer.care')}</span>.
       </p>
       <div class="footer-legal-links">
-        <a href={lang === 'en' ? '/privacy-policy' : '/privacidad'}>
-          {lang === 'en' ? 'Privacy Policy' : 'Privacidad'}
+        <a href={lang === 'en' ? '/privacy-policy' : lang === 'pt' ? '/privacy-policy' : '/privacidad'}>
+          {lang === 'en' ? 'Privacy Policy' : lang === 'pt' ? 'Política de Privacidade' : 'Privacidad'}
         </a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href={lang === 'en' ? '/terms-of-use' : '/terminos'}>
-          {lang === 'en' ? 'Terms' : 'Términos'}
+        <a href={lang === 'en' ? '/terms-of-use' : lang === 'pt' ? '/terms-of-use' : '/terminos'}>
+          {lang === 'en' ? 'Terms' : lang === 'pt' ? 'Termos' : 'Términos'}
         </a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href={lang === 'en' ? '/delete-account' : '/eliminar-cuenta'}>
-          {lang === 'en' ? 'Delete Account' : 'Eliminar cuenta'}
+        <a href={lang === 'en' ? '/delete-account' : lang === 'pt' ? '/delete-account' : '/eliminar-cuenta'}>
+          {lang === 'en' ? 'Delete Account' : lang === 'pt' ? 'Excluir conta' : 'Eliminar cuenta'}
         </a>
       </div>
     </div>

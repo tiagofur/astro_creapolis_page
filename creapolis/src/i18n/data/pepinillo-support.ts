@@ -167,6 +167,68 @@ const data: Record<Lang, PepinilloSupportData> = {
       ],
     },
   },
+  pt: {
+    nav: { features: 'Funções', guide: 'Guia', tips: 'Dicas', support: 'Suporte' },
+    cta: 'Baixar',
+    guide: {
+      eyebrow: 'Guia rápido',
+      title: 'Bem-vindo ao',
+      titleSerif: 'Pepinillo',
+      subtitle: 'Pepinillo é projetado para ser simples mas poderoso. Assim você começa:',
+      steps: [
+        { num: '01', title: 'Escolha um modo', desc: 'Deslize entre Pomodoro, Flowtime, Time Block ou Cronômetro. Cada modo é pensado para um estilo diferente de trabalho profundo.' },
+        { num: '02', title: 'Vincule uma tarefa', desc: 'Toque em "Vincular tarefa" para escolher no que está trabalhando. Isso ajuda a saber para onde vai seu tempo.' },
+        { num: '03', title: 'Comece a focar', desc: 'Toque no botão grande de Start e mande ver. Pepinillo cuida do resto — incluindo suas pausas.' },
+        { num: '04', title: 'Pausas conscientes', desc: 'Quando o timer termina, siga as atividades de pausa sugeridas. Alongue, respire, hidrate.' },
+      ],
+      tipTitle: 'Pro tip: Live Activities',
+      tipText: 'Não precisa manter o app aberto. Seu timer aparece automaticamente na Tela de bloqueio e na Dynamic Island. Comece a sessão e deixe o telefone.',
+      lockScreen: 'Tela de bloqueio',
+      dynamicIsland: 'Dynamic Island',
+      nextTitle: 'E agora?',
+      nextCards: [
+        { icon: '🧠', title: 'Dicas de foco', desc: 'Domine o deep work com estratégias comprovadas.', href: '/projetos/pepinillo/tips' },
+        { icon: '💬', title: 'Feedback e suporte', desc: 'Perguntas? Estamos aqui para ajudar.', href: '/projetos/pepinillo/feedback' },
+      ],
+    },
+    tips: {
+      eyebrow: 'Técnicas de foco',
+      title: 'Domine seu',
+      titleSerif: 'foco',
+      subtitle: 'Estratégias comprovadas para render mais com menos distrações. Escolha a que funciona para você.',
+      items: [
+        { icon: '⏰', title: 'A regra dos 5 minutos', desc: 'Se uma tarefa dá preguiça, coloque um timer de 5 minutos. Em geral, uma vez que começa, quer continuar. O difícil é começar.' },
+        { icon: '📦', title: 'Batching', desc: 'Use Time Blocks para agrupar tarefas pequenas parecidas. Termina mais rápido focando em um só tipo de trabalho por vez.' },
+        { icon: '🌊', title: 'A vantagem do Flowtime', desc: 'Se as pausas do Pomodoro te distraem, experimente o Flowtime. Deixa trabalhar enquanto estiver "em flow" e só sugere pausa quando a concentração baixa.' },
+        { icon: '🧘', title: 'Aceite o tédio', desc: 'Não pegue o celular nas pausas. Sente, alongue ou respire. Treine seu cérebro a descansar sem distração.' },
+        { icon: '🔄', title: 'Crie rituais', desc: 'Comece e termine as sessões com um ritual simples. Avisa ao cérebro quando focar e quando descansar. A constância cria o hábito.' },
+        { icon: '📊', title: 'Revise sua semana', desc: 'Olhe seu histórico de foco no final da semana. Veja para onde foi seu tempo e ajuste. O que se mede, se pode melhorar.' },
+      ],
+      nextTitle: 'Continue aprendendo',
+      nextCards: [
+        { icon: '📖', title: 'Guia rápido', desc: 'Configure sua primeira sessão em menos de 2 minutos.', href: '/projetos/pepinillo/guide' },
+        { icon: '💬', title: 'Feedback e suporte', desc: 'Tem uma pergunta? Ajudamos.', href: '/projetos/pepinillo/feedback' },
+      ],
+    },
+    feedback: {
+      eyebrow: 'Feedback e suporte',
+      title: 'Estamos aqui para',
+      titleSerif: 'ajudar',
+      subtitle: 'Bug? Sugestão de feature? Só quer dizer olá? Escreva — lemos tudo e respondemos rápido.',
+      options: [
+        { icon: '✉️', title: 'Suporte por email', desc: 'Para bugs, sugestões ou problemas de conta — lemos cada email.', link: 'mailto:hola@creapolis.dev?subject=Pepinillo%20-%20Suporte', linkText: 'hola@creapolis.dev' },
+        { icon: '𝕏', title: 'X (Twitter)', desc: 'Escreva público ou por DM. Estamos ativos e respondemos.', link: 'https://x.com/creapolisdev', linkText: '@creapolisdev' },
+      ],
+      faqTitle: 'Perguntas frequentes',
+      faqItems: [
+        { q: 'Como cancelo a assinatura?', a: 'As assinaturas são gerenciadas pela App Store. Vá em Ajustes → Apple ID → Assinaturas no seu iPhone ou iPad, encontre Pepinillo e toque em Cancelar. Você mantém o acesso Pro até o fim do ciclo faturado.' },
+        { q: 'Meu timer parou em segundo plano. O que faço?', a: 'Certifique-se que "Atualização em segundo plano" está ativada para o Pepinillo: Ajustes → Pepinillo → Atualização em segundo plano → On. Também verifique que as Live Activities estão habilitadas em Ajustes → Pepinillo → Live Activities.' },
+        { q: 'Como funciona o sync com iCloud?', a: 'Se estiver logado com iCloud em todos os seus dispositivos, suas tarefas e histórico de foco sincronizam automaticamente. Usamos o CloudKit da Apple — seus dados passam pelos servidores da Apple, não pelos nossos. Nunca os vemos.' },
+        { q: 'Posso usar o Pepinillo no Mac?', a: 'Sim. Pepinillo roda nativo no Mac (Apple Silicon e Intel). Baixe da Mac App Store — vem incluído com sua compra, sem custo extra.' },
+        { q: 'Como peço reembolso?', a: 'Os reembolsos são tratados diretamente pela Apple. Visite reportaproblem.apple.com, entre com seu Apple ID, encontre a compra do Pepinillo e selecione "Solicitar reembolso".' },
+      ],
+    },
+  },
 };
 
 export function getPepinilloSupportData(lang: Lang) {

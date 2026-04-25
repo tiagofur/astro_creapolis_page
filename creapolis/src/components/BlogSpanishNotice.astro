@@ -6,9 +6,9 @@ interface Props { lang: Lang; currentPath: string }
 const { lang, currentPath } = Astro.props;
 const t = useTranslations(lang);
 
-if (lang !== 'en') return null;
+if (lang === 'es') return null;
 
-const esHref = currentPath.replace(/^\/en\//, '/es/');
+const esHref = currentPath.replace(/^\/(en|pt)\//, '/es/');
 ---
 
 <div class="blog-es-notice" role="note">

@@ -1,0 +1,91 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { getSolennixSupportData } from '../../i18n/data/solennix-support';
+import SolennixSupportLayout from './SolennixSupportLayout.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const g = getSolennixSupportData(lang).guide;
+---
+
+<SolennixSupportLayout lang={lang}>
+  <section class="sup-page">
+    <div class="sup-inner">
+      <div class="sup-head reveal">
+        <div class="eyebrow" style="margin-bottom:14px"><span>{g.eyebrow}</span></div>
+        <h1>{g.title} <span class="serif">{g.titleSerif}</span>.</h1>
+        <p class="subtitle">{g.subtitle}</p>
+      </div>
+
+      <ol class="steps">
+        {g.steps.map((step) => (
+          <li class="step-card reveal">
+            <div class="step-num">{step.num}</div>
+            <div>
+              <h2>{step.title}</h2>
+              <p>{step.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="pro-tip reveal">
+        <div class="tip-icon">💡</div>
+        <div>
+          <h2>{g.tipTitle}</h2>
+          <p>{g.tipText}</p>
+        </div>
+      </div>
+
+      <div class="sup-next reveal">
+        <h3>{g.nextTitle}</h3>
+        <div class="sup-link-grid">
+          {g.nextCards.map((c) => (
+            <a href={`/${lang}${c.href}`} class="sup-next-card">
+              <span class="next-icon">{c.icon}</span>
+              <div>
+                <span class="next-title">{c.title}</span>
+                <span class="next-desc">{c.desc}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</SolennixSupportLayout>
+
+<style>
+  .steps {
+    list-style: none; padding: 0; margin: 0 0 48px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .step-card {
+    display: flex; gap: 24px; padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    align-items: flex-start;
+    transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .step-card:hover { box-shadow: var(--sh-2); border-color: oklch(0.62 0.2 285 / 0.4); }
+  .step-num {
+    font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
+    color: var(--iris); line-height: 1; flex-shrink: 0; width: 48px;
+  }
+  .step-card h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+  .step-card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
+
+  .pro-tip {
+    display: flex; gap: 20px; padding: 28px;
+    background: var(--iris-soft);
+    border: 1px solid oklch(0.62 0.2 285 / 0.3);
+    border-radius: var(--r-lg);
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .tip-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .pro-tip h2 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+  .pro-tip p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
+  .pro-tip strong { color: var(--iris); }
+</style>

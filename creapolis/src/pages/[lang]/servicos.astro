@@ -1,0 +1,17 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import Layout from '../../layouts/Layout.astro';
+import ServicesContent from '../../components/pages/ServicesContent.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'pt' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} title={t('services.meta.title')} description={t('services.meta.desc')}>
+  <ServicesContent lang={lang} />
+</Layout>

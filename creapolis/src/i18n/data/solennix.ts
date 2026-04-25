@@ -28,6 +28,14 @@ const features: Record<Lang, SolennixFeature[]> = {
     { icon: '📊', letter: 'D', title: 'Dashboard', desc: 'Key KPIs: revenue, events this month, active clients, and a clear business view.' },
     { icon: '🎨', letter: 'P', title: 'Premium Design', desc: 'Warm, professional interface. Light and Dark mode included.' },
   ],
+  pt: [
+    { icon: '📅', letter: 'E', title: 'Gestão de Eventos', desc: 'Calendário com todos os seus eventos, detalhes completos, checklist de tarefas e estados claros.' },
+    { icon: '👥', letter: 'C', title: 'CRM de Clientes', desc: 'Base de dados completa com histórico, notas, contatos e eventos associados.' },
+    { icon: '💰', letter: '$', title: 'Orçamentos e Contratos', desc: 'Gere orçamentos profissionais em segundos e converta em contratos.' },
+    { icon: '📦', letter: 'I', title: 'Inventário', desc: 'Controle de equipamentos reutilizáveis e insumos com tracking de stock em tempo real.' },
+    { icon: '📊', letter: 'D', title: 'Dashboard', desc: 'KPIs chave: receita, eventos do mês, clientes ativos e visão clara do negócio.' },
+    { icon: '🎨', letter: 'P', title: 'Design Premium', desc: 'Interface calorosa e profissional. Light e Dark mode incluídos.' },
+  ],
 };
 
 const pricing: Record<Lang, SolennixPricingPlan[]> = {
@@ -40,6 +48,11 @@ const pricing: Record<Lang, SolennixPricingPlan[]> = {
     { tag: '01 / Free', plan: 'Free', price: '$0', priceNoSuffix: true, features: ['Essential features', 'Basic event management', 'Up to 3 events'], btn: 'Download free' },
     { tag: '02 / Pro', plan: 'Pro', price: '$149', features: ['Unlimited quotes', 'Advanced inventory', 'Unlimited events', 'Export PDF'], btn: 'Start trial' },
     { tag: '03 / Enterprise', plan: 'Business', price: 'Custom', priceNoSuffix: true, features: ['Multi-user team', 'Advanced reports', 'API access', 'Priority support'], btn: 'Contact sales' },
+  ],
+  pt: [
+    { tag: '01 / Grátis', plan: 'Grátis', price: '$0', priceNoSuffix: true, features: ['Funções essenciais', 'Gestão básica de eventos', 'Até 3 eventos'], btn: 'Baixar grátis' },
+    { tag: '02 / Pro', plan: 'Pro', price: '$149', features: ['Orçamentos ilimitados', 'Inventário avançado', 'Eventos ilimitados', 'Exportar PDF'], btn: 'Iniciar teste' },
+    { tag: '03 / Enterprise', plan: 'Business', price: 'Custom', priceNoSuffix: true, features: ['Equipe multiusuário', 'Relatórios avançados', 'API access', 'Suporte prioritário'], btn: 'Contatar vendas' },
   ],
 };
 
@@ -72,6 +85,21 @@ const phone: Record<Lang, { headTitle: string; headSub: string; stats: { v: stri
       { color: 'var(--coral)', name: 'García Wedding', date: 'Feb 15' },
       { color: 'var(--lime)', name: 'María\'s XV', date: 'Feb 22' },
       { color: 'var(--sky)', name: 'Tech Corporate', date: 'Mar 1' },
+    ],
+  },
+  pt: {
+    headTitle: 'Março',
+    headSub: '3 eventos ativos',
+    stats: [
+      { v: '12', l: 'Eventos' },
+      { v: '$45k', l: 'Receita' },
+      { v: '8', l: 'Clientes' },
+    ],
+    label: 'Próximos',
+    items: [
+      { color: 'var(--coral)', name: 'Casamento García', date: '15 Fev' },
+      { color: 'var(--lime)', name: 'XV da María', date: '22 Fev' },
+      { color: 'var(--sky)', name: 'Corporativo Tech', date: '1 Mar' },
     ],
   },
 };

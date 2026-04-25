@@ -9,7 +9,7 @@ import { getPostDescription } from '../../../utils/post';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  const langs: Lang[] = ['es', 'en'];
+  const langs: Lang[] = ['es', 'en', 'pt'];
   return langs.flatMap(lang =>
     posts.map((post) => ({
       params: { lang, slug: post.slug },

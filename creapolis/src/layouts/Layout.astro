@@ -27,9 +27,9 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title.includes('Creapolis') ? title : `${title} — Creapolis`;
-const htmlLang = lang === 'en' ? 'en' : 'es';
-const ogLocale = lang === 'en' ? 'en_US' : 'es_MX';
-const inLanguage = lang === 'en' ? 'en-US' : 'es-MX';
+const htmlLang = lang === 'en' ? 'en' : lang === 'pt' ? 'pt' : 'es';
+const ogLocale = lang === 'en' ? 'en_US' : lang === 'pt' ? 'pt_BR' : 'es_MX';
+const inLanguage = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-MX';
 
 // Person + Organization shared schema (single dev studio)
 // TODO: reemplazar los sameAs con URLs reales cuando estén
@@ -105,9 +105,10 @@ const jsonLd = article
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Alternate language links (slug-aware: uses getAlternateLink to translate slugs) -->
-    {getAlternateLink(Astro.url).map(({ lang: l, href }) => (
-      <link rel="alternate" hreflang={l === 'es' ? 'es-ES' : 'en-US'} href={new URL(href, Astro.site).href} />
-    ))}
+    {getAlternateLink(Astro.url).map(({ lang: l, href }) => {
+      const hreflang = l === 'es' ? 'es-ES' : l === 'pt' ? 'pt-BR' : 'en-US';
+      return <link rel="alternate" hreflang={hreflang} href={new URL(href, Astro.site).href} />;
+    })}
     <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
 
     <!-- Open Graph -->
@@ -116,7 +117,10 @@ const jsonLd = article
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content={ogLocale} />
-    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_MX'} />
+    {getAlternateLink(Astro.url).filter(a => a.lang !== lang).map(({ lang: l }) => {
+      const altLocale = l === 'en' ? 'en_US' : l === 'pt' ? 'pt_BR' : 'es_MX';
+      return <meta property="og:locale:alternate" content={altLocale} />;
+    })}
     <meta property="og:site_name" content="Creapolis" />
     <meta property="og:image" content={ogImage} />
 
@@ -158,7 +162,7 @@ const jsonLd = article
     <title>{fullTitle}</title>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">{lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}</a>
+    <a href="#main-content" class="skip-link">{lang === 'en' ? 'Skip to content' : lang === 'pt' ? 'Pular para o conteúdo' : 'Saltar al contenido'}</a>
     <slot />
     <LanguageBanner lang={lang} />
   </body>

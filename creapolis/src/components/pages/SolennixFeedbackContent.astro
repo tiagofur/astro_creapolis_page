@@ -1,0 +1,95 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { getSolennixSupportData } from '../../i18n/data/solennix-support';
+import SolennixSupportLayout from './SolennixSupportLayout.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fb = getSolennixSupportData(lang).feedback;
+---
+
+<SolennixSupportLayout lang={lang}>
+  <section class="sup-page">
+    <div class="sup-inner">
+      <div class="sup-head reveal">
+        <div class="eyebrow" style="margin-bottom:14px"><span>{fb.eyebrow}</span></div>
+        <h1>{fb.title} <span class="serif">{fb.titleSerif}</span>.</h1>
+        <p class="subtitle">{fb.subtitle}</p>
+      </div>
+
+      <div class="options-grid">
+        {fb.options.map((opt) => (
+          <a href={opt.link} class="option-card reveal" target={opt.link.startsWith('http') ? '_blank' : undefined} rel={opt.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
+            <div class="opt-icon">{opt.icon}</div>
+            <div>
+              <h2>{opt.title}</h2>
+              <p>{opt.desc}</p>
+              <span class="opt-link">{opt.linkText} →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="faq reveal">
+        <h2>{fb.faqTitle}</h2>
+        {fb.faqItems.map((item) => (
+          <details class="faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</SolennixSupportLayout>
+
+<style>
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+  .option-card {
+    display: flex; gap: 16px; padding: 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    text-decoration: none; color: inherit;
+    transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+    align-items: flex-start;
+  }
+  .option-card:hover { box-shadow: var(--sh-2); border-color: var(--iris); }
+  .opt-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .option-card h2 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 4px; }
+  .option-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.5; margin: 0 0 8px; }
+  .opt-link { font-size: 0.85rem; color: var(--iris); font-weight: 500; }
+
+  .faq h2 {
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--ink); margin: 0 0 20px;
+  }
+  .faq-item {
+    padding: 18px 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    margin-bottom: 8px;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] summary { margin-bottom: 12px; color: var(--iris); }
+  .faq-item p {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .faq-item a { color: var(--iris); }
+</style>
