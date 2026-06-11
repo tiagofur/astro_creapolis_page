@@ -9,12 +9,13 @@ const lastUpdated = 'April 23, 2026';
 ---
 
 <Layout
+  lang="en"
   title="Privacy Policy — Pepinillo"
   description="Pepinillo Privacy Policy: We value your privacy. Your tasks and focus history are stored locally on your device."
 >
   <Nav />
 
-  <section class="legal-page">
+  <section class="legal-page" id="main-content">
     <div class="legal-inner">
       <div class="legal-head">
         <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
@@ -58,7 +59,7 @@ const lastUpdated = 'April 23, 2026';
 
       <section class="contact">
         <h3>Contact</h3>
-        <p>Questions about our privacy? Email <a href={`mailto:{email}`}>{email}</a> or DM <a href={`https://x.com/{twitter}`} target="_blank" rel="noopener noreferrer">@{twitter}</a>.</p>
+        <p>Questions about our privacy? Email <a href={`mailto:${email}`}>{email}</a> or DM <a href={`https://x.com/${twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer">{twitter}</a>.</p>
       </section>
     </div>
   </section>

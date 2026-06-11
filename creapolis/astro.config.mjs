@@ -12,7 +12,7 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale: 'es',
-    locales: ['es', 'en'],
+    locales: ['es', 'en', 'pt'],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
@@ -42,10 +42,10 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: {
-        locales: { es: 'es-ES', en: 'en-US' },
+        locales: { es: 'es-ES', en: 'en-US', pt: 'pt-BR' },
         defaultLocale: 'es',
       },
-      filter: (page) => !page.includes('/privacidad') && !page.includes('/terminos') && !page.includes('/eliminar-cuenta') && !page.includes('/privacy-policy') && !page.includes('/delete-account'),
+      filter: (page) => !page.includes('/404') && !page.includes('/privacidad') && !page.includes('/terminos') && !page.includes('/eliminar-cuenta') && !page.includes('/privacy-policy') && !page.includes('/delete-account') && !page.includes('/terms-of-use'),
       changefreq: 'weekly',
       priority: 0.7,
     }),

@@ -37,7 +37,7 @@ const founder = {
   '@type': 'Person',
   name: 'Tiago David Furtado',
   jobTitle: 'Desarrollador de software independiente',
-  url: 'https://creapolis.dev/sobre',
+  url: 'https://creapolis.dev/es/sobre',
   sameAs: [
     // 'https://www.linkedin.com/in/TU_HANDLE',
     // 'https://github.com/TU_HANDLE',
@@ -122,7 +122,9 @@ const jsonLd = article
       return <meta property="og:locale:alternate" content={altLocale} />;
     })}
     <meta property="og:site_name" content="Creapolis" />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Article-specific OG -->
     {article && (
@@ -137,6 +139,7 @@ const jsonLd = article
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
     <!-- Theme -->
     <meta name="theme-color" content="#5B4FBE" />
@@ -214,14 +217,16 @@ const jsonLd = article
   const mobileMenu = document.querySelector('.mobile-menu');
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
+      const isOpen = mobileMenu.classList.toggle('open');
       menuToggle.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
     });
 
     mobileMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
         menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
