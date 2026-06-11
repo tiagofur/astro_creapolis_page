@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="blobCoral" cx="85%" cy="12%" r="55%">
+      <stop offset="0%" stop-color="#FBE7E0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FBFAF7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blobIris" cx="8%" cy="95%" r="60%">
+      <stop offset="0%" stop-color="#ECE8FB" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FBFAF7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#FBFAF7"/>
+  <rect width="1200" height="630" fill="url(#blobCoral)"/>
+  <rect width="1200" height="630" fill="url(#blobIris)"/>
+
+  <!-- brand lockup -->
+  <g transform="translate(80,78)">
+    <rect width="54" height="54" rx="13" fill="#1D1D22"/>
+    <text x="27" y="28" dominant-baseline="central" text-anchor="middle" fill="#FFFFFF"
+          font-family="Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">C</text>
+    <text x="72" y="28" dominant-baseline="central" fill="#1D1D22"
+          font-family="Helvetica Neue, Arial, sans-serif" font-size="29" font-weight="700" letter-spacing="-0.5">Creapolis</text>
+  </g>
+
+  <!-- headline -->
+  <g transform="translate(80,250)" font-family="Helvetica Neue, Arial, sans-serif" fill="#1D1D22">
+    <text x="0" y="0" font-size="76" font-weight="700" letter-spacing="-2.5">Software que</text>
+    <text x="0" y="92" font-size="76" font-weight="700" letter-spacing="-2.5"><tspan font-family="Georgia, serif" font-style="italic" font-weight="400" fill="#6C4CE0">transforma</tspan> ideas</text>
+    <text x="0" y="184" font-size="76" font-weight="700" letter-spacing="-2.5">en productos.</text>
+  </g>
+
+  <!-- accent rule -->
+  <rect x="80" y="498" width="62" height="5" rx="2.5" fill="#6C4CE0"/>
+
+  <!-- footer line -->
+  <text x="80" y="548" font-family="Helvetica Neue, Arial, sans-serif" font-size="25" font-weight="500" fill="#52525B" letter-spacing="-0.3">Apps móviles · web · escritorio · IA  —  Monterrey, MX</text>
+</svg>
