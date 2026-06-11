@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
-import { getLocalizedPath } from '../../i18n/utils';
+import { getLocalizedPath, useTranslations, formatDate } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
@@ -13,6 +13,7 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -58,15 +59,11 @@ const postTagColors: Record<string, string> = {
   jamstack: 'var(--lime)',
 };
 
-function postDate(date: Date) {
-  return new Intl.DateTimeFormat('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
-}
-
 const apps = [
   {
     name: 'Solennix',
-    tagline: 'todo-en-uno para eventos',
-    desc: 'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
+    tagline: t('solennix.tagline'),
+    desc: t('solennix.desc'),
     href: getLocalizedPath(lang, '/solennix'),
     platform: 'iOS · Android · Web',
     color: 'var(--iris)',
@@ -75,8 +72,8 @@ const apps = [
   },
   {
     name: 'Pepinillo',
-    tagline: 'Pomodoro, tareas y timer',
-    desc: 'Productividad todo-en-uno: Pomodoro configurable, tareas con prioridades y subtasks, calendario, timer y estadísticas.',
+    tagline: t('pepinillo.tagline'),
+    desc: t('pepinillo.desc'),
     href: getLocalizedPath(lang, '/proyectos/pepinillo'),
     platform: 'Android',
     color: 'var(--lime)',
@@ -84,9 +81,9 @@ const apps = [
     deviceRows: [[2], [3]],
   },
   {
-    name: 'Películas',
-    tagline: 'tu cine, a tu manera',
-    desc: 'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones basadas en tus gustos.',
+    name: lang === 'es' ? 'Películas' : 'Movies',
+    tagline: t('peliculas.tagline'),
+    desc: t('peliculas.desc'),
     href: getLocalizedPath(lang, '/proyectos/peliculas'),
     platform: 'Android',
     color: 'var(--coral)',
@@ -95,8 +92,8 @@ const apps = [
   },
   {
     name: 'Subscription Guardian',
-    tagline: 'tu centinela financiero',
-    desc: 'Controlá tus suscripciones desde iOS. Alertas antes de cada cobro, dashboard de gastos y privacidad total sin servidores externos.',
+    tagline: t('subscription-guardian.tagline'),
+    desc: t('subscription-guardian.desc'),
     href: getLocalizedPath(lang, '/proyectos/subscription-guardian'),
     platform: 'iOS',
     color: 'var(--sky)',
@@ -106,46 +103,36 @@ const apps = [
 ];
 
 const shelf = [
-  { ring: 'Sx', name: 'Solennix · Mejora continua', status: 'active', statusLabel: 'En producción', desc: 'Iteración constante: nuevas features por feedback de usuarios reales, estabilidad y preparación para escalar.', progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
-  { ring: 'Se', name: 'Serene · Diario de gratitud', status: 'dev', statusLabel: 'En desarrollo', desc: 'Diario de gratitud con IA consciente para ansiedad, burnout y depresión. Feedback terapéutico responsable — sin alucinaciones, sin diagnósticos, sin dañar.', progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
-  { ring: 'Pe', name: 'Pepinillo para iOS', status: 'dev', statusLabel: 'En desarrollo', desc: 'La app de productividad que ya funciona en Android, camino al iPhone. Próximo paso: migrar Android a nativo y construir versión desktop.', progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
-  { ring: '?', name: 'En exploración · Asistente conectado', status: 'soon', statusLabel: 'Concepto', desc: 'Idea explorando: un asistente que unifica WhatsApp, correo y CRM en un solo hilo para PyMEs. Todavía sin nombre definido.', progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
+  { ring: 'Sx', name: t('shelf.solennix'), status: 'active', statusLabel: t('shelf.solennix.status'), desc: t('shelf.solennix.desc'), progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
+  { ring: 'Se', name: t('shelf.serene'), status: 'dev', statusLabel: t('shelf.serene.status'), desc: t('shelf.serene.desc'), progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
+  { ring: 'Pe', name: t('shelf.pepinillo'), status: 'dev', statusLabel: t('shelf.pepinillo.status'), desc: t('shelf.pepinillo.desc'), progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
+  { ring: '?', name: t('shelf.exploring'), status: 'soon', statusLabel: t('shelf.exploring.status'), desc: t('shelf.exploring.desc'), progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
 ];
 
 const services = [
-  { num: '01 / Móvil', mark: 'm', title: 'Apps móviles', desc: 'iOS y Android, nativas o multiplataforma. Publicamos, damos soporte y mantenemos stores.' },
-  { num: '02 / Web', mark: 'w', title: 'Apps web', desc: 'SPAs, e-commerce y dashboards con Next.js y Astro. Rápidas, seguras y medibles.' },
-  { num: '03 / Desktop', mark: 'd', title: 'Software de escritorio', desc: 'macOS, Windows y Linux. Tauri + Rust para rendimiento nativo y bundles pequeños.' },
-  { num: '04 / IA', mark: 'i', title: 'Consultoría de IA', desc: 'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.' },
+  { num: t('services.mobile.num'), mark: 'm', title: t('services.mobile.title'), desc: t('services.mobile.desc') },
+  { num: t('services.web.num'), mark: 'w', title: t('services.web.title'), desc: t('services.web.desc') },
+  { num: t('services.desktop.num'), mark: 'd', title: t('services.desktop.title'), desc: t('services.desktop.desc') },
+  { num: t('services.ai.num'), mark: 'i', title: t('services.ai.title'), desc: t('services.ai.desc') },
 ];
 
 const steps = [
-  { n: '1', title: 'Descubrir', desc: 'Llamada de 45 min, lectura del mercado, roadmap con fechas realistas y presupuesto.' },
-  { n: '2', title: 'Diseñar', desc: 'Wireframes, prototipo navegable en Figma y sistema de diseño documentado.' },
-  { n: '3', title: 'Construir', desc: 'Sprints de 2 semanas. Demo cada viernes. Código en tu repo desde el día uno.' },
-  { n: '4', title: 'Lanzar', desc: 'QA, publicación en stores, métricas. 30 días de soporte incluidos post-lanzamiento.' },
+  { n: '1', title: t('process.discover'), desc: t('process.discover.desc') },
+  { n: '2', title: t('process.design'), desc: t('process.design.desc') },
+  { n: '3', title: t('process.build'), desc: t('process.build.desc') },
+  { n: '4', title: t('process.launch'), desc: t('process.launch.desc') },
 ];
 
 const stats = [
-  { n: '5+ años', label: 'Construyendo producto', color: 'c1' },
-  { n: '4 apps', label: 'Propias en tiendas', color: 'c2' },
-  { n: '1 persona', label: 'Cero intermediarios', color: 'c3' },
-  { n: '< 24h', label: 'Respuesta a cada mensaje', color: 'c4' },
+  { n: t('stats.years'), label: t('stats.years.label'), color: 'c1' },
+  { n: t('stats.apps'), label: t('stats.apps.label'), color: 'c2' },
+  { n: t('stats.person'), label: t('stats.person.label'), color: 'c3' },
+  { n: t('stats.response'), label: t('stats.response.label'), color: 'c4' },
 ];
 ---
 
 <Layout lang={lang}>
-  <Nav
-    lang={lang}
-    links={[
-      { label: 'Proyectos', href: getLocalizedPath(lang, '/#apps') },
-      { label: 'Servicios', href: getLocalizedPath(lang, '/servicios') },
-      { label: 'Sobre', href: getLocalizedPath(lang, '/sobre') },
-      { label: 'Blog', href: getLocalizedPath(lang, '/blog') },
-      { label: 'Contacto', href: getLocalizedPath(lang, '/contacto') },
-    ]}
-    cta={{ text: 'Iniciar proyecto', href: getLocalizedPath(lang, '/contacto') }}
-  />
+  <Nav lang={lang} />
 
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
@@ -155,20 +142,20 @@ const stats = [
     <div class="hero-grid">
       <div class="hero-copy reveal">
         <div class="eyebrow" style="margin-bottom:20px">
-          <span>Estudio de producto · Monterrey</span>
+          <span>{t('hero.eyebrow')}</span>
         </div>
-        <h1>Software que<br/><span class="serif">transforma</span> ideas<br/>en productos.</h1>
-        <p class="lead">Diseño y desarrollo apps móviles, web y escritorio con el cuidado de quien las va a mantener y la velocidad de quien entrega cada semana. Consultoría de IA incluida.</p>
+        <h1>{t('hero.title')}<br/><span class="serif">{t('hero.title.serif')}</span> {t('hero.title.cont')}</h1>
+        <p class="lead">{t('hero.lead')}</p>
         <div class="hero-cta">
-          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">Iniciar proyecto
+          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('hero.cta')}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
-          <a href="#apps" class="hero-cta-ghost">Ver mi trabajo ↓</a>
+          <a href="#apps" class="hero-cta-ghost">{t('hero.ghost')}</a>
         </div>
         <div class="hero-trust">
-          <span><strong>5+ años</strong> entregando producto</span>
-          <span><strong>4 apps propias</strong> en tiendas</span>
-          <span><strong>Respuesta &lt;24h</strong> a cada mensaje</span>
+          <span><strong>{t('hero.trust.years')}</strong> {t('hero.trust.years.label')}</span>
+          <span><strong>{t('hero.trust.apps')}</strong> {t('hero.trust.apps.label')}</span>
+          <span><strong>{t('hero.trust.response')}</strong> {t('hero.trust.response.label')}</span>
         </div>
       </div>
 
@@ -212,20 +199,20 @@ const stats = [
   <!-- ═══════════════════════════════════════════════════════════════
        MARQUEE — trust strip
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="stamps" aria-label="Lo que nos define">
+  <section class="stamps" aria-label={t('marquee.1')}>
     <div class="stamps-row">
-      <span>Código propio, no plantillas</span>
-      <span>Diseño en cada pixel</span>
-      <span>Sprints de dos semanas</span>
-      <span>Cero agencias intermedias</span>
-      <span>Producto real, no slides</span>
-      <span>Soporte post-lanzamiento</span>
-      <span>Código propio, no plantillas</span>
-      <span>Diseño en cada pixel</span>
-      <span>Sprints de dos semanas</span>
-      <span>Cero agencias intermedias</span>
-      <span>Producto real, no slides</span>
-      <span>Soporte post-lanzamiento</span>
+      <span>{t('marquee.1')}</span>
+      <span>{t('marquee.2')}</span>
+      <span>{t('marquee.3')}</span>
+      <span>{t('marquee.4')}</span>
+      <span>{t('marquee.5')}</span>
+      <span>{t('marquee.6')}</span>
+      <span>{t('marquee.1')}</span>
+      <span>{t('marquee.2')}</span>
+      <span>{t('marquee.3')}</span>
+      <span>{t('marquee.4')}</span>
+      <span>{t('marquee.5')}</span>
+      <span>{t('marquee.6')}</span>
     </div>
   </section>
 
@@ -236,10 +223,10 @@ const stats = [
     <div class="wrap">
       <div class="products-header">
         <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>Mis apps · En producción</span></div>
-          <h2>Producto propio,<br/><span class="serif">en las tiendas</span>.</h2>
+          <div class="eyebrow" style="margin-bottom:18px"><span>{t('apps.eyebrow')}</span></div>
+          <h2>{t('apps.title')}<br/><span class="serif">{t('apps.title.serif')}</span>.</h2>
         </div>
-        <p class="reveal reveal-delay-1">Antes de hacer el tuyo, hice el mío. Estas son cuatro apps creadas, mantenidas y operadas por mí. Usuarios reales, reseñas reales, código propio.</p>
+        <p class="reveal reveal-delay-1">{t('apps.desc')}</p>
       </div>
 
       <div class="products">
@@ -260,13 +247,13 @@ const stats = [
             <div class="product-meta">
               <div class="head">
                 <h3>{app.name}</h3>
-                <span class="chip live"><span class="chip-dot"></span>Live</span>
+                <span class="chip live"><span class="chip-dot"></span>{t('apps.live')}</span>
               </div>
               <span class="tagline">{app.tagline}</span>
               <p>{app.desc}</p>
               <div class="foot">
                 <span class="plat">{app.platform}</span>
-                <span>Ver detalles →</span>
+                <span>{t('apps.details')}</span>
               </div>
             </div>
           </a>
@@ -274,17 +261,17 @@ const stats = [
       </div>
 
       <div class="apps-cta reveal">
-        <a href={getLocalizedPath(lang, '/proyectos')} class="btn btn-ghost">Ver todos los proyectos →</a>
+        <a href={getLocalizedPath(lang, '/proyectos')} class="btn btn-ghost">{t('apps.all')}</a>
       </div>
 
       <!-- In-development shelf -->
       <div class="shelf reveal">
         <div class="shelf-head">
           <div>
-            <div class="eyebrow" style="margin-bottom:10px"><span>En desarrollo · Taller abierto</span></div>
-            <h3>Lo que estoy construyendo ahora mismo.</h3>
+            <div class="eyebrow" style="margin-bottom:10px"><span>{t('apps.shelf.eyebrow')}</span></div>
+            <h3>{t('apps.shelf.title')}</h3>
           </div>
-          <a href="#contact" class="btn btn-ghost">Síguelo de cerca →</a>
+          <a href="#contact" class="btn btn-ghost">{t('apps.shelf.cta')}</a>
         </div>
         <div class="shelf-grid">
           {shelf.map((item) => (
@@ -312,10 +299,10 @@ const stats = [
     <div class="wrap">
       <div class="products-header">
         <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>Servicios</span></div>
-          <h2>Hago producto<br/>de cabo a rabo.</h2>
+          <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.eyebrow')}</span></div>
+          <h2>{t('services.title')}<br/>{t('services.title.serif')}</h2>
         </div>
-        <p class="reveal reveal-delay-1">Descubrimiento, diseño, código y despliegue. Un solo responsable de punta a punta, una sola factura. Sin agencias intermedias ni handoffs rotos.</p>
+        <p class="reveal reveal-delay-1">{t('services.desc')}</p>
       </div>
 
       <div class="svc-grid">
@@ -330,7 +317,7 @@ const stats = [
       </div>
 
       <div class="svc-more reveal">
-        <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-ghost">Ver detalles de cada servicio
+        <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-ghost">{t('services.more')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
@@ -344,10 +331,10 @@ const stats = [
     <div class="wrap">
       <div class="products-header">
         <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>Cómo trabajamos</span></div>
-          <h2>Un proceso con<br/><span class="serif">pocas sorpresas</span>.</h2>
+          <div class="eyebrow" style="margin-bottom:18px"><span>{t('process.eyebrow')}</span></div>
+          <h2>{t('process.title')}<br/><span class="serif">{t('process.title.serif')}</span>.</h2>
         </div>
-        <p class="reveal reveal-delay-1">Entregas visibles cada dos semanas. Canal directo con quien escribe el código — nunca un intermediario. Así se construye confianza: mostrando avance real, no promesas.</p>      </div>
+        <p class="reveal reveal-delay-1">{t('process.desc')}</p>      </div>
 
       <div class="proc">
         {steps.map((step, i) => (
@@ -379,10 +366,10 @@ const stats = [
     </div>
     <div class="wrap">
       <div class="reveal">
-        <div class="eyebrow" style="color: oklch(0.75 0.01 265); margin-bottom:18px"><span>Sobre mí</span></div>
-        <h2>No es una agencia.<br/>Es un <span class="serif">desarrollador que vive en el producto</span>.</h2>
-        <p class="big">Desde 2019 construyo software — al principio como experimento, ahora como trabajo. Hablás conmigo, te contesto yo, escribo el código yo. Sin agencias, sin equipos que cambian a mitad de proyecto, sin nadie que te traduzca lo que ya dijiste bien.</p>
-        <a href={getLocalizedPath(lang, '/sobre')} class="btn btn-ghost" style="margin-top:24px;border-color:oklch(0.5 0.01 265);color:var(--paper)">Conozca más sobre mí
+        <div class="eyebrow" style="color: oklch(0.75 0.01 265); margin-bottom:18px"><span>{t('mission.eyebrow')}</span></div>
+        <h2>{t('mission.title.p1')}<br/>{t('mission.title.p2')} <span class="serif">{t('mission.title.serif')}</span>.</h2>
+        <p class="big">{t('mission.desc')}</p>
+        <a href={getLocalizedPath(lang, '/sobre')} class="btn btn-ghost" style="margin-top:24px;border-color:oklch(0.5 0.01 265);color:var(--paper)">{t('mission.cta')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
@@ -398,18 +385,18 @@ const stats = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════════════════════════════
        NOTAS — latest blog posts
        ═══════════════════════════════════════════════════════════════ -->
   <section id="notas" class="section notes-block">
     <div class="wrap">
       <div class="notes-head reveal">
         <div>
-          <div class="eyebrow" style="margin-bottom:14px"><span>Notas</span></div>
-          <h2>Pensamos en voz alta <span class="serif">sobre producto</span>.</h2>
-          <p class="notes-intro">Lo que aprendo construyendo apps reales — decisiones técnicas, errores que pagué, y lo que funciona cuando el hype se apaga.</p>
+          <div class="eyebrow" style="margin-bottom:14px"><span>{t('notes.eyebrow')}</span></div>
+          <h2>{t('notes.title')} <span class="serif">{t('notes.title.serif')}</span>.</h2>
+          <p class="notes-intro">{t('notes.desc')}</p>
         </div>
-        <a href={getLocalizedPath(lang, '/blog')} class="btn btn-ghost">Ver todas las notas
+        <a href={getLocalizedPath(lang, '/blog')} class="btn btn-ghost">{t('notes.cta')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
@@ -422,12 +409,12 @@ const stats = [
             <a href={getLocalizedPath(lang, `/blog/${post.slug}`)} class="note-card" style={`--note-accent: ${accent}`}>
               <div class="note-top">
                 <span class="note-dot" aria-hidden="true"></span>
-                <span class="note-date">{postDate(post.data.pubDate)}</span>
+                <span class="note-date">{formatDate(post.data.pubDate, lang)}</span>
                 {firstTag && <span class="note-tag">{firstTag}</span>}
               </div>
               <h3>{post.data.title}</h3>
               <p>{getPostDescription(post)}</p>
-              <span class="note-read">Leer nota
+              <span class="note-read">{t('notes.read')}
                 <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </span>
             </a>
@@ -442,12 +429,12 @@ const stats = [
        ═══════════════════════════════════════════════════════════════ -->
   <section id="contact" class="contact-cta">
     <div class="contact-card reveal">
-      <div class="eyebrow" style="margin-bottom:16px"><span>Hablemos</span></div>
-      <h2>Contame tu idea.<br/>Te contesto <span class="serif">el mismo día</span>.</h2>
-      <p class="lead">Sin formularios de 20 campos ni disqueros. Escribime en 2 minutos, te respondo en menos de 24 horas con próximos pasos.</p>
+      <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.eyebrow')}</span></div>
+      <h2>{t('contact.title.p1')}<br/>{t('contact.title.p2')} <span class="serif">{t('contact.title.serif')}</span>.</h2>
+      <p class="lead">{t('contact.lead')}</p>
 
       <div class="c-cta-row">
-        <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">Iniciar conversación
+        <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('contact.cta')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
         <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
@@ -461,7 +448,7 @@ const stats = [
 <style>
   /* ═══════════════════════════════════════════════════════════════
      HERO
-     ══════════════��════════════════════════════════════════════════ */
+     ═══════════════════════════════════════════════════════════════ */
   .hero {
     position: relative;
     min-height: 100vh;
