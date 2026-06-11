@@ -1,72 +1,21 @@
 ---
 import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath } from '../../i18n/utils';
 import { getSolennixSupportData } from '../../i18n/data/solennix-support';
-import Nav from '../Nav.astro';
-import Footer from '../Footer.astro';
+import SupportLayout from './SupportLayout.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const d = getSolennixSupportData(lang);
 
-const sxNav = [
-  { label: d.nav.features, href: `/${lang}/solennix#features` },
-  { label: d.nav.guide, href: `/${lang}/solennix/guide` },
-  { label: d.nav.tips, href: `/${lang}/solennix/tips` },
-  { label: d.nav.support, href: `/${lang}/solennix/feedback` },
+const base = '/solennix';
+const nav = [
+  { label: d.nav.features, href: getLocalizedPath(lang, base) + '#features' },
+  { label: d.nav.guide, href: getLocalizedPath(lang, base + '/guide') },
+  { label: d.nav.tips, href: getLocalizedPath(lang, base + '/tips') },
+  { label: d.nav.support, href: getLocalizedPath(lang, base + '/feedback') },
 ];
-const sxCTA = { text: d.cta, href: `/${lang}/solennix` };
+const cta = { text: d.cta, href: getLocalizedPath(lang, base) };
 ---
 
-<Nav lang={lang} links={sxNav} cta={sxCTA} />
-
-<slot />
-
-<Footer lang={lang} />
-
-<style is:global>
-  .sup-page {
-    padding: 140px var(--gutter) 100px;
-    background: radial-gradient(55% 35% at 50% 0%, var(--iris-soft) 0%, transparent 60%), var(--paper);
-    min-height: 80vh;
-  }
-  .sup-inner { max-width: 760px; margin: 0 auto; }
-  .sup-head { margin-bottom: 56px; }
-  .sup-head h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    line-height: 1.05; letter-spacing: -0.03em;
-    color: var(--ink); margin: 0 0 16px;
-  }
-  .sup-head h1 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--iris);
-  }
-  .sup-head .subtitle { font-size: 1.1rem; color: var(--ink-2); line-height: 1.65; margin: 0; }
-
-  .sup-page .eyebrow { display: inline-flex; }
-  .sup-page .eyebrow span {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--iris); background: var(--iris-soft);
-    border: 1px solid oklch(0.62 0.2 285 / 0.25);
-    border-radius: var(--r-pill);
-    padding: 5px 12px;
-  }
-
-  .sup-next { border-top: 1px solid var(--line); padding-top: 48px; margin-top: 48px; }
-  .sup-next h3 {
-    font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--ink-3); margin: 0 0 20px;
-  }
-  .sup-link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-  .sup-next-card {
-    display: flex; gap: 16px; padding: 20px;
-    border: 1px solid var(--line); border-radius: var(--r-md);
-    text-decoration: none; color: inherit;
-    transition: border-color 0.15s var(--ease);
-    align-items: center;
-  }
-  .sup-next-card:hover { border-color: var(--iris); }
-  .sup-next-card .next-icon { font-size: 1.3rem; flex-shrink: 0; }
-  .sup-next-card .next-title { display: block; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-  .sup-next-card .next-desc { display: block; font-size: 0.82rem; color: var(--ink-2); }
-</style>
+<SupportLayout lang={lang} nav={nav} cta={cta} accent="iris"><slot /></SupportLayout>
