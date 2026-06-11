@@ -8,6 +8,10 @@ import Footer from '../Footer.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+// Web3Forms access key (pública, client-side, no es secreta).
+// Generala gratis en https://web3forms.com y ponela en la env WEB3FORMS_KEY.
+const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY || 'YOUR_WEB3FORMS_ACCESS_KEY';
 const { services, process } = getServicesData(lang);
 ---
 
@@ -135,12 +139,16 @@ const { services, process } = getServicesData(lang);
       data-msg-hp={t('contact.cta.form.success.hp')}
       data-msg-wait={t('contact.cta.form.error.wait')}
       data-msg-conn={t('contact.cta.form.error.conn')}
+      data-msg-ok={t('contact.cta.form.success.hp')}
     >
       <div class="hp-field" aria-hidden="true">
         <label for="svc-website">Website</label>
         <input type="text" id="svc-website" name="website" tabindex="-1" autocomplete="off" />
       </div>
       <input type="hidden" id="svc-timestamp" name="timestamp" value="" />
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value="Nuevo contacto (Servicios) desde creapolis.dev" />
+      <input type="hidden" name="from_name" value="Creapolis · Formulario web" />
 
       <div class="two">
         <label>{t('contact.form.name')}
@@ -498,6 +506,7 @@ const { services, process } = getServicesData(lang);
     const msgHp = form.dataset.msgHp || '';
     const msgWait = form.dataset.msgWait || '';
     const msgConn = form.dataset.msgConn || '';
+    const msgOk = form.dataset.msgOk || '';
 
     if (honeypot?.value) {
       if (msgEl) {
@@ -526,19 +535,21 @@ const { services, process } = getServicesData(lang);
 
     const formData = new FormData(form);
     const data = {
+      access_key: formData.get('access_key'),
+      subject: formData.get('subject'),
+      from_name: formData.get('from_name'),
       name: formData.get('name'),
       email: formData.get('email'),
       service: formData.get('service'),
       message: formData.get('message'),
-      website: formData.get('website'),
+      botcheck: formData.get('website'),
       timestamp: formData.get('timestamp'),
     };
 
     try {
-      const apiUrl = import.meta.env.API_URL || '/api/contact';
-      const res = await fetch(apiUrl, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data),
       });
       const result = await res.json();
@@ -547,13 +558,13 @@ const { services, process } = getServicesData(lang);
         msgEl.hidden = false;
         if (result.success) {
           msgEl.className = 'form-msg success';
-          msgEl.textContent = result.message;
+          msgEl.textContent = msgOk;
           form.reset();
           if (okChip) okChip.hidden = false;
           setTimeout(() => { if (okChip) okChip.hidden = true; }, 4000);
         } else {
           msgEl.className = 'form-msg error';
-          msgEl.textContent = result.message;
+          msgEl.textContent = msgConn;
         }
       }
     } catch {
