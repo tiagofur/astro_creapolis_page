@@ -1,4 +1,4 @@
-import { ui, defaultLang, type Lang, type UIKey } from './ui';
+import { defaultLang, type Lang, type UIKey, ui } from './ui';
 
 /**
  * Slug translation map: canonical key → localized slug per language.
@@ -28,8 +28,12 @@ export function getLangFromUrl(url: URL): Lang {
 }
 
 export function useTranslations(lang: Lang) {
+  // Use Record<string, string> to allow PT to have fewer keys than ES;
+  // missing keys fall back to the default locale via the || operator.
+  const locale = ui[lang] as Record<string, string>;
+  const fallback = ui[defaultLang] as Record<string, string>;
   return function t(key: UIKey): string {
-    return ui[lang][key] || ui[defaultLang][key];
+    return locale[key] || fallback[key];
   };
 }
 
@@ -56,8 +60,8 @@ export function canonicalSlug(slug: string, lang: Lang): string {
  */
 export function getLocalizedPath(lang: Lang, path: string): string {
   const segments = path.split('/').filter(Boolean);
-  const translated = segments.map(s => translateSlug(s, lang));
-  return `/${lang}${translated.length ? '/' + translated.join('/') : ''}`;
+  const translated = segments.map((s) => translateSlug(s, lang));
+  return `/${lang}${translated.length ? `/${translated.join('/')}` : ''}`;
 }
 
 /**
@@ -69,13 +73,13 @@ export function getAlternateLink(url: URL): { lang: Lang; href: string }[] {
   const segments = url.pathname.split('/').filter(Boolean).slice(1); // remove lang prefix
 
   // Convert current slugs to canonical
-  const canonicalSegments = segments.map(s => canonicalSlug(s, currentLang));
+  const canonicalSegments = segments.map((s) => canonicalSlug(s, currentLang));
 
   // Generate links for all languages
-  return (Object.keys(ui) as Lang[]).map(lang => {
+  return (Object.keys(ui) as Lang[]).map((lang) => {
     if (lang === currentLang) return { lang, href: url.pathname };
-    const translated = canonicalSegments.map(s => translateSlug(s, lang));
-    const path = translated.length ? '/' + translated.join('/') : '';
+    const translated = canonicalSegments.map((s) => translateSlug(s, lang));
+    const path = translated.length ? `/${translated.join('/')}` : '';
     return { lang, href: `/${lang}${path}` };
   });
 }

@@ -1,17 +1,20 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
-import Nav from '../Nav.astro';
 import Footer from '../Footer.astro';
+import Nav from '../Nav.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 // Web3Forms access key (pública, client-side, no es secreta).
 // Generá la tuya gratis en https://web3forms.com y ponela en la env WEB3FORMS_KEY,
 // o reemplazá el fallback de abajo directamente.
-const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_KEY || 'YOUR_WEB3FORMS_ACCESS_KEY';
+const WEB3FORMS_KEY =
+  import.meta.env.WEB3FORMS_KEY || 'YOUR_WEB3FORMS_ACCESS_KEY';
 ---
 
 <Nav lang={lang} />

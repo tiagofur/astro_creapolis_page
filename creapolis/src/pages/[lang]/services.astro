@@ -1,8 +1,8 @@
 ---
+import ServicesContent from '../../components/pages/ServicesContent.astro';
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
-import ServicesContent from '../../components/pages/ServicesContent.astro';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'en' } }];

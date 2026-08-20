@@ -1,10 +1,12 @@
 ---
+import { getSGSupportData } from '../../i18n/data/subscription-guardian-support';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath } from '../../i18n/utils';
-import { getSGSupportData } from '../../i18n/data/subscription-guardian-support';
 import SGSupportLayout from './SGSupportLayout.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const g = getSGSupportData(lang).guide;
 ---

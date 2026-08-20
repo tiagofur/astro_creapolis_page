@@ -1,24 +1,26 @@
 ---
-import type { Lang } from "../../../i18n/ui";
-import Layout from '../../../layouts/Layout.astro';
-import Nav from '../../../components/Nav.astro';
-import Footer from '../../../components/Footer.astro';
-import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
 import { getCollection, render } from 'astro:content';
+import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
+import Footer from '../../../components/Footer.astro';
+import Nav from '../../../components/Nav.astro';
+import type { Lang } from '../../../i18n/ui';
+import { getLocalizedPath, useTranslations } from '../../../i18n/utils';
+import Layout from '../../../layouts/Layout.astro';
 import { getPostDescription } from '../../../utils/post';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   const langs: Lang[] = ['es', 'en', 'pt'];
-  return langs.flatMap(lang =>
+  return langs.flatMap((lang) =>
     posts.map((post) => ({
       params: { lang, slug: post.slug },
       props: { post },
-    }))
+    })),
   );
 }
 
 const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
 const { post } = Astro.props;
 const { Content } = await render(post);
 const description = getPostDescription(post);
@@ -34,45 +36,53 @@ function formatDate(date: Date) {
 // Mapa canónico de tags → estilo visual (soft bg + color + icono)
 const tagColors: Record<string, { bg: string; color: string; icon: string }> = {
   // device / platform
-  mobile:        { bg: 'var(--iris-soft)',   color: 'var(--iris)',  icon: '📱' },
-  desktop:       { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '💻' },
-  nativo:        { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '📲' },
+  mobile: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📱' },
+  desktop: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '💻' },
+  nativo: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '📲' },
   // tech
-  flutter:       { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '💙' },
-  dart:          { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '🎯' },
-  react:         { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '⚛️' },
-  'react-native':{ bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '⚛️' },
-  nextjs:        { bg: 'var(--sky-soft)',    color: 'var(--sky)',   icon: '▲' },
-  astro:         { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '🚀' },
+  flutter: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '💙' },
+  dart: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '🎯' },
+  react: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '⚛️' },
+  'react-native': { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '⚛️' },
+  nextjs: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '▲' },
+  astro: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🚀' },
   // web / backend / ops
-  web:           { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '🌐' },
-  backend:       { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '🛠' },
-  devops:        { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '⚙︎' },
+  web: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🌐' },
+  backend: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🛠' },
+  devops: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '⚙︎' },
   // topics
-  ui:            { bg: 'var(--iris-soft)',   color: 'var(--iris)',  icon: '🎨' },
-  estado:        { bg: 'var(--iris-soft)',   color: 'var(--iris)',  icon: '↻' },
-  arquitectura:  { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '🏛' },
-  testing:       { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '✓' },
-  performance:   { bg: 'var(--coral-soft)',  color: 'var(--coral)', icon: '⚡' },
-  seguridad:     { bg: 'var(--coral-soft)',  color: 'var(--coral)', icon: '🔒' },
-  datos:         { bg: 'var(--coral-soft)',  color: 'var(--coral)', icon: '📊' },
+  ui: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '🎨' },
+  estado: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '↻' },
+  arquitectura: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🏛' },
+  testing: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '✓' },
+  performance: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '⚡' },
+  seguridad: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '🔒' },
+  datos: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '📊' },
   // AI / automation
-  ia:            { bg: 'var(--coral-soft)',  color: 'var(--coral)', icon: '🤖' },
-  automatizacion:{ bg: 'var(--coral-soft)',  color: 'var(--coral)', icon: '⚡' },
+  ia: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '🤖' },
+  automatizacion: {
+    bg: 'var(--coral-soft)',
+    color: 'var(--coral)',
+    icon: '⚡',
+  },
   // meta
-  desarrollo:    { bg: 'var(--iris-soft)',   color: 'var(--iris)',  icon: '⚙️' },
-  tutorial:      { bg: 'var(--iris-soft)',   color: 'var(--iris)',  icon: '📖' },
-  herramientas:  { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '🛠️' },
+  desarrollo: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '⚙️' },
+  tutorial: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📖' },
+  herramientas: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🛠️' },
   // business
-  pricing:       { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '💰' },
-  mvp:           { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '🎯' },
-  startup:       { bg: 'var(--amber-soft)',  color: 'var(--amber)', icon: '🚀' },
-  wordpress:     { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '📝' },
-  jamstack:      { bg: 'var(--lime-soft)',   color: 'var(--lime)',  icon: '⚡' },
+  pricing: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '💰' },
+  mvp: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🎯' },
+  startup: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🚀' },
+  wordpress: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '📝' },
+  jamstack: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '⚡' },
 };
 
 const mainTag = post.data.tags[0] || 'desarrollo';
-const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📝' };
+const mainTagStyle = tagColors[mainTag] || {
+  bg: 'var(--iris-soft)',
+  color: 'var(--iris)',
+  icon: '📝',
+};
 ---
 
 <Layout lang={lang}
@@ -98,7 +108,7 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
         <div class="hero-content reveal">
           <a href={`/${lang}/blog`} class="back-link">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M8 2L2 8M2 8V3M2 8H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Todas las notas
+            {t('blog.sidebar.back')}
           </a>
 
           <div class="hero-tags">
@@ -164,16 +174,16 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
           <!-- Author card -->
           <div class="sidebar-card sidebar-card--dark">
             <div class="sidebar-author-mark">C</div>
-            <h4 class="sidebar-title">Escrito por</h4>
+            <h4 class="sidebar-title">{t('blog.sidebar.author')}</h4>
             <p class="sidebar-author-name">{post.data.author}</p>
-            <p class="sidebar-author-bio">Estudio de software en Monterrey. Creamos producto con diseño premium.</p>
+            <p class="sidebar-author-bio">{t('blog.sidebar.authorBio')}</p>
           </div>
 
           <!-- CTA card -->
           <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}>
-            <h4 class="sidebar-title">¿Necesitas ayuda?</h4>
-            <p>Agenda una llamada y te asesoramos sin compromiso.</p>
-            <a href={`/${lang}/contacto`} class="btn btn-primary" style="width: 100%">Hablemos</a>
+            <h4 class="sidebar-title">{t('blog.sidebar.helpTitle')}</h4>
+            <p>{t('blog.sidebar.helpDesc')}</p>
+            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%">{t('blog.sidebar.cta')}</a>
           </div>
         </aside>
       </div>
@@ -184,10 +194,10 @@ const mainTagStyle = tagColors[mainTag] || { bg: 'var(--iris-soft)', color: 'var
         <div class="footer-inner">
           <a href={`/${lang}/blog`} class="btn btn-ghost">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M8 2L2 8M2 8V3M2 8H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Todas las notas
+            {t('blog.sidebar.back')}
           </a>
           <div class="footer-share">
-            <span class="footer-label">Compartir</span>
+            <span class="footer-label">{t('blog.sidebar.share')}</span>
             <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener" class="share-btn">𝕏</a>
           </div>
         </div>

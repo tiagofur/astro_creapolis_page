@@ -1,10 +1,12 @@
 ---
+import { getPepinilloSupportData } from '../../i18n/data/pepinillo-support';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath } from '../../i18n/utils';
-import { getPepinilloSupportData } from '../../i18n/data/pepinillo-support';
 import SupportLayout from './SupportLayout.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const d = getPepinilloSupportData(lang);
 
@@ -15,7 +17,10 @@ const nav = [
   { label: d.nav.tips, href: getLocalizedPath(lang, base + '/tips') },
   { label: d.nav.support, href: getLocalizedPath(lang, base + '/feedback') },
 ];
-const cta = { text: d.cta, href: 'https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo' };
+const cta = {
+  text: d.cta,
+  href: 'https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo',
+};
 ---
 
 <SupportLayout lang={lang} nav={nav} cta={cta} accent="lime"><slot /></SupportLayout>

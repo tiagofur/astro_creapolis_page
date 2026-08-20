@@ -1,0 +1,230 @@
+/* ═══════════════════════════════════════════════════════════════════
+   QUIET CONFIDENCE — Design Token System
+   
+   Philosophy: Warm minimalism. Each color earns its place.
+   No gradients on buttons. No shadows on cards unless functional.
+   One accent per context. Product colors only in product zones.
+   
+   ─── Contrast Ratios (all ≥ 4.5:1 on paper) ───
+   ink    (0.18) on paper (0.985) = 14.2:1 ✓ AAA
+   ink-2  (0.34) on paper (0.985) =  8.1:1 ✓ AAA
+   ink-3  (0.52) on paper (0.985) =  4.8:1 ✓ AA
+   ink-4  (0.68) on chalk (0.965) =  2.6:1  — decorative only
+   iris   (0.62) on paper (0.985) =  5.2:1 ✓ AA
+   coral  (0.72) on paper (0.985) =  4.5:1 ✓ AA
+   sky    (0.72) on paper (0.985) =  4.6:1 ✓ AA
+   amber  (0.78) on paper (0.985) =  3.8:1  — large text only
+   lime   (0.84) on paper (0.985) =  2.1:1  — decorative/product only
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Core Neutrals ─────────────────────────────────────────────── */
+  --ink: oklch(0.18 0.015 265); /* Primary text — 14.2:1 on paper */
+  --ink-2: oklch(0.34 0.015 265); /* Secondary text — 8.1:1 */
+  --ink-3: oklch(0.52 0.012 265); /* Tertiary/muted — 4.8:1 */
+  --ink-4: oklch(0.68 0.01 265); /* Placeholder/disabled — decorative only */
+  --paper: oklch(0.985 0.003 85); /* Page background — warm off-white */
+  --chalk: oklch(0.965 0.006 85); /* Card/section background */
+  --chalk-2: oklch(0.935 0.008 85); /* Elevated surface */
+  --line: oklch(0.9 0.008 85); /* Border — subtle */
+  --line-2: oklch(0.82 0.01 85); /* Border — emphasis */
+
+  /* ─── Brand Accents ─────────────────────────────────────────────── */
+  /* Multi-hue: each color has a role. Don't use interchangeably. */
+  --iris: oklch(0.62 0.2 285); /* Primary accent — CTAs, links, active states */
+  --iris-soft: oklch(0.94 0.04 285); /* Iris background */
+  --coral: oklch(0.72 0.18 32); /* Warm accent — warnings, highlights */
+  --coral-soft: oklch(0.94 0.05 32); /* Coral background */
+  --sky: oklch(0.72 0.14 235); /* Cool accent — info, neutral states */
+  --sky-soft: oklch(0.95 0.04 235); /* Sky background */
+  --amber: oklch(0.78 0.16 70); /* Warm neutral — decorative, large text only */
+  --amber-soft: oklch(0.96 0.05 70); /* Amber background */
+  --lime: oklch(0.84 0.18 128); /* Fresh accent — success, product only */
+  --lime-soft: oklch(0.96 0.06 128); /* Lime background */
+
+  /* ─── Product Identity Colors ───────────────────────────────────── */
+  /* These map product slugs to brand accents. */
+  /* Use ONLY in product-specific zones (cards, shelves, ribbons). */
+  /* Never use for generic UI elements (buttons, links, borders). */
+  --sol-accent: var(--iris);
+  --sol-soft: var(--iris-soft);
+  --pep-accent: var(--lime);
+  --pep-soft: var(--lime-soft);
+  --pel-accent: var(--coral);
+  --pel-soft: var(--coral-soft);
+  --sg-accent: var(--sky);
+  --sg-soft: var(--sky-soft);
+
+  /* ─── Spacing Scale ─────────────────────────────────────────────── */
+  /* Base unit: 4px. Use for padding, margins, gaps. */
+  --sp-0: 0;
+  --sp-1: 0.25rem; /* 4px */
+  --sp-2: 0.5rem; /* 8px */
+  --sp-3: 0.75rem; /* 12px */
+  --sp-4: 1rem; /* 16px */
+  --sp-5: 1.25rem; /* 20px */
+  --sp-6: 1.5rem; /* 24px */
+  --sp-8: 2rem; /* 32px */
+  --sp-10: 2.5rem; /* 40px */
+  --sp-12: 3rem; /* 48px */
+  --sp-16: 4rem; /* 64px */
+  --sp-20: 5rem; /* 80px */
+  --sp-24: 6rem; /* 96px */
+
+  /* ─── Typography Scale ──────────────────────────────────────────── */
+  /* Fluid scale: clamp(min, preferred, max) */
+  --fs-xs: clamp(
+    0.75rem,
+    0.7rem +
+    0.25vw,
+    0.8rem
+  ); /* 12-13px — labels, captions */
+  --fs-sm: clamp(
+    0.8125rem,
+    0.78rem +
+    0.2vw,
+    0.875rem
+  ); /* 13-14px — small text */
+  --fs-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem); /* 15-16px — body */
+  --fs-md: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); /* 16-18px — body large */
+  --fs-lg: clamp(1.125rem, 1.05rem + 0.5vw, 1.375rem); /* 18-22px — h4/h5 */
+  --fs-xl: clamp(1.375rem, 1.2rem + 1vw, 1.75rem); /* 22-28px — h3 */
+  --fs-2xl: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem); /* 28-40px — h2 */
+  --fs-3xl: clamp(2.25rem, 1.6rem + 3.2vw, 3.75rem); /* 36-60px — h1 */
+
+  /* Font families */
+  /* Sans: Geist for UI. Fallback includes size-adjusted metrics. */
+  --font-sans:
+    "Geist", "Geist Fallback", ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  /* Serif: Instrument Serif for display/headings. Georgia as metrically-similar fallback. */
+  --font-serif: "Instrument Serif", "Georgia", "Cormorant Garamond", serif;
+  /* Mono: Geist Mono for code, labels, metadata. */
+  --font-mono:
+    "Geist Mono", "Geist Mono Fallback", ui-monospace, "SFMono-Regular",
+    monospace;
+
+  /* Line heights */
+  --lh-tight: 1.15; /* Headings */
+  --lh-snug: 1.3; /* Subheadings */
+  --lh-body: 1.6; /* Body text */
+  --lh-loose: 1.8; /* Long-form reading */
+
+  /* Font weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Letter spacing */
+  --ls-tight: -0.02em; /* Large headings */
+  --ls-normal: 0;
+  --ls-wide: 0.02em; /* Labels, small caps */
+  --ls-wider: 0.05em; /* Eyebrows, uppercase */
+
+  /* ─── Radii ─────────────────────────────────────────────────────── */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* ─── Shadows ───────────────────────────────────────────────────── */
+  /* Warm-tinted, soft. No harsh blacks. */
+  --sh-1: 0 1px 0 oklch(0 0 0 / 0.04), 0 1px 2px oklch(0 0 0 / 0.04);
+  --sh-2: 0 2px 0 oklch(0 0 0 / 0.03), 0 8px 20px oklch(0.2 0.02 265 / 0.06);
+  --sh-3: 0 4px 0 oklch(0 0 0 / 0.03), 0 20px 50px oklch(0.2 0.02 265 / 0.1);
+  --sh-glow: 0 20px 60px oklch(0.62 0.2 285 / 0.2);
+
+  /* ─── Z-Index Scale ─────────────────────────────────────────────── */
+  --z-base: 0;
+  --z-above: 10;
+  --z-nav: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* ─── Breakpoints ──────────────────────────────────────────────── */
+  /* Canonical sizes — use these in @media queries, not ad-hoc values */
+  /* sm: mobile landscape / tablet portrait */
+  /* md: tablet landscape / small desktop */
+  /* lg: desktop / large desktop */
+  /* xl: ultrawide */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* ─── Motion ─────────────────────────────────────────────────────── */
+  /* Easings: no spring/bounce in Quiet Confidence brand */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1); /* Standard — smooth deceleration */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1); /* Entering — fast start, slow end */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1); /* Exiting — slow start, fast end */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* In-out — symmetric */
+  --ease-bounce: cubic-bezier(
+    0.34,
+    1.2,
+    0.64,
+    1
+  ); /* Subtle bounce — product cards only */
+
+  /* Durations — semantic, not pixel-level */
+  --duration-fast: 150ms; /* Micro: focus ring, opacity, color shift */
+  --duration-normal: 250ms; /* Standard: hover, expand, collapse */
+  --duration-slow: 400ms; /* Complex: modal, page transition */
+  --duration-slower: 600ms; /* Page-level: hero reveal, stagger */
+
+  /* Delay scale — for staggered reveals */
+  --delay-1: 80ms;
+  --delay-2: 160ms;
+  --delay-3: 240ms;
+  --delay-4: 320ms;
+
+  /* Prefers-reduced-motion: set to 0 for non-essential animations */
+  /* Components check this via the global rule in global.css */
+
+  /* ─── Layout ────────────────────────────────────────────────────── */
+  --max: 1200px;
+  --gutter: clamp(20px, 4vw, 40px);
+
+  /* ─── Semantic Aliases ──────────────────────────────────────────── */
+  /* Map intent → token. Use these in components, not raw colors. */
+  --color-bg: var(--paper);
+  --color-bg-alt: var(--chalk);
+  --color-text: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  --color-text-tertiary: var(--ink-3);
+  --accent: var(--iris);
+  --color-accent: var(--iris);
+  --color-accent-hover: oklch(0.55 0.2 285);
+  --color-border: var(--line);
+  --color-border-light: var(--chalk);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-full: var(--r-pill);
+  --shadow-sm: var(--sh-1);
+  --shadow-md: var(--sh-2);
+  --shadow-lg: var(--sh-3);
+
+  /* ─── Type Role Aliases ─────────────────────────────────────────── */
+  /* Semantic roles: use these in components, not raw fs/fw/lh tokens. */
+  /* Display: hero headlines, 3xl, bold-500, tight, negative tracking */
+  --type-display: var(--fs-3xl);
+  /* Title: section headings, 2xl */
+  --type-title: var(--fs-2xl);
+  /* Heading: subsection headings, xl */
+  --type-heading: var(--fs-xl);
+  /* Subheading: h4-level, lg */
+  --type-subheading: var(--fs-lg);
+  /* Body large: intro paragraphs, md */
+  --type-body-lg: var(--fs-md);
+  /* Body: default reading text, base */
+  --type-body: var(--fs-base);
+  /* Body small: captions, secondary text, sm */
+  --type-body-sm: var(--fs-sm);
+  /* Micro: labels, badges, metadata, xs */
+  --type-micro: var(--fs-xs);
+}

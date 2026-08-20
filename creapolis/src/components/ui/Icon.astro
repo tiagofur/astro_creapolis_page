@@ -1,0 +1,70 @@
+---
+/**
+ * Icon primitive — SVG wrapper with consistent sizing and a11y.
+ *
+ * Sizes: sm (14px), md (18px), lg (24px)
+ * By default: aria-hidden="true" (decorative). Pass aria-label for meaningful icons.
+ *
+ * Usage:
+ *   <Icon name="arrow-right" size="md" />
+ *   <Icon name="check" size="sm" aria-label="Verified" />
+ */
+
+interface Props {
+  name?: string;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  ['aria-hidden']?: 'true' | 'false';
+  ['aria-label']?: string;
+}
+
+const {
+  name,
+  size = 'md',
+  class: className = '',
+  ['aria-hidden']: ariaHidden = 'true',
+  ['aria-label']: ariaLabel,
+  ...rest
+} = Astro.props;
+
+const sizeMap = { sm: 14, md: 18, lg: 24 };
+const px = sizeMap[size];
+
+const classes = ['ui-icon', `ui-icon--${size}`, className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<!-- Render named slot if provided, otherwise empty (for external SVGs) -->
+<span class={classes} aria-hidden={ariaLabel ? undefined : ariaHidden} aria-label={ariaLabel} {...rest}>
+  {name ? (
+    <svg width={px} height={px} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      {name === 'arrow-right' && <><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></>}
+      {name === 'arrow-up-right' && <><path d="M7 17 17 7" /><path d="M7 7h10v10" /></>}
+      {name === 'check' && <path d="M20 6 9 17l-5-5" />}
+      {name === 'chevron-down' && <path d="m6 9 6 6 6-6" />}
+      {name === 'external-link' && <><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></>}
+    </svg>
+  ) : (
+    <slot />
+  )}
+</span>
+
+<style>
+  .ui-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+    color: inherit;
+  }
+
+  .ui-icon svg {
+    display: block;
+  }
+
+  .ui-icon--sm { width: 14px; height: 14px; }
+  .ui-icon--md { width: 18px; height: 18px; }
+  .ui-icon--lg { width: 24px; height: 24px; }
+</style>

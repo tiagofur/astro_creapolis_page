@@ -1,8 +1,9 @@
 ---
+import '../styles/tokens.css';
 import '../styles/global.css';
-import { type Lang, defaultLang } from '../i18n/ui';
-import { getLangFromUrl, getAlternateLink } from '../i18n/utils';
 import LanguageBanner from '../components/LanguageBanner.astro';
+import { defaultLang, type Lang } from '../i18n/ui';
+import { getAlternateLink, getLangFromUrl } from '../i18n/utils';
 
 interface Props {
   title?: string;
@@ -109,7 +110,7 @@ const jsonLd = article
       const hreflang = l === 'es' ? 'es-ES' : l === 'pt' ? 'pt-BR' : 'en-US';
       return <link rel="alternate" hreflang={hreflang} href={new URL(href, Astro.site).href} />;
     })}
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/es/', Astro.site).href} />
 
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
@@ -149,9 +150,33 @@ const jsonLd = article
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
     />
+    <!-- Font metrics fallback — reduces CLS while web fonts load -->
+    <style is:inline>
+      @font-face {
+        font-family: "Geist Fallback";
+        src: local("system-ui"), local("-apple-system"), local("Segoe UI"), local("sans-serif");
+        size-adjust: 105%;
+        ascent-override: 90%;
+        descent-override: 22%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: "Geist Mono Fallback";
+        src: local("ui-monospace"), local("SFMono-Regular"), local("Consolas"), local("monospace");
+        size-adjust: 108%;
+        ascent-override: 88%;
+        descent-override: 22%;
+        line-gap-override: 0%;
+      }
+    </style>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -201,35 +226,6 @@ const jsonLd = article
       (child as HTMLElement).style.transitionDelay = `${i * 0.08}s`;
     });
   });
-
-  // ─── Nav scroll effect ───
-  const nav = document.querySelector('.nav');
-  if (nav) {
-    const onScroll = () => {
-      nav.classList.toggle('scrolled', window.scrollY > 10);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
-  // ─── Mobile menu toggle ───
-  const menuToggle = document.querySelector('.nav-mobile-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      menuToggle.classList.toggle('active');
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    mobileMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
 
   // ─── Smooth scroll for anchor links ───
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

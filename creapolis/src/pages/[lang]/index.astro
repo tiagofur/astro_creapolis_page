@@ -1,15 +1,24 @@
 ---
-import type { Lang } from '../../i18n/ui';
-import { getLocalizedPath, useTranslations, formatDate } from '../../i18n/utils';
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
-import Ribbon from '../../components/Ribbon.astro';
 import { getCollection } from 'astro:content';
+import Footer from '../../components/Footer.astro';
+import Nav from '../../components/Nav.astro';
+import Ribbon from '../../components/Ribbon.astro';
+import { getPublishedCount, products } from '../../i18n/data/products';
+import type { Lang } from '../../i18n/ui';
+import {
+  formatDate,
+  getLocalizedPath,
+  useTranslations,
+} from '../../i18n/utils';
+import Layout from '../../layouts/Layout.astro';
 import { getPostDescription } from '../../utils/post';
 
 export function getStaticPaths() {
-  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }, { params: { lang: 'pt' } }];
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'pt' } },
+  ];
 }
 
 const lang = Astro.params.lang as Lang;
@@ -61,59 +70,130 @@ const postTagColors: Record<string, string> = {
 
 const apps = [
   {
+    slug: 'solennix',
     name: 'Solennix',
     tagline: t('solennix.tagline'),
     desc: t('solennix.desc'),
-    href: getLocalizedPath(lang, '/solennix'),
-    platform: 'iOS · Android · Web',
-    color: 'var(--iris)',
-    status: 'live',
+    href: '/proyectos/solennix',
     deviceRows: [[3], [2], [1]],
   },
   {
+    slug: 'pepinillo',
     name: 'Pepinillo',
     tagline: t('pepinillo.tagline'),
     desc: t('pepinillo.desc'),
     href: getLocalizedPath(lang, '/proyectos/pepinillo'),
-    platform: 'Android',
-    color: 'var(--lime)',
-    status: 'live',
     deviceRows: [[2], [3]],
   },
   {
+    slug: 'peliculas',
     name: lang === 'es' ? 'Películas' : 'Movies',
     tagline: t('peliculas.tagline'),
     desc: t('peliculas.desc'),
     href: getLocalizedPath(lang, '/proyectos/peliculas'),
-    platform: 'Android',
-    color: 'var(--coral)',
-    status: 'live',
     deviceRows: [[3], [2]],
   },
   {
+    slug: 'subscription-guardian',
     name: 'Subscription Guardian',
     tagline: t('subscription-guardian.tagline'),
     desc: t('subscription-guardian.desc'),
     href: getLocalizedPath(lang, '/proyectos/subscription-guardian'),
-    platform: 'iOS',
-    color: 'var(--sky)',
-    status: 'live',
     deviceRows: [[2], [3]],
+  },
+].map((app) => {
+  const canonical = products.find((p) => p.slug === app.slug);
+  if (!canonical) return { ...app, platform: '', color: '', status: 'live' };
+  const platformStr = canonical.platforms
+    .filter((pl) => pl.available)
+    .map((pl) => pl.id.toUpperCase())
+    .join(' · ');
+  return {
+    ...app,
+    platform: platformStr,
+    color: canonical.color,
+    status: canonical.status,
+  };
+});
+
+const shelf = [
+  {
+    ring: 'Sx',
+    name: t('shelf.solennix'),
+    status: 'active',
+    statusLabel: t('shelf.solennix.status'),
+    desc: t('shelf.solennix.desc'),
+    progress: 92,
+    color: 'var(--iris)',
+    bg: 'var(--iris-soft)',
+  },
+  {
+    ring: 'Se',
+    name: t('shelf.serene'),
+    status: 'dev',
+    statusLabel: t('shelf.serene.status'),
+    desc: t('shelf.serene.desc'),
+    progress: 40,
+    color: 'var(--coral)',
+    bg: 'var(--coral-soft)',
+  },
+  {
+    ring: 'Pe',
+    name: t('shelf.pepinillo'),
+    status: 'dev',
+    statusLabel: t('shelf.pepinillo.status'),
+    desc: t('shelf.pepinillo.desc'),
+    progress: 28,
+    color: 'var(--lime)',
+    bg: 'var(--lime-soft)',
+  },
+  {
+    ring: 'SG',
+    name: t('shelf.sg'),
+    status: 'pre',
+    statusLabel: t('shelf.sg.status'),
+    desc: t('shelf.sg.desc'),
+    progress: 70,
+    color: 'var(--sky)',
+    bg: 'var(--sky-soft)',
+  },
+  {
+    ring: '?',
+    name: t('shelf.exploring'),
+    status: 'soon',
+    statusLabel: t('shelf.exploring.status'),
+    desc: t('shelf.exploring.desc'),
+    progress: 10,
+    color: 'var(--amber)',
+    bg: 'var(--amber-soft)',
   },
 ];
 
-const shelf = [
-  { ring: 'Sx', name: t('shelf.solennix'), status: 'active', statusLabel: t('shelf.solennix.status'), desc: t('shelf.solennix.desc'), progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
-  { ring: 'Se', name: t('shelf.serene'), status: 'dev', statusLabel: t('shelf.serene.status'), desc: t('shelf.serene.desc'), progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
-  { ring: 'Pe', name: t('shelf.pepinillo'), status: 'dev', statusLabel: t('shelf.pepinillo.status'), desc: t('shelf.pepinillo.desc'), progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
-  { ring: '?', name: t('shelf.exploring'), status: 'soon', statusLabel: t('shelf.exploring.status'), desc: t('shelf.exploring.desc'), progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
-];
-
 const services = [
-  { num: t('services.mobile.num'), mark: 'm', title: t('services.mobile.title'), desc: t('services.mobile.desc') },
-  { num: t('services.web.num'), mark: 'w', title: t('services.web.title'), desc: t('services.web.desc') },
-  { num: t('services.desktop.num'), mark: 'd', title: t('services.desktop.title'), desc: t('services.desktop.desc') },
-  { num: t('services.ai.num'), mark: 'i', title: t('services.ai.title'), desc: t('services.ai.desc') },
+  {
+    num: t('services.mobile.num'),
+    mark: 'm',
+    title: t('services.mobile.title'),
+    desc: t('services.mobile.desc'),
+  },
+  {
+    num: t('services.web.num'),
+    mark: 'w',
+    title: t('services.web.title'),
+    desc: t('services.web.desc'),
+  },
+  {
+    num: t('services.desktop.num'),
+    mark: 'd',
+    title: t('services.desktop.title'),
+    desc: t('services.desktop.desc'),
+  },
+  {
+    num: t('services.ai.num'),
+    mark: 'i',
+    title: t('services.ai.title'),
+    desc: t('services.ai.desc'),
+  },
 ];
 
 const steps = [
@@ -123,9 +203,10 @@ const steps = [
   { n: '4', title: t('process.launch'), desc: t('process.launch.desc') },
 ];
 
+const publishedCount = getPublishedCount();
 const stats = [
   { n: t('stats.years'), label: t('stats.years.label'), color: 'c1' },
-  { n: t('stats.apps'), label: t('stats.apps.label'), color: 'c2' },
+  { n: `${publishedCount} apps`, label: t('stats.apps.label'), color: 'c2' },
   { n: t('stats.person'), label: t('stats.person.label'), color: 'c3' },
   { n: t('stats.response'), label: t('stats.response.label'), color: 'c4' },
 ];
@@ -154,7 +235,7 @@ const stats = [
         </div>
         <div class="hero-trust">
           <span><strong>{t('hero.trust.years')}</strong> {t('hero.trust.years.label')}</span>
-          <span><strong>{t('hero.trust.apps')}</strong> {t('hero.trust.apps.label')}</span>
+          <span><strong>{publishedCount} apps {lang === 'es' ? 'propias' : lang === 'en' ? 'own' : 'próprias'}</strong> {t('hero.trust.apps.label')}</span>
           <span><strong>{t('hero.trust.response')}</strong> {t('hero.trust.response.label')}</span>
         </div>
       </div>
@@ -247,7 +328,7 @@ const stats = [
             <div class="product-meta">
               <div class="head">
                 <h3>{app.name}</h3>
-                <span class="chip live"><span class="chip-dot"></span>{t('apps.live')}</span>
+                <span class={`chip ${app.status === 'live' ? 'live' : 'pre'}`}><span class="chip-dot"></span>{app.status === 'live' ? t('apps.live') : app.status === 'pre_production' ? t('apps.pre') : t('apps.dev')}</span>
               </div>
               <span class="tagline">{app.tagline}</span>
               <p>{app.desc}</p>

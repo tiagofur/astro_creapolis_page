@@ -1,9 +1,11 @@
 ---
-import type { Lang } from '../../i18n/ui';
 import { getSolennixSupportData } from '../../i18n/data/solennix-support';
+import type { Lang } from '../../i18n/ui';
 import SolennixSupportLayout from './SolennixSupportLayout.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const fb = getSolennixSupportData(lang).feedback;
 ---

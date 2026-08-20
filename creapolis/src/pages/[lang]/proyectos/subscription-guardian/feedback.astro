@@ -1,9 +1,11 @@
 ---
+import SGFeedbackContent from '../../../../components/pages/SGFeedbackContent.astro';
 import type { Lang } from '../../../../i18n/ui';
 import Layout from '../../../../layouts/Layout.astro';
-import SGFeedbackContent from '../../../../components/pages/SGFeedbackContent.astro';
 
-export function getStaticPaths() { return [{ params: { lang: 'es' } }]; }
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }];
+}
 const lang = Astro.params.lang as Lang;
 ---
 

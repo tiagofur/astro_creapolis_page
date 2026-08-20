@@ -1,8 +1,8 @@
 ---
+import ProjectsListContent from '../../../components/pages/ProjectsListContent.astro';
 import type { Lang } from '../../../i18n/ui';
 import { useTranslations } from '../../../i18n/utils';
 import Layout from '../../../layouts/Layout.astro';
-import ProjectsListContent from '../../../components/pages/ProjectsListContent.astro';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'es' } }];

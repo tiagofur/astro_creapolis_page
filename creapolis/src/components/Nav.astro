@@ -1,35 +1,39 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalizedPath, getAlternateLink } from '../i18n/utils';
-import type { Lang } from '../i18n/ui';
+/**
+ * Nav.astro — Main navigation with:
+ * - Semantic <header> + <nav> wrapper
+ * - Scroll hide/show (hide on scroll down, show on scroll up)
+ * - Language selector with keyboard navigation
+ * - Mobile menu with Escape to close + focus trap
+ * - Uses navigation.ts as single source of truth
+ * - Integrates with new Button.astro for CTA
+ */
 
-interface Link { label: string; href: string }
-interface CTA { text: string; href: string }
+import { getNavCTA, getNavLinks } from '../i18n/data/navigation';
+import type { Lang } from '../i18n/ui';
+import {
+  getAlternateLink,
+  getLangFromUrl,
+  getLocalizedPath,
+  useTranslations,
+} from '../i18n/utils';
 
 interface Props {
   lang?: Lang;
-  links?: Link[];
-  cta?: CTA;
 }
 
 const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const defaultLinks: Link[] = [
-  { label: t('nav.projects'), href: getLocalizedPath(lang, '/proyectos') },
-  { label: t('nav.services'), href: getLocalizedPath(lang, '/servicios') },
-  { label: t('nav.about'), href: getLocalizedPath(lang, '/sobre') },
-  { label: t('nav.blog'), href: getLocalizedPath(lang, '/blog') },
-  { label: t('nav.contact'), href: getLocalizedPath(lang, '/contacto') },
-];
-
-const defaultCTA: CTA = { text: t('nav.cta'), href: getLocalizedPath(lang, '/contacto') };
-
-const { links = defaultLinks, cta = defaultCTA } = Astro.props;
+const links = getNavLinks(lang);
+const cta = getNavCTA(lang);
 
 const currentPath = Astro.url.pathname;
 function isActive(href: string): boolean {
-  if (href.startsWith('/#')) return currentPath === `/${lang}/` || currentPath === `/${lang}`;
-  if (href === `/${lang}/` || href === `/${lang}`) return currentPath === `/${lang}/` || currentPath === `/${lang}`;
+  if (href.startsWith('/#'))
+    return currentPath === `/${lang}/` || currentPath === `/${lang}`;
+  if (href === `/${lang}/` || href === `/${lang}`)
+    return currentPath === `/${lang}/` || currentPath === `/${lang}`;
   return currentPath.startsWith(href) || currentPath === href;
 }
 
@@ -37,12 +41,7 @@ const homeHref = getLocalizedPath(lang, '/');
 const alternates = getAlternateLink(Astro.url);
 const otherLangs = alternates.filter((a) => a.lang !== lang);
 
-const langLabels: Record<Lang, string> = {
-  es: 'ES',
-  en: 'EN',
-  pt: 'PT',
-};
-
+const langLabels: Record<Lang, string> = { es: 'ES', en: 'EN', pt: 'PT' };
 const langNames: Record<Lang, string> = {
   es: 'Español',
   en: 'English',
@@ -50,116 +49,465 @@ const langNames: Record<Lang, string> = {
 };
 ---
 
-<nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
-  <div class="nav-inner">
-    <a href={homeHref} class="nav-logo" aria-label="Creapolis home">
-      <div class="nav-logo-mark">C</div>
-      <span>Creapolis</span>
-    </a>
+<header class="site-header">
+  <nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+    <div class="nav-inner">
+      {/* Logo */}
+      <a href={homeHref} class="nav-logo" aria-label="Creapolis home">
+        <div class="nav-logo-mark">C</div>
+        <span>Creapolis</span>
+      </a>
 
-    <div class="nav-links">
-      {links.map((l) => (
-        <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
-      ))}
+      {/* Desktop links */}
+      <div class="nav-links">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class:list={['nav-link', isActive(l.href) && 'active']}
+          >
+            {l.label}
+          </a>
+        ))}
 
-      <!-- Language Selector -->
-      <div class="lang-selector">
-        <button class="lang-current" aria-expanded="false" aria-haspopup="listbox" aria-label={t('nav.lang')}>
-          <svg class="lang-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
-            <ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M2 8h12" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          <span class="lang-label">{langLabels[lang]}</span>
-          <svg class="lang-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="lang-dropdown" role="listbox" aria-label={t('nav.lang')}>
-          {otherLangs.map(({ lang: l, href }) => (
-            <a href={href} role="option" aria-label={langNames[l]}>
-              <span class="lang-option-label">{langLabels[l]}</span>
-              <span class="lang-option-name">{langNames[l]}</span>
-            </a>
-          ))}
+        {/* Language Selector */}
+        <div class="lang-selector" data-lang-selector>
+          <button
+            class="lang-current"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-label={t('nav.lang')}
+            type="button"
+          >
+            <svg class="lang-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5" />
+              <ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1.5" />
+              <path d="M2 8h12" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            <span class="lang-label">{langLabels[lang]}</span>
+            <svg class="lang-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="lang-dropdown" role="listbox" aria-label={t('nav.lang')}>
+            {otherLangs.map(({ lang: l, href }) => (
+              <a href={href} role="option" aria-label={langNames[l]} tabindex="-1">
+                <span class="lang-option-label">{langLabels[l]}</span>
+                <span class="lang-option-name">{langNames[l]}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* CTA */}
+      <a href={cta.href} class="nav-cta">
+        {cta.text}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </a>
+
+      {/* Mobile toggle */}
+      <button class="nav-mobile-toggle" aria-label={t('nav.menu')} aria-expanded="false" type="button">
+        <span></span>
+        <span></span>
+      </button>
     </div>
-
-    <a href={cta.href} class="nav-cta">{cta.text}</a>
-
-    <button class="nav-mobile-toggle" aria-label={t('nav.menu')}>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-</nav>
+  </nav>
+</header>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu">
-  {links.map((l) => (
-    <a href={l.href} class:list={[isActive(l.href) && 'active']}>{l.label}</a>
-  ))}
-  <div class="mobile-lang-group">
-    <span class="mobile-lang-label">{t('nav.lang')}</span>
-    <div class="mobile-lang-options">
-      {alternates.map(({ lang: l, href }) => (
-        <a href={href} class:list={[l === lang && 'active']}>{langNames[l]}</a>
-      ))}
+<div class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    {links.map((l) => (
+      <a href={l.href} class:list={['mobile-link', isActive(l.href) && 'active']}>
+        {l.label}
+      </a>
+    ))}
+    <div class="mobile-lang-group">
+      <span class="mobile-lang-label">{t('nav.lang')}</span>
+      <div class="mobile-lang-options">
+        {alternates.map(({ lang: l, href }) => (
+          <a href={href} class:list={[l === lang && 'active']}>{langNames[l]}</a>
+        ))}
+      </div>
     </div>
+    <a href={cta.href} class="mobile-cta">{cta.text}</a>
   </div>
-  <a href={cta.href} class="cta">{cta.text}</a>
 </div>
 
 <script>
-  const langSelector = document.querySelector('.lang-selector');
-  const langCurrent = document.querySelector('.lang-current');
-  const langDropdown = document.querySelector('.lang-dropdown');
+  // ─── Scroll Hide/Show ──────────────────────────────────────────────
+  const header = document.querySelector('.site-header') as HTMLElement | null;
+  if (header) {
+    let lastScrollY = 0;
+    let ticking = false;
 
-  if (langSelector && langCurrent && langDropdown) {
-    langCurrent.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isOpen = langSelector.classList.toggle('open');
-      langCurrent.setAttribute('aria-expanded', String(isOpen));
-    });
+    function onScroll() {
+      const scrollY = window.scrollY;
+      const delta = scrollY - lastScrollY;
 
-    document.addEventListener('click', (e) => {
-      if (!langSelector.contains(e.target as Node)) {
-        langSelector.classList.remove('open');
-        langCurrent.setAttribute('aria-expanded', 'false');
+      if (scrollY > 80) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
-    });
+
+      // Hide on scroll down, show on scroll up (only after 80px)
+      if (scrollY > 80) {
+        if (delta > 10) {
+          header.classList.add('nav-hidden');
+        } else if (delta < -10) {
+          header.classList.remove('nav-hidden');
+        }
+      } else {
+        header.classList.remove('nav-hidden');
+      }
+
+      lastScrollY = scrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
   }
 
-  const mobileToggle = document.querySelector('.nav-mobile-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
+  // ─── Language Selector ─────────────────────────────────────────────
+  const langSelector = document.querySelector('[data-lang-selector]') as HTMLElement | null;
+  const langCurrent = langSelector?.querySelector('.lang-current') as HTMLButtonElement | null;
+  const langDropdown = langSelector?.querySelector('.lang-dropdown') as HTMLElement | null;
+  const langOptions = langDropdown?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement> | null;
+
+  function closeLangDropdown() {
+    langSelector?.classList.remove('open');
+    langCurrent?.setAttribute('aria-expanded', 'false');
+  }
+
+  function openLangDropdown() {
+    langSelector?.classList.add('open');
+    langCurrent?.setAttribute('aria-expanded', 'true');
+    // Focus first option
+    langOptions?.[0]?.focus();
+  }
+
+  langCurrent?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = langSelector?.classList.contains('open');
+    if (isOpen) {
+      closeLangDropdown();
+    } else {
+      openLangDropdown();
+    }
+  });
+
+  // Keyboard navigation in dropdown
+  langSelector?.addEventListener('keydown', (e) => {
+    const key = e.key;
+    const isOpen = langSelector?.classList.contains('open');
+
+    if (!isOpen) {
+      if (key === 'ArrowDown' || key === 'Enter' || key === ' ') {
+        e.preventDefault();
+        openLangDropdown();
+      }
+      return;
+    }
+
+    const options = Array.from(langOptions ?? []);
+    const currentIndex = options.indexOf(document.activeElement as HTMLAnchorElement);
+
+    if (key === 'Escape') {
+      e.preventDefault();
+      closeLangDropdown();
+      langCurrent?.focus();
+    } else if (key === 'ArrowDown') {
+      e.preventDefault();
+      const next = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+      options[next]?.focus();
+    } else if (key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+      options[prev]?.focus();
+    } else if (key === 'Tab') {
+      closeLangDropdown();
+    }
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!langSelector?.contains(e.target as Node)) {
+      closeLangDropdown();
+    }
+  });
+
+  // ─── Mobile Menu ───────────────────────────────────────────────────
+  const mobileToggle = document.querySelector('.nav-mobile-toggle') as HTMLButtonElement | null;
+  const mobileMenu = document.querySelector('.mobile-menu') as HTMLElement | null;
+  const mobileLinks = mobileMenu?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement> | null;
   const body = document.body;
 
-  if (mobileToggle && mobileMenu) {
-    mobileToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      body.classList.toggle('menu-open');
-    });
+  function openMobileMenu() {
+    mobileMenu?.classList.add('open');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    mobileToggle?.setAttribute('aria-expanded', 'true');
+    mobileToggle?.classList.add('active');
+    body.classList.add('menu-open');
+    // Focus first link
+    mobileLinks?.[0]?.focus();
   }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.remove('open');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+    mobileToggle?.classList.remove('active');
+    body.classList.remove('menu-open');
+  }
+
+  mobileToggle?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.contains('open');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  // Close on link click
+  mobileLinks?.forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (mobileMenu?.classList.contains('open')) {
+        closeMobileMenu();
+        mobileToggle?.focus();
+      }
+    }
+  });
+
 </script>
 
 <style>
-  /* ─── Language Selector ─── */
+  /* ─── Header wrapper ────────────────────────────────────────────────── */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .site-header.nav-hidden {
+    transform: translateY(-100%);
+  }
+
+  /* ─── Nav base ──────────────────────────────────────────────────────── */
+  .nav {
+    padding: 14px var(--gutter);
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .nav-inner {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    width: 100%;
+    max-width: var(--max);
+    padding: 10px 12px 10px 22px;
+    background: oklch(0.985 0.003 85 / 0.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    box-shadow: var(--sh-1);
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+
+  .site-header.scrolled .nav-inner {
+    border-color: var(--line-2);
+    box-shadow: var(--sh-2);
+  }
+
+  /* ─── Logo ──────────────────────────────────────────────────────────── */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-logo-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-logo-mark::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from 210deg,
+      transparent 0deg,
+      var(--iris) 60deg,
+      var(--coral) 160deg,
+      var(--lime) 260deg,
+      transparent 340deg
+    );
+    mix-blend-mode: screen;
+    opacity: 0.55;
+  }
+
+  .nav-logo span {
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* ─── Desktop links ─────────────────────────────────────────────────── */
+  .nav-links {
+    display: none;
+    gap: 4px;
+    align-items: center;
+  }
+
+  @media (min-width: 880px) {
+    .nav-links {
+      display: flex;
+    }
+  }
+
+  .nav-link {
+    padding: 8px 14px;
+    border-radius: var(--r-pill);
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    font-weight: 450;
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--ink);
+    background: var(--chalk);
+  }
+
+  .nav-link.active {
+    color: var(--ink);
+    background: var(--chalk);
+    font-weight: 500;
+  }
+
+  /* ─── CTA button ────────────────────────────────────────────────────── */
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--r-pill);
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      transform 0.2s var(--ease),
+      background 0.2s;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    background: oklch(0.28 0.015 265);
+  }
+
+  .nav-cta svg {
+    transition: transform 0.2s var(--ease);
+  }
+
+  .nav-cta:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* ─── Mobile toggle ─────────────────────────────────────────────────── */
+  .nav-mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 880px) {
+    .nav-mobile-toggle {
+      display: none;
+    }
+  }
+
+  .nav-mobile-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .nav-mobile-toggle.active span:first-child {
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+
+  .nav-mobile-toggle.active span:last-child {
+    transform: rotate(-45deg) translate(2px, -2px);
+  }
+
+  /* ─── Language Selector ─────────────────────────────────────────────── */
   .lang-selector {
     position: relative;
+    margin-left: 4px;
   }
 
   .lang-current {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 10px;
+    padding: 10px 14px;
     border-radius: var(--r-pill);
     border: 1px solid var(--line-2);
     background: transparent;
     color: var(--ink-3);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     cursor: pointer;
@@ -170,6 +518,12 @@ const langNames: Record<Lang, string> = {
     color: var(--ink);
     border-color: var(--ink);
     background: var(--chalk);
+  }
+
+  .lang-current:focus-visible {
+    outline: 2px solid var(--iris);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px oklch(0.62 0.2 285 / 0.15);
   }
 
   .lang-icon {
@@ -213,31 +567,86 @@ const langNames: Record<Lang, string> = {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 12px;
+    padding: 12px 14px;
+    min-height: 44px;
     border-radius: var(--r-md);
     text-decoration: none;
     color: var(--ink-2);
     transition: background 0.15s, color 0.15s;
   }
 
-  .lang-dropdown a:hover {
+  .lang-dropdown a:hover,
+  .lang-dropdown a:focus-visible {
     background: var(--chalk);
     color: var(--ink);
+    outline: none;
   }
 
   .lang-option-label {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     color: var(--ink-3);
   }
 
   .lang-option-name {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
 
-  /* ─── Mobile Menu ─── */
+  /* ─── Mobile Menu ───────────────────────────────────────────────────── */
+  .mobile-menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--paper);
+    padding: 24px var(--gutter);
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobile-link {
+    padding: 14px 16px;
+    border-radius: var(--r-md);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .mobile-link:hover,
+  .mobile-link:focus-visible {
+    background: var(--chalk);
+    color: var(--ink);
+  }
+
+  .mobile-link.active {
+    color: var(--ink);
+    background: var(--chalk);
+  }
+
   .mobile-lang-group {
     padding: 16px 0;
     border-top: 1px solid var(--line);
@@ -277,5 +686,41 @@ const langNames: Record<Lang, string> = {
 
   .mobile-lang-options a:hover {
     color: var(--ink);
+  }
+
+  .mobile-cta {
+    display: block;
+    padding: 14px;
+    border-radius: var(--r-pill);
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s var(--ease);
+  }
+
+  .mobile-cta:hover {
+    transform: translateY(-1px);
+  }
+
+  /* ─── Body lock when menu open ──────────────────────────────────────── */
+  :global(body.menu-open) {
+    overflow: hidden;
+  }
+
+  /* ─── Reduced Motion ────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .nav-inner,
+    .nav-link,
+    .nav-cta,
+    .mobile-link,
+    .mobile-cta,
+    .lang-current,
+    .lang-dropdown {
+      transition: none;
+    }
   }
 </style>

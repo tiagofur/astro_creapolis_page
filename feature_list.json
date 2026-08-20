@@ -1,0 +1,2163 @@
+{
+  "project": "creapolis-v2",
+  "description": "Backlog ejecutable para convertir Creapolis en un independent product studio de clase mundial, basado en review.md.",
+  "source_documents": [
+    "review.md",
+    "roadmap.md"
+  ],
+  "rules": {
+    "source_of_truth_for_status": "feature_list.json",
+    "one_feature_at_a_time": true,
+    "require_dependencies_done_to_start": true,
+    "require_acceptance_to_close": true,
+    "require_verification_to_close": true,
+    "require_evidence_to_close": true,
+    "valid_status": [
+      "pending",
+      "in_progress",
+      "done",
+      "blocked"
+    ],
+    "allowed_transitions": {
+      "pending": [
+        "in_progress",
+        "blocked"
+      ],
+      "in_progress": [
+        "done",
+        "blocked",
+        "pending"
+      ],
+      "blocked": [
+        "pending",
+        "in_progress"
+      ],
+      "done": []
+    },
+    "completion_fields": [
+      "evidence",
+      "completed_at"
+    ],
+    "workflow": [
+      "Select the first pending feature whose dependencies are done",
+      "Confirm no other feature is in_progress",
+      "Set the selected feature to in_progress",
+      "Implement only the declared scope and acceptance criteria",
+      "Run every verification item",
+      "Record concrete evidence",
+      "Set completed_at and change status to done"
+    ]
+  },
+  "product_facts": {
+    "pepinillo": {
+      "status": "live",
+      "platforms": ["android", "ios"],
+      "pricing": "freemium",
+      "google_play_url": "https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo",
+      "app_store_url": "https://apps.apple.com/mx/app/pepinillo-timer-de-enfoque/id6760687424"
+    },
+    "peliculas": {
+      "status": "live",
+      "platforms": ["android"],
+      "pricing": "free",
+      "google_play_url": "https://play.google.com/store/apps/details?id=mx.creapolis.peliculas"
+    },
+    "solennix": {
+      "status": "live",
+      "platforms": ["ios", "android", "web"],
+      "pricing": "freemium",
+      "plans": { "free": "$0", "pro": "$149 MXN/mes", "business": "custom" },
+      "store_urls": "pending"
+    },
+    "subscription_guardian": {
+      "status": "pre_production",
+      "platforms": ["ios"],
+      "pricing_type": "one_time",
+      "price": 4.99,
+      "currency": "USD"
+    }
+  },
+  "phases": [
+    {
+      "id": 0,
+      "name": "baseline_and_decisions",
+      "title": "Baseline y decisiones",
+      "exit_gate": "Inventario, baseline y decisiones críticas documentados sin suposiciones ocultas."
+    },
+    {
+      "id": 1,
+      "name": "data_integrity",
+      "title": "Integridad de datos",
+      "exit_gate": "Datos de producto coherentes, derivados de una fuente única y validados."
+    },
+    {
+      "id": 2,
+      "name": "information_architecture",
+      "title": "Arquitectura de información y routing",
+      "exit_gate": "Funnels, URLs, redirects y señales i18n/SEO coherentes y comprobables."
+    },
+    {
+      "id": 3,
+      "name": "design_foundation",
+      "title": "Fundación visual y de interacción",
+      "exit_gate": "El sistema Quiet Confidence funciona en componentes base, responsive y accesibilidad."
+    },
+    {
+      "id": 4,
+      "name": "marketing_core",
+      "title": "Núcleo de conversión",
+      "exit_gate": "Las páginas comerciales explican, demuestran y convierten con evidencia real."
+    },
+    {
+      "id": 5,
+      "name": "product_system",
+      "title": "Sistema de productos y case studies",
+      "exit_gate": "Cada producto tiene narrativa diferenciada, soporte profesional y datos verdaderos."
+    },
+    {
+      "id": 6,
+      "name": "content_authority",
+      "title": "Contenido y autoridad",
+      "exit_gate": "El blog tiene estructura editorial, lectura usable y CTAs contextuales."
+    },
+    {
+      "id": 7,
+      "name": "cross_cutting_quality",
+      "title": "Calidad transversal",
+      "exit_gate": "SEO, accesibilidad, formularios, enlaces y performance cumplen los presupuestos."
+    },
+    {
+      "id": 8,
+      "name": "measurement_and_launch",
+      "title": "Medición y lanzamiento",
+      "exit_gate": "Release validado, analytics comprobado y revisión post-lanzamiento programada."
+    }
+  ],
+  "features": [
+    {
+      "id": "F001",
+      "phase": 0,
+      "priority": "P0",
+      "size": "S",
+      "name": "repository_baseline",
+      "title": "Documentar baseline técnico y comandos reales",
+      "description": "Inventariar stack, scripts, rutas, deploy y comandos reales de build, typecheck, tests y lint.",
+      "dependencies": [],
+      "acceptance": [
+        "Existe un inventario reproducible de comandos y resultados actuales",
+        "Se documentan rutas, idiomas, formularios y backend relevante",
+        "Fallos preexistentes quedan separados de regresiones V2"
+      ],
+      "verification": [
+        "Ejecutar cada comando documentado",
+        "Confirmar que todas las rutas y scripts citados existen"
+      ],
+      "references": [
+        "review.md — §44, §48, §50"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": ["docs/evidence/creapolis-v2/baseline/repository_baseline.md"],
+      "completed_at": "2026-08-20T10:40:00Z"
+    },
+    {
+      "id": "F002",
+      "phase": 0,
+      "priority": "P0",
+      "size": "M",
+      "name": "content_truth_audit",
+      "title": "Auditar verdad y consistencia del contenido",
+      "description": "Crear una matriz por producto, página e idioma para precios, monedas, estados, plataformas, stores, claims, voz y enlaces.",
+      "dependencies": [
+        "F001"
+      ],
+      "acceptance": [
+        "Cubre Home, Work, productos, hubs, footer y legales",
+        "Cada contradicción tiene ubicación y valor correcto o decisión pendiente",
+        "Todo claim cuantitativo tiene fuente o instrucción de retiro"
+      ],
+      "verification": [
+        "Comparar la matriz con HTML generado ES/EN/PT",
+        "Revisar manualmente cada URL de store y CTA externo"
+      ],
+      "references": [        "review.md — §2, §8, §13, §28, §33"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["docs/evidence/creapolis-v2/baseline/content_truth_audit.md"],
+      "completed_at": "2026-08-20T11:15:00Z"
+    },
+    {
+
+
+      "id": "F003",
+      "phase": 0,
+      "priority": "P0",
+      "size": "S",
+      "name": "product_decision_register",
+      "title": "Cerrar decisiones de producto y negocio",
+      "description": "Confirmar moneda/plan de Solennix, estados/plataformas, CTAs de pre-lanzamiento y ofertas que realmente se venderán.",
+      "dependencies": [
+        "F002"
+      ],
+      "acceptance": [
+        "Cada decisión tiene dueño, fecha y fuente",
+        "Pepinillo consta live en App Store con URL confirmada",
+        "Guardian consta pre-production y compra única USD 4.99",
+        "No quedan valores ambiguos que bloqueen el modelo"
+      ],
+      "verification": [
+        "Validar contra stores, producto o confirmación explícita",
+        "Comprobar que ninguna decisión dependa de datos inventados"
+      ],
+      "references": [
+        "review.md — §2, §13, §16"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["docs/evidence/creapolis-v2/baseline/product_decision_register.md"],
+      "completed_at": "2026-08-20T11:30:00Z"
+    },
+    {
+
+
+      "id": "F004",
+      "phase": 0,
+      "priority": "P0",
+      "size": "S",
+      "name": "voice_and_localization_policy",
+      "title": "Definir voz y política de localización",
+      "description": "Establecer primera persona singular, español LATAM neutral y alcance honesto de ES/EN/PT.",
+      "dependencies": [
+        "F002"
+      ],
+      "acceptance": [
+        "Existe guía con pronombres, conjugaciones, términos y ejemplos",
+        "Se define qué contenido exige paridad y qué puede seguir en español",
+        "Se prohíbe aparentar traducción completa cuando no existe"
+      ],
+      "verification": [
+        "Buscar mezclas yo/nosotros, voseo/tuteo y español filtrado",
+        "Validar la política con muestras de Home, Contact y Product"
+      ],
+      "references": [
+        "review.md — §21, §28, §33, §34"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["docs/evidence/creapolis-v2/baseline/voice_and_localization_policy.md"],
+      "completed_at": "2026-08-20T11:45:00Z"
+    },
+    {
+
+      "id": "F005",
+      "phase": 0,
+      "priority": "P1",
+      "size": "S",
+      "name": "experience_baseline",
+      "title": "Capturar baseline visual, SEO, accesibilidad y performance",
+      "description": "Guardar capturas y mediciones reproducibles de las páginas clave antes de modificarlas.",
+      "dependencies": [
+        "F001"
+      ],
+      "acceptance": [
+        "Hay baseline desktop/mobile de plantillas principales",
+        "Se registran Lighthouse, teclado y contraste",
+        "Se registran canonical, hreflang y structured data actuales"
+      ],
+      "verification": [
+        "Repetir una muestra con la misma configuración",
+        "Confirmar fecha, URL y viewport en cada evidencia"
+      ],
+      "references": [
+        "review.md — §48, §50, §57"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["docs/evidence/creapolis-v2/baseline/experience_baseline.md"],
+      "completed_at": "2026-08-20T12:10:00Z"
+    },
+    {
+
+      "id": "F006",
+      "phase": 1,
+      "priority": "P0",
+      "size": "M",
+      "name": "product_schema",
+      "title": "Diseñar schema único de productos",
+      "description": "Definir modelo tipado para estado, plataformas, pricing, stores, locale, case study, SEO y assets.",
+      "dependencies": [
+        "F003",
+        "F004"
+      ],
+      "acceptance": [
+        "Representa live, pre-production y futuros sin engaño",
+        "Pricing exige tipo, monto y moneda cuando aplica",
+        "Stores y plataformas no pueden contradecirse silenciosamente",
+        "Locales comparten una identidad estable"
+      ],
+      "verification": [
+        "Validar fixtures live, pre-production y multiplataforma",
+        "Confirmar errores claros para datos incompatibles"
+      ],
+      "references": [
+        "review.md — §44–§46"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["creapolis/src/i18n/data/products.ts"],
+      "completed_at": "2026-08-20T12:15:00Z"
+    },
+    {
+
+      "id": "F007",
+      "phase": 1,
+      "priority": "P0",
+      "size": "L",
+      "name": "migrate_product_data",
+      "title": "Migrar productos a la fuente única de verdad",
+      "description": "Mover Solennix, Pepinillo, Películas y Guardian al schema y consumirlos desde Home, listados, páginas y footer.",
+      "dependencies": [
+        "F006"
+      ],
+      "acceptance": [
+        "Los cuatro productos pasan schema",
+        "No quedan copias divergentes de datos críticos en vistas",
+        "La migración conserva contenido válido existente"
+      ],
+      "verification": [
+        "Buscar valores críticos duplicados",
+        "Ejecutar build y typecheck",
+        "Comparar Home, listado, detalle y footer"
+      ],
+      "references": [
+        "review.md — §45, §46"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["creapolis/src/i18n/data/products.ts", "creapolis/src/i18n/data/home.ts", "creapolis/src/i18n/data/projects.ts", "creapolis/src/components/Footer.astro"],
+      "completed_at": "2026-08-20T12:45:00Z"
+    },
+    {
+
+      "id": "F008",
+      "phase": 1,
+      "priority": "P0",
+      "size": "S",
+      "name": "fix_pepinillo_truth",
+      "title": "Unificar datos y contenido de Pepinillo",
+      "description": "Alinear Android, iOS, stores y Guide/Tips/Support con el producto real.",
+      "dependencies": [
+        "F007"
+      ],
+      "acceptance": [
+        "Stores aparecen solo donde corresponden",
+        "La URL confirmada de App Store funciona",
+        "Guide, Tips, Support y landing no se contradicen",
+        "Funciones nativas están etiquetadas por plataforma"
+      ],
+      "verification": [
+        "Recorrer todas las páginas de Pepinillo ES/EN/PT",
+        "Probar enlaces de store",
+        "Comparar claims con F002"
+      ],
+      "references": [
+        "review.md — §2, §14, §17"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["creapolis/src/i18n/data/pepinillo-support.ts", "creapolis/src/i18n/data/projects.ts"],
+      "completed_at": "2026-08-20T12:52:00Z"
+    },
+    {
+
+      "id": "F009",
+      "phase": 1,
+      "priority": "P0",
+      "size": "S",
+      "name": "fix_guardian_truth",
+      "title": "Unificar estado y pricing de Subscription Guardian",
+      "description": "Eliminar claims de gratis/live y presentar compra única USD 4.99 con estado pre-production.",
+      "dependencies": [
+        "F007"
+      ],
+      "acceptance": [
+        "Todas las páginas muestran el mismo precio",
+        "No hay CTA de store antes del lanzamiento",
+        "El estado pre-production es inequívoco",
+        "Privacidad distingue hechos actuales de planes"
+      ],
+      "verification": [
+        "Buscar Gratis/free y precios divergentes",
+        "Recorrer landing, support y cards",
+        "Comparar con product_facts"
+      ],
+      "references": [
+        "review.md — §2, §16, §31"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["creapolis/src/i18n/data/subscription-guardian-support.ts"],
+      "completed_at": "2026-08-20T13:03:00Z"
+    },
+    {
+
+      "id": "F010",
+      "phase": 1,
+      "priority": "P0",
+      "size": "S",
+      "name": "fix_solennix_commercial_data",
+      "title": "Unificar precio, moneda y naming de Solennix",
+      "description": "Publicar solo moneda y nombre de plan confirmados; eliminar mezcla Enterprise/Business.",
+      "dependencies": [
+        "F003",
+        "F007"
+      ],
+      "acceptance": [
+        "El precio siempre incluye moneda",
+        "Existe un solo nombre aprobado por plan",
+        "Landing, case study y CTAs coinciden"
+      ],
+      "verification": [
+        "Buscar precio y nombres anteriores",
+        "Comparar vistas con F003"
+      ],
+      "references": [
+        "review.md — §13"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": ["creapolis/src/i18n/data/solennix.ts", "creapolis/src/i18n/data/solennix-support.ts"],
+      "completed_at": "2026-08-20T13:05:00Z"
+    },
+    {
+
+      "id": "F011",
+      "phase": 1,
+      "priority": "P1",
+      "size": "S",
+      "name": "derived_site_statistics",
+      "title": "Derivar estadísticas globales desde datos",
+      "description": "Calcular productos publicados y otros totales demostrables en vez de hardcodearlos.",
+      "dependencies": [
+        "F007"
+      ],
+      "acceptance": [
+        "Contadores públicos se derivan del schema",
+        "Pre-production no cuenta como publicado",
+        "No se exponen métricas sin fuente"
+      ],
+      "verification": [
+        "Probar derivados con fixtures",
+        "Buscar contadores equivalentes hardcodeados"
+      ],
+      "references": [
+        "review.md — §8, §46"
+      ],      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "creapolis/src/pages/[lang]/index.astro — derives stats + platform from products.ts",
+        "creapolis/src/pages/index.astro — derives stats + platform from products.ts",
+        "creapolis/src/i18n/data/home.ts — getHomeData derives publishedCount"
+      ],
+      "completed_at": "2026-08-20T13:24:00Z"
+    },
+    {
+
+      "id": "F012",
+      "phase": 1,
+      "priority": "P0",
+      "size": "M",
+      "name": "voice_consistency_pass",
+      "title": "Aplicar voz consistente a páginas comerciales",
+      "description": "Reescribir mezclas de yo/nosotros y voseo/tuteo sin convertir el copy en marketing genérico.",
+      "dependencies": [
+        "F004",
+        "F007"
+      ],
+      "acceptance": [
+        "Páginas y componentes compartidos usan primera persona singular",
+        "El español sigue LATAM neutral",
+        "Se conservan frases auténticas aprobadas"
+      ],
+      "verification": [
+        "Buscar términos prohibidos y revisar excepciones",
+        "Lectura editorial completa"
+      ],
+      "references": [
+        "review.md — §9, §21, §28, §34, §61"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "creapolis/src/i18n/ui.ts — EN: We→I, PT: Nossos→Meus",
+        "creapolis/src/i18n/data/home.ts — EN services: We→I",
+        "creapolis/src/i18n/data/*-support.ts — ES: Te ayudamos→Te ayudo, PT: Ajudamos→Ajudo, EN: We never→I never"
+      ],
+      "completed_at": "2026-08-20T13:28:00Z"
+    },
+    {
+      "id": "F013",
+      "phase": 1,
+      "priority": "P0",
+      "size": "M",
+      "name": "localization_integrity_gate",
+      "title": "Eliminar localización superficial en ES/EN/PT",
+      "description": "Corregir español filtrado en EN/PT y aplicar la política honesta para blog no traducido.",
+      "dependencies": [
+        "F004",
+        "F007",
+        "F012"
+      ],
+      "acceptance": [
+        "Componentes internos respetan locale",
+        "El blog no traducido se declara en español",
+        "No hay CTAs, dashboards o metadata en idioma incorrecto"
+      ],
+      "verification": [
+        "Recorrer matriz por página/componente",
+        "Inspeccionar HTML generado",
+        "Ejecutar build de todos los locales"
+      ],
+      "references": [
+        "review.md — §2, §33"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "creapolis/src/pages/[lang]/blog/[slug].astro — sidebar localized (author, help CTA, share, back)",
+        "creapolis/src/i18n/ui.ts — added blog.sidebar.* keys (ES/EN/PT)",
+        "Blog posts served as-is in Spanish with BlogSpanishNotice for EN/PT (correct per policy)"
+      ],
+      "completed_at": "2026-08-20T13:59:00Z"
+    },
+    {
+      "id": "F014",
+      "phase": 2,
+      "priority": "P0",
+      "size": "M",
+      "name": "dual_funnel_information_architecture",
+      "title": "Diseñar arquitectura para dos funnels",
+      "description": "Definir sitemap y navegación que separen contratación de servicios y adopción de productos.",
+      "dependencies": [
+        "F002",
+        "F003",
+        "F004"
+      ],
+      "acceptance": [
+        "Services termina en contacto cualificado",
+        "Products termina en store, waitlist o soporte según estado",
+        "Cada página tiene audiencia y CTAs definidos",
+        "Home conecta ambos caminos sin competir"
+      ],
+      "verification": [
+        "Realizar walkthrough de ambos funnels",
+        "Confirmar que ninguna página clave queda huérfana"
+      ],
+      "references": [
+        "review.md — §3, §59, §60"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/site_architecture.md — full dual funnel audit",
+        "Services funnel: Home → Servicios → Contacto (clean 3-step)",
+        "Products funnel: Home → Product → Store/Guide/Support",
+        "No orphan pages (except /eliminar-cuenta — intentional)",
+        "Recommendations: Películas needs Guide/Tips, Solennix stores should derive from products.ts"
+      ],
+      "completed_at": "2026-08-20T14:05:00Z"
+    },
+    {
+      "id": "F015",
+      "phase": 2,
+      "priority": "P0",
+      "size": "M",
+      "name": "route_and_redirect_plan",
+      "title": "Normalizar rutas y definir redirects",
+      "description": "Mover Solennix al patrón de productos y mapear cada URL antigua a su destino.",
+      "dependencies": [
+        "F014"
+      ],
+      "acceptance": [
+        "Solennix tiene ruta canónica coherente",
+        "Cada URL reemplazada tiene destino 301",
+        "El mapa cubre ES/EN/PT y variantes con slash"
+      ],
+      "verification": [
+        "Probar cada status y Location",
+        "Ejecutar link checker sobre build"
+      ],
+      "references": [
+        "review.md — §2, §49"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "Solennix moved from /solennix to /proyectos/solennix (consistent with all products)",
+        "astro.config.mjs — redirects: /solennix → /es/proyectos/solennix (+ guide/tips/feedback)",
+        "All internal links updated (Home, Footer, Projects, Support pages)",
+        "Import paths fixed in moved files"
+      ],
+      "completed_at": "2026-08-20T14:10:00Z"
+    },
+    {
+      "id": "F016",
+      "phase": 2,
+      "priority": "P0",
+      "size": "M",
+      "name": "root_locale_canonical_strategy",
+      "title": "Resolver raíz e idioma por defecto",
+      "description": "Convertir `/` en redirect a `/es/` y definir canonical/hreflang coherentes.",
+      "dependencies": [
+        "F014",
+        "F015"
+      ],
+      "acceptance": [
+        "La raíz no duplica contenido indexable",
+        "Cada locale tiene canonical correcto",
+        "hreflang solo relaciona equivalentes existentes",
+        "x-default tiene decisión explícita"
+      ],
+      "verification": [
+        "Inspeccionar headers y HTML",
+        "Validar matriz canonical/hreflang"
+      ],
+      "references": [
+        "review.md — §2, §48"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "astro.config.mjs — redirectToDefaultLocale: true (root / redirects to /es/)",
+        "Layout.astro — x-default now points to /es/ instead of /",
+        "Root / is now a redirect page (noindex) — no duplicate content",
+        "All locales have correct canonical URLs"
+      ],
+      "completed_at": "2026-08-20T14:14:00Z"
+    },
+    {
+      "id": "F017",
+      "phase": 2,
+      "priority": "P1",
+      "size": "M",
+      "name": "product_hub_route_model",
+      "title": "Definir rutas de Product Hubs",
+      "description": "Establecer patrón para overview, features, guide, tips, support, changelog y privacy sin páginas vacías.",
+      "dependencies": [
+        "F014",
+        "F015"
+      ],
+      "acceptance": [
+        "El patrón admite distintos niveles de soporte",
+        "No se publican secciones sin contenido real",
+        "Breadcrumbs, navegación local y locale están definidos"
+      ],
+      "verification": [
+        "Prototipar Pepinillo y Guardian",
+        "Confirmar continuidad de URLs antiguas"
+      ],
+      "references": [
+        "review.md — §17"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/product_hub_route_model.md — full route model",
+        "Pattern: /proyectos/[slug]/ + /guide + /tips + /feedback",
+        "Películas identified as gap (no guide/tips/feedback)",
+        "Dynamic routes with content components (DRY)",
+        "products.ts controls page generation via resources[].available"
+      ],
+      "completed_at": "2026-08-20T14:17:00Z"
+    },
+    {
+      "id": "F018",
+      "phase": 2,
+      "priority": "P1",
+      "size": "S",
+      "name": "navigation_content_model",
+      "title": "Centralizar navegación, footer y redes",
+      "description": "Definir navegación localizada desde datos para evitar destinos divergentes.",
+      "dependencies": [
+        "F014",
+        "F015"
+      ],
+      "acceptance": [
+        "Header y footer comparten destinos",
+        "Apps/Products apunta al listado correcto",
+        "Labels cambian por locale sin cambiar identidad de ruta"
+      ],
+      "verification": [
+        "Probar enlaces ES/EN/PT",
+        "Comprobar estado activo y teclado"
+      ],
+      "references": [
+        "review.md — §2, §35, §36, §59"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "creapolis/src/i18n/data/navigation.ts — centralized nav, footer, legal, social data",
+        "Footer.astro — uses getSocialLinks() and getLegalLinks() from navigation.ts",
+        "Social links remain null (not configured yet) — easy to update in one place",
+        "Legal links no longer use inline ternaries"
+      ],
+      "completed_at": "2026-08-20T14:42:00Z"
+    },
+    {
+      "id": "F019",
+      "phase": 2,
+      "priority": "P0",
+      "size": "M",
+      "name": "routing_gate",
+      "title": "Implementar y validar arquitectura de rutas",
+      "description": "Aplicar rutas, redirects, canonicals básicos y navegación antes del rediseño.",
+      "dependencies": [
+        "F015",
+        "F016",
+        "F017",
+        "F018"
+      ],
+      "acceptance": [
+        "Rutas nuevas renderizan",
+        "Rutas reemplazadas responden 301",
+        "No hay links internos legacy",
+        "Ambos funnels funcionan por locale"
+      ],
+      "verification": [
+        "Build",
+        "Link checker",
+        "Matriz de redirects/canonicals",
+        "Walkthrough manual"
+      ],
+      "references": [
+        "roadmap.md — Fase 2"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "447 pages built (147 per locale × 3 + redirects + root)",
+        "All redirects verified: /, /solennix, /servicios, /contacto, /sobre, /proyectos, /blog",
+        "Solennix route issue fixed: /en/projects/solennix → /en/proyectos/solennix (redirect)",
+        "Legacy links in root index.astro fixed (/contacto → /es/contacto)",
+        "Both funnels verified per locale (ES/EN/PT)"
+      ],
+      "completed_at": "2026-08-20T14:48:00Z"
+    },
+    {
+      "id": "F020",
+      "phase": 3,
+      "priority": "P0",
+      "size": "M",
+      "name": "quiet_confidence_tokens",
+      "title": "Crear design tokens Quiet Confidence",
+      "description": "Definir color, accents de producto, spacing, grid, radios, sombras, z-index y breakpoints.",
+      "dependencies": [
+        "F019"
+      ],
+      "acceptance": [
+        "Existe un solo accent principal",
+        "Accents de producto no contaminan UI global",
+        "Escalas de spacing/radios son limitadas",
+        "Combinaciones publicadas cumplen contraste"
+      ],
+      "verification": [
+        "Renderizar muestra de tokens",
+        "Comprobar contraste",
+        "Buscar valores duplicados no justificados"
+      ],
+      "references": [
+        "review.md — §1, §37, §40, §41, §43"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "creapolis/src/styles/tokens.css — complete Quiet Confidence token system",
+        "Layout.astro — imports tokens.css before global.css",
+        "global.css — cleaned up, references tokens.css",
+        "Tokens include: neutrals, accents, spacing, typography, radii, shadows, z-index, transitions"
+      ],
+      "completed_at": "2026-08-20T14:55:00Z"
+    },
+    {
+      "id": "F021",
+      "phase": 3,
+      "priority": "P0",
+      "size": "S",
+      "name": "typography_system",
+      "title": "Implementar sistema tipográfico",
+      "description": "Definir familias, escala fluida, anchos, pesos, tracking y line-height sin imitar SF Pro.",
+      "dependencies": [
+        "F020"
+      ],
+      "acceptance": [
+        "UI/body y metadata técnica tienen roles consistentes",
+        "Escala funciona 320px–ultrawide",
+        "Fuentes se sirven con estrategia controlada",
+        "No hay layout shift perceptible"
+      ],
+      "verification": [
+        "Capturar desktop/mobile",
+        "Probar fallback y carga",
+        "Medir CLS"
+      ],
+      "references": [
+        "review.md — §38, §39, §50"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "tokens.css — type role aliases (display, title, heading, subheading, body-lg, body, body-sm, micro)",
+        "Layout.astro — font preload + size-adjust fallback CLS prevention",
+        "global.css — headings derive from fs/lh/ls tokens, body uses --fs-base",
+        "56 token usages across 26 unique typography tokens in CSS bundles"
+      ],
+      "completed_at": "2026-08-20T21:49:00Z"
+    },
+    {
+      "id": "F022",
+      "phase": 3,
+      "priority": "P0",
+      "size": "L",
+      "name": "ui_primitives",
+      "title": "Construir primitives y layouts base",
+      "description": "Implementar Container, Button, TextLink, Badge, Icon, Section, Stack/Grid y foco.",
+      "dependencies": [
+        "F020",
+        "F021"
+      ],
+      "acceptance": [
+        "Variantes limitadas y con propósito",
+        "Hover/focus/disabled/loading son visibles",
+        "HTML y nombres accesibles son correctos",
+        "No se añade framework cliente sin necesidad"
+      ],
+      "verification": [
+        "Renderizar variantes",
+        "Probar teclado/contraste/reduced motion",
+        "Ejecutar tests disponibles"
+      ],
+      "references": [
+        "review.md — §35, §37, §41, §44"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "Button.astro — primary/secondary/ghost/accent/danger variants, sm/md/lg sizes, disabled/loading states, renders <a> or <button>",
+        "TextLink.astro — default/subtle/accent/underline variants, external link support",
+        "Badge.astro — wraps .chip system, live/beta/dev/soon variants, role=status for a11y",
+        "Icon.astro — SVG wrapper with sm/md/lg sizes, named icons, aria-hidden default",
+        "global.css — focus-visible ring, Stack/Cluster/Grid/Center layout utilities",
+        "tokens.css — type role aliases (display, title, heading, body-lg, body, body-sm, micro)",
+        "Layout.astro — font preload + size-adjust CLS prevention",
+        "biome.json — useLiteralKeys off for .astro (false positive for HTML attrs)"
+      ],
+      "completed_at": "2026-08-20T22:02:00Z"
+    },
+    {
+      "id": "F023",
+      "phase": 3,
+      "priority": "P0",
+      "size": "M",
+      "name": "header_and_language_switcher",
+      "title": "Reconstruir header y selector de idioma",
+      "description": "Crear navegación simple con CTA Start a project y selector accesible.",
+      "dependencies": [
+        "F018",
+        "F022"
+      ],
+      "acceptance": [
+        "Refleja ambos funnels",
+        "Idioma cambia a equivalente o explica ausencia",
+        "Funciona con teclado/lector/mobile",
+        "Translucidez es funcional y mantiene contraste"
+      ],
+      "verification": [
+        "Probar teclado desktop/mobile",
+        "Probar cambio de idioma",
+        "Capturar inicial, scroll y menú"
+      ],
+      "references": [
+        "review.md — §35, §59"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "Nav.astro — semantic <header> + <nav>, scroll hide/show, keyboard lang selector, focus trap mobile",
+        "Uses getNavLinks()/getNavCTA() from navigation.ts (single source of truth)",
+        "Language selector: ArrowUp/Down/Escape/Tab keyboard nav, aria-expanded, role=listbox/option",
+        "Mobile menu: Escape to close, focus first link, body scroll lock, aria-hidden toggle",
+        "Layout.astro — removed duplicate nav/scroll/mobile logic (consolidated in Nav.astro)",
+        "All a11y attrs verified: aria-label, aria-expanded, aria-hidden, role, tabindex"
+      ],
+      "completed_at": "2026-08-20T22:15:00Z"
+    },
+    {
+      "id": "F024",
+      "phase": 3,
+      "priority": "P0",
+      "size": "M",
+      "name": "footer_and_final_cta",
+      "title": "Reconstruir footer y CTA final",
+      "description": "Crear footer con Build, Products, Explore, Elsewhere, legal y cierre comercial.",
+      "dependencies": [
+        "F018",
+        "F022"
+      ],
+      "acceptance": [
+        "No hay enlaces incorrectos",
+        "Contenido completamente localizado",
+        "Productos vienen del schema",
+        "CTA final entra al funnel de servicios"
+      ],
+      "verification": [
+        "Probar links por locale",
+        "Validar teclado/responsive",
+        "Comparar productos con schema"
+      ],
+      "references": [
+        "review.md — §36"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "Footer.astro — added commercial CTA section: Construyamos algo juntos / Let's build something together / Vamos construir juntos",
+        "Footer CTA links to /contacto (services funnel) + mailto:hola@creapolis.dev",
+        "Footer products now use raw /proyectos/ path (canonical, no redirect hop)",
+        "Added 4 translation keys: footer.cta.title, footer.cta.desc, footer.cta.btn, footer.cta.btn2",
+        "All 3 locales verified: ES/EN/PT CTA renders correctly",
+        "All footer links verified: no broken links"
+      ],
+      "completed_at": "2026-08-20T22:28:00Z"
+    },
+    {
+      "id": "F025",
+      "phase": 3,
+      "priority": "P0",
+      "size": "S",
+      "name": "motion_system",
+      "title": "Definir motion y reduced motion",
+      "description": "Crear duraciones, easings y patrones discretos con fallback completo.",
+      "dependencies": [
+        "F020",
+        "F022"
+      ],
+      "acceptance": [
+        "Motion informa jerarquía o feedback",
+        "No hay scroll-jacking/cursor custom/decoración continua",
+        "Reduced motion desactiva lo no esencial"
+      ],
+      "verification": [
+        "Probar preferencia del sistema",
+        "Inspeccionar patrones",
+        "Confirmar ausencia de dependencia pesada"
+      ],
+      "references": [
+        "review.md — §42, §51, §55"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "tokens.css — motion tokens: 5 easings, 4 durations, 4 delays, no bounce (except subtle product card)",
+        "global.css — token-driven animation utilities (fadeIn, fadeUp, scaleIn, shimmer)",
+        "global.css — stagger delays use --delay-1/2/3/4 tokens",
+        "Removed unused float/pulse keyframes (decorative, not brand-aligned)",
+        "Reduced motion: global rule (0.01ms) + Nav/Button/TextLink component overrides",
+        "No scroll-jacking, no custom cursors, no continuous decoration confirmed"
+      ],
+      "completed_at": "2026-08-20T22:42:00Z"
+    },
+    {
+      "id": "F026",
+      "phase": 3,
+      "priority": "P1",
+      "size": "M",
+      "name": "responsive_layout_system",
+      "title": "Validar grid y responsive",
+      "description": "Definir comportamiento en 320, 768, 1024, 1440 y ultrawide.",
+      "dependencies": [
+        "F021",
+        "F022",
+        "F023",
+        "F024"
+      ],
+      "acceptance": [
+        "No hay overflow horizontal",
+        "Jerarquía no depende de hover",
+        "Anchos y espacios siguen tokens",
+        "Touch targets cumplen mínimo"
+      ],
+      "verification": [
+        "Capturar viewports definidos",
+        "Probar zoom 200%",
+        "Probar touch y teclado"
+      ],
+      "references": [
+        "review.md — §39, §40, §57"
+      ],
+      "status": "done",
+      "blocked_by": null,
+      "evidence": [
+        "tokens.css — canonical breakpoints: --bp-sm(640) / --bp-md(768) / --bp-lg(1024) / --bp-xl(1280)",
+        "Nav.astro — lang selector: padding 6px→10px 14px (touch ≥44px)",
+        "Nav.astro — mobile toggle: padding 8px→10px + min-width/height 44px",
+        "Nav.astro — lang dropdown links: padding 10px→12px + min-height 44px",
+        "Button.astro — sm variant: padding 8px→10px + min-height 44px",
+        "body overflow-x: clip prevents horizontal scroll",
+        "No hover-dependent hierarchy confirmed (all info visible without hover)"
+      ],
+      "completed_at": "2026-08-20T22:50:00Z"
+    },
+    {
+      "id": "F027",
+      "phase": 3,
+      "priority": "P0",
+      "size": "M",
+      "name": "authentic_product_assets",
+      "title": "Crear pipeline de assets auténticos",
+      "description": "Preparar capturas reales iOS, Android, web y desktop con formatos, tamaños y alt text.",
+      "dependencies": [
+        "F002",
+        "F003"
+      ],
+      "acceptance": [
+        "Cada producto destacado tiene assets reales",
+        "No hay métricas mock presentadas como resultados",
+        "Existen variantes responsive y alt text",
+        "Nombres y derivados son mantenibles"
+      ],
+      "verification": [
+        "Comparar captura con producto",
+        "Validar dimensiones/formato/peso",
+        "Revisar alt text"
+      ],
+      "references": [
+        "review.md — §5, §6, §50, §51"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F028",
+      "phase": 3,
+      "priority": "P0",
+      "size": "M",
+      "name": "foundation_accessibility_gate",
+      "title": "Cerrar accesibilidad de la fundación",
+      "description": "Auditar primitives, navegación, idioma, foco, contraste, landmarks y reduced motion.",
+      "dependencies": [
+        "F022",
+        "F023",
+        "F024",
+        "F025",
+        "F026"
+      ],
+      "acceptance": [
+        "No hay bloqueadores de teclado o lector",
+        "Foco y orden son lógicos",
+        "Contraste/targets cumplen estándar",
+        "Hallazgos restantes están documentados"
+      ],
+      "verification": [
+        "Auditoría automatizada",
+        "Recorrido solo teclado",
+        "Lector de pantalla",
+        "Reduced motion y zoom 200%"
+      ],
+      "references": [
+        "review.md — §42, §57"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F029",
+      "phase": 4,
+      "priority": "P0",
+      "size": "L",
+      "name": "home_conversion_narrative",
+      "title": "Reconstruir Home como narrativa de conversión",
+      "description": "Implementar Hero, productos reales, Solennix, capabilities, proceso, proof, About, Notes y CTA final.",
+      "dependencies": [
+        "F013",
+        "F019",
+        "F027",
+        "F028"
+      ],
+      "acceptance": [
+        "Primera pantalla explica qué, para quién y por qué confiar",
+        "Servicios y productos tienen CTAs distintos",
+        "Hero usa software real",
+        "La ventaja solo-dev se demuestra operacionalmente",
+        "Proof se omite si no hay evidencia"
+      ],
+      "verification": [
+        "Test de comprensión 5–8 segundos",
+        "Probar ambos funnels",
+        "Capturas desktop/mobile",
+        "Accesibilidad y Lighthouse"
+      ],
+      "references": [
+        "review.md — §4–§10, §60, §62"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F030",
+      "phase": 4,
+      "priority": "P0",
+      "size": "M",
+      "name": "work_index",
+      "title": "Convertir Projects en Work seleccionado",
+      "description": "Presentar productos como evidencia de problema, solución, papel y resultado.",
+      "dependencies": [
+        "F014",
+        "F027",
+        "F028"
+      ],
+      "acceptance": [
+        "Cards priorizan historia sobre badges",
+        "Estado/plataformas vienen del schema",
+        "Permite trabajo cliente futuro sin inventarlo",
+        "Naming sigue IA localizada"
+      ],
+      "verification": [
+        "Comparar cards con fuente",
+        "Validar responsive/teclado/enlaces"
+      ],
+      "references": [
+        "review.md — §11, §54, §59"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F031",
+      "phase": 4,
+      "priority": "P0",
+      "size": "L",
+      "name": "case_study_template",
+      "title": "Crear template reusable de case study",
+      "description": "Implementar hero, problema, decisión, papel, solución, ingeniería, evidencia, aprendizajes y CTA.",
+      "dependencies": [
+        "F022",
+        "F027",
+        "F030"
+      ],
+      "acceptance": [
+        "Admite B2B/consumer/Android/iOS sin duplicación",
+        "Secciones sin evidencia se omiten",
+        "Store buttons dependen de estado",
+        "CTA conecta con servicio relevante"
+      ],
+      "verification": [
+        "Renderizar cuatro fixtures",
+        "Probar opcionales ausentes",
+        "Validar semántica/responsive/teclado"
+      ],
+      "references": [
+        "review.md — §11, §12, §14–§16, §44"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F032",
+      "phase": 4,
+      "priority": "P0",
+      "size": "L",
+      "name": "solennix_case_study",
+      "title": "Crear case study B2B de Solennix",
+      "description": "Demostrar problema, decisión, módulos, ingeniería, plataformas y resultados verificables.",
+      "dependencies": [
+        "F010",
+        "F019",
+        "F031"
+      ],
+      "acceptance": [
+        "Diferencia landing y case study",
+        "Problema/decisiones/papel son explícitos",
+        "Solo hay resultados con evidencia",
+        "Datos comerciales son coherentes"
+      ],
+      "verification": [
+        "Revisión de verdad F002/F003",
+        "Probar CTAs/stores",
+        "Capturas y accesibilidad"
+      ],
+      "references": [
+        "review.md — §12, §13"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F033",
+      "phase": 4,
+      "priority": "P0",
+      "size": "L",
+      "name": "services_outcome_offers",
+      "title": "Reestructurar Services alrededor de resultados",
+      "description": "Priorizar Discovery Sprint, MVP Build, Codebase Rescue, AI Audit y Continuous Development antes que stacks.",
+      "dependencies": [
+        "F003",
+        "F004",
+        "F028"
+      ],
+      "acceptance": [
+        "Cada oferta define audiencia, resultado, entregables, proceso y CTA",
+        "Stack queda como método",
+        "Se elimina copy agresivo",
+        "Solo se ofrecen servicios reales"
+      ],
+      "verification": [
+        "Revisión comercial",
+        "Probar CTAs",
+        "Validar voz/responsive/accesibilidad"
+      ],
+      "references": [
+        "review.md — §18–§20"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F034",
+      "phase": 4,
+      "priority": "P1",
+      "size": "M",
+      "name": "about_trust_story",
+      "title": "Reestructurar About para confianza",
+      "description": "Equilibrar historia, principios, reducción de riesgo, productos, manifiesto y fotografía real.",
+      "dependencies": [
+        "F004",
+        "F027",
+        "F028"
+      ],
+      "acceptance": [
+        "Hero comunica responsabilidad completa",
+        "Explica repo/infra/docs/backups/CI-CD/handover reales",
+        "Aprendizaje no suena a inexperiencia",
+        "Imagen personal es real y optimizada"
+      ],
+      "verification": [
+        "Lectura editorial",
+        "Verificar promesas operacionales",
+        "Validar responsive/accesibilidad"
+      ],
+      "references": [
+        "review.md — §10, §21, §22"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F035",
+      "phase": 4,
+      "priority": "P0",
+      "size": "L",
+      "name": "contact_qualification_flow",
+      "title": "Mejorar Contact y calificación",
+      "description": "Simplificar formulario, definir rangos útiles y ofrecer calendario solo después del éxito.",
+      "dependencies": [
+        "F003",
+        "F004",
+        "F028",
+        "F033"
+      ],
+      "acceptance": [
+        "Pide solo información necesaria",
+        "Loading/success/error son claros",
+        "Rangos corresponden a trabajos aceptados",
+        "Calendario aparece post-envío",
+        "Analytics no recibe datos sensibles"
+      ],
+      "verification": [
+        "Probar válido/inválido/duplicado/fallo de red",
+        "Teclado/lector/mobile",
+        "Confirmar recepción staging",
+        "Validar calendario post-success"
+      ],
+      "references": [
+        "review.md — §28–§30"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F036",
+      "phase": 5,
+      "priority": "P1",
+      "size": "L",
+      "name": "pepinillo_case_study",
+      "title": "Crear case study de product craft para Pepinillo",
+      "description": "Contar decisiones nativas, offline/local-first, timers, background, notificaciones, estado y performance.",
+      "dependencies": [
+        "F008",
+        "F031"
+      ],
+      "acceptance": [
+        "Explica tradeoffs, no solo features",
+        "iOS y Android se diferencian",
+        "Stores/assets/soporte corresponden a plataforma",
+        "Conserva voz auténtica"
+      ],
+      "verification": [
+        "Revisión técnica de claims",
+        "Recorrer stores/hub",
+        "Capturas y accesibilidad"
+      ],
+      "references": [
+        "review.md — §14, §17, §61"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F037",
+      "phase": 5,
+      "priority": "P1",
+      "size": "L",
+      "name": "peliculas_case_study",
+      "title": "Diferenciar Películas técnicamente",
+      "description": "Demostrar cache, offline, imágenes, búsqueda, estado, deep links y performance reales.",
+      "dependencies": [
+        "F031"
+      ],
+      "acceptance": [
+        "Explica complejidad y decisiones reales",
+        "Métricas requieren medición reproducible",
+        "Dirección visual propia respeta sistema global"
+      ],
+      "verification": [
+        "Validar claims con código/medición",
+        "Buscar placeholders",
+        "Capturas y accesibilidad"
+      ],
+      "references": [
+        "review.md — §15"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F038",
+      "phase": 5,
+      "priority": "P1",
+      "size": "L",
+      "name": "guardian_case_study",
+      "title": "Crear showcase honesto de Guardian",
+      "description": "Diseñar experiencia propia alrededor de privacidad local, CloudKit, SwiftUI, widgets y Face ID.",
+      "dependencies": [
+        "F009",
+        "F031"
+      ],
+      "acceptance": [
+        "No afirma disponibilidad prematura",
+        "Pricing es USD 4.99 one-time",
+        "Privacidad/arquitectura verificadas",
+        "CTA es de pre-lanzamiento",
+        "No copia Apple"
+      ],
+      "verification": [
+        "Revisión de verdad/privacidad",
+        "Buscar free/live incorrectos",
+        "Capturas y accesibilidad"
+      ],
+      "references": [
+        "review.md — §16, §55"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F039",
+      "phase": 5,
+      "priority": "P1",
+      "size": "L",
+      "name": "product_hub_templates",
+      "title": "Crear templates de Product Hub",
+      "description": "Implementar overview, guide, tips, support, changelog y privacy con navegación opcional.",
+      "dependencies": [
+        "F017",
+        "F022",
+        "F031"
+      ],
+      "acceptance": [
+        "Templates se reutilizan por producto/locale",
+        "Solo se muestran páginas existentes",
+        "Support declara vías reales",
+        "Breadcrumbs y metadata son coherentes"
+      ],
+      "verification": [
+        "Renderizar dos hubs distintos",
+        "Probar navegación/breadcrumbs/locale",
+        "Validar teclado/responsive/enlaces"
+      ],
+      "references": [
+        "review.md — §17, §44"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F040",
+      "phase": 5,
+      "priority": "P2",
+      "size": "M",
+      "name": "product_changelogs",
+      "title": "Añadir changelog y release notes selectivos",
+      "description": "Crear modelo de releases verificables; no rellenar con contenido ficticio.",
+      "dependencies": [
+        "F039"
+      ],
+      "acceptance": [
+        "Entrada exige producto/versión/fecha/cambios/locale",
+        "Solo productos con releases reales publican",
+        "Páginas vacías no aparecen"
+      ],
+      "verification": [
+        "Validar schema real/vacío",
+        "Comparar con fuentes del producto"
+      ],
+      "references": [
+        "review.md — §17, §53"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F041",
+      "phase": 5,
+      "priority": "P1",
+      "size": "L",
+      "name": "product_privacy_appendices",
+      "title": "Separar privacidad por producto",
+      "description": "Crear apéndices específicos cuando el tratamiento de datos difiera.",
+      "dependencies": [
+        "F002",
+        "F006",
+        "F039"
+      ],
+      "acceptance": [
+        "Cada producto declara datos/almacenamiento/cuentas/terceros/eliminación",
+        "Guardian no hereda claims incompatibles",
+        "Serene queda fuera de claims no verificados",
+        "No se promete compliance sin revisión"
+      ],
+      "verification": [
+        "Comparar con matriz de datos",
+        "Revisar privacidad/eliminación",
+        "Registrar revisión legal necesaria"
+      ],
+      "references": [
+        "review.md — §31, §32"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F042",
+      "phase": 5,
+      "priority": "P1",
+      "size": "M",
+      "name": "product_system_gate",
+      "title": "Cerrar gate del sistema de productos",
+      "description": "Validar case studies, hubs, stores, pricing, estados, soporte, privacidad y rutas.",
+      "dependencies": [
+        "F032",
+        "F036",
+        "F037",
+        "F038",
+        "F039",
+        "F041"
+      ],
+      "acceptance": [
+        "Cada producto es diferenciado y verdadero",
+        "No hay contradicciones entre superficies",
+        "CTAs corresponden al estado",
+        "Rutas legacy conservan continuidad"
+      ],
+      "verification": [
+        "Matriz completa producto/idioma",
+        "Build/link checker/redirects",
+        "Revisión editorial y visual cruzada"
+      ],
+      "references": [
+        "roadmap.md — Fase 5"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F043",
+      "phase": 6,
+      "priority": "P1",
+      "size": "M",
+      "name": "blog_content_schema",
+      "title": "Definir schema editorial del blog",
+      "description": "Validar title, description, dates, author, category, tags, locale, cover, SEO, canonical y draft.",
+      "dependencies": [
+        "F004",
+        "F006"
+      ],
+      "acceptance": [
+        "Representa legacy sin perder datos",
+        "Fechas/locale son válidos",
+        "Drafts no se publican",
+        "Errores identifican artículo/campo"
+      ],
+      "verification": [
+        "Validar muestra y límites",
+        "Build con schema estricto",
+        "Reporte de excepciones legacy"
+      ],
+      "references": [
+        "review.md — §23–§25, §47"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F044",
+      "phase": 6,
+      "priority": "P1",
+      "size": "L",
+      "name": "migrate_blog_content",
+      "title": "Migrar y limpiar contenido del blog",
+      "description": "Migrar incrementalmente, conservar URLs/canonicals y documentar contenido obsoleto o duplicado.",
+      "dependencies": [
+        "F043"
+      ],
+      "acceptance": [
+        "Publicados pasan schema o excepción aprobada",
+        "Cambios de URL tienen redirect",
+        "Fechas/autoría conservan evidencia",
+        "Build procesa colección completa"
+      ],
+      "verification": [
+        "Comparar conteos antes/después",
+        "Build completo",
+        "Probar muestra de URLs/assets/links"
+      ],
+      "references": [
+        "review.md — §23, §47"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F045",
+      "phase": 6,
+      "priority": "P1",
+      "size": "M",
+      "name": "editorial_categories_and_index",
+      "title": "Rediseñar índice editorial",
+      "description": "Organizar Engineering, Product, Mobile, AI y Building Creapolis; tags quedan secundarios.",
+      "dependencies": [
+        "F044",
+        "F028"
+      ],
+      "acceptance": [
+        "Categorías preceden nube de tags",
+        "Cada categoría tiene contenido real",
+        "EN/PT declaran contenido español",
+        "Featured es explícito"
+      ],
+      "verification": [
+        "Comparar conteos",
+        "Probar navegación/vacíos",
+        "Validar responsive/accesibilidad"
+      ],
+      "references": [
+        "review.md — §23–§25, §33"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F046",
+      "phase": 6,
+      "priority": "P1",
+      "size": "L",
+      "name": "long_form_article_layout",
+      "title": "Crear layout de lectura larga",
+      "description": "Implementar ancho legible, TOC sticky/collapsible, metadata, acciones y autor.",
+      "dependencies": [
+        "F022",
+        "F044"
+      ],
+      "acceptance": [
+        "TOC se genera y funciona por teclado",
+        "Mobile usa variante compacta",
+        "Compartir no requiere JS pesado",
+        "Código/tablas/imágenes no desbordan"
+      ],
+      "verification": [
+        "Probar artículos corto/largo/complejo",
+        "Anchors/teclado/zoom/lector",
+        "Medir performance"
+      ],
+      "references": [
+        "review.md — §26, §44"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F047",
+      "phase": 6,
+      "priority": "P1",
+      "size": "M",
+      "name": "contextual_article_ctas",
+      "title": "Añadir CTAs contextuales",
+      "description": "Mapear temas a servicios reales sin CTA genérico o venta forzada.",
+      "dependencies": [
+        "F033",
+        "F043",
+        "F046"
+      ],
+      "acceptance": [
+        "CTA relaciona problema y oferta",
+        "Existe fallback discreto",
+        "Está localizado",
+        "Se mide sin datos sensibles"
+      ],
+      "verification": [
+        "Revisar cinco categorías",
+        "Probar destino/evento",
+        "Confirmar contexto correcto"
+      ],
+      "references": [
+        "review.md — §27"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F048",
+      "phase": 6,
+      "priority": "P2",
+      "size": "M",
+      "name": "related_content_and_build_notes",
+      "title": "Añadir related y Build Notes",
+      "description": "Relacionar artículos editorialmente y habilitar notas cortas; `/now/` o `/lab/` solo con mantenimiento real.",
+      "dependencies": [
+        "F043",
+        "F045",
+        "F046"
+      ],
+      "acceptance": [
+        "Related evita duplicados y artículo actual",
+        "Relación es explicable",
+        "Build Notes usa schema documentado",
+        "No hay página de actividad vacía"
+      ],
+      "verification": [
+        "Probar pocos/muchos candidatos",
+        "Validar vacíos",
+        "Revisar fechas/fuentes"
+      ],
+      "references": [
+        "review.md — §26, §52, §53"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F049",
+      "phase": 7,
+      "priority": "P0",
+      "size": "L",
+      "name": "page_metadata_and_og",
+      "title": "Completar metadata y Open Graph",
+      "description": "Generar title, description, canonical, locale, OG y Twitter cards por plantilla.",
+      "dependencies": [
+        "F019",
+        "F029",
+        "F042",
+        "F046"
+      ],
+      "acceptance": [
+        "Metadata es única y verdadera",
+        "OG usa assets reales",
+        "Locales/canonicals coinciden",
+        "Pre-production no se presenta live"
+      ],
+      "verification": [
+        "Inspeccionar matriz HTML",
+        "Validar previews",
+        "Comprobar peso/tamaño OG"
+      ],
+      "references": [
+        "review.md — §48, §52, §57"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F050",
+      "phase": 7,
+      "priority": "P0",
+      "size": "M",
+      "name": "structured_data",
+      "title": "Implementar datos estructurados",
+      "description": "Añadir Person/Organization, SoftwareApplication, Article y BreadcrumbList con datos visibles.",
+      "dependencies": [
+        "F007",
+        "F019",
+        "F049"
+      ],
+      "acceptance": [
+        "Schema coincide con página",
+        "Entidades no se contradicen",
+        "Apps respetan estado/precio/plataforma",
+        "Breadcrumbs coinciden"
+      ],
+      "verification": [
+        "Validar JSON-LD",
+        "Inspeccionar muestra por tipo",
+        "Comparar con fuente de verdad"
+      ],
+      "references": [
+        "review.md — §48"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F051",
+      "phase": 7,
+      "priority": "P0",
+      "size": "M",
+      "name": "sitemap_robots_rss",
+      "title": "Validar sitemap, robots y RSS",
+      "description": "Publicar solo URLs canónicas, excluir drafts y conservar feeds útiles.",
+      "dependencies": [
+        "F016",
+        "F044",
+        "F049"
+      ],
+      "acceptance": [
+        "Sitemap no contiene redirects/duplicados/drafts",
+        "Robots es correcto para producción",
+        "RSS usa URLs canónicas",
+        "Locales reflejan contenido real"
+      ],
+      "verification": [
+        "Parsear sitemap/RSS",
+        "Comprobar status de muestra",
+        "Inspeccionar robots de producción"
+      ],
+      "references": [
+        "review.md — §48"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F052",
+      "phase": 7,
+      "priority": "P0",
+      "size": "L",
+      "name": "asset_and_javascript_budget",
+      "title": "Aplicar presupuesto de assets y JavaScript",
+      "description": "Optimizar astro:assets, formatos modernos, dimensiones, lazy loading y LCP del hero.",
+      "dependencies": [
+        "F027",
+        "F029",
+        "F032",
+        "F036",
+        "F037",
+        "F038",
+        "F046"
+      ],
+      "acceptance": [
+        "Imágenes tienen dimensiones",
+        "Solo LCP necesario se precarga",
+        "Fuera de viewport usa lazy loading",
+        "No hay librerías grandes triviales",
+        "Presupuesto está documentado"
+      ],
+      "verification": [
+        "Inspeccionar waterfall",
+        "Comparar bytes con presupuesto",
+        "Lighthouse reproducible"
+      ],
+      "references": [
+        "review.md — §50, §51"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F053",
+      "phase": 7,
+      "priority": "P0",
+      "size": "M",
+      "name": "core_web_vitals_gate",
+      "title": "Cerrar gate de Core Web Vitals",
+      "description": "Optimizar hacia LCP ≤2.5s, INP ≤200ms y CLS ≤0.1, distinguiendo laboratorio/campo.",
+      "dependencies": [
+        "F052"
+      ],
+      "acceptance": [
+        "Plantillas clave cumplen presupuesto de laboratorio",
+        "Configuración está documentada",
+        "Existe plan p75 de campo",
+        "No se sacrifica accesibilidad"
+      ],
+      "verification": [
+        "Mediciones repetidas",
+        "Guardar mediana/reportes",
+        "Revisar LCP/long tasks/CLS"
+      ],
+      "references": [
+        "review.md — §50, §51, §57"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F054",
+      "phase": 7,
+      "priority": "P0",
+      "size": "L",
+      "name": "full_accessibility_audit",
+      "title": "Ejecutar auditoría completa de accesibilidad",
+      "description": "Revisar landmarks, headings, links, forms, focus, teclado, lector, contraste, zoom, idiomas y motion.",
+      "dependencies": [
+        "F029",
+        "F035",
+        "F042",
+        "F046",
+        "F053"
+      ],
+      "acceptance": [
+        "No hay bloqueadores",
+        "Formularios anuncian errores/resultados",
+        "Idioma es correcto",
+        "Zoom 200% y reduced motion funcionan",
+        "Hallazgos menores tienen seguimiento"
+      ],
+      "verification": [
+        "Auditoría automática",
+        "Ambos funnels con teclado",
+        "Lector en plantillas clave",
+        "Contraste/zoom/motion"
+      ],
+      "references": [
+        "review.md — §42, §57"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F055",
+      "phase": 7,
+      "priority": "P0",
+      "size": "M",
+      "name": "forms_and_error_resilience",
+      "title": "Validar resiliencia de formularios",
+      "description": "Asegurar validación, loading, success, error, retry y degradación de red en Contact/Feedback/Support.",
+      "dependencies": [
+        "F035",
+        "F039"
+      ],
+      "acceptance": [
+        "Estados son accesibles",
+        "No pierde datos ante error recuperable",
+        "Evita doble envío",
+        "No filtra internos",
+        "Destinos funcionan en staging"
+      ],
+      "verification": [
+        "Happy path y fallos",
+        "Red lenta/error servidor",
+        "Recepción/no duplicación",
+        "Teclado/lector"
+      ],
+      "references": [
+        "review.md — §28–§30, §57"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F056",
+      "phase": 7,
+      "priority": "P0",
+      "size": "M",
+      "name": "cross_locale_link_regression",
+      "title": "Cerrar regresión de enlaces e idiomas",
+      "description": "Validar URLs, idioma, canonicals, redirects, stores y CTAs.",
+      "dependencies": [
+        "F049",
+        "F050",
+        "F051",
+        "F055"
+      ],
+      "acceptance": [
+        "No hay links rotos",
+        "Redirects legacy funcionan",
+        "Switcher mantiene equivalente",
+        "Stores/CTAs están confirmados",
+        "No hay páginas huérfanas"
+      ],
+      "verification": [
+        "Link checker de build",
+        "Matriz redirects/canonical/hreflang",
+        "Muestra manual externa"
+      ],
+      "references": [
+        "review.md — §2, §33, §48, §49"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F057",
+      "phase": 8,
+      "priority": "P0",
+      "size": "M",
+      "name": "privacy_aware_analytics",
+      "title": "Implementar analytics con privacidad",
+      "description": "Instrumentar eventos de proyecto, contacto, productos, stores, servicios, blog, redes e idioma sin PII.",
+      "dependencies": [
+        "F029",
+        "F035",
+        "F042",
+        "F047"
+      ],
+      "acceptance": [
+        "Existe diccionario de eventos",
+        "Se implementan los 11 eventos definidos en roadmap/review",
+        "No se envían mensajes/emails/nombres",
+        "Consentimiento y política coinciden"
+      ],
+      "verification": [
+        "Comprobar debug",
+        "Inspeccionar payloads",
+        "Confirmar ausencia de PII",
+        "Validar no duplicación"
+      ],
+      "references": [
+        "review.md — §58"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F058",
+      "phase": 8,
+      "priority": "P0",
+      "size": "M",
+      "name": "conversion_funnel_qa",
+      "title": "Validar conversión de ambos funnels",
+      "description": "Probar Home→Services→Case→Contact y Home→Products→Product→destino.",
+      "dependencies": [
+        "F056",
+        "F057"
+      ],
+      "acceptance": [
+        "Services llega a envío confirmado",
+        "Products llega al destino según estado",
+        "Eventos se registran una vez",
+        "No hay CTAs ambiguos"
+      ],
+      "verification": [
+        "Smoke desktop/mobile",
+        "Repetir ES/EN/PT",
+        "Comparar eventos con diccionario"
+      ],
+      "references": [
+        "review.md — §3, §58, §60"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F059",
+      "phase": 8,
+      "priority": "P0",
+      "size": "M",
+      "name": "production_smoke_suite",
+      "title": "Crear suite smoke de release",
+      "description": "Cubrir build, rutas, redirects, idiomas, forms, productos, blog y assets críticos.",
+      "dependencies": [
+        "F053",
+        "F054",
+        "F055",
+        "F056",
+        "F058"
+      ],
+      "acceptance": [
+        "Es repetible pre-release",
+        "Falla con mensajes accionables",
+        "Cubre ambos funnels y plantillas",
+        "Distingue externos de regresiones"
+      ],
+      "verification": [
+        "Ejecutar contra staging limpio",
+        "Provocar fallo controlado",
+        "Guardar resultado exitoso"
+      ],
+      "references": [
+        "roadmap.md — Estrategia de prueba"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F060",
+      "phase": 8,
+      "priority": "P0",
+      "size": "M",
+      "name": "final_truth_and_quality_review",
+      "title": "Ejecutar revisión final de verdad y calidad",
+      "description": "Congelar candidato y revisar contenido, producto, diseño, accesibilidad, SEO, performance y conversión.",
+      "dependencies": [
+        "F059"
+      ],
+      "acceptance": [
+        "No hay claims sin evidencia",
+        "No hay drift visual genérico",
+        "Gates globales tienen evidencia",
+        "Críticos están resueltos"
+      ],
+      "verification": [
+        "Revisar candidato exacto",
+        "Comparar checklist global",
+        "Registrar aprobación/bloqueadores"
+      ],
+      "references": [
+        "review.md — §55, §57, §61, §62"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F061",
+      "phase": 8,
+      "priority": "P0",
+      "size": "S",
+      "name": "controlled_production_release",
+      "title": "Publicar con checklist y rollback",
+      "description": "Desplegar candidato aprobado, verificar producción y conservar rollback probado.",
+      "dependencies": [
+        "F060"
+      ],
+      "acceptance": [
+        "Existe referencia del release anterior",
+        "Rollback está documentado",
+        "Producción sirve rutas/assets/forms",
+        "Analytics recibe sin PII",
+        "Sitemap/robots son correctos"
+      ],
+      "verification": [
+        "Smoke en producción",
+        "Probar funnels y URL legacy",
+        "Confirmar health/logs",
+        "Registrar versión y hora"
+      ],
+      "references": [
+        "roadmap.md — Fase 8"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    },
+    {
+      "id": "F062",
+      "phase": 8,
+      "priority": "P1",
+      "size": "M",
+      "name": "post_launch_review",
+      "title": "Revisar datos reales post-lanzamiento",
+      "description": "Comparar funnels, Web Vitals y errores con baseline tras una ventana suficiente.",
+      "dependencies": [
+        "F061"
+      ],
+      "acceptance": [
+        "Ventana de revisión evita conclusiones prematuras",
+        "Datos de campo se comparan con F005",
+        "Fricciones se analizan sin confundir correlación",
+        "Nuevas tareas tienen evidencia/prioridad/alcance"
+      ],
+      "verification": [
+        "Revisar analytics/CWV/errores",
+        "Comparar con baseline",
+        "Documentar mantener/iterar/retirar"
+      ],
+      "references": [
+        "review.md — §58, §63"
+      ],
+      "status": "pending",
+      "blocked_by": null,
+      "evidence": [],
+      "completed_at": null
+    }
+  ]
+}

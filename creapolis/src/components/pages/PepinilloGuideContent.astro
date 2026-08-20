@@ -1,10 +1,12 @@
 ---
+import { getPepinilloSupportData } from '../../i18n/data/pepinillo-support';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath } from '../../i18n/utils';
-import { getPepinilloSupportData } from '../../i18n/data/pepinillo-support';
 import PepinilloSupportLayout from './PepinilloSupportLayout.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const g = getPepinilloSupportData(lang).guide;
 ---

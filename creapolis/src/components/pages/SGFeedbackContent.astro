@@ -1,9 +1,11 @@
 ---
-import type { Lang } from '../../i18n/ui';
 import { getSGSupportData } from '../../i18n/data/subscription-guardian-support';
+import type { Lang } from '../../i18n/ui';
 import SGSupportLayout from './SGSupportLayout.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const fb = getSGSupportData(lang).feedback;
 ---

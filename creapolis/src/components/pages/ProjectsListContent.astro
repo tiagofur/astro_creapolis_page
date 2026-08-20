@@ -1,11 +1,13 @@
 ---
-import type { Lang } from '../../i18n/ui';
-import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getHomeData } from '../../i18n/data/home';
-import Nav from '../Nav.astro';
+import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath, useTranslations } from '../../i18n/utils';
 import Footer from '../Footer.astro';
+import Nav from '../Nav.astro';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const { apps, shelf, services, steps, stats } = getHomeData(lang);

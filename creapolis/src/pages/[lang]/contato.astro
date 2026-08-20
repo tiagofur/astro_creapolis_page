@@ -1,8 +1,8 @@
 ---
+import ContactContent from '../../components/pages/ContactContent.astro';
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
-import ContactContent from '../../components/pages/ContactContent.astro';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'pt' } }];
