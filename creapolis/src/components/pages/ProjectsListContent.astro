@@ -1,5 +1,10 @@
 ---
 import { getHomeData } from '../../i18n/data/home';
+import {
+  type Product,
+  type ProductStatus,
+  products,
+} from '../../i18n/data/products';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath, useTranslations } from '../../i18n/utils';
 import Footer from '../Footer.astro';
@@ -11,6 +16,25 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const { apps, shelf, services, steps, stats } = getHomeData(lang);
+
+// Use schema-derived products for the work index
+const workProducts = products.filter(
+  (p) => p.status === 'live' || p.status === 'pre_production',
+);
+
+const statusLabels: Record<ProductStatus, string> = {
+  live: t('apps.live'),
+  pre_production: t('apps.pre'),
+  coming_soon: t('apps.dev'),
+  archived: t('apps.dev'),
+};
+
+function getPlatformLabel(platforms: Product['platforms']): string {
+  return platforms
+    .filter((p) => p.available)
+    .map((p) => p.id.toUpperCase())
+    .join(' · ');
+}
 
 const contactPath = getLocalizedPath(lang, '/contacto');
 const servicesPath = getLocalizedPath(lang, '/servicios');
@@ -36,29 +60,21 @@ const aboutPath = getLocalizedPath(lang, '/sobre');
 <section class="section">
   <div class="wrap">
     <div class="products">
-      {apps.map((app, i) => (
-        <a href={getLocalizedPath(lang, app.href)} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${app.color}`}>
+      {workProducts.map((product, i) => (
+        <a href={getLocalizedPath(lang, `/proyectos/${product.slug}`)} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${product.color}`}>
           <div class="product-vis">
             <div class="glow"></div>
-            <div class="device">
-              <div class="title"></div>
-              {app.deviceRows.map((row) => (
-                <div class="row">
-                  {row.map(() => <div class="bit"></div>)}
-                </div>
-              ))}
-              <div class="big"></div>
-            </div>
+            <img src={`/og/${product.slug}.svg`} alt={product.name} class="product-og" loading="lazy" />
           </div>
           <div class="product-meta">
             <div class="head">
-              <h3>{app.name}</h3>
-              <span class="chip live"><span class="chip-dot"></span>{t('apps.live')}</span>
+              <h3>{product.name}</h3>
+              <span class={`chip ${product.status === 'live' ? 'live' : 'dev'}`}><span class="chip-dot"></span>{statusLabels[product.status]}</span>
             </div>
-            <span class="tagline serif">{app.tagline}</span>
-            <p>{app.desc}</p>
+            <span class="tagline serif">{product.category}</span>
+            <p>{product.seo.description}</p>
             <div class="foot">
-              <span class="plat">{app.platform}</span>
+              <span class="plat">{getPlatformLabel(product.platforms)}</span>
               <span>{t('apps.details')}</span>
             </div>
           </div>
@@ -168,7 +184,7 @@ const aboutPath = getLocalizedPath(lang, '/sobre');
       </div>
 
       <div class="stats-grid reveal reveal-delay-1">
-        {stats.map((s, i) => (
+        {stats.map((s) => (
           <div class="stat-item">
             <span class="stat-num">{s.n}</span>
             <span class="stat-label">{s.label}</span>
@@ -278,12 +294,22 @@ const aboutPath = getLocalizedPath(lang, '/sobre');
     position: relative;
     overflow: hidden;
     background: var(--chalk);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .product-vis .glow {
     position: absolute;
     inset: -20%;
     background: radial-gradient(circle at 50% 40%, var(--product-color), transparent 60%);
     opacity: 0.28;
+  }
+  .product-og {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
   }
   .product-vis .device {
     position: absolute;

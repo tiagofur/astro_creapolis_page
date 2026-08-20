@@ -1,7 +1,6 @@
 ---
 import { getSGSupportData } from '../../i18n/data/subscription-guardian-support';
 import type { Lang } from '../../i18n/ui';
-import { getLocalizedPath } from '../../i18n/utils';
 import SupportLayout from './SupportLayout.astro';
 
 interface Props {
@@ -9,15 +8,6 @@ interface Props {
 }
 const { lang } = Astro.props;
 const d = getSGSupportData(lang);
-
-const base = '/proyectos/subscription-guardian';
-const nav = [
-  { label: d.nav.features, href: getLocalizedPath(lang, base) + '#features' },
-  { label: d.nav.guide, href: getLocalizedPath(lang, base + '/guide') },
-  { label: d.nav.tips, href: getLocalizedPath(lang, base + '/tips') },
-  { label: d.nav.support, href: getLocalizedPath(lang, base + '/feedback') },
-];
-const cta = { text: d.cta, href: getLocalizedPath(lang, base) };
 ---
 
 <SupportLayout lang={lang} accent="sky"><slot /></SupportLayout>
