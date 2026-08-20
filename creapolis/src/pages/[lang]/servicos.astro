@@ -12,6 +12,6 @@ const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 ---
 
-<Layout lang={lang} title={t('services.meta.title')} description={t('services.meta.desc')}>
+<Layout lang={lang} title={t('services.meta.title')} description={t('services.meta.desc')} ogImage="/og/servicios.svg">
   <ServicesContent lang={lang} />
 </Layout>

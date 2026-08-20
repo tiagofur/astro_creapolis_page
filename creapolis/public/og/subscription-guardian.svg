@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10161a"/>
+      <stop offset="100%" stop-color="#0c1014"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a9ed6"/>
+      <stop offset="100%" stop-color="#7ab8e8"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#5a9ed6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#5a9ed6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="600" cy="315" rx="400" ry="250" fill="url(#glow)"/>
+  <path d="M -100,400 C 200,250 500,500 800,350 C 1000,250 1200,400 1400,300" fill="none" stroke="url(#accent)" stroke-width="80" stroke-linecap="round" opacity="0.15"/>
+  <text x="80" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="600" fill="white" letter-spacing="-2">Subscription Guardian</text>
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#7ab8e8" letter-spacing="1">SUBSCRIPTIONS · iOS</text>
+  <text x="80" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#8494a4" letter-spacing="0.5">Tu centinela financiero</text>
+  <text x="80" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#546474" letter-spacing="2">CREAPOLIS.DEV</text>
+  <rect x="850" y="180" width="260" height="320" rx="20" fill="none" stroke="#5a9ed6" stroke-width="2" opacity="0.2"/>
+  <rect x="870" y="220" width="220" height="8" rx="4" fill="#5a9ed6" opacity="0.15"/>
+  <rect x="870" y="240" width="160" height="8" rx="4" fill="#5a9ed6" opacity="0.1"/>
+  <rect x="870" y="260" width="200" height="8" rx="4" fill="#5a9ed6" opacity="0.1"/>
+  <rect x="870" y="300" width="220" height="60" rx="8" fill="#5a9ed6" opacity="0.08"/>
+  <rect x="870" y="380" width="220" height="40" rx="8" fill="#5a9ed6" opacity="0.06"/>
+</svg>

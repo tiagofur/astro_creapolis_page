@@ -40,12 +40,12 @@ export const ui = {
     'footer.cta.btn': 'Iniciar proyecto',
     'footer.cta.btn2': 'hola@creapolis.dev',
 
-    'hero.eyebrow': 'Estudio de producto · Monterrey',
+    'hero.eyebrow': 'Estudio de producto para PyMEs · Monterrey',
     'hero.title': 'Software que',
     'hero.title.serif': 'transforma',
     'hero.title.cont': 'ideas en productos.',
     'hero.lead':
-      'Diseño y desarrollo apps móviles, web y escritorio con el cuidado de quien las va a mantener y la velocidad de quien entrega cada semana. Consultoría de IA incluida.',
+      'Diseño y desarrollo apps móviles, web y escritorio para empresas que necesitan producto propio sin contratar un equipo completo. Consultoría de IA incluida.',
     'hero.cta': 'Iniciar proyecto',
     'hero.ghost': 'Ver mi trabajo ↓',
     'hero.trust.years': '5+ años',
@@ -175,7 +175,7 @@ export const ui = {
     'services.ai.title': 'Consultoría de IA',
     'services.ai.desc':
       'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.',
-    'services.more': 'Ver detalles de cada servicio',
+    'services.more': 'Ver servicios y tarifas',
 
     'process.eyebrow': 'Cómo trabajo',
     'process.title': 'Un proceso con',
@@ -494,12 +494,12 @@ export const ui = {
     'footer.cta.btn': 'Start a project',
     'footer.cta.btn2': 'hola@creapolis.dev',
 
-    'hero.eyebrow': 'Product studio · Monterrey',
+    'hero.eyebrow': 'Product studio for SMBs · Monterrey',
     'hero.title': 'Software that',
     'hero.title.serif': 'transforms',
     'hero.title.cont': 'ideas into products.',
     'hero.lead':
-      'I design and develop mobile, web, and desktop apps with the care of someone who maintains them and the speed of someone who ships every week. AI consulting included.',
+      'I design and develop mobile, web, and desktop apps for companies that need their own product without hiring a full team. AI consulting included.',
     'hero.cta': 'Start a project',
     'hero.ghost': 'See my work ↓',
     'hero.trust.years': '5+ years',
@@ -628,7 +628,7 @@ export const ui = {
     'services.ai.title': 'AI consulting',
     'services.ai.desc':
       'Process automation, chatbots, analytics. Practical implementation, not theory.',
-    'services.more': 'See service details',
+    'services.more': 'View services and pricing',
 
     'process.eyebrow': 'How we work',
     'process.title': 'A process with',
@@ -1076,7 +1076,7 @@ export const ui = {
     'services.title.serif': 'de ponta a ponta.',
     'services.desc':
       'Descoberta, design, código e deploy. Um único responsável do início ao fim, uma única fatura. Sem agências intermediárias.',
-    'services.more': 'Ver detalhes de cada serviço',
+    'services.more': 'Ver serviços e preços',
 
     'process.eyebrow': 'Como trabalho',
     'process.title': 'Um processo com',
@@ -1099,12 +1099,12 @@ export const ui = {
     'contact.cta.lead':
       'Sem formulários longos. Escreva em 2 minutos, respondo em menos de 24 horas com próximos passos concretos.',
 
-    'hero.eyebrow': 'Estúdio de produto · Monterrey',
+    'hero.eyebrow': 'Estúdio de produto para PMEs · Monterrey',
     'hero.title': 'Software que',
     'hero.title.serif': 'transforma',
     'hero.title.cont': 'ideias em produtos.',
     'hero.lead':
-      'Eu desenho e desenvolvo apps móveis, web e desktop com o cuidado de quem vai mantê-los e a velocidade de quem entrega toda semana. Consultoria de IA incluída.',
+      'Eu desenho e desenvolvo apps móveis, web e desktop para empresas que precisam de produto próprio sem contratar um time completo. Consultoria de IA incluída.',
     'hero.cta': 'Iniciar projeto',
     'hero.ghost': 'Ver meu trabalho ↓',
     'hero.trust.years': '5+ anos',

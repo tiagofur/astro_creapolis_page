@@ -65,7 +65,7 @@ const buttonProps = !href ? { type, disabled } : {};
   {...rest}
 >
   {loading && <span class="ui-btn__spinner" aria-hidden="true" />}
-  <span class:list={['ui-btn__label', { 'sr-only': loading && !$$slots.default }]}>
+  <span class:list={['ui-btn__label', { 'sr-only': loading }]}>
     <slot />
   </span>
 </Tag>

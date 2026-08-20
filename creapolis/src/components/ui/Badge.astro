@@ -29,7 +29,7 @@ const classes = ['chip', variant !== 'default' ? variant : '', className]
   .filter(Boolean)
   .join(' ');
 
-const roleMap: Record<string, string> = {
+const roleMap: Record<string, 'status' | 'note'> = {
   live: 'status',
   beta: 'status',
   dev: 'status',

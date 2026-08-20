@@ -62,13 +62,13 @@ export function getNavLinks(lang: Lang): NavLink[] {
 }
 
 export function getNavCTA(lang: Lang): NavLink {
-  const text =
+  const label =
     lang === 'es'
       ? 'Iniciar proyecto'
       : lang === 'pt'
         ? 'Iniciar projeto'
         : 'Start a project';
-  return { text, href: getLocalizedPath(lang, '/contacto') };
+  return { label, href: getLocalizedPath(lang, '/contacto') };
 }
 
 // ─── Footer Links ───────────────────────────────────────────────

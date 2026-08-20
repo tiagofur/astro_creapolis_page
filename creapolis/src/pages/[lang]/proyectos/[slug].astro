@@ -15,8 +15,9 @@ const slug = Astro.params.slug as string;
 const project = getProjectData(lang, slug);
 const title = project ? `${project.name} — Creapolis` : 'Creapolis';
 const description = project?.lead ?? '';
+const ogImage = `/og/${slug}.svg`;
 ---
 
-<Layout lang={lang} title={title} description={description}>
+<Layout lang={lang} title={title} description={description} ogImage={ogImage}>
   <ProjectDetail lang={lang} slug={slug} />
 </Layout>

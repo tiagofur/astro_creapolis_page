@@ -1026,10 +1026,17 @@
       "references": [
         "review.md — §5, §6, §50, §51"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Created 6 branded SVG OG images (1200x630): home, servicios, solennix, pepinillo, peliculas, subscription-guardian",
+        "Each OG uses product-specific accent color + dark background + ribbon motif",
+        "Assigned ogImage to product pages (solennix.astro, [slug].astro) and services pages",
+        "Created public/og/ directory structure following naming convention {slug}.svg",
+        "Created docs/asset-pipeline.md with naming, formats, responsive sizes, alt text patterns",
+        "Documented future screenshot pipeline (public/products/{slug}/{platform}-{variant}.{ext})"
+      ],
+      "completed_at": "2026-08-20T23:03:00Z"
     },
     {
       "id": "F028",
@@ -1061,9 +1068,18 @@
       "references": [
         "review.md — §42, §57"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "Added <main> landmark wrapping all content (skip link target now correct)",
+        "Fixed heading hierarchy: h1→h2→h3→h4 (no skips), hero card h4→span.sc-title",
+        "Added aria-hidden=true to 8 decorative SVGs (arrows, charts)",
+        "Landmark audit: header(nav), main(content), footer — all present",
+        "Skip link targets #main-content correctly",
+        "Keyboard: all interactive elements have visible focus-visible ring",
+        "Touch targets: lang selector, mobile toggle, buttons all ≥44px (F026)",
+        "Reduced motion: global rule + component overrides (F025)"
+      ],
       "completed_at": null
     },
     {
@@ -1096,9 +1112,16 @@
       "references": [
         "review.md — §4–§10, §60, §62"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "Hero eyebrow updated: added target audience (PyMEs/SMBs/PMEs) in all 3 locales",
+        "Hero lead rewritten: empresa que necesita producto propio sin contratar equipo completo",
+        "Services CTA differentiated: btn-primary (Ver servicios y tarifas) vs products btn-ghost (Ver todos los proyectos)",
+        "Hero showcase: replaced abstract CSS mockups with real Solennix OG image",
+        "Services CTA text updated: ES Ver servicios y tarifas / EN View services and pricing / PT Ver servicos e precos",
+        "Stats and trust bar remain strong (5+ years, 2 apps, <24h response)"
+      ],
       "completed_at": null
     },
     {

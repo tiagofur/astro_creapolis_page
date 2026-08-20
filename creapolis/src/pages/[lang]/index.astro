@@ -215,10 +215,11 @@ const stats = [
 <Layout lang={lang}>
   <Nav lang={lang} />
 
+  <main id="main-content">
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
        ═══════════════════════════════════════════════════════════════ -->
-  <header class="hero" id="main-content">
+  <header class="hero">
     <Ribbon />
     <div class="hero-grid">
       <div class="hero-copy reveal">
@@ -229,7 +230,7 @@ const stats = [
         <p class="lead">{t('hero.lead')}</p>
         <div class="hero-cta">
           <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('hero.cta')}
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
           <a href="#apps" class="hero-cta-ghost">{t('hero.ghost')}</a>
         </div>
@@ -240,39 +241,8 @@ const stats = [
         </div>
       </div>
 
-      <div class="showcase reveal reveal-delay-2" aria-hidden="true">
-        <!-- Card A: phone preview -->
-        <div class="sc-card sc-a">
-          <div class="eyebrow accent" style="--accent-color: var(--iris); font-size:0.62rem">Solennix · dashboard</div>
-          <div class="phone">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="big"></div>
-          </div>
-        </div>
-        <!-- Card B: big stat -->
-        <div class="sc-card sc-b">
-          <div class="mono-mini">INGRESOS · MAR</div>
-          <h4>Mes récord</h4>
-          <div class="num">+42%</div>
-        </div>
-        <!-- Card C: chart -->
-        <div class="sc-card sc-c">
-          <div class="chart">
-            <svg viewBox="0 0 200 80" preserveAspectRatio="none">
-              <polyline points="0,60 30,50 60,55 90,30 120,35 150,15 180,20 200,8"
-                fill="none" stroke="oklch(0.72 0.18 32)" stroke-width="3" stroke-linecap="round"/>
-              <polyline points="0,70 30,62 60,66 90,48 120,52 150,40 180,44 200,32"
-                fill="none" stroke="oklch(0.62 0.2 285)" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-            </svg>
-          </div>
-          <div class="meta">
-            <h4>Tráfico</h4>
-            <p>7 días</p>
-          </div>
-        </div>
+      <div class="showcase reveal reveal-delay-2">
+        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" />
       </div>
     </div>
   </header>
@@ -398,8 +368,8 @@ const stats = [
       </div>
 
       <div class="svc-more reveal">
-        <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-ghost">{t('services.more')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-primary">{t('services.more')}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
     </div>
@@ -451,7 +421,7 @@ const stats = [
         <h2>{t('mission.title.p1')}<br/>{t('mission.title.p2')} <span class="serif">{t('mission.title.serif')}</span>.</h2>
         <p class="big">{t('mission.desc')}</p>
         <a href={getLocalizedPath(lang, '/sobre')} class="btn btn-ghost" style="margin-top:24px;border-color:oklch(0.5 0.01 265);color:var(--paper)">{t('mission.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
 
@@ -478,7 +448,7 @@ const stats = [
           <p class="notes-intro">{t('notes.desc')}</p>
         </div>
         <a href={getLocalizedPath(lang, '/blog')} class="btn btn-ghost">{t('notes.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
 
@@ -496,7 +466,7 @@ const stats = [
               <h3>{post.data.title}</h3>
               <p>{getPostDescription(post)}</p>
               <span class="note-read">{t('notes.read')}
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </span>
             </a>
           );
@@ -516,12 +486,13 @@ const stats = [
 
       <div class="c-cta-row">
         <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('contact.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
         <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
       </div>
     </div>
   </section>
+  </main>
 
   <Footer lang={lang} />
 </Layout>
@@ -583,39 +554,15 @@ const stats = [
 
   /* Canvas showpiece */
   .showcase {
-    position: relative; aspect-ratio: 4/5;
-    width: 100%; max-width: 460px; margin: 0 auto;
-  }
-  .sc-card {
-    position: absolute; background: var(--paper);
-    border: 1px solid var(--line);
-    box-shadow: var(--sh-3);
+    width: 100%; max-width: 520px; margin: 0 auto;
     border-radius: var(--r-lg);
     overflow: hidden;
+    box-shadow: var(--sh-3);
+    border: 1px solid var(--line);
   }
-  .sc-a { top: 0; left: 0; width: 62%; aspect-ratio: 3/4; z-index: 3; transform: rotate(-3deg); }
-  .sc-b { top: 8%; right: 0; width: 54%; aspect-ratio: 1/1; z-index: 2; transform: rotate(4deg); background: var(--ink); color: var(--paper); padding: 22px; }
-  .sc-c { bottom: 0; left: 14%; width: 72%; aspect-ratio: 16/11; z-index: 4; transform: rotate(-1.5deg); }
-  .sc-card:hover { transform: rotate(0); transition: transform 0.4s var(--ease); z-index: 10; }
-  .sc-a { padding: 20px; background: linear-gradient(160deg, var(--iris-soft), var(--paper)); }
-  .sc-a .phone {
-    margin: 10px auto 0; width: 80%; height: 78%;
-    background: var(--ink); border-radius: 24px; padding: 10px;
-    display: flex; flex-direction: column; gap: 6px;
+  .showcase-img {
+    width: 100%; height: auto; display: block;
   }
-  .sc-a .phone .bar { height: 14px; background: color-mix(in oklch, var(--iris) 40%, transparent); border-radius: 4px; }
-  .sc-a .phone .bar:nth-child(2) { width: 60%; }
-  .sc-a .phone .bar:nth-child(3) { width: 80%; background: color-mix(in oklch, var(--lime) 40%, transparent); }
-  .sc-a .phone .bar:nth-child(4) { width: 45%; }
-  .sc-a .phone .big { flex: 1; background: color-mix(in oklch, var(--iris) 55%, var(--ink)); border-radius: 10px; margin-top: 4px; }
-  .sc-b h4 { color: var(--paper); font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 6px; }
-  .sc-b .mono-mini { font-family: var(--font-mono); font-size: 0.65rem; color: oklch(0.7 0.02 265); }
-  .sc-b .num { font-family: var(--font-serif); font-style: italic; font-size: 3.4rem; line-height: 1; margin-top: 10px; color: var(--lime); }
-  .sc-c { padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
-  .sc-c .chart { flex: 1; height: 70%; position: relative; }
-  .sc-c .chart svg { width: 100%; height: 100%; }
-  .sc-c .meta h4 { font-size: 0.85rem; margin-bottom: 4px; }
-  .sc-c .meta p { font-size: 0.72rem; color: var(--ink-3); }
 
   /* ═══════════════════════════════════════════════════════════════════════
      MARQUEE

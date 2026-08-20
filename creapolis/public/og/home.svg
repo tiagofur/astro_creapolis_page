@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1625"/>
+      <stop offset="100%" stop-color="#0f0d14"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8705a" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#7c5cff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#6abf4a" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Ribbon -->
+  <path d="M -100,350 C 200,200 500,450 800,300 C 1000,200 1200,350 1400,250" fill="none" stroke="url(#ribbon)" stroke-width="100" stroke-linecap="round" opacity="0.6"/>
+  <!-- Content -->
+  <text x="80" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#7c5cff" letter-spacing="4" font-weight="500">ESTUDIO DE PRODUCTO · MONTERREY</text>
+  <text x="80" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">Software que</text>
+  <text x="80" y="400" font-family="Georgia, serif" font-size="72" font-style="italic" fill="white" letter-spacing="-2" opacity="0.9">transforma</text>
+  <text x="80" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">ideas en productos.</text>
+  <!-- Brand -->
+  <text x="80" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#5a5464" letter-spacing="2">CREAPOLIS.DEV</text>
+</svg>
