@@ -31,18 +31,23 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-dependency-path: creapolis/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        working-directory: creapolis
 
       - name: Typecheck
         run: pnpm run typecheck
+        working-directory: creapolis
 
       - name: Lint
         run: pnpm run lint
+        working-directory: creapolis
 
       - name: Build
         run: pnpm run build
+        working-directory: creapolis
 
       - name: Check build output
         run: |
@@ -50,3 +55,4 @@ jobs:
           find dist -name "*.html" | wc -l
           echo "Total dist size:"
           du -sh dist/
+        working-directory: creapolis
