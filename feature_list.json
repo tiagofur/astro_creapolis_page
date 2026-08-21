@@ -1770,10 +1770,20 @@
       "references": [
         "review.md — §26, §44"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "TOC auto-generated from h2/h3 headings via IntersectionObserver",
+        "Sticky TOC on desktop, scrollable on mobile",
+        "Active heading tracking with intersection observer",
+        "Share: Web Share API (native) + Twitter + LinkedIn + WhatsApp + Copy link",
+        "Copy link button with clipboard API + fallback",
+        "Reading time estimate (words/200 per minute)",
+        "Responsive: pre overflow-x, table scroll, img max-width, video/iframe responsive",
+        "Translation keys (ES/EN/PT) for TOC, share, reading time",
+        "Typecheck 0 errors, Build 449 pages, Lint 0 issues"
+      ],
+      "completed_at": "2026-08-21T16:50:00.000Z"
     },
     {
       "id": "F047",
