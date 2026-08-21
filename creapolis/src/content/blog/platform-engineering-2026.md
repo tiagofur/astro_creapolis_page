@@ -722,7 +722,7 @@ Los \_Golden Paths\_ estandarizan lo aburrido (pipelines, networking, logs) para
 ## 7. Conclusión
 
 - **Cierre:** El mito del desarrollador que lo sabe "todo" ha muerto, y es algo bueno. Al especializar roles nuevamente, permitimos que cada uno brille en su área. La Ingeniería de Plataforma es la empatía convertida en infraestructura.
-- **Perspectiva a futuro:** En 2026/2027, los IDPs integrarán Agentes de IA que no solo crearán infraestructura, sino que sugerirán optimizaciones de costos y seguridad proactivamente.
+- **Perspectiva a futuro:** En 2026/2027, los IDPs integrarán AI/ML de IA que no solo crearán infraestructura, sino que sugerirán optimizaciones de costos y seguridad proactivamente.
 
 ## 8. Recursos Adicionales
 

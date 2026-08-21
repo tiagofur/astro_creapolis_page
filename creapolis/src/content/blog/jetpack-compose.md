@@ -4,7 +4,7 @@ description: "Si llevas un tiempo en el mundo del desarrollo de software, sabes 
 pubDate: "2025-10-15"
 author: "tiagofur"
 tags: []
-categories: ["Kotlin-Jetpack Compose"]
+categories: ["Kotlin"]
 slug: "guia-completa-de-jetpack-compose-de-composables-a-estado"
 originalUrl: "https://creapolis.dev/guia-completa-de-jetpack-compose-de-composables-a-estado/"
 draft: false

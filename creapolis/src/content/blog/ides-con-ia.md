@@ -4,7 +4,7 @@ description: "En el acelerado mundo del desarrollo de software, la integración 
 pubDate: "2026-01-20"
 author: "tiagofur"
 tags: ["ai ide", "herramientas", "vs code copilot"]
-categories: ["IA", "IDEs"]
+categories: ["AI/ML", "Herramientas"]
 slug: "cursor-vs-windsurf-vs-vs-code-copilot-la-batalla-de-los-ides-con-ia"
 originalUrl: "https://creapolis.dev/cursor-vs-windsurf-vs-vs-code-copilot-la-batalla-de-los-ides-con-ia/"
 draft: false

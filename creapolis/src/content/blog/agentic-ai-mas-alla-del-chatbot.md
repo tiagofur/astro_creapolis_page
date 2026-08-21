@@ -1,10 +1,10 @@
 ---
-title: "Agentic AI: Guía Completa para pasar de Chatbots a Agentes Autónomos"
+title: "Agentic AI: Guía Completa para pasar de Chatbots a AI/ML Autónomos"
 description: "Si 2023 fue el año del Chatbot y 2024 el del Copilot, 2026 se perfila indiscutiblemente como la era de la IA Agéntica (Agentic AI). Hasta ahora, la interacción con la inteligencia…"
 pubDate: "2026-01-08"
 author: "tiagofur"
 tags: []
-categories: ["IA", "Vibe Code"]
+categories: ["AI/ML", "Vibe Code"]
 slug: "agentic-ai-mas-alla-del-chatbot"
 originalUrl: "https://creapolis.dev/agentic-ai-mas-alla-del-chatbot/"
 draft: false
@@ -16,7 +16,7 @@ Si 2023 fue el año del Chatbot y 2024 el del Copilot, 2026 se perfila indiscuti
 
 El problema con los LLMs tradicionales es que viven en una caja aislada. Son brillantes razonando, pero no tienen "manos". No pueden ejecutar el script de Python que acaban de escribir, no pueden ver si los tests fallan y no pueden corregirse a sí mismos basándose en el error de la terminal.
 
-En este artículo, daremos el siguiente paso evolutivo. Dejaremos de tratar a la IA como un oráculo consultivo y aprenderemos a construir **Agentes Autónomos**: sistemas capaces de planificar tareas complejas, utilizar herramientas reales (Terminal, File System, Browser) y ejecutar flujos de trabajo de ingeniería de software bajo supervisión. Desmitificaremos la "magia" detrás de frameworks como LangChain o AutoGen y entenderás por fin qué significa dotar de *agencia* a un modelo de lenguaje.
+En este artículo, daremos el siguiente paso evolutivo. Dejaremos de tratar a la IA como un oráculo consultivo y aprenderemos a construir **AI/ML Autónomos**: sistemas capaces de planificar tareas complejas, utilizar herramientas reales (Terminal, File System, Browser) y ejecutar flujos de trabajo de ingeniería de software bajo supervisión. Desmitificaremos la "magia" detrás de frameworks como LangChain o AutoGen y entenderás por fin qué significa dotar de *agencia* a un modelo de lenguaje.
 
 ## 2. Prerrequisitos
 
@@ -46,7 +46,7 @@ Para aprovechar al máximo esta guía, necesitarás:
 
 - Práctica con ejemplos: 60-90 minutos
 
-### **3.1. El Salto Evolutivo: De LLMs Pasivos a Agentes Activos**
+### **3.1. El Salto Evolutivo: De LLMs Pasivos a AI/ML Activos**
 
 Para entender la "IA Agéntica", primero debemos romper con la mentalidad del Chatbot.
 
@@ -745,7 +745,7 @@ lo que verifica que la función funciona correctamente.
 | **AutoGen** | Multi-agent systems | Alta | 🔥🔥🔥🔥 |
 | **CrewAI** | Equipos de agentes especializados | Media | 🔥🔥🔥 |
 | **Semantic Kernel** | Empresas .NET/Python | Media | 🔥🔥🔥 |
-| **LlamaIndex Agents** | RAG + Agentes | Baja | 🔥🔥🔥🔥 |
+| **LlamaIndex Agents** | RAG + AI/ML | Baja | 🔥🔥🔥🔥 |
 
 ### **3.5. Casos de Uso Reales en Ingeniería**
 
@@ -1036,7 +1036,7 @@ Este agente combina **dos enfoques**:
 
 Uno de los mayores desafíos en Agentic AI es la **gestión eficiente de la memoria**. Los agentes necesitan recordar conversaciones pasadas, decisiones tomadas y resultados de acciones anteriores.
 
-### **# Tipos de Memoria en Agentes**
+### **# Tipos de Memoria en AI/ML**
 
 1. **Memoria a Corto Plazo (Short-term):**
 
@@ -1709,7 +1709,7 @@ Es uno de los problemas más comunes y peligrosos en Agentic AI. Un agente puede
 
 ## 6. Conclusión
 
-La era de la Agentic AI nos invita a convertirnos en **"Arquitectos de Agentes"**. Ya no solo escribimos el código que ejecuta la lógica de negocio, ahora escribimos los prompts y las herramientas que permitirán a la IA escribir esa lógica por nosotros.
+La era de la Agentic AI nos invita a convertirnos en **"Arquitectos de AI/ML"**. Ya no solo escribimos el código que ejecuta la lógica de negocio, ahora escribimos los prompts y las herramientas que permitirán a la IA escribir esa lógica por nosotros.
 
 El futuro inmediato no es una IA que lo hace todo mágicamente, sino una colaboración híbrida donde el humano define el **"Qué"** (Estrategia) y el Agente se encarga del **"Cómo"** (Ejecución táctica), eliminando la fricción de las tareas repetitivas y permitiéndonos focar en lo que realmente importa: la creatividad, la arquitectura y la resolución de problemas complejos.
 
@@ -1717,11 +1717,11 @@ El futuro inmediato no es una IA que lo hace todo mágicamente, sino una colabor
 
 **Lo que viene en el horizonte cercano:**
 
-1. **Agentes Autónomos con Memoria Episódica:** Agentes que no solo recuerdan conversaciones, sino que "aprenden" de cada tarea, construyendo una base de conocimientos propia basada en experiencia real.
+1. **AI/ML Autónomos con Memoria Episódica:** AI/ML que no solo recuerdan conversaciones, sino que "aprenden" de cada tarea, construyendo una base de conocimientos propia basada en experiencia real.
 
-2. **Agentes Multi-Modal Avanzados:** Agentes que pueden ver (visión artificial), escuchar (audio), navegar la web y ejecutar código, permitiendo automatizar flujos de trabajo verdaderamente end-to-end.
+2. **AI/ML Multi-Modal Avanzados:** AI/ML que pueden ver (visión artificial), escuchar (audio), navegar la web y ejecutar código, permitiendo automatizar flujos de trabajo verdaderamente end-to-end.
 
-3. **Agentes como Microservicios:** Arquitecturas donde cada microservicio es un agente especializado, comunicándose entre sí para resolver problemas empresariales complejos.
+3. **AI/ML como Microservicios:** Arquitecturas donde cada microservicio es un agente especializado, comunicándose entre sí para resolver problemas empresariales complejos.
 
 4. **Mejoras Dramáticas en Costos:** La competencia entre OpenAI, Anthropic, Meta y Google reducirá los costos de la IA agéntica por un factor de 10-20x en 2026, haciéndola accesible para startups y desarrolladores individuales.
 
@@ -1751,7 +1751,7 @@ El futuro pertenece a quienes sepan orquestar la inteligencia, no solo a quienes
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)](https://arxiv.org/abs/2210.03629) - El paper seminal que introdujo el patrón ReAct
 
-- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) - Agentes que aprenden de errores pasados
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) - AI/ML que aprenden de errores pasados
 
 - [Communicative Agents for Software Development (AutoGen)](https://arxiv.org/abs/2308.08155) - Paper base de AutoGen sobre multi-agent systems
 
@@ -1779,7 +1779,7 @@ El futuro pertenece a quienes sepan orquestar la inteligencia, no solo a quienes
 
 - [LangChain Discord](https://discord.gg/langchain) - Comunidad activa de desarrolladores de agentes
 
-- [r/LocalLLaMA on Reddit](https://reddit.com/r/LocalLLaMA) - Agentes y modelos locales
+- [r/LocalLLaMA on Reddit](https://reddit.com/r/LocalLLaMA) - AI/ML y modelos locales
 
 - [AI Agents Discord](https://discord.gg/ai-agents) - Servidor dedicado a sistemas multi-agente
 
@@ -1803,7 +1803,7 @@ Para continuar tu viaje en el mundo de la Agentic AI, te recomiendo seguir esta 
 
 - **Lo que aprenderás:** Function Calling, herramientas básicas, manejo de errores
 
-### **Nivel 2: Agentes con Memoria y Búsqueda**
+### **Nivel 2: AI/ML con Memoria y Búsqueda**
 
 **Objetivo:** Agregar memoria persistente y capacidad de investigación web
 

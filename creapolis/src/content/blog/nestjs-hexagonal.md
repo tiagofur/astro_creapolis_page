@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de software moderno, la elección de un
 pubDate: "2026-01-14"
 author: "tiagofur"
 tags: []
-categories: ["Backend", "Backend - NestJs"]
+categories: ["Backend", "NestJS"]
 slug: "hexagonal-architecture-en-nestjs-guia-practica-para-2026"
 originalUrl: "https://creapolis.dev/hexagonal-architecture-en-nestjs-guia-practica-para-2026/"
 draft: false

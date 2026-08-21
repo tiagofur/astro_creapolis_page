@@ -660,7 +660,7 @@ cosign verify myapp:1.0.0 \
 
 ---
 
-## 7. Auto-Remediación con Agentes de IA
+## 7. Auto-Remediación con AI/ML de IA
 
 ### 7.1. De Alertas a Pull Requests Automáticos
 

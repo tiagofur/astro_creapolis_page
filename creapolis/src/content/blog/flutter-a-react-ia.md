@@ -4,7 +4,7 @@ description: "Resumen para Devs (TL;DR):"
 pubDate: "2025-12-02"
 author: "tiagofur"
 tags: ["ai programming", "antigravity", "claude code", "flutter", "ia", "indie hacker", "backend", "productivity", "react", "software architecture", "vibe coding", "herramientas"]
-categories: ["IA", "Vibe Code"]
+categories: ["AI/ML", "Vibe Code"]
 slug: "de-flutter-a-react-mi-busqueda-del-stack-de-ia-perfecto-y-economico-para-vibe-coders"
 originalUrl: "https://creapolis.dev/de-flutter-a-react-mi-busqueda-del-stack-de-ia-perfecto-y-economico-para-vibe-coders/"
 draft: false

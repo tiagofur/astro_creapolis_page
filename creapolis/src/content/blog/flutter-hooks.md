@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de aplicaciones móviles multiplataform
 pubDate: "2025-02-12"
 author: "tiagofur"
 tags: ["tutorial", "ciclo de vida", "arquitectura", "dart", "desarrollo", "mobile", "flutter", "flutter hooks", "estado", "hooks", "programación funcional", "reactividad", "reutilización de lógica", "simplificación de código", "stateful widgets", "ui", "usecallback", "useeffect", "usememo", "usestate"]
-categories: ["Flutter - Avanzado", "Flutter - Gestión Estado"]
+categories: ["Flutter - Avanzado", "Flutter - Estado"]
 slug: "flutter-hooks-la-guia-definitiva-para-simplificar-el-estado-de-tus-aplicaciones"
 originalUrl: "https://creapolis.dev/flutter-hooks-la-guia-definitiva-para-simplificar-el-estado-de-tus-aplicaciones/"
 draft: false

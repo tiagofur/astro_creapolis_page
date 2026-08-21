@@ -4,7 +4,7 @@ description: "https://podcasters.spotify.com/pod/show/creapolis-dev/episodes/Pro
 pubDate: "2023-10-02"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "gesionestado", "estado"]
-categories: ["Flutter - Gerenciadores de Estado", "Flutter - Intermedio"]
+categories: ["Flutter - Estado", "Flutter - Intermedio"]
 slug: "gestionando-el-estado-de-tu-aplicacion-flutter-con-provider-una-guia-completa"
 originalUrl: "https://creapolis.dev/gestionando-el-estado-de-tu-aplicacion-flutter-con-provider-una-guia-completa/"
 draft: false

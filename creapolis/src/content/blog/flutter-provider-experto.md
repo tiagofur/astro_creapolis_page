@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo Flutter, construir interfaces de usuari
 pubDate: "2024-10-29"
 author: "tiagofur"
 tags: ["arquitectura", "tutorial", "changenotifier", "dart", "desarrollo", "mobile", "flutter", "estado", "inheritedwidget", "multiprovider", "state management", "ui"]
-categories: ["Flutter - Gestión Estado", "Flutter - Intermedio"]
+categories: ["Flutter - Estado", "Flutter - Intermedio"]
 slug: "provider-en-flutter-simplifica-el-manejo-de-estado-como-un-experto"
 originalUrl: "https://creapolis.dev/provider-en-flutter-simplifica-el-manejo-de-estado-como-un-experto/"
 draft: false

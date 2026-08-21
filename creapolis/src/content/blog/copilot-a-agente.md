@@ -4,7 +4,7 @@ description: "El panorama del desarrollo de software ha experimentado una transf
 pubDate: "2026-01-20"
 author: "tiagofur"
 tags: ["ai agents", "autonomous agents", "ia"]
-categories: ["Agentes", "IA"]
+categories: ["AI/ML"]
 slug: "de-copilot-a-agente-la-evolucion-de-los-asistentes-de-codigo-en-2026"
 originalUrl: "https://creapolis.dev/de-copilot-a-agente-la-evolucion-de-los-asistentes-de-codigo-en-2026/"
 draft: false
@@ -90,7 +90,7 @@ class OrderService {
 }
 ```
 
-### La revolución autónoma: Agentes con propósito
+### La revolución autónoma: AI/ML con propósito
 
 En 2026, los agentes de código han alcanzado un nivel de autonomía sin precedentes. Estos no solo sugieren código, sino que planifican, ejecutan y validan soluciones completas.
 
@@ -1284,7 +1284,7 @@ learning_path_advanced:
         - Seguridad y calidad
 
     phase_2:
-        - Agentes multi-sistema
+        - AI/ML multi-sistema
         - Optimización de rendimiento
         - Gestión de conocimiento
 

@@ -4,7 +4,7 @@ description: "Meta Description: Descubre cómo React Compiler revoluciona el ren
 pubDate: "2026-01-08"
 author: "tiagofur"
 tags: []
-categories: ["React - General"]
+categories: ["React"]
 slug: "react-compiler-vs-usememo-adios-a-la-optimizacion-manual"
 originalUrl: "https://creapolis.dev/react-compiler-vs-usememo-adios-a-la-optimizacion-manual/"
 draft: false

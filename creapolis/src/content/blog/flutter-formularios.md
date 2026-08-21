@@ -4,7 +4,7 @@ description: "https://podcasters.spotify.com/pod/show/creapolis-dev/episodes/Bui
 pubDate: "2024-10-30"
 author: "tiagofur"
 tags: ["dart", "desarrollo", "ui", "entrada de usuario", "flutter", "form", "form validation", "formularios", "estado", "textfield", "textformfield", "user input", "validación de formularios"]
-categories: ["Flutter - Avanzado", "Flutter - Gestión Estado", "Flutter - Intermedio", "Flutter - Widgets"]
+categories: ["Flutter - Avanzado", "Flutter - Estado", "Flutter - Intermedio", "Flutter - Widgets"]
 slug: "crea-formularios-impresionantes-en-flutter-validacion-estado-y-mas"
 originalUrl: "https://creapolis.dev/crea-formularios-impresionantes-en-flutter-validacion-estado-y-mas/"
 draft: false

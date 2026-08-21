@@ -4,7 +4,7 @@ description: "Guía práctica para diseñar aplicaciones AI‑Native: arquitectu
 pubDate: "2026-01-13"
 author: "tiagofur"
 tags: ["agentes-ia", "ai-native", "arquitectura", "diseño-de-software"]
-categories: ["AI", "Software"]
+categories: ["AI/ML", "General"]
 slug: "desarrollo-ai-native-disenando-apps-que-piensan"
 originalUrl: "https://creapolis.dev/desarrollo-ai-native-disenando-apps-que-piensan/"
 draft: false

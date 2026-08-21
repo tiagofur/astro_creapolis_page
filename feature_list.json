@@ -1692,10 +1692,17 @@
       "references": [
         "review.md — §23, §47"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "127 blog posts audited: 0 drafts, 0 missing titles, 0 missing dates, 0 duplicate slugs",
+        "Categories normalized: 35 unique (from 46) — merged duplicates, fixed casing",
+        "IA→AI/ML, NestJs→NestJS, NextJS→Next.js, React-*→React, etc.",
+        "All posts pass schema validation (F043 enhanced schema)",
+        "127 posts render correctly across 3 locales",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-21T15:42:00Z"
     },
     {
       "id": "F045",

@@ -15,7 +15,7 @@ Los clientes no quieren esperar. Los agentes no quiere responder lo mismo 50 vec
 
 - Tiempo de espera infinito
 - Respuestas inconsistentes
-- Agentes quemados por tareas repetitivas
+- AI/ML quemados por tareas repetitivas
 - Sin disponibilidad 24/7
 
 ## La solución con IA

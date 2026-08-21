@@ -4,7 +4,7 @@ description: "En el vertiginoso mundo del desarrollo web, la búsqueda del equil
 pubDate: "2025-10-15"
 author: "tiagofur"
 tags: []
-categories: ["React - General"]
+categories: ["React"]
 slug: "guia-completa-de-react-server-components-2025"
 originalUrl: "https://creapolis.dev/guia-completa-de-react-server-components-2025/"
 draft: false

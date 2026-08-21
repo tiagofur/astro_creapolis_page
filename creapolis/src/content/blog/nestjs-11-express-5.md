@@ -4,7 +4,7 @@ description: "Eran las 3:00 AM cuando tu monitor de producción lanzó la primer
 pubDate: "2026-01-15"
 author: "tiagofur"
 tags: []
-categories: ["Backend", "Backend - NestJs"]
+categories: ["Backend", "NestJS"]
 slug: "nestjs-11-express-5-lo-que-rompe-tu-api-y-como-arreglarlo"
 originalUrl: "https://creapolis.dev/nestjs-11-express-5-lo-que-rompe-tu-api-y-como-arreglarlo/"
 draft: false
