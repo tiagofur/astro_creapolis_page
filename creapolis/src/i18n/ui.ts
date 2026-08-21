@@ -525,6 +525,15 @@ export const ui = {
     'solennix.cta.btn': 'Iniciar proyecto',
 
     'postdate.locale': 'es-ES',
+
+    // Hub navigation
+    'hub.nav.overview': 'Resumen',
+    'hub.nav.guide': 'Guía rápida',
+    'hub.nav.tips': 'Tips',
+    'hub.nav.support': 'Soporte',
+    'hub.nav.changelog': 'Changelog',
+    'hub.nav.privacy': 'Privacidad',
+    'hub.breadcrumb.projects': 'Proyectos',
   },
 
   en: {
@@ -1043,6 +1052,15 @@ export const ui = {
     'solennix.cta.btn': 'Start a project',
 
     'postdate.locale': 'en-US',
+
+    // Hub navigation
+    'hub.nav.overview': 'Overview',
+    'hub.nav.guide': 'Quick start',
+    'hub.nav.tips': 'Tips',
+    'hub.nav.support': 'Support',
+    'hub.nav.changelog': 'Changelog',
+    'hub.nav.privacy': 'Privacy',
+    'hub.breadcrumb.projects': 'Projects',
   },
   pt: {
     'nav.projects': 'Projetos',
@@ -1509,6 +1527,15 @@ export const ui = {
     'contact.lead':
       'Sem formulários longos. Escreva em 2 minutos, respondo em menos de 24 horas com próximos passos.',
     'contact.cta': 'Iniciar conversa',
+
+    // Hub navigation
+    'hub.nav.overview': 'Resumo',
+    'hub.nav.guide': 'Guia rápido',
+    'hub.nav.tips': 'Dicas',
+    'hub.nav.support': 'Suporte',
+    'hub.nav.changelog': 'Changelog',
+    'hub.nav.privacy': 'Privacidade',
+    'hub.breadcrumb.projects': 'Projetos',
   },
 } as const;
 

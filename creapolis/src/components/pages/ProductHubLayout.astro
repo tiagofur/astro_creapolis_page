@@ -1,0 +1,312 @@
+---
+import { getProduct } from '../../i18n/data/products';
+import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath, useTranslations } from '../../i18n/utils';
+import Footer from '../Footer.astro';
+import Nav from '../Nav.astro';
+
+type Accent = 'iris' | 'lime' | 'sky' | 'coral';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+  currentPage:
+    | 'overview'
+    | 'guide'
+    | 'tips'
+    | 'support'
+    | 'changelog'
+    | 'privacy';
+  accent?: Accent;
+}
+
+const { lang, slug, currentPage, accent } = Astro.props;
+const t = useTranslations(lang);
+const product = getProduct(slug);
+
+if (!product) {
+  return Astro.redirect(getLocalizedPath(lang, '/proyectos'));
+}
+
+// Determine accent from product color
+const accentMap: Record<string, Accent> = {
+  'var(--iris)': 'iris',
+  'var(--lime)': 'lime',
+  'var(--sky)': 'sky',
+  'var(--coral)': 'coral',
+};
+const resolvedAccent = accent || accentMap[product.color] || 'iris';
+
+// Build sidebar items from product resources + overview
+const sidebarItems: {
+  type: string;
+  label: string;
+  href: string;
+  icon: string;
+  available: boolean;
+}[] = [
+  {
+    type: 'overview',
+    label: t('hub.nav.overview'),
+    href: getLocalizedPath(lang, `/proyectos/${slug}`),
+    icon: '🏠',
+    available: true,
+  },
+  ...product.resources.map((r) => ({
+    type: r.type,
+    label: t(`hub.nav.${r.type}`),
+    href: getLocalizedPath(lang, `/proyectos/${slug}/${r.type}`),
+    icon: r.icon,
+    available: r.available,
+  })),
+];
+
+// Only show available pages
+const visibleItems = sidebarItems.filter((item) => item.available);
+---
+
+<Nav lang={lang} />
+
+<div class="hub-shell" style={`--hub-accent: var(--${resolvedAccent}); --hub-accent-soft: var(--${resolvedAccent}-soft);`}>
+  <!-- Sidebar -->
+  <aside class="hub-sidebar" aria-label="Product navigation">
+    <div class="hub-sidebar-inner">
+      <a href={getLocalizedPath(lang, `/proyectos/${slug}`)} class="hub-product-link">
+        <span class="hub-product-icon" style={`background: var(--${resolvedAccent})`}>
+          {product.name.charAt(0)}
+        </span>
+        <span class="hub-product-name">{product.name}</span>
+      </a>
+
+      <nav class="hub-nav" aria-label="Sections">
+        {visibleItems.map((item) => (
+          <a
+            href={item.href}
+            class={`hub-nav-item ${item.type === currentPage ? 'active' : ''}`}
+            aria-current={item.type === currentPage ? 'page' : undefined}
+          >
+            <span class="hub-nav-icon">{item.icon}</span>
+            <span class="hub-nav-label">{item.label}</span>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="hub-main">
+    <!-- Breadcrumbs -->
+    <nav class="hub-breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li>
+          <a href={getLocalizedPath(lang, '/proyectos')}>{t('hub.breadcrumb.projects')}</a>
+        </li>
+        <li>
+          <a href={getLocalizedPath(lang, `/proyectos/${slug}`)}>{product.name}</a>
+        </li>
+        {currentPage !== 'overview' && (
+          <li aria-current="page">
+            {t(`hub.nav.${currentPage}`)}
+          </li>
+        )}
+        {currentPage === 'overview' && (
+          <li aria-current="page">
+            {t('hub.nav.overview')}
+          </li>
+        )}
+      </ol>
+    </nav>
+
+    <div class="hub-content">
+      <slot />
+    </div>
+  </main>
+</div>
+
+<Footer lang={lang} />
+
+<style is:global>
+  .hub-shell {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+    padding-top: 72px; /* nav height */
+  }
+
+  /* ─── Sidebar ─────────────────────────────────────── */
+  .hub-sidebar {
+    position: sticky;
+    top: 72px;
+    height: calc(100vh - 72px);
+    overflow-y: auto;
+    border-right: 1px solid var(--line);
+    background: var(--paper);
+    z-index: 10;
+  }
+
+  .hub-sidebar-inner {
+    padding: 32px 24px;
+  }
+
+  .hub-product-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hub-product-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .hub-product-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  .hub-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hub-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .hub-nav-item:hover {
+    background: var(--hub-accent-soft);
+    color: var(--ink);
+  }
+
+  .hub-nav-item.active {
+    background: var(--hub-accent-soft);
+    color: var(--hub-accent);
+    font-weight: 600;
+  }
+
+  .hub-nav-icon {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* ─── Main ─────────────────────────────────────── */
+  .hub-main {
+    min-height: 100vh;
+    background: radial-gradient(55% 35% at 50% 0%, var(--hub-accent-soft) 0%, transparent 60%), var(--paper);
+  }
+
+  .hub-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px var(--gutter) 100px;
+  }
+
+  /* ─── Breadcrumbs ─────────────────────────────────────── */
+  .hub-breadcrumbs {
+    padding: 20px var(--gutter) 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hub-breadcrumbs ol {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8rem;
+    color: var(--ink-3);
+  }
+
+  .hub-breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hub-breadcrumbs li:not(:last-child)::after {
+    content: '/';
+    color: var(--ink-4);
+  }
+
+  .hub-breadcrumbs a {
+    color: var(--ink-3);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .hub-breadcrumbs a:hover {
+    color: var(--hub-accent);
+  }
+
+  .hub-breadcrumbs [aria-current="page"] {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ─── Mobile ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hub-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .hub-sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hub-sidebar-inner {
+      padding: 16px;
+    }
+
+    .hub-nav {
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hub-nav-item {
+      white-space: nowrap;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+    }
+
+    .hub-product-link {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+    }
+
+    .hub-content {
+      padding: 24px var(--gutter) 80px;
+    }
+  }
+</style>

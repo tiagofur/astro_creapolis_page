@@ -1503,12 +1503,12 @@
       ],
       "references": [
         "review.md — §17, §44"
-      ],
-      "status": "pending",
+      ],      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": ["ProductHubLayout con sidebar, breadcrumbs, navegación", "Migración de 9 content components (3 productos × 3 páginas)", "Translation keys (ES/EN/PT)", "Responsive mobile (sidebar → horizontal tabs)"],
+      "completed_at": "2026-08-21"
     },
+
     {
       "id": "F040",
       "phase": 5,

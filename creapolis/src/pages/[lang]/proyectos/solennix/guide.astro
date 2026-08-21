@@ -1,18 +1,14 @@
 ---
+import ProductHubLayout from '../../../../components/pages/ProductHubLayout.astro';
 import SolennixGuideContent from '../../../../components/pages/SolennixGuideContent.astro';
 import type { Lang } from '../../../../i18n/ui';
-import Layout from '../../../../layouts/Layout.astro';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'es' } },
-    { params: { lang: 'en' } },
-    { params: { lang: 'pt' } },
-  ];
+  return [{ params: { lang: 'es' } }];
 }
 const lang = Astro.params.lang as Lang;
 ---
 
-<Layout lang={lang} title="Guía rápida — Solennix" description="Empezá a organizar eventos con Solennix en menos de 10 minutos. Aprendé a cargar clientes, armar cotizaciones y gestionar inventario.">
+<ProductHubLayout lang={lang} slug="solennix" currentPage="guide">
   <SolennixGuideContent lang={lang} />
-</Layout>
+</ProductHubLayout>
