@@ -534,6 +534,7 @@ export const ui = {
     'hub.nav.changelog': 'Changelog',
     'hub.nav.privacy': 'Privacidad',
     'hub.breadcrumb.projects': 'Proyectos',
+    'changelog.title': 'Changelog',
   },
 
   en: {
@@ -1061,6 +1062,7 @@ export const ui = {
     'hub.nav.changelog': 'Changelog',
     'hub.nav.privacy': 'Privacy',
     'hub.breadcrumb.projects': 'Projects',
+    'changelog.title': 'Changelog',
   },
   pt: {
     'nav.projects': 'Projetos',
@@ -1536,6 +1538,7 @@ export const ui = {
     'hub.nav.changelog': 'Changelog',
     'hub.nav.privacy': 'Privacidade',
     'hub.breadcrumb.projects': 'Projetos',
+    'changelog.title': 'Changelog',
   },
 } as const;
 

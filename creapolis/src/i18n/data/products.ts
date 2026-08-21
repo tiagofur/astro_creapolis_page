@@ -168,6 +168,7 @@ export const products: Product[] = [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
       { type: 'support', icon: '💬', available: true },
+      { type: 'changelog', icon: '📋', available: false },
     ],
     seo: {
       title: 'Solennix — Gestión de eventos profesional',
@@ -251,6 +252,7 @@ export const products: Product[] = [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '🧠', available: true },
       { type: 'support', icon: '💬', available: true },
+      { type: 'changelog', icon: '📋', available: false },
     ],
     seo: {
       title: 'Pepinillo — Timer de enfoque y productividad',
@@ -287,7 +289,7 @@ export const products: Product[] = [
     ],
     tech: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Coil', 'Room', 'Hilt'],
     hasCaseStudy: false,
-    resources: [],
+    resources: [{ type: 'changelog', icon: '📋', available: false }],
     seo: {
       title: 'Películas — Tu cine, a tu manera',
       description:
@@ -343,6 +345,7 @@ export const products: Product[] = [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
       { type: 'support', icon: '💬', available: true },
+      { type: 'changelog', icon: '📋', available: false },
     ],
     seo: {
       title: 'Subscription Guardian — Control de suscripciones para iOS',

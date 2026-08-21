@@ -1532,10 +1532,17 @@
       "references": [
         "review.md — §17, §53"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "changelog.ts — data model with typed schema (ChangeCategory, ChangeEntry, ChangelogRelease, ChangelogDB)",
+        "ChangelogContent.astro — renders releases newest-first, empty state when no data",
+        "4 page files created (pepinillo, solennix, peliculas, subscription-guardian)",
+        "products.ts — changelog resource added (available: false) to all 4 products",
+        "Sidebar hidden until real releases exist (no fictional content)",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-21T14:18:00Z"
     },
     {
       "id": "F041",
