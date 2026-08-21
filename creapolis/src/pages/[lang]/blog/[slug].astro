@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
 import Footer from '../../../components/Footer.astro';
 import Nav from '../../../components/Nav.astro';
+import RelatedArticles from '../../../components/RelatedArticles.astro';
 import type { Lang } from '../../../i18n/ui';
 import { getLocalizedPath, useTranslations } from '../../../i18n/utils';
 import Layout from '../../../layouts/Layout.astro';
@@ -237,6 +238,14 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
           <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-cta-track={`inline_${ctaSlug}`}>{t('blog.sidebar.cta')} →</a>
         </div>
       </div>
+
+      <!-- Related articles -->
+      <RelatedArticles
+        lang={lang}
+        currentSlug={post.slug}
+        currentTags={post.data.tags}
+        currentCategories={(post.data as any).categories || []}
+      />
 
       <!-- Footer -->
       <div class="article-footer reveal">

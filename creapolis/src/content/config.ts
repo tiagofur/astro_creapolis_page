@@ -36,4 +36,22 @@ const blog = defineCollection({
 // Nota: los proyectos viven hardcoded en src/pages/proyectos/[slug].astro
 // por ahora. Cuando se migren a markdown, reactivar esta collection.
 
-export const collections = { blog };
+// Build Notes — short-form updates, changelogs, lab experiments.
+// Only create pages when there's real content to show.
+const buildNotes = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().default(''),
+    pubDate: z.coerce.date(),
+    type: z
+      .enum(['update', 'changelog', 'experiment', 'thought'])
+      .default('update'),
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+    // Related product slug (optional) — links note to a specific product
+    product: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, 'build-notes': buildNotes };

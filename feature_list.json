@@ -1901,10 +1901,18 @@
       "references": [
         "review.md — §26, §52, §53"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "RelatedArticles component: scores by shared tags/categories, shows top 3",
+        "Deduplicates against current article",
+        "Category badge color coding on related cards",
+        "Build Notes schema: title, description, type (update/changelog/experiment/thought), product link",
+        "Sample build note added to test schema",
+        "No empty /now/ or /lab/ pages created (per acceptance criteria)",
+        "Typecheck 0 errors, Build 449 pages, Lint 0 issues"
+      ],
+      "completed_at": "2026-08-21T17:15:00.000Z"
     },
     {
       "id": "F049",
