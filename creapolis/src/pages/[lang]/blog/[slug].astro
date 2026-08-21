@@ -93,6 +93,21 @@ const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 // Build URL for sharing
 const shareUrl = Astro.url.href;
 const shareTitle = post.data.title;
+
+// ─── Contextual CTA mapping ───────────────────────────────────
+const cats = (post.data as any).categories as string[] | undefined;
+const primaryCat = cats?.[0] || 'Engineering';
+const ctaKeyMap: Record<string, string> = {
+  Engineering: 'engineering',
+  Mobile: 'mobile',
+  'AI/ML': 'aiml',
+  Product: 'product',
+  'Building Creapolis': 'building',
+};
+const ctaSlug = ctaKeyMap[primaryCat] || 'default';
+const ctaTitle = t(`blog.cta.${ctaSlug}.title` as any);
+const ctaDesc = t(`blog.cta.${ctaSlug}.desc` as any);
+const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
 ---
 
 <Layout lang={lang}
@@ -204,12 +219,23 @@ const shareTitle = post.data.title;
           </div>
 
           <!-- CTA card -->
-          <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}>
-            <h4 class="sidebar-title">{t('blog.sidebar.helpTitle')}</h4>
-            <p>{t('blog.sidebar.helpDesc')}</p>
-            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%">{t('blog.sidebar.cta')}</a>
+          <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}> 
+            <div class="cta-service-badge">{ctaService}</div>
+            <h4 class="cta-title">{ctaTitle}</h4>
+            <p class="cta-desc">{ctaDesc}</p>
+            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%" data-cta-track={ctaSlug}>{t('blog.sidebar.cta')}</a>
           </div>
         </aside>
+      </div>
+
+      <!-- Inline CTA -->
+      <div class="inline-cta reveal" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}> 
+        <div class="inline-cta-inner">
+          <div class="inline-cta-badge">{ctaService}</div>
+          <h3 class="inline-cta-title">{ctaTitle}</h3>
+          <p class="inline-cta-desc">{ctaDesc}</p>
+          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-cta-track={`inline_${ctaSlug}`}>{t('blog.sidebar.cta')} →</a>
+        </div>
       </div>
 
       <!-- Footer -->
@@ -636,10 +662,32 @@ const shareTitle = post.data.title;
     background: linear-gradient(180deg, var(--cta-bg, var(--chalk)), var(--paper));
     border-color: color-mix(in oklch, var(--cta-color, var(--iris)) 20%, var(--line));
   }
-  .sidebar-card--cta p {
+  .cta-service-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: color-mix(in oklch, var(--cta-color, var(--iris)) 15%, var(--paper));
+    color: var(--cta-color, var(--iris));
+    margin-bottom: 12px;
+  }
+  .cta-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .cta-desc {
     font-size: 0.88rem;
     color: var(--ink-2);
     margin-bottom: 16px;
+    line-height: 1.5;
   }
 
   .sidebar-title {
@@ -695,6 +743,49 @@ const shareTitle = post.data.title;
   /* ═══════════════════════════════════════════════════════════════
      ARTICLE FOOTER
      ═══════════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════════════
+     INLINE CTA — mid-article contextual call to action
+     ═══════════════════════════════════════════════════════════════ */
+  .inline-cta {
+    max-width: 720px;
+    margin: 48px auto;
+    padding: 32px;
+    background: linear-gradient(135deg, var(--cta-bg, var(--chalk)), var(--paper));
+    border: 1px solid color-mix(in oklch, var(--cta-color, var(--iris)) 25%, var(--line));
+    border-radius: var(--r-xl);
+    text-align: center;
+  }
+  .inline-cta-inner {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .inline-cta-badge {
+    display: inline-flex;
+    padding: 4px 14px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: color-mix(in oklch, var(--cta-color, var(--iris)) 12%, var(--paper));
+    color: var(--cta-color, var(--iris));
+    margin-bottom: 16px;
+  }
+  .inline-cta-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .inline-cta-desc {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
   .article-footer {
     max-width: 720px;
     margin-top: 56px;
@@ -944,4 +1035,22 @@ const shareTitle = post.data.title;
       }
     });
   }
+
+  // ─── CTA tracking: dispatch custom event (no sensitive data) ──
+  document.querySelectorAll<HTMLElement>('[data-cta-track]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const ctaType = el.dataset.ctaTrack || 'unknown';
+      window.dispatchEvent(
+        new CustomEvent('cta_click', {
+          detail: {
+            cta: ctaType,
+            path: window.location.pathname,
+            timestamp: Date.now(),
+          },
+        })
+      );
+      // Also log to console for debugging (remove in production analytics)
+      console.log('[CTA]', ctaType, window.location.pathname);
+    });
+  });
 </script>

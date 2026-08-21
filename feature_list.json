@@ -51,27 +51,42 @@
   "product_facts": {
     "pepinillo": {
       "status": "live",
-      "platforms": ["android", "ios"],
+      "platforms": [
+        "android",
+        "ios"
+      ],
       "pricing": "freemium",
       "google_play_url": "https://play.google.com/store/apps/details?id=dev.creapolis.pepinillo",
       "app_store_url": "https://apps.apple.com/mx/app/pepinillo-timer-de-enfoque/id6760687424"
     },
     "peliculas": {
       "status": "live",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "pricing": "free",
       "google_play_url": "https://play.google.com/store/apps/details?id=mx.creapolis.peliculas"
     },
     "solennix": {
       "status": "live",
-      "platforms": ["ios", "android", "web"],
+      "platforms": [
+        "ios",
+        "android",
+        "web"
+      ],
       "pricing": "freemium",
-      "plans": { "free": "$0", "pro": "$149 MXN/mes", "business": "custom" },
+      "plans": {
+        "free": "$0",
+        "pro": "$149 MXN/mes",
+        "business": "custom"
+      },
       "store_urls": "pending"
     },
     "subscription_guardian": {
       "status": "pre_production",
-      "platforms": ["ios"],
+      "platforms": [
+        "ios"
+      ],
       "pricing_type": "one_time",
       "price": 4.99,
       "currency": "USD"
@@ -157,7 +172,9 @@
       ],
       "status": "done",
       "blocked_by": null,
-      "evidence": ["docs/evidence/creapolis-v2/baseline/repository_baseline.md"],
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/repository_baseline.md"
+      ],
       "completed_at": "2026-08-20T10:40:00Z"
     },
     {
@@ -180,15 +197,17 @@
         "Comparar la matriz con HTML generado ES/EN/PT",
         "Revisar manualmente cada URL de store y CTA externo"
       ],
-      "references": [        "review.md — §2, §8, §13, §28, §33"
-      ],      "status": "done",
+      "references": [
+        "review.md — §2, §8, §13, §28, §33"
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["docs/evidence/creapolis-v2/baseline/content_truth_audit.md"],
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/content_truth_audit.md"
+      ],
       "completed_at": "2026-08-20T11:15:00Z"
     },
     {
-
-
       "id": "F003",
       "phase": 0,
       "priority": "P0",
@@ -211,14 +230,15 @@
       ],
       "references": [
         "review.md — §2, §13, §16"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["docs/evidence/creapolis-v2/baseline/product_decision_register.md"],
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/product_decision_register.md"
+      ],
       "completed_at": "2026-08-20T11:30:00Z"
     },
     {
-
-
       "id": "F004",
       "phase": 0,
       "priority": "P0",
@@ -240,13 +260,15 @@
       ],
       "references": [
         "review.md — §21, §28, §33, §34"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["docs/evidence/creapolis-v2/baseline/voice_and_localization_policy.md"],
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/voice_and_localization_policy.md"
+      ],
       "completed_at": "2026-08-20T11:45:00Z"
     },
     {
-
       "id": "F005",
       "phase": 0,
       "priority": "P1",
@@ -268,13 +290,15 @@
       ],
       "references": [
         "review.md — §48, §50, §57"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["docs/evidence/creapolis-v2/baseline/experience_baseline.md"],
+      "evidence": [
+        "docs/evidence/creapolis-v2/baseline/experience_baseline.md"
+      ],
       "completed_at": "2026-08-20T12:10:00Z"
     },
     {
-
       "id": "F006",
       "phase": 1,
       "priority": "P0",
@@ -298,13 +322,15 @@
       ],
       "references": [
         "review.md — §44–§46"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["creapolis/src/i18n/data/products.ts"],
+      "evidence": [
+        "creapolis/src/i18n/data/products.ts"
+      ],
       "completed_at": "2026-08-20T12:15:00Z"
     },
     {
-
       "id": "F007",
       "phase": 1,
       "priority": "P0",
@@ -327,13 +353,18 @@
       ],
       "references": [
         "review.md — §45, §46"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["creapolis/src/i18n/data/products.ts", "creapolis/src/i18n/data/home.ts", "creapolis/src/i18n/data/projects.ts", "creapolis/src/components/Footer.astro"],
+      "evidence": [
+        "creapolis/src/i18n/data/products.ts",
+        "creapolis/src/i18n/data/home.ts",
+        "creapolis/src/i18n/data/projects.ts",
+        "creapolis/src/components/Footer.astro"
+      ],
       "completed_at": "2026-08-20T12:45:00Z"
     },
     {
-
       "id": "F008",
       "phase": 1,
       "priority": "P0",
@@ -357,13 +388,16 @@
       ],
       "references": [
         "review.md — §2, §14, §17"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["creapolis/src/i18n/data/pepinillo-support.ts", "creapolis/src/i18n/data/projects.ts"],
+      "evidence": [
+        "creapolis/src/i18n/data/pepinillo-support.ts",
+        "creapolis/src/i18n/data/projects.ts"
+      ],
       "completed_at": "2026-08-20T12:52:00Z"
     },
     {
-
       "id": "F009",
       "phase": 1,
       "priority": "P0",
@@ -387,13 +421,15 @@
       ],
       "references": [
         "review.md — §2, §16, §31"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["creapolis/src/i18n/data/subscription-guardian-support.ts"],
+      "evidence": [
+        "creapolis/src/i18n/data/subscription-guardian-support.ts"
+      ],
       "completed_at": "2026-08-20T13:03:00Z"
     },
     {
-
       "id": "F010",
       "phase": 1,
       "priority": "P0",
@@ -416,13 +452,16 @@
       ],
       "references": [
         "review.md — §13"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["creapolis/src/i18n/data/solennix.ts", "creapolis/src/i18n/data/solennix-support.ts"],
+      "evidence": [
+        "creapolis/src/i18n/data/solennix.ts",
+        "creapolis/src/i18n/data/solennix-support.ts"
+      ],
       "completed_at": "2026-08-20T13:05:00Z"
     },
     {
-
       "id": "F011",
       "phase": 1,
       "priority": "P1",
@@ -444,7 +483,8 @@
       ],
       "references": [
         "review.md — §8, §46"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
       "evidence": [
         "creapolis/src/pages/[lang]/index.astro — derives stats + platform from products.ts",
@@ -454,7 +494,6 @@
       "completed_at": "2026-08-20T13:24:00Z"
     },
     {
-
       "id": "F012",
       "phase": 1,
       "priority": "P0",
@@ -1402,7 +1441,8 @@
         "Chapters: El problema, La decisión de stack, Offline-first, Timers background, Notificaciones, iOS Live Activities, Android Material You/Wear OS, Performance, Lo que aprendí",
         "Explains tradeoffs: WorkManager vs Flutter, Room vs sync, Critical Alerts permissions, Live Activities complexity",
         "Differentiates iOS and Android: each platform gets its own chapter with specific technical details",
-        "Added Swift/SwiftUI to tech stack", "Added Apple Store link to storeLinks",
+        "Added Swift/SwiftUI to tech stack",
+        "Added Apple Store link to storeLinks",
         "Updated all 3 locales (ES/EN/PT) with expanded case study",
         "All 9 chapters render correctly in generated HTML"
       ],
@@ -1474,7 +1514,12 @@
       ],
       "status": "done",
       "blocked_by": null,
-      "evidence": ["Case study 8 capítulos (ES/EN/PT)", "Status chip derivado de schema", "Download section status-aware", "Case study heading genérico"],
+      "evidence": [
+        "Case study 8 capítulos (ES/EN/PT)",
+        "Status chip derivado de schema",
+        "Download section status-aware",
+        "Case study heading genérico"
+      ],
       "completed_at": "2026-08-21"
     },
     {
@@ -1503,12 +1548,17 @@
       ],
       "references": [
         "review.md — §17, §44"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
-      "evidence": ["ProductHubLayout con sidebar, breadcrumbs, navegación", "Migración de 9 content components (3 productos × 3 páginas)", "Translation keys (ES/EN/PT)", "Responsive mobile (sidebar → horizontal tabs)"],
+      "evidence": [
+        "ProductHubLayout con sidebar, breadcrumbs, navegación",
+        "Migración de 9 content components (3 productos × 3 páginas)",
+        "Translation keys (ES/EN/PT)",
+        "Responsive mobile (sidebar → horizontal tabs)"
+      ],
       "completed_at": "2026-08-21"
     },
-
     {
       "id": "F040",
       "phase": 5,
@@ -1729,7 +1779,8 @@
       ],
       "references": [
         "review.md — §23–§25, §33"
-      ],      "status": "done",
+      ],
+      "status": "done",
       "blocked_by": null,
       "evidence": [
         "32 granular categories → 4 editorial (Engineering 41, Mobile 80, AI/ML 12, Product 3)",
@@ -1743,7 +1794,6 @@
       ],
       "completed_at": "2026-08-21T16:25:00.000Z"
     },
-
     {
       "id": "F046",
       "phase": 6,
@@ -1812,10 +1862,17 @@
       "references": [
         "review.md — §27"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "5 editorial categories mapped to real services",
+        "Sidebar CTA: service badge + contextual title + description + CTA button",
+        "Inline CTA: mid-article contextual call with gradient background",
+        "CTA tracking: custom event dispatch (no sensitive data)",
+        "Translation keys (ES/EN/PT) for all 5 contextual CTAs",
+        "Typecheck 0 errors, Build 449 pages, Lint 0 issues"
+      ],
+      "completed_at": "2026-08-21T17:05:00.000Z"
     },
     {
       "id": "F048",

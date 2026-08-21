@@ -229,6 +229,33 @@ export const ui = {
     'blog.share.whatsapp': 'WhatsApp',
     'blog.share.copy': 'Copiar link',
     'blog.share.copied': '¡Copiado!',
+
+    // Blog contextual CTAs per editorial category
+    'blog.cta.engineering.title': '¿Tenés un código que necesita orden?',
+    'blog.cta.engineering.desc':
+      'Auditoría de código, refactorización y documentación de arquitectura.',
+    'blog.cta.engineering.service': 'Codebase Rescue',
+    'blog.cta.mobile.title': '¿Querés lanzar tu app móvil?',
+    'blog.cta.mobile.desc':
+      'De la idea al App Store: MVP, diseño y desarrollo con Flutter.',
+    'blog.cta.mobile.service': 'MVP Build',
+    'blog.cta.aiml.title': '¿Querés integrar IA en tu producto?',
+    'blog.cta.aiml.desc':
+      'Mapa de procesos, selección de modelos y roadmap de implementación.',
+    'blog.cta.aiml.service': 'AI Audit',
+    'blog.cta.product.title': '¿Tenés una idea y no sabés por dónde empezar?',
+    'blog.cta.product.desc':
+      'Discovery Sprint: análisis de mercado, prototipo y go/no-go en una semana.',
+    'blog.cta.product.service': 'Discovery Sprint',
+    'blog.cta.building.title': '¿Querés construir algo similar?',
+    'blog.cta.building.desc':
+      'Conversemos sobre tu proyecto. Te respondo el mismo día.',
+    'blog.cta.building.service': 'Contacto',
+    'blog.cta.default.title': '¿Necesitás ayuda con tu proyecto?',
+    'blog.cta.default.desc': 'Agenda una llamada y te asesoró sin compromiso.',
+    'blog.cta.default.service': 'Hablemos',
+    'blog.cta.tracking': 'blog_cta_click',
+
     'notes.eyebrow': 'Notas',
     'notes.title': 'Pensamos en voz alta',
     'notes.title.serif': 'sobre producto',
@@ -774,6 +801,34 @@ export const ui = {
     'blog.share.whatsapp': 'WhatsApp',
     'blog.share.copy': 'Copy link',
     'blog.share.copied': 'Copied!',
+
+    // Blog contextual CTAs per editorial category
+    'blog.cta.engineering.title': 'Got code that needs sorting out?',
+    'blog.cta.engineering.desc':
+      'Code audit, refactoring and architecture documentation.',
+    'blog.cta.engineering.service': 'Codebase Rescue',
+    'blog.cta.mobile.title': 'Ready to launch your mobile app?',
+    'blog.cta.mobile.desc':
+      'From idea to App Store: MVP, design and Flutter development.',
+    'blog.cta.mobile.service': 'MVP Build',
+    'blog.cta.aiml.title': 'Want to integrate AI into your product?',
+    'blog.cta.aiml.desc':
+      'Process mapping, model selection and implementation roadmap.',
+    'blog.cta.aiml.service': 'AI Audit',
+    'blog.cta.product.title': "Have an idea but don't know where to start?",
+    'blog.cta.product.desc':
+      'Discovery Sprint: market analysis, prototype and go/no-go in one week.',
+    'blog.cta.product.service': 'Discovery Sprint',
+    'blog.cta.building.title': 'Want to build something like this?',
+    'blog.cta.building.desc':
+      "Let's talk about your project. I reply the same day.",
+    'blog.cta.building.service': 'Contact',
+    'blog.cta.default.title': 'Need help with your project?',
+    'blog.cta.default.desc':
+      "Book a call and I'll advise you with no strings attached.",
+    'blog.cta.default.service': "Let's talk",
+    'blog.cta.tracking': 'blog_cta_click',
+
     'notes.eyebrow': 'Notes',
     'notes.title': 'I think out loud',
     'notes.title.serif': 'about product',
@@ -1293,6 +1348,33 @@ export const ui = {
     'blog.share.whatsapp': 'WhatsApp',
     'blog.share.copy': 'Copiar link',
     'blog.share.copied': 'Copiado!',
+
+    // Blog contextual CTAs per editorial category
+    'blog.cta.engineering.title': 'Tem código que precisa de ordem?',
+    'blog.cta.engineering.desc':
+      'Auditoria de código, refatoração e documentação de arquitetura.',
+    'blog.cta.engineering.service': 'Codebase Rescue',
+    'blog.cta.mobile.title': 'Quer lançar seu app móvel?',
+    'blog.cta.mobile.desc':
+      'Da ideia à loja: MVP, design e desenvolvimento com Flutter.',
+    'blog.cta.mobile.service': 'MVP Build',
+    'blog.cta.aiml.title': 'Quer integrar IA no seu produto?',
+    'blog.cta.aiml.desc':
+      'Mapeamento de processos, seleção de modelos e roadmap de implementação.',
+    'blog.cta.aiml.service': 'AI Audit',
+    'blog.cta.product.title': 'Tem uma ideia e não sabe por onde começar?',
+    'blog.cta.product.desc':
+      'Discovery Sprint: análise de mercado, protótipo e go/no-go em uma semana.',
+    'blog.cta.product.service': 'Discovery Sprint',
+    'blog.cta.building.title': 'Quer construir algo parecido?',
+    'blog.cta.building.desc':
+      'Vamos conversar sobre seu projeto. Respondo no mesmo dia.',
+    'blog.cta.building.service': 'Contato',
+    'blog.cta.default.title': 'Precisa de ajuda com seu projeto?',
+    'blog.cta.default.desc':
+      'Agende uma ligação e te aconselho sem compromisso.',
+    'blog.cta.default.service': 'Vamos conversar',
+    'blog.cta.tracking': 'blog_cta_click',
 
     'solennix.hero.title.serif': 'Solennix',
     'solennix.hero.title.p1': 'Organize eventos',
