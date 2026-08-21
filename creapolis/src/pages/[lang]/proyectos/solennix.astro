@@ -31,6 +31,23 @@ const size = '24.6 MB';
   title="Solennix — Creapolis"
   description={t('solennix.hero.desc')}
   ogImage="/og/solennix.svg"
+  extraJsonLd={{
+    '@type': 'SoftwareApplication',
+    name: 'Solennix',
+    description: t('solennix.hero.desc'),
+    applicationCategory: 'MobileApplication',
+    operatingSystem: 'iOS · Android · Web',
+    offers: {
+      '@type': 'Offer',
+      price: '149',
+      priceCurrency: 'MXN',
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'Creapolis',
+      url: 'https://creapolis.dev',
+    },
+  }}
 >
   <Nav lang={lang} />
 

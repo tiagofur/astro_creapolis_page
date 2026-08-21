@@ -1984,10 +1984,16 @@
       "references": [
         "review.md — §48"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "SoftwareApplication JSON-LD on all 4 product pages (solennix, pepinillo, peliculas, subscription-guardian)",
+        "BreadcrumbList JSON-LD on all pages via Layout.astro",
+        "WebSite + Person/Organization schemas from Layout",
+        "BlogPosting schema on blog post pages",
+        "Extra JSON-LD via extraJsonLd prop on Layout"
+      ],
+      "completed_at": "2026-08-21T23:53:15.664Z"
     },
     {
       "id": "F051",

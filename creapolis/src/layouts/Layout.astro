@@ -16,6 +16,7 @@ interface Props {
     author?: string;
     tags?: string[];
   };
+  extraJsonLd?: Record<string, unknown>;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
   ogImage = '/og-default.png',
   lang = getLangFromUrl(Astro.url),
   article,
+  extraJsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -186,6 +188,33 @@ const jsonLd = article
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- BreadcrumbList structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: `https://creapolis.dev/${lang}/` },
+        ...Astro.url.pathname
+          .replace(/^\/\w+\//, '')
+          .split('/')
+          .filter(Boolean)
+          .map((segment, i, arr) => ({
+            '@type': 'ListItem' as const,
+            position: i + 2,
+            name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+            item: `https://creapolis.dev/${lang}/${arr.slice(0, i + 1).join('/')}/`,
+          })),
+      ],
+    })} />
+
+    <!-- Extra page-specific JSON-LD -->
+    {extraJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        ...extraJsonLd,
+      })} />
+    )}
 
     <title>{fullTitle}</title>
   </head>
