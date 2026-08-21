@@ -23,10 +23,8 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@11
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
+      - name: Check Node version
+        run: node --version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
