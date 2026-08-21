@@ -52,6 +52,8 @@ export interface ProjectDataEntry {
   status?: string;
   price?: string;
   storeLinks: { apple?: string; google?: string };
+  /** Which platforms the product is available on. */
+  availablePlatforms?: string[];
   resources?: ProjectResource[];
 }
 
@@ -1220,6 +1222,9 @@ export function getProjectData(
     price: canonical.pricing.amount
       ? `$${canonical.pricing.amount} ${canonical.pricing.currency}`
       : localized.price,
+    availablePlatforms: canonical.platforms
+      .filter((pl) => pl.available)
+      .map((pl) => pl.id),
     storeLinks: {
       apple:
         canonical.stores.find((s) => s.platform === 'ios')?.url ||

@@ -1614,10 +1614,21 @@
       "references": [
         "roadmap.md — Fase 5"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Status chips correct: Solennix/Pepinillo/Películas=En producción, SG=En desarrollo",
+        "CTAs match status: live products=Descargá, SG=Próximamente",
+        "Pricing consistent: Solennix=freemium MXN149, Pepinillo=free, Películas=free, SG=$4.99 USD",
+        "Store links verified: Solennix(Play+App), Pepinillo(Play+App), Películas(Play only), SG(none)",
+        "FIXED: Películas false 'Próximamente en App Store' — now only shows Google Play",
+        "FIXED: ProjectDetail.astro now checks availablePlatforms before showing store badges",
+        "All 4 products have case studies, privacy appendices, hub pages",
+        "Legacy routes (/proyectos) redirect correctly",
+        "No premature availability claims in HTML",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-21T15:00:00Z"
     },
     {
       "id": "F043",
