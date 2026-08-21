@@ -1571,10 +1571,18 @@
       "references": [
         "review.md — §31, §32"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "privacy.ts — typed data model with per-product appendices",
+        "Solennix: Firebase + OAuth + cloud sync — legal note for LFPDPPP/RGPD/CCPA review",
+        "Pepinillo: Firebase + iCloud + OAuth — legal note for compliance review",
+        "Películas: zero accounts, zero analytics, zero PII — no legal note needed",
+        "Subscription Guardian: zero servers, zero login, zero analytics — claims verifiable from code",
+        "Guardian does NOT inherit Solennix/Pepinillo Firebase claims",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-21T14:25:00Z"
     },
     {
       "id": "F042",

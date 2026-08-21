@@ -1,0 +1,509 @@
+---
+/**
+ * PrivacyAppendixContent.astro — Renders per-product privacy appendix.
+ *
+ * Shows product-specific data practices, third-party services,
+ * deletion process, and exclusions. Does NOT include ProductHubLayout.
+ */
+import {
+  getPrivacyAppendix,
+  hasPrivacyAppendix,
+} from '../../i18n/data/privacy';
+import { getProduct } from '../../i18n/data/products';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import ProductHubLayout from './ProductHubLayout.astro';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const t = useTranslations(lang);
+const product = getProduct(slug);
+const appendix = getPrivacyAppendix(slug);
+const hasData = hasPrivacyAppendix(slug);
+
+function localLabel(l: Lang): string {
+  return l === 'es' ? 'es-MX' : l === 'pt' ? 'pt-BR' : 'en-US';
+}
+
+const l10n = {
+  es: {
+    title: 'Privacidad específica',
+    subtitle: (name: string) => `Prácticas de datos específicas de ${name}`,
+    noAppendix: 'Sin apéndice',
+    noAppendixDesc: (name: string) =>
+      `${name} no tiene prácticas de datos únicas más allá de la política global.`,
+    collected: 'Datos recopilados',
+    stored: 'Almacenamiento',
+    access: 'Acceso',
+    thirdParties: 'Servicios de terceros',
+    purpose: 'Propósito',
+    dataShared: 'Datos compartidos',
+    leavesDevice: 'Sí — los datos salen del dispositivo',
+    staysLocal: 'No — los datos se quedan en el dispositivo',
+    deletion: 'Eliminación de datos',
+    methods: 'Cómo eliminar',
+    afterDeletion: 'Después de la eliminación',
+    timeline: 'Plazo',
+    specificClaims: 'Claims verificables',
+    exclusions: 'Qué NO hacemos',
+    legalNote: 'Nota legal',
+    account: 'Datos de cuenta',
+    operational: 'Datos operativos',
+    technical: 'Datos técnicos',
+    privacyPolicy: 'Política de privacidad',
+  },
+  en: {
+    title: 'Product privacy',
+    subtitle: (name: string) => `Specific data practices for ${name}`,
+    noAppendix: 'No appendix',
+    noAppendixDesc: (name: string) =>
+      `${name} has no unique data practices beyond the global policy.`,
+    collected: 'Collected',
+    stored: 'Storage',
+    access: 'Access',
+    thirdParties: 'Third-party services',
+    purpose: 'Purpose',
+    dataShared: 'Data shared',
+    leavesDevice: 'Yes — data leaves the device',
+    staysLocal: 'No — data stays on device',
+    deletion: 'Data deletion',
+    methods: 'How to delete',
+    afterDeletion: 'After deletion',
+    timeline: 'Timeline',
+    specificClaims: 'Verifiable claims',
+    exclusions: 'What we do NOT do',
+    legalNote: 'Legal note',
+    account: 'Account data',
+    operational: 'Operational data',
+    technical: 'Technical data',
+    privacyPolicy: 'Privacy policy',
+  },
+  pt: {
+    title: 'Privacidade do produto',
+    subtitle: (name: string) => `Práticas de dados específicas do ${name}`,
+    noAppendix: 'Sem apêndice',
+    noAppendixDesc: (name: string) =>
+      `${name} não tem práticas de dados únicas além da política global.`,
+    collected: 'Dados coletados',
+    stored: 'Armazenamento',
+    access: 'Acesso',
+    thirdParties: 'Serviços de terceiros',
+    purpose: 'Propósito',
+    dataShared: 'Dados compartilhados',
+    leavesDevice: 'Sim — dados saem do dispositivo',
+    staysLocal: 'Não — dados ficam no dispositivo',
+    deletion: 'Exclusão de dados',
+    methods: 'Como excluir',
+    afterDeletion: 'Após a exclusão',
+    timeline: 'Prazo',
+    specificClaims: 'Afirmações verificáveis',
+    exclusions: 'O que NÃO fazemos',
+    legalNote: 'Nota legal',
+    account: 'Dados da conta',
+    operational: 'Dados operacionais',
+    technical: 'Dados técnicos',
+    privacyPolicy: 'Política de privacidade',
+  },
+}[lang];
+---
+
+<ProductHubLayout lang={lang} slug={slug} currentPage="privacy">
+  <header class="pa-header">
+    <h1>{l10n.title}</h1>
+    {hasData && product ? (
+      <p class="pa-subtitle">{l10n.subtitle(product.name)}</p>
+    ) : product ? (
+      <p class="pa-subtitle pa-empty-note">{l10n.noAppendixDesc(product.name)}</p>
+    ) : null}
+  </header>
+
+  {hasData && appendix ? (
+    <div class="pa-content">
+      <!-- Data Categories -->
+      <section class="pa-section">
+        <h2>{lang === 'es' ? 'Qué datos maneja esta app' : lang === 'pt' ? 'Quais dados este app manipula' : 'What data this app handles'}</h2>
+
+        {(['account', 'operational', 'technical'] as const).map((cat) => {
+          const data = appendix.dataCategories[cat];
+          return (
+            <div class="pa-category">
+              <h3>{l10n[cat]}</h3>
+              <div class="pa-grid">
+                <div class="pa-field">
+                  <span class="pa-field-label">{l10n.collected}</span>
+                  <ul>
+                    {data.collected.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <div class="pa-field">
+                  <span class="pa-field-label">{l10n.stored}</span>
+                  <ul>
+                    {data.stored.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <div class="pa-field">
+                  <span class="pa-field-label">{l10n.access}</span>
+                  <ul>
+                    {data.access.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </section>
+
+      <!-- Third Parties -->
+      {appendix.thirdParties.length > 0 && (
+        <section class="pa-section">
+          <h2>{l10n.thirdParties}</h2>
+          <div class="pa-parties">
+            {appendix.thirdParties.map((party) => (
+              <div class="pa-party">
+                <div class="pa-party-header">
+                  <strong>{party.name}</strong>
+                  <span class={`pa-party-badge ${party.leavesDevice ? 'leaves' : 'local'}`}>
+                    {party.leavesDevice ? l10n.leavesDevice : l10n.staysLocal}
+                  </span>
+                </div>
+                <p class="pa-party-purpose">{l10n.purpose}: {party.purpose}</p>
+                <p class="pa-party-data">{l10n.dataShared}: {party.dataShared.join(', ')}</p>
+                <a href={party.privacyUrl} target="_blank" rel="noopener" class="pa-party-link">
+                  {l10n.privacyPolicy} →
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Deletion -->
+      <section class="pa-section">
+        <h2>{l10n.deletion}</h2>
+        <div class="pa-deletion">
+          <div class="pa-field">
+            <span class="pa-field-label">{l10n.methods}</span>
+            <ul>
+              {appendix.deletion.methods.map((m) => <li>{m}</li>)}
+            </ul>
+          </div>
+          <div class="pa-field">
+            <span class="pa-field-label">{l10n.afterDeletion}</span>
+            <p>{appendix.deletion.afterDeletion}</p>
+          </div>
+          <div class="pa-field">
+            <span class="pa-field-label">{l10n.timeline}</span>
+            <p>{appendix.deletion.timeline}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Specific Claims -->
+      <section class="pa-section">
+        <h2>{l10n.specificClaims}</h2>
+        <ul class="pa-claims">
+          {appendix.specificClaims.map((claim) => (
+            <li>{claim}</li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Exclusions -->
+      <section class="pa-section">
+        <h2>{l10n.exclusions}</h2>
+        <ul class="pa-exclusions">
+          {appendix.exclusions.map((excl) => (
+            <li>{excl}</li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Legal Note -->
+      {appendix.legalNote && (
+        <div class="pa-legal-note">
+          <strong>⚠️ {l10n.legalNote}:</strong> {appendix.legalNote}
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="pa-empty-state">
+      <div class="pa-empty-icon">📋</div>
+      <h3>{l10n.noAppendix}</h3>
+      <p>{product ? l10n.noAppendixDesc(product.name) : ''}</p>
+      <p class="pa-global-link">
+        {lang === 'es'
+          ? 'Consultá la '
+          : lang === 'pt'
+            ? 'Consulte a '
+            : 'See the '}
+        <a href={lang === 'es' ? '/privacidad' : lang === 'pt' ? '/privacidade' : '/privacy'}>
+          {lang === 'es' ? 'política de privacidad global' : lang === 'pt' ? 'política de privacidade global' : 'global privacy policy'}
+        </a>
+        {lang === 'es' ? ' para información completa.' : lang === 'pt' ? ' para informações completas.' : ' for complete information.'}
+      </p>
+    </div>
+  )}
+</ProductHubLayout>
+
+<style>
+  .pa-header {
+    margin-bottom: 40px;
+  }
+
+  .pa-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+
+  .pa-subtitle {
+    font-size: 1rem;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .pa-empty-note {
+    color: var(--ink-3);
+    font-style: italic;
+  }
+
+  /* ─── Sections ──────────────────────────────────────── */
+  .pa-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .pa-section h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--hub-accent, var(--iris));
+  }
+
+  .pa-category {
+    margin-bottom: 24px;
+  }
+
+  .pa-category h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .pa-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pa-field {
+    background: var(--chalk);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  .pa-field-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .pa-field ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pa-field li {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    padding: 2px 0;
+    line-height: 1.4;
+  }
+
+  .pa-field p {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* ─── Third Parties ──────────────────────────────────── */
+  .pa-parties {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pa-party {
+    background: var(--chalk);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+
+  .pa-party-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pa-party-header strong {
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  .pa-party-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .pa-party-badge.leaves {
+    background: oklch(0.92 0.06 25);
+    color: oklch(0.45 0.12 25);
+  }
+
+  .pa-party-badge.local {
+    background: oklch(0.92 0.08 145);
+    color: oklch(0.4 0.12 145);
+  }
+
+  .pa-party-purpose,
+  .pa-party-data {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    margin: 4px 0;
+    line-height: 1.4;
+  }
+
+  .pa-party-link {
+    font-size: 0.82rem;
+    color: var(--hub-accent, var(--iris));
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .pa-party-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ─── Deletion ──────────────────────────────────────── */
+  .pa-deletion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* ─── Claims & Exclusions ──────────────────────────────── */
+  .pa-claims,
+  .pa-exclusions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pa-claims li,
+  .pa-exclusions li {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    padding: 6px 0 6px 20px;
+    position: relative;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .pa-claims li:last-child,
+  .pa-exclusions li:last-child {
+    border-bottom: none;
+  }
+
+  .pa-claims li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: oklch(0.55 0.15 145);
+    font-weight: 700;
+  }
+
+  .pa-exclusions li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: oklch(0.55 0.15 25);
+    font-weight: 700;
+  }
+
+  /* ─── Legal Note ──────────────────────────────────────── */
+  .pa-legal-note {
+    background: oklch(0.95 0.04 80);
+    border: 1px solid oklch(0.85 0.08 80);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+
+  .pa-legal-note strong {
+    color: var(--ink);
+  }
+
+  /* ─── Empty State ──────────────────────────────────────── */
+  .pa-empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--ink-3);
+  }
+
+  .pa-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .pa-empty-state h3 {
+    font-size: 1.2rem;
+    color: var(--ink-2);
+    margin: 0 0 8px;
+  }
+
+  .pa-empty-state p {
+    font-size: 0.95rem;
+    max-width: 400px;
+    margin: 0 auto 8px;
+    line-height: 1.5;
+  }
+
+  .pa-global-link a {
+    color: var(--hub-accent, var(--iris));
+    text-decoration: underline;
+  }
+</style>
