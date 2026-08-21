@@ -95,6 +95,10 @@ const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 const shareUrl = Astro.url.href;
 const shareTitle = post.data.title;
 
+// ─── OG image: use cover, seo.ogImage, or default ─────────────
+const blogOgImage =
+  (post.data as any).seo?.ogImage || (post.data as any).cover || '/og/blog.svg';
+
 // ─── Contextual CTA mapping ───────────────────────────────────
 const cats = (post.data as any).categories as string[] | undefined;
 const primaryCat = cats?.[0] || 'Engineering';
@@ -114,6 +118,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
 <Layout lang={lang}
   title={post.data.title}
   description={description || post.data.title}
+  ogImage={blogOgImage}
   article={{
     publishedTime: post.data.pubDate.toISOString(),
     author: post.data.author,

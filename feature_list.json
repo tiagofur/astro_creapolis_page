@@ -1942,10 +1942,20 @@
       "references": [
         "review.md — §48, §52, §57"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "OG images created for: home, sobre, contacto, proyectos, blog",
+        "All pages now pass ogImage to Layout",
+        "Blog posts: ogImage from cover/seo.ogImage or fallback to blog.svg",
+        "Canonical URLs correct per locale (es-ES, en-US, pt-BR)",
+        "Alternate language links with hreflang tags",
+        "Twitter cards: summary_large_image with title/description/image",
+        "Article OG: published_time, tags, locale alternates",
+        "Pre-production (SG): metadata describes app without claiming availability",
+        "Typecheck 0 errors, Build 449 pages, Lint 0 issues"
+      ],
+      "completed_at": "2026-08-21T17:25:00.000Z"
     },
     {
       "id": "F050",
