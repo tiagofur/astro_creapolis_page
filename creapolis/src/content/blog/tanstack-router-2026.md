@@ -4,7 +4,7 @@ description: "En el ever-evolving mundo del desarrollo web con React, los gestor
 pubDate: "2026-01-14"
 author: "tiagofur"
 tags: []
-categories: ["Backend", "NestJS"]
+categories: ["Engineering"]
 slug: "de-react-router-a-tanstack-router-vale-la-pena-la-migracion-en-2026"
 originalUrl: "https://creapolis.dev/de-react-router-a-tanstack-router-vale-la-pena-la-migracion-en-2026/"
 draft: false

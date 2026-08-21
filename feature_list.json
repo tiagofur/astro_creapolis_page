@@ -1729,12 +1729,21 @@
       ],
       "references": [
         "review.md — §23–§25, §33"
-      ],
-      "status": "pending",
+      ],      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "32 granular categories → 4 editorial (Engineering 41, Mobile 80, AI/ML 12, Product 3)",
+        "Filter bar uses editorial categories with icons and counts",
+        "Category badges on each card with color coding",
+        "Tags demoted to secondary chip style",
+        "Featured post uses explicit badge and category color",
+        "127 posts recategorized, 12 missing categories fixed",
+        "Translation keys added (ES/EN/PT)",
+        "Typecheck 0 errors, Build 449 pages, Lint 0 issues"
+      ],
+      "completed_at": "2026-08-21T16:25:00.000Z"
     },
+
     {
       "id": "F046",
       "phase": 6,

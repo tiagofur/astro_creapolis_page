@@ -4,6 +4,7 @@ description: "Cómo los chatbots con IA están transformando la atención al cli
 pubDate: "2025-02-01"
 author: "tiagofur"
 tags: ["ia", "chatbot", "atencion-cliente", "automatizacion"]
+categories: ["AI/ML"]
 draft: false
 ---
 

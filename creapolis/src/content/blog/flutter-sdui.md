@@ -4,7 +4,7 @@ description: "Aprende sdui en flutter: implementando interfaces dinámicas dirig
 pubDate: "2025-04-21"
 author: "tiagofur"
 tags: ["desarrollo", "ejemplos", "tutorial"]
-categories: ["Flutter - Avanzado", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "sdui-en-flutter-implementando-interfaces-dinamica"
 originalUrl: "https://creapolis.dev/sdui-en-flutter-implementando-interfaces-dinamica/"
 draft: false

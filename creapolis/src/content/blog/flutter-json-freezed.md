@@ -4,7 +4,7 @@ description: "JSON (JavaScript Object Notation) es uno de los formatos de interc
 pubDate: "2024-10-08"
 author: "tiagofur"
 tags: ["mobile", "estado", "ciclo vida", "dart", "desktop", "web", "flutter", "json", "model"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "guia-completa-para-convertir-json-a-modelos-y-modelos-a-json-en-flutter-desde-lo-basico-hasta-el-uso-de-freezed"
 originalUrl: "https://creapolis.dev/guia-completa-para-convertir-json-a-modelos-y-modelos-a-json-en-flutter-desde-lo-basico-hasta-el-uso-de-freezed/"
 draft: false

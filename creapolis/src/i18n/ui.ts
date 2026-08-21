@@ -535,6 +535,16 @@ export const ui = {
     'hub.nav.privacy': 'Privacidad',
     'hub.breadcrumb.projects': 'Proyectos',
     'changelog.title': 'Changelog',
+
+    // Blog editorial categories
+    'blog.cat.all': 'Todas',
+    'blog.cat.engineering': 'Engineering',
+    'blog.cat.mobile': 'Mobile',
+    'blog.cat.aiml': 'AI/ML',
+    'blog.cat.product': 'Product',
+    'blog.cat.building': 'Building Creapolis',
+    'blog.featured.badge': 'Artículo destacado',
+    'blog.spanish.notice': 'Este contenido está en español',
   },
 
   en: {
@@ -1063,6 +1073,16 @@ export const ui = {
     'hub.nav.privacy': 'Privacy',
     'hub.breadcrumb.projects': 'Projects',
     'changelog.title': 'Changelog',
+
+    // Blog editorial categories
+    'blog.cat.all': 'All',
+    'blog.cat.engineering': 'Engineering',
+    'blog.cat.mobile': 'Mobile',
+    'blog.cat.aiml': 'AI/ML',
+    'blog.cat.product': 'Product',
+    'blog.cat.building': 'Building Creapolis',
+    'blog.featured.badge': 'Featured article',
+    'blog.spanish.notice': 'This content is in Spanish',
   },
   pt: {
     'nav.projects': 'Projetos',
@@ -1539,6 +1559,16 @@ export const ui = {
     'hub.nav.privacy': 'Privacidade',
     'hub.breadcrumb.projects': 'Projetos',
     'changelog.title': 'Changelog',
+
+    // Blog editorial categories
+    'blog.cat.all': 'Todas',
+    'blog.cat.engineering': 'Engineering',
+    'blog.cat.mobile': 'Mobile',
+    'blog.cat.aiml': 'AI/ML',
+    'blog.cat.product': 'Product',
+    'blog.cat.building': 'Building Creapolis',
+    'blog.featured.badge': 'Artigo destaque',
+    'blog.spanish.notice': 'Este conteúdo está em espanhol',
   },
 } as const;
 

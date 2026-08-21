@@ -4,7 +4,7 @@ description: "Hace 10 años, desplegar significaba \"copiar archivos por FTP\". 
 pubDate: "2026-01-22"
 author: "tiagofur"
 tags: ["backstage", "devex", "idp", "devops"]
-categories: ["Platform Engineering"]
+categories: ["Engineering"]
 slug: "de-devops-a-platform-engineering-el-sucesor-del-full-stack-en-2026"
 originalUrl: "https://creapolis.dev/de-devops-a-platform-engineering-el-sucesor-del-full-stack-en-2026/"
 draft: false

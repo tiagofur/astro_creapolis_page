@@ -4,7 +4,7 @@ description: "En Flutter, el concepto de Theme juega un papel esencial en la per
 pubDate: "2024-03-10"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "utilizando-y-personalizando-el-theme-en-tu-app-flutter"
 originalUrl: "https://creapolis.dev/utilizando-y-personalizando-el-theme-en-tu-app-flutter/"
 draft: false

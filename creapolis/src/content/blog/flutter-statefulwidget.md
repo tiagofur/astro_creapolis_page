@@ -4,7 +4,7 @@ description: "En el mundo de Flutter, los widgets son los bloques de construcci√
 pubDate: "2024-10-28"
 author: "tiagofur"
 tags: ["tutorial", "build", "ciclo de vida", "dart", "desarrollo", "didchangedependencies", "didupdatewidget", "dispose", "flutter", "estado", "initstate", "setstate", "state", "statefulwidget", "ui", "widget lifecycle"]
-categories: ["Flutter - Estado", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "statefulwidget-en-flutter-ciclo-de-vida-ejemplos-y-mejores-practicas"
 originalUrl: "https://creapolis.dev/statefulwidget-en-flutter-ciclo-de-vida-ejemplos-y-mejores-practicas/"
 draft: false

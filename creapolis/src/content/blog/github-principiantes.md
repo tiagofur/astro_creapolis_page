@@ -4,7 +4,7 @@ description: "¡Hola y bienvenido/a al fascinante mundo del desarrollo y la crea
 pubDate: "2025-04-02"
 author: "tiagofur"
 tags: []
-categories: ["General"]
+categories: ["Engineering"]
 slug: "tu-aventura-comienza-aqui-una-guia-amigable-de-github-para-principiantes"
 originalUrl: "https://creapolis.dev/tu-aventura-comienza-aqui-una-guia-amigable-de-github-para-principiantes/"
 draft: false

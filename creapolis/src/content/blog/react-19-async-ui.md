@@ -4,7 +4,7 @@ description: "¿Alguna vez has contado cuántas líneas de código en tu aplicac
 pubDate: "2026-01-07"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "async-first-ui-el-nuevo-paradigma-de-react-19-suspense-y-concurrent-rendering"
 originalUrl: "https://creapolis.dev/async-first-ui-el-nuevo-paradigma-de-react-19-suspense-y-concurrent-rendering/"
 draft: false

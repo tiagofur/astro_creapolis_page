@@ -4,7 +4,7 @@ description: "¿Sabías que el 73% de las aplicaciones Next.js en producción ti
 pubDate: "2026-01-12"
 author: "tiagofur"
 tags: []
-categories: ["Next.js", "React"]
+categories: ["Engineering"]
 slug: "server-actions-en-produccion-7-patrones-avanzados-de-mutacion-2026"
 originalUrl: "https://creapolis.dev/server-actions-en-produccion-7-patrones-avanzados-de-mutacion-2026/"
 draft: false

@@ -4,7 +4,7 @@ description: "Cuando desarrollamos una aplicación en Flutter, es fundamental co
 pubDate: "2024-10-05"
 author: "tiagofur"
 tags: ["mobile", "estado", "ciclo de vida flutter", "ciclo vida", "dart", "desktop", "web", "flutter"]
-categories: ["Flutter - Estado", "Flutter - Estado", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "dominando-el-ciclo-de-vida-de-una-app-flutter-manejo-de-estados-suspension-y-tareas-en-segundo-plano"
 originalUrl: "https://creapolis.dev/dominando-el-ciclo-de-vida-de-una-app-flutter-manejo-de-estados-suspension-y-tareas-en-segundo-plano/"
 draft: false

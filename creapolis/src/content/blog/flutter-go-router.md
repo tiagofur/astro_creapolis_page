@@ -4,7 +4,7 @@ description: "La navegación es un aspecto fundamental en cualquier aplicación 
 pubDate: "2024-10-27"
 author: "tiagofur"
 tags: ["dart", "deep linking", "desarrollo", "flutter", "estado", "go_router", "goroute", "navegación", "navegación declarativa", "nested routes", "parámetros de ruta", "redirección", "routing", "rutas", "rutas anidadas", "shellroute", "ui", "urls"]
-categories: ["Flutter - Intermedio", "Flutter - Navegacion"]
+categories: ["Mobile"]
 slug: "navegacion-eficiente-en-flutter-con-go_router-y-rutas-anidadas"
 originalUrl: "https://creapolis.dev/navegacion-eficiente-en-flutter-con-go_router-y-rutas-anidadas/"
 draft: false

@@ -4,7 +4,7 @@ description: "Si has estado desarrollando con Flutter, seguramente ya te has mar
 pubDate: "2025-04-16"
 author: "tiagofur"
 tags: []
-categories: ["Backend", "Backend", "Flutter - Basico"]
+categories: ["Mobile","Engineering"]
 slug: "explorando-opciones-de-backend-para-flutter-firebase-supabase-amplify-appwrite-y-stacks-personalizados"
 originalUrl: "https://creapolis.dev/explorando-opciones-de-backend-para-flutter-firebase-supabase-amplify-appwrite-y-stacks-personalizados/"
 draft: false

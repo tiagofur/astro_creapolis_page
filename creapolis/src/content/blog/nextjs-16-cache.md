@@ -4,7 +4,7 @@ description: "¿Sabías que el 40% de los desarrolladores de Next.js considera q
 pubDate: "2026-01-21"
 author: "tiagofur"
 tags: []
-categories: ["Next.js", "React"]
+categories: ["Engineering"]
 slug: "las-nuevas-apis-de-cache-en-next-js-16-revalidatetag-vs-isr"
 originalUrl: "https://creapolis.dev/las-nuevas-apis-de-cache-en-next-js-16-revalidatetag-vs-isr/"
 draft: false

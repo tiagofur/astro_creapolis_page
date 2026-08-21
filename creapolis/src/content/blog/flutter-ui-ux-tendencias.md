@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de aplicaciones móviles, la experienci
 pubDate: "2025-01-13"
 author: "tiagofur"
 tags: ["accesibilidad", "ui", "flutter", "dart", "desarrollo", "diseño de experiencia de usuario", "diseño móvil", "diseño web", "microinteracciones", "tendencias de diseño", "usabilidad"]
-categories: ["Flutter - UI/UX", "General"]
+categories: ["Mobile","Engineering"]
 slug: "domina-las-ultimas-tendencias-de-diseno-ui-ux-con-flutter"
 originalUrl: "https://creapolis.dev/domina-las-ultimas-tendencias-de-diseno-ui-ux-con-flutter/"
 draft: false

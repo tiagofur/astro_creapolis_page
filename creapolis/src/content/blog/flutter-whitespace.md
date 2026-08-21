@@ -4,7 +4,7 @@ description: "En el mundo del diseño de interfaces, a menudo escuchamos la fras
 pubDate: "2025-01-29"
 author: "tiagofur"
 tags: ["composición", "contenedores", "dart", "desarrollo", "diseño minimalista", "ui", "espacio en blanco", "expanded", "experiencia de usuario", "flexible", "flutter", "legibilidad", "margin", "padding", "sizedbox", "spacer"]
-categories: ["Flutter - Basico", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "dominando-el-arte-del-espacio-en-blanco-en-flutter-la-clave-para-interfaces-minimalistas-y-funcionales"
 originalUrl: "https://creapolis.dev/dominando-el-arte-del-espacio-en-blanco-en-flutter-la-clave-para-interfaces-minimalistas-y-funcionales/"
 draft: false

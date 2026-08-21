@@ -4,7 +4,7 @@ description: "Si 2023 fue el año del Chatbot y 2024 el del Copilot, 2026 se per
 pubDate: "2026-01-08"
 author: "tiagofur"
 tags: []
-categories: ["AI/ML", "Vibe Code"]
+categories: ["AI/ML"]
 slug: "agentic-ai-mas-alla-del-chatbot"
 originalUrl: "https://creapolis.dev/agentic-ai-mas-alla-del-chatbot/"
 draft: false

@@ -4,7 +4,7 @@ description: "Si trabajaste en desarrollo de software entre 2020 y 2024, recuerd
 pubDate: "2026-02-09"
 author: "tiagofur"
 tags: ["seguridad"]
-categories: ["Seguridad"]
+categories: ["Engineering"]
 slug: "ciberseguridad-shift-left-2026-fin-a-la-fatiga-de-alertas-con-ia-y-vex"
 originalUrl: "https://creapolis.dev/ciberseguridad-shift-left-2026-fin-a-la-fatiga-de-alertas-con-ia-y-vex/"
 draft: false

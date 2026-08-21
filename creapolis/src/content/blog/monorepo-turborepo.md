@@ -4,7 +4,7 @@ description: "El desafío de compartir código entre múltiples plataformas repr
 pubDate: "2026-01-14"
 author: "tiagofur"
 tags: []
-categories: ["React", "React"]
+categories: ["Engineering"]
 slug: "monorepo-turborepo-arquitectura-cross-platform-para-react-react-native-y-electron"
 originalUrl: "https://creapolis.dev/monorepo-turborepo-arquitectura-cross-platform-para-react-react-native-y-electron/"
 draft: false

@@ -4,7 +4,7 @@ description: "Google Project IDX es un entorno de desarrollo integrado (IDE) bas
 pubDate: "2024-10-18"
 author: "tiagofur"
 tags: ["mobile", "cloud development", "colaboración", "desarrollo", "desarrollo en la nube", "entorno de desarrollo", "firebase", "flutter", "herramientas", "google project idx", "ide en la nube", "idx", "productividad", "project idx", "web"]
-categories: ["General"]
+categories: ["Engineering"]
 slug: "google-project-idx-revolucionando-el-desarrollo-multiplataforma-en-la-nube"
 originalUrl: "https://creapolis.dev/google-project-idx-revolucionando-el-desarrollo-multiplataforma-en-la-nube/"
 draft: false

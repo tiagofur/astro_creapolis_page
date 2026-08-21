@@ -4,7 +4,7 @@ description: "El color es un lenguaje universal que trasciende las palabras. En 
 pubDate: "2025-03-12"
 author: "tiagofur"
 tags: ["ui", "brightness", "color scheme seed", "colores", "colorscheme", "dart", "desarrollo", "mobile", "flutter", "paleta de colores", "personalización de tema", "temas", "themedata"]
-categories: ["Flutter - Intermedio", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "dominando-los-colores-del-tema-en-flutter-guia-completa-para-interfaces-atractivas-con-material-3"
 originalUrl: "https://creapolis.dev/dominando-los-colores-del-tema-en-flutter-guia-completa-para-interfaces-atractivas-con-material-3/"
 draft: false

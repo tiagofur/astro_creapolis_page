@@ -4,7 +4,7 @@ description: "Aprende desmitificando react hooks: guía esencial para escribir c
 pubDate: "2025-05-07"
 author: "tiagofur"
 tags: []
-categories: ["React"]
+categories: ["Engineering"]
 slug: "desmitificando-react-hooks-guia-esencial-para-esc"
 originalUrl: "https://creapolis.dev/desmitificando-react-hooks-guia-esencial-para-esc/"
 draft: false

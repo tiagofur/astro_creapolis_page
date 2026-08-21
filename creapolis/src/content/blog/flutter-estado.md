@@ -4,7 +4,7 @@ description: "El manejo de estado es un concepto fundamental en cualquier aplica
 pubDate: "2024-09-05"
 author: "tiagofur"
 tags: ["mobile", "estado", "dart", "desktop", "web", "flutter"]
-categories: ["Flutter - Estado"]
+categories: ["Mobile"]
 slug: "manejo-de-estado-en-flutter-enfoques-y-mejores-practicas"
 originalUrl: "https://creapolis.dev/manejo-de-estado-en-flutter-enfoques-y-mejores-practicas/"
 draft: false

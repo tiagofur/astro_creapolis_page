@@ -4,7 +4,7 @@ description: "En el competitivo mundo del desarrollo móvil, la creación de apl
 pubDate: "2025-01-17"
 author: "tiagofur"
 tags: ["ui", "animatedmodalbarrier", "tutorial", "control de layout", "dart", "desarrollo", "mobile", "estética visual", "fittedbox", "flutter", "optimización de rendimiento", "optimización ui", "performance", "renderizado", "repaintboundary"]
-categories: ["Flutter - Animaciones", "Flutter - Intermedio", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "flutter-optimizacion-y-estetica-con-repaintboundary-animatedmodalbarrier-y-fittedbox"
 originalUrl: "https://creapolis.dev/flutter-optimizacion-y-estetica-con-repaintboundary-animatedmodalbarrier-y-fittedbox/"
 draft: false

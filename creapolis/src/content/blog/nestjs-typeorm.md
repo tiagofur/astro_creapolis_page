@@ -4,7 +4,7 @@ description: "Si has seguido nuestras guías anteriores, ya tienes una API de Ta
 pubDate: "2025-10-17"
 author: "tiagofur"
 tags: []
-categories: ["NestJS"]
+categories: ["Engineering"]
 slug: "nestjs-typeorm-advanced-relationships-transactions"
 originalUrl: "https://creapolis.dev/nestjs-typeorm-advanced-relationships-transactions/"
 draft: false

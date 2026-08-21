@@ -4,7 +4,7 @@ description: "En el desarrollo con Flutter, gestionar el estado es una tarea cr√
 pubDate: "2024-09-25"
 author: "tiagofur"
 tags: ["mobile", "estado", "dart", "desktop", "web", "flutter"]
-categories: ["Flutter - Estado", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "gestionando-el-estado-de-tu-aplicacion-flutter-con-riverpod-una-guia-completa"
 originalUrl: "https://creapolis.dev/gestionando-el-estado-de-tu-aplicacion-flutter-con-riverpod-una-guia-completa/"
 draft: false

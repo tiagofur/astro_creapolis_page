@@ -4,7 +4,7 @@ description: "Si has estado desarrollando aplicaciones Flutter por un tiempo, se
 pubDate: "2025-01-06"
 author: "tiagofur"
 tags: ["arquitectura", "tutorial", "changenotifier", "dart", "desarrollo", "mobile", "flutter", "estado", "inheritedwidget", "multiprovider", "optimización de rendimiento", "proxyprovider", "reutilización de código", "state management", "ui"]
-categories: ["Flutter - Avanzado", "Flutter - Estado", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "provider-en-flutter-tecnicas-avanzadas-para-la-gestion-de-estado"
 originalUrl: "https://creapolis.dev/provider-en-flutter-tecnicas-avanzadas-para-la-gestion-de-estado/"
 draft: false

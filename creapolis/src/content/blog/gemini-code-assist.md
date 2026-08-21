@@ -4,7 +4,7 @@ description: "Aprende sobre Guía Completa de Gemini Code Assist: Domina el Asis
 pubDate: "2025-04-30"
 author: "tiagofur"
 tags: ["desarrollo", "tutorial"]
-categories: ["General"]
+categories: ["Engineering"]
 slug: "guia-completa-de-gemini-code-assist-domina-el-asistente-ia-d"
 originalUrl: "https://creapolis.dev/guia-completa-de-gemini-code-assist-domina-el-asistente-ia-d/"
 draft: false

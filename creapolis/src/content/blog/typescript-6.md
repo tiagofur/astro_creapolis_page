@@ -4,7 +4,7 @@ description: "Durante la última década, TypeScript fue el éxito indiscutible 
 pubDate: "2026-01-26"
 author: "tiagofur"
 tags: ["ts 6", "typescript", "typescript 6"]
-categories: ["TypeScript"]
+categories: ["Engineering"]
 slug: "typescript-6-0-lo-que-viene-inferencia-instantanea-y-builds-paralelos"
 originalUrl: "https://creapolis.dev/typescript-6-0-lo-que-viene-inferencia-instantanea-y-builds-paralelos/"
 draft: false

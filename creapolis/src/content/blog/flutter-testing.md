@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de software, la calidad es crucial. No 
 pubDate: "2024-11-06"
 author: "tiagofur"
 tags: ["aseguramiento de calidad", "calidad de software", "dart", "desarrollo", "flutter", "integration testing", "mocking", "testing", "pruebas de integración", "pruebas de widgets", "pruebas unitarias", "qa", "test doubles", "unit testing", "widget testing"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "asegura-la-calidad-de-tu-app-flutter-tutorial-de-pruebas-para-nivel-intermedio"
 originalUrl: "https://creapolis.dev/asegura-la-calidad-de-tu-app-flutter-tutorial-de-pruebas-para-nivel-intermedio/"
 draft: false

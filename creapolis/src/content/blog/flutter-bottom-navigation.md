@@ -4,7 +4,7 @@ description: "El BottomNavigationBar es uno de los widgets más comunes en Flutt
 pubDate: "2024-10-03"
 author: "tiagofur"
 tags: ["mobile", "bottomnavigationbar", "dart", "desktop", "web", "efecto carga", "flutter", "ui"]
-categories: ["Flutter - Intermedio", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "bottomnavigationbar-dominando-la-navegacion-inteligente-para-apps-elegantes-en-flutter"
 originalUrl: "https://creapolis.dev/bottomnavigationbar-dominando-la-navegacion-inteligente-para-apps-elegantes-en-flutter/"
 draft: false

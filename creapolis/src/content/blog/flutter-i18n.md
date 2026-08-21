@@ -4,7 +4,7 @@ description: "Aprende sobre De Local a Global: Implementa la Internacionalizaci√
 pubDate: "2024-10-17"
 author: "tiagofur"
 tags: ["desarrollo", "tutorial"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "de-local-a-global-implementa-la-internacionalizacion-en-flut"
 originalUrl: "https://creapolis.dev/de-local-a-global-implementa-la-internacionalizacion-en-flut/"
 draft: false

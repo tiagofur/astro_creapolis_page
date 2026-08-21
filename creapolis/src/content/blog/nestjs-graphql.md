@@ -4,7 +4,7 @@ description: "Si has seguido esta serie, te has convertido en un experto constru
 pubDate: "2025-10-20"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "crea-apis-con-graphql-en-nestjs-mas-alla-de-rest"
 originalUrl: "https://creapolis.dev/crea-apis-con-graphql-en-nestjs-mas-alla-de-rest/"
 draft: false

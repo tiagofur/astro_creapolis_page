@@ -1,5 +1,6 @@
 ---
 import type { Lang } from '../../../i18n/ui';
+import { useTranslations } from '../../../i18n/utils';
 export function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
@@ -8,6 +9,7 @@ export function getStaticPaths() {
   ];
 }
 const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
 
 import { getCollection } from 'astro:content';
 import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
@@ -21,9 +23,6 @@ const sortedPosts = posts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-// First post is featured
-const [featured, ...rest] = sortedPosts;
-
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('es-ES', {
     year: 'numeric',
@@ -32,61 +31,49 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-// Map canónico de tags → color (oklch token)
-// Solo estos tags aparecen en el filtro. Tags fuera del map quedan
-// como info en la tarjeta pero no filtran ni tienen color.
-const tagColors: Record<string, string> = {
-  // device / platform
-  mobile: '--iris',
-  desktop: '--sky',
-  nativo: '--sky',
-  // tech
-  flutter: '--sky',
-  dart: '--sky',
-  react: '--sky',
-  'react-native': '--sky',
-  nextjs: '--sky',
-  astro: '--lime',
-  // web / backend / ops
-  web: '--lime',
-  backend: '--amber',
-  devops: '--amber',
-  // topics
-  ui: '--iris',
-  estado: '--iris',
-  arquitectura: '--amber',
-  testing: '--lime',
-  performance: '--coral',
-  seguridad: '--coral',
-  datos: '--coral',
-  // ai / automation
-  ia: '--coral',
-  automatizacion: '--coral',
-  // meta
-  desarrollo: '--iris',
-  tutorial: '--iris',
-  herramientas: '--lime',
-  // business
-  pricing: '--amber',
-  mvp: '--amber',
-  startup: '--amber',
-  wordpress: '--lime',
-  jamstack: '--lime',
+// ─── Editorial categories ───────────────────────────────────
+type EditorialCat =
+  | 'Engineering'
+  | 'Mobile'
+  | 'AI/ML'
+  | 'Product'
+  | 'Building Creapolis';
+
+const EDITORIAL_CATEGORIES: {
+  key: EditorialCat;
+  color: string;
+  icon: string;
+}[] = [
+  { key: 'Engineering', color: '--lime', icon: '⚙️' },
+  { key: 'Mobile', color: '--sky', icon: '📱' },
+  { key: 'AI/ML', color: '--coral', icon: '🤖' },
+  { key: 'Product', color: '--amber', icon: '📦' },
+  { key: 'Building Creapolis', color: '--iris', icon: '🏗️' },
+];
+
+// Map editorial category → color token for accent bars
+const catColorMap: Record<string, string> = {
+  Engineering: '--lime',
+  Mobile: '--sky',
+  'AI/ML': '--coral',
+  Product: '--amber',
+  'Building Creapolis': '--iris',
 };
 
-// Contar posts por tag canónico y quedarse con los top para el filtro
-const tagCounts = new Map<string, number>();
+// Featured post: explicit — most recent with longest description (or first)
+const featured = sortedPosts[0];
+const rest = sortedPosts.filter((p) => p.slug !== featured?.slug);
+
+// Count posts per editorial category
+const catCounts = new Map<string, number>();
 for (const post of sortedPosts) {
-  for (const tag of post.data.tags) {
-    if (tag in tagColors) {
-      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  const cats = (post.data as any).categories as string[] | undefined;
+  if (cats) {
+    for (const c of cats) {
+      catCounts.set(c, (catCounts.get(c) || 0) + 1);
     }
   }
 }
-const topTags = [...tagCounts.entries()]
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 14)
-  .map(([tag, count]) => ({ tag, count, colorVar: tagColors[tag] }));
 
 const totalPosts = sortedPosts.length;
 ---
@@ -110,26 +97,30 @@ const totalPosts = sortedPosts.length;
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FILTER BAR — sticky, canonical tags with counts
+       FILTER BAR — sticky, editorial categories with counts
        ═══════════════════════════════════════════════════════════════ -->
-  <nav class="filter-bar" aria-label="Filtrar por tema">
+  <nav class="filter-bar" aria-label="Filtrar por categoría">
     <div class="filter-inner">
       <button
         type="button"
         class="filter-chip is-active"
-        data-tag-filter="all"
+        data-cat-filter="all"
       >
-        Todas <span class="filter-count">{totalPosts}</span>
+        {t('blog.cat.all')} <span class="filter-count">{totalPosts}</span>
       </button>
-      {topTags.map(({ tag, count, colorVar }) => (
-        <button
-          type="button"
-          class={`filter-chip filter-chip--${colorVar.replace('--', '')}`}
-          data-tag-filter={tag}
-        >
-          {tag} <span class="filter-count">{count}</span>
-        </button>
-      ))}
+      {EDITORIAL_CATEGORIES.map(({ key, color, icon }) => {
+        const count = catCounts.get(key) || 0;
+        if (count === 0) return null;
+        return (
+          <button
+            type="button"
+            class={`filter-chip filter-chip--${color.replace('--', '')}`}
+            data-cat-filter={key}
+          >
+            {icon} {key} <span class="filter-count">{count}</span>
+          </button>
+        );
+      })}
     </div>
   </nav>
 
@@ -142,6 +133,7 @@ const totalPosts = sortedPosts.length;
         <a
           href={`/${lang}/blog/${featured.slug}`}
           class="featured-card reveal"
+          data-post-cats={((featured.data as any).categories || []).join(',')}
           data-post-tags={featured.data.tags.join(',')}
         >
           <div class="featured-vis">
@@ -156,15 +148,18 @@ const totalPosts = sortedPosts.length;
           </div>
           <div class="featured-meta">
             <div class="featured-top">
-              <span class="chip live"><span class="chip-dot"></span>Último artículo</span>
+              <span class="chip live"><span class="chip-dot"></span>{t('blog.featured.badge')}</span>
               <time datetime={featured.data.pubDate.toISOString()}>{formatDate(featured.data.pubDate)}</time>
             </div>
             <h2>{featured.data.title}</h2>
             <p class="featured-desc">{getPostDescription(featured)}</p>
             <div class="featured-foot">
               <div class="featured-tags">
-                {featured.data.tags.map((tag) => (
-                  <span class={`tag-chip tag-chip--${tagColors[tag]?.replace('--', '') || 'default'}`}>{tag}</span>
+                {((featured.data as any).categories || []).map((cat: string) => (
+                  <span class={`tag-chip tag-chip--${catColorMap[cat]?.replace('--', '') || 'default'}`}>{cat}</span>
+                ))}
+                {featured.data.tags.slice(0, 3).map((tag) => (
+                  <span class="tag-chip-sm tag-chip-sm--default">{tag}</span>
                 ))}
               </div>
               <span class="featured-link">Leer artículo
@@ -192,17 +187,20 @@ const totalPosts = sortedPosts.length;
 
       <div class="posts-grid">
         {rest.map((post, i) => {
-          const canonicalTag = post.data.tags.find((t) => t in tagColors);
-          const colorVar = (canonicalTag && tagColors[canonicalTag]?.replace('--', '')) || 'default';
+          const cats = (post.data as any).categories as string[] | undefined;
+          const primaryCat = cats?.[0] || 'Engineering';
+          const colorVar = catColorMap[primaryCat]?.replace('--', '') || 'default';
           return (
             <a
               href={`/${lang}/blog/${post.slug}`}
               class={`post-card reveal${i > 0 && i <= 3 ? ` reveal-delay-${i}` : ''}`}
+              data-post-cats={cats?.join(',') || ''}
               data-post-tags={post.data.tags.join(',')}
             >
               <div class={`post-accent post-accent--${colorVar}`}></div>
               <div class="post-body">
                 <div class="post-meta">
+                  <span class={`cat-badge cat-badge--${colorVar}`}>{primaryCat}</span>
                   <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
                 </div>
                 <h3>{post.data.title}</h3>
@@ -210,7 +208,7 @@ const totalPosts = sortedPosts.length;
                 <div class="post-foot">
                   <div class="post-tags">
                     {post.data.tags.slice(0, 2).map((tag) => (
-                      <span class={`tag-chip-sm tag-chip-sm--${tagColors[tag]?.replace('--', '') || 'default'}`}>{tag}</span>
+                      <span class="tag-chip-sm tag-chip-sm--default">{tag}</span>
                     ))}
                   </div>
                   <span class="post-link">
@@ -379,6 +377,27 @@ const totalPosts = sortedPosts.length;
   /* Estado oculto por filtro */
   .post-card[data-hidden="true"],
   .featured-card[data-hidden="true"] { display: none; }
+
+  /* Category section headers */
+  .cat-header {
+    margin: 40px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cat-header h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cat-header .cat-count {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--ink-4);
+    font-weight: 400;
+  }
 
   .filter-empty {
     display: none;
@@ -614,7 +633,29 @@ const totalPosts = sortedPosts.length;
     font-size: 0.75rem;
     color: var(--ink-4);
     font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
+
+  /* Editorial category badge */
+  .cat-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .cat-badge--iris { background: var(--iris-soft); color: var(--iris); }
+  .cat-badge--coral { background: var(--coral-soft); color: var(--coral); }
+  .cat-badge--lime  { background: var(--lime-soft);  color: oklch(0.55 0.18 128); }
+  .cat-badge--sky   { background: var(--sky-soft);   color: var(--sky); }
+  .cat-badge--amber { background: var(--amber-soft); color: oklch(0.5 0.14 70); }
+  .cat-badge--default { background: var(--chalk); color: var(--ink-3); }
 
   .post-body h3 {
     font-size: 1.12rem;
@@ -722,15 +763,15 @@ const totalPosts = sortedPosts.length;
 </style>
 
 <script>
-  // ─── Filter bar: hide posts that don't match the selected tag ───
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-tag-filter]');
-  const postCards = document.querySelectorAll<HTMLElement>('[data-post-tags]');
+  // ─── Filter bar: hide posts that don't match the selected editorial category ───
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-cat-filter]');
+  const allCards = document.querySelectorAll<HTMLElement>('[data-post-cats]');
   const featuredSection = document.querySelector<HTMLElement>('.featured-section');
   const emptyState = document.getElementById('filter-empty');
 
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const selected = btn.dataset.tagFilter ?? 'all';
+      const selected = btn.dataset.catFilter ?? 'all';
 
       // Update active state on chips
       filterButtons.forEach((b) => b.classList.toggle('is-active', b === btn));
@@ -742,10 +783,9 @@ const totalPosts = sortedPosts.length;
 
       // Filter grid cards
       let visibleCount = 0;
-      postCards.forEach((card) => {
-        if (!card.classList.contains('post-card')) return; // skip featured here
-        const tags = (card.dataset.postTags ?? '').split(',').map((t) => t.trim());
-        const match = selected === 'all' || tags.includes(selected);
+      allCards.forEach((card) => {
+        const cats = (card.dataset.postCats ?? '').split(',').map((c) => c.trim());
+        const match = selected === 'all' || cats.includes(selected);
         if (match) {
           card.removeAttribute('data-hidden');
           visibleCount++;

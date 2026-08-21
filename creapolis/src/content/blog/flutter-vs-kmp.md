@@ -4,7 +4,7 @@ description: "En la era actual del desarrollo de software, la capacidad de llega
 pubDate: "2024-11-28"
 author: "tiagofur"
 tags: ["mobile", "código compartido", "comparativa frameworks", "compose multiplatform", "dart", "desarrollo", "flutter", "jetpack compose", "kmm", "kotlin", "kotlin multiplatform", "tendencias tecnológicas"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "flutter-en-peligro-el-auge-imparable-de-kotlin-multiplataforma"
 originalUrl: "https://creapolis.dev/flutter-en-peligro-el-auge-imparable-de-kotlin-multiplataforma/"
 draft: false

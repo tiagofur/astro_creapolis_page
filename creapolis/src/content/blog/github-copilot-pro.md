@@ -4,7 +4,7 @@ description: "¿Vale la pena pagar $10/mes por GitHub Copilot Pro?"
 pubDate: "2025-04-29"
 author: "tiagofur"
 tags: []
-categories: ["General"]
+categories: ["Engineering"]
 slug: "github-copilot-pro-10-mes-como-sacarle-todo-el-provecho-a-tu-suscripcion"
 originalUrl: "https://creapolis.dev/github-copilot-pro-10-mes-como-sacarle-todo-el-provecho-a-tu-suscripcion/"
 draft: false

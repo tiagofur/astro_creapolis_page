@@ -4,6 +4,7 @@ description: "Transparentamos cómo定价amos proyectos. Por qué no usamos hour
 pubDate: "2025-03-25"
 author: "tiagofur"
 tags: ["pricing", "modelo", "desarrollo"]
+categories: ["Product"]
 draft: false
 ---
 

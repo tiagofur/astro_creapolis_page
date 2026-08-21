@@ -4,7 +4,7 @@ description: "¡Bienvenido al fascinante mundo de Dart! Si estás interesado en 
 pubDate: "2024-10-17"
 author: "tiagofur"
 tags: ["clases", "control de flujo", "dart", "desarrollo", "flutter", "funciones", "herramientas", "guía dart", "lenguaje dart", "objetos", "operadores", "poo", "programación dart", "programación orientada a objetos", "sintaxis dart", "tipos de datos", "tutorial dart", "variables"]
-categories: ["Dart"]
+categories: ["Engineering"]
 slug: "introduccion-a-dart-lenguaje-de-programacion-de-google"
 originalUrl: "https://creapolis.dev/introduccion-a-dart-lenguaje-de-programacion-de-google/"
 draft: false

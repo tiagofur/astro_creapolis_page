@@ -4,7 +4,7 @@ description: "Desarrollar aplicaciones robustas, escalables y mantenibles con Fl
 pubDate: "2025-04-03"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Avanzado", "Flutter - Intermedio", "Arquitectura"]
+categories: ["Mobile","Engineering"]
 slug: "patrones-de-diseno-esenciales-para-arquitecturas-flutter-solidas"
 originalUrl: "https://creapolis.dev/patrones-de-diseno-esenciales-para-arquitecturas-flutter-solidas/"
 draft: false
