@@ -1656,10 +1656,16 @@
       "references": [
         "review.md — §23–§25, §47"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Schema enhanced: added cover, seo (title/description/ogImage), canonical, locale fields",
+        "Legacy fields preserved: slug, originalUrl, categories (optional)",
+        "128 blog posts render correctly with enhanced schema",
+        "Drafts filtered in blog index and slug page",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-21T15:12:00Z"
     },
     {
       "id": "F044",
