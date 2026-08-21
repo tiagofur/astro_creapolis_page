@@ -132,17 +132,16 @@ export const ui = {
     'services.page.title.p1': 'Producto de cabo a rabo,',
     'services.page.title.serif': 'sin intermediarios',
     'services.page.lead':
-      'Apps móviles, web y de escritorio. Consultoría de IA práctica. Un solo responsable que descubre, diseña, construye y lanza.',
-    'services.page.includes': 'Qué incluyo',
-    'services.page.stack': 'Stack',
+      'Cinco formas de trabajar juntos — desde validar una idea hasta mantener un producto en producción. Cada servicio tiene un resultado claro, entregables concretos y un proceso transparente.',
+    'services.page.audience': 'Para quién',
+    'services.page.outcome': 'Qué obtenés',
+    'services.page.deliverables': 'Entregables',
+    'services.page.method': 'Método y stack',
     'services.page.how.eyebrow': 'Cómo trabajo',
     'services.page.how.title.p1': 'Un proceso con',
     'services.page.how.title.serif': 'pocas sorpresas',
     'services.page.how.lead':
       'Entregas visibles cada dos semanas. Canal directo con quien escribe el código. Sin intermediarios que pierdan contexto — ni sorpresas al final.',
-    'services.page.tech.eyebrow': 'Stack completo',
-    'services.page.tech.title.p1': 'Tecnologías que',
-    'services.page.tech.title.serif': 'uso a diario',
 
     'contact.cta.eyebrow': 'Hablemos',
     'contact.cta.title.p1': 'Contame tu idea.',
@@ -298,6 +297,18 @@ export const ui = {
     'contact.form.sending': 'Enviando...',
     'contact.form.response': 'Te respondo < 24h',
     'contact.form.ok': '¡Recibido! Te escribo hoy',
+    'contact.form.type.placeholder': 'Seleccionar...',
+
+    'contact.success.title': 'Mensaje enviado',
+    'contact.success.title.serif': 'correctamente',
+    'contact.success.desc':
+      'Gracias por escribir. Te respondo en menos de 24 horas con próximos pasos concretos.',
+    'contact.success.calendar': 'Agendar una llamada',
+    'contact.success.cal.title': '30 min — sin compromiso',
+    'contact.success.cal.desc':
+      'Si preferís hablar directo, elegí un horario que te sirva. Sin ventas, sin presentaciones — solo una conversación sobre tu proyecto.',
+    'contact.success.cal.cta': 'Agendar en Calendly',
+    'contact.success.email': 'O escribir a hola@creapolis.dev',
 
     'faq.title': 'Lo que suelen preguntarnos',
     'faq.title.serif': 'antes',
@@ -329,7 +340,7 @@ export const ui = {
     'about.hero.title.p2': 'Un estudio.',
     'about.hero.title.p3': 'Cero intermediarios.',
     'about.hero.lead':
-      'Creapolis es un estudio de una sola persona. Hablás conmigo, te contesto yo, escribo el código yo. Sin agencias, sin traductores, sin handoffs. Lo que prometo es lo que entrego — y lo entrego yo.',
+      'Responsabilidad completa. Diseño, codeo, publico y mantengo. Cada proyecto tiene repo propio, CI/CD, documentación y handover. Sin intermediarios que filtren lo que digo — ni sorpresas al final.',
     'about.intro': 'Soy',
     'about.intro.serif': 'Tiago',
     'about.intro.p1':
@@ -343,7 +354,7 @@ export const ui = {
     'about.timeline.title.p1': 'De un repo vacío',
     'about.timeline.title.serif': 'a apps en tiendas',
     'about.timeline.desc':
-      'No es una línea recta. Es años de mezclar estudio, experimentación y proyectos que a veces fueron a producción y a veces murieron en el commit número 47. Todo cuenta.',
+      'No es una línea recta. Cada proyecto es una decisión técnica: qué stack, qué arquitectura, qué sacrifices. Algunos llegaron a producción, otros murieron en el commit 47. Todo aportó.',
 
     'about.values.eyebrow': 'Cómo trabajo',
     'about.values.title.p1': 'Cuatro principios',
@@ -356,6 +367,12 @@ export const ui = {
     'about.stack.title.serif': 'a diario',
     'about.stack.desc':
       'No es una lista de lo que puse en el CV hace tres años. Es lo que escribo esta semana. Si no está acá, o no lo domino o no vale la pena.',
+
+    'about.ops.eyebrow': 'Cómo opero',
+    'about.ops.title.p1': 'Infraestructura',
+    'about.ops.title.serif': 'real, no promesas',
+    'about.ops.desc':
+      'Lo que separa un proyecto profesional de uno amateur: no es el código, es cómo se mantiene después del lanzamiento.',
 
     'about.cta.title.p1': '¿Te suena',
     'about.cta.title.serif': 'esta forma de trabajar',
@@ -393,6 +410,46 @@ export const ui = {
     'solennix.features.title.serif': 'en un mismo lugar.',
     'solennix.features.desc':
       'Una suite pensada por y para organizadores de eventos. Sin módulos inútiles, sin curvas de aprendizaje de dos semanas.',
+    'solennix.case.eyebrow': 'Case Study',
+    'solennix.case.title.p1': 'Del Excel al sistema.',
+    'solennix.case.title.serif': 'Así nació Solennix.',
+    'solennix.case.stack': 'Stack técnico',
+    'solennix.case.chapters': [
+      {
+        title: 'El problema',
+        text: 'Los organizadores de eventos profesionales en LATAM gestionan todo en Excel: clientes, cotizaciones, inventario, pagos. Cada evento es un archivo nuevo. No hay historial, no hay métricas, no hay escalabilidad.',
+      },
+      {
+        title: 'La decisión',
+        text: 'Construir un CRM vertical para eventos, no un ERP genérico. Un solo producto que cubra el ciclo completo: captación, cotización, ejecución y cierre. Mobile-first porque los organizadores trabajan en campo.',
+      },
+      {
+        title: 'Mi papel',
+        text: 'Diseño, desarrollo y operación completa. Desde la arquitectura de datos hasta la publicación en stores. Sin equipo, sin agencia, sin intermediarios.',
+      },
+      {
+        title: 'La solución',
+        text: 'Seis módulos integrados: Gestión de eventos, CRM de clientes, Cotizaciones, Inventario, Dashboard y Notificaciones. Disponible en iOS, Android y web. Offline-first para campo sin señal.',
+      },
+      {
+        title: 'Ingeniería',
+        text: 'App nativa con React Native para iOS/Android, backend en Node.js, base de datos PostgreSQL. Sincronización offline con resolución de conflictos. Push notifications para recordatorios de eventos.',
+      },
+      {
+        title: 'Resultados',
+        text: 'App en producción con usuarios reales en Latinoamérica. Calificación 4.8 en App Store. Soporte directo con tiempo de respuesta menor a 24 horas.',
+      },
+    ],
+    'solennix.case.tech': [
+      'React Native',
+      'Node.js',
+      'PostgreSQL',
+      'Push Notifications',
+      'Offline-first',
+      'iOS',
+      'Android',
+      'Web',
+    ],
     'solennix.pricing.eyebrow': 'Planes',
     'solennix.pricing.title.p1': 'Empieza gratis.',
     'solennix.pricing.title.serif': 'Crece cuando quieras.',
@@ -415,6 +472,7 @@ export const ui = {
 
     'project.back': 'Volver a proyectos',
     'project.chip.live': 'En producción',
+    'project.chip.dev': 'En desarrollo',
     'project.chip.by': 'Por Creapolis',
     'project.info.platform': 'Plataforma',
     'project.info.category': 'Categoría',
@@ -427,7 +485,7 @@ export const ui = {
     'project.features.lead':
       'Cada módulo responde a un uso real. Nada de funciones decorativas que suman en la demo y estorban en el día a día.',
     'project.case.eyebrow': 'Cómo la construí',
-    'project.case.title.p1': 'Tres decisiones que',
+    'project.case.title.p1': 'Decisiones que',
     'project.case.title.serif': 'importaron',
     'project.case.stack': 'Stack',
     'project.download.eyebrow': 'Descargá',
@@ -435,7 +493,13 @@ export const ui = {
     'project.download.title.serif': 'hoy mismo',
     'project.download.desc':
       'Gratis, sin cuentas, sin anuncios molestos. Abrís y usás.',
+    'project.download.eyebrow.dev': 'Próximamente',
+    'project.download.title.p1.dev': 'Estamos',
+    'project.download.title.serif.dev': 'construyendo',
+    'project.download.desc.dev':
+      'Esta app está en desarrollo. Estamos trabajando en ella y pronto estará disponible.',
     'project.download.store.small': 'Descargá en',
+    'project.download.store.soon': 'Próximamente en',
     'project.resources.eyebrow': 'Recursos',
     'project.resources.title.p1': 'Sacá el máximo de',
     'project.resources.read': 'Leer más →',
@@ -585,17 +649,16 @@ export const ui = {
     'services.page.title.p1': 'Product end-to-end,',
     'services.page.title.serif': 'no middlemen',
     'services.page.lead':
-      'Mobile, web, and desktop apps. Practical AI consulting. One person who discovers, designs, builds, and ships.',
-    'services.page.includes': 'What I include',
-    'services.page.stack': 'Stack',
+      'Five ways to work together — from validating an idea to keeping a product in production. Each service has a clear outcome, concrete deliverables, and a transparent process.',
+    'services.page.audience': "Who it's for",
+    'services.page.outcome': 'What you get',
+    'services.page.deliverables': 'Deliverables',
+    'services.page.method': 'Method & stack',
     'services.page.how.eyebrow': 'How I work',
     'services.page.how.title.p1': 'A process with',
     'services.page.how.title.serif': 'few surprises',
     'services.page.how.lead':
       'Visible deliveries every two weeks. Direct channel with whoever writes the code. No middlemen losing context — no surprises at the end.',
-    'services.page.tech.eyebrow': 'Full stack',
-    'services.page.tech.title.p1': 'Technologies I use',
-    'services.page.tech.title.serif': 'every day',
 
     'contact.cta.eyebrow': "Let's talk",
     'contact.cta.title.p1': 'Tell me your idea.',
@@ -752,6 +815,18 @@ export const ui = {
     'contact.form.sending': 'Sending...',
     'contact.form.response': 'I respond < 24h',
     'contact.form.ok': "Received! I'll write you today",
+    'contact.form.type.placeholder': 'Select...',
+
+    'contact.success.title': 'Message sent',
+    'contact.success.title.serif': 'successfully',
+    'contact.success.desc':
+      'Thanks for writing. I will reply in less than 24 hours with concrete next steps.',
+    'contact.success.calendar': 'Schedule a call',
+    'contact.success.cal.title': '30 min — no commitment',
+    'contact.success.cal.desc':
+      'If you prefer to talk directly, pick a time that works for you. No sales, no presentations — just a conversation about your project.',
+    'contact.success.cal.cta': 'Schedule on Calendly',
+    'contact.success.email': 'Or write to hola@creapolis.dev',
 
     'faq.title': 'What people usually ask',
     'faq.title.serif': 'before',
@@ -783,7 +858,7 @@ export const ui = {
     'about.hero.title.p2': 'One studio.',
     'about.hero.title.p3': 'Zero middlemen.',
     'about.hero.lead':
-      'Creapolis is a one-person studio. You talk to me, I answer, I write the code. No agencies, no translators, no handoffs. What I promise is what I deliver — and I deliver it myself.',
+      'Complete ownership. I design, code, ship, and maintain. Every project has its own repo, CI/CD, documentation, and handover. No intermediaries filtering what I say — no surprises at the end.',
     'about.intro': "I'm",
     'about.intro.serif': 'Tiago',
     'about.intro.p1':
@@ -797,7 +872,7 @@ export const ui = {
     'about.timeline.title.p1': 'From an empty repo',
     'about.timeline.title.serif': 'to apps in stores',
     'about.timeline.desc':
-      "It's not a straight line. It's years of mixing study, experimentation, and projects that sometimes went to production and sometimes died at commit number 47. Everything counts.",
+      "It's not a straight line. Every project is a technical decision: which stack, which architecture, what to sacrifice. Some made it to production, others died at commit 47. Everything contributed.",
 
     'about.values.eyebrow': 'How I work',
     'about.values.title.p1': 'Four non-negotiable',
@@ -810,6 +885,12 @@ export const ui = {
     'about.stack.title.serif': 'daily',
     'about.stack.desc':
       "This isn't a list of what I put on my CV three years ago. It's what I write this week. If it's not here, either I don't know it or it's not worth it.",
+
+    'about.ops.eyebrow': 'How I operate',
+    'about.ops.title.p1': 'Real',
+    'about.ops.title.serif': 'infrastructure',
+    'about.ops.desc':
+      'What separates a professional project from an amateur one: not the code, but how it is maintained after launch.',
 
     'about.cta.title.p1': 'Does this way',
     'about.cta.title.serif': 'of working resonate',
@@ -847,6 +928,46 @@ export const ui = {
     'solennix.features.title.serif': 'in one place.',
     'solennix.features.desc':
       'A suite designed by and for event organizers. No useless modules, no two-week learning curves.',
+    'solennix.case.eyebrow': 'Case Study',
+    'solennix.case.title.p1': 'From Excel to system.',
+    'solennix.case.title.serif': 'How Solennix was born.',
+    'solennix.case.stack': 'Tech stack',
+    'solennix.case.chapters': [
+      {
+        title: 'The problem',
+        text: 'Professional event organizers in LATAM manage everything in Excel: clients, quotes, inventory, payments. Each event is a new file. No history, no metrics, no scalability.',
+      },
+      {
+        title: 'The decision',
+        text: 'Build a vertical CRM for events, not a generic ERP. One product covering the full cycle: acquisition, quoting, execution, and closing. Mobile-first because organizers work in the field.',
+      },
+      {
+        title: 'My role',
+        text: 'Design, development, and full operation. From data architecture to store publishing. No team, no agency, no middlemen.',
+      },
+      {
+        title: 'The solution',
+        text: 'Six integrated modules: Event management, Client CRM, Quotes, Inventory, Dashboard, and Notifications. Available on iOS, Android, and web. Offline-first for field work without signal.',
+      },
+      {
+        title: 'Engineering',
+        text: 'Native app with React Native for iOS/Android, Node.js backend, PostgreSQL database. Offline sync with conflict resolution. Push notifications for event reminders.',
+      },
+      {
+        title: 'Results',
+        text: 'App in production with real users in Latin America. 4.8 rating on App Store. Direct support with response time under 24 hours.',
+      },
+    ],
+    'solennix.case.tech': [
+      'React Native',
+      'Node.js',
+      'PostgreSQL',
+      'Push Notifications',
+      'Offline-first',
+      'iOS',
+      'Android',
+      'Web',
+    ],
     'solennix.pricing.eyebrow': 'Plans',
     'solennix.pricing.title.p1': 'Start for free.',
     'solennix.pricing.title.serif': 'Grow when you want.',
@@ -869,6 +990,7 @@ export const ui = {
 
     'project.back': 'Back to projects',
     'project.chip.live': 'In production',
+    'project.chip.dev': 'In development',
     'project.chip.by': 'By Creapolis',
     'project.info.platform': 'Platform',
     'project.info.category': 'Category',
@@ -881,7 +1003,7 @@ export const ui = {
     'project.features.lead':
       'Every module answers a real use case. No decorative features that look great in the demo and get in the way day-to-day.',
     'project.case.eyebrow': 'How I built it',
-    'project.case.title.p1': 'Three decisions that',
+    'project.case.title.p1': 'Decisions that',
     'project.case.title.serif': 'mattered',
     'project.case.stack': 'Stack',
     'project.download.eyebrow': 'Download',
@@ -889,7 +1011,13 @@ export const ui = {
     'project.download.title.serif': 'today',
     'project.download.desc':
       'Free, no accounts, no annoying ads. Open and use.',
+    'project.download.eyebrow.dev': 'Coming soon',
+    'project.download.title.p1.dev': 'We are',
+    'project.download.title.serif.dev': 'building it',
+    'project.download.desc.dev':
+      'This app is in development. We are working on it and it will be available soon.',
     'project.download.store.small': 'Download on',
+    'project.download.store.soon': 'Coming soon to',
     'project.resources.eyebrow': 'Resources',
     'project.resources.title.p1': 'Get the most out of',
     'project.resources.read': 'Read more →',
@@ -972,6 +1100,54 @@ export const ui = {
     'about.meta.title': 'Sobre — Creapolis',
     'about.meta.desc':
       'Estúdio de software em Monterrey. Apps móveis, web e desktop com consultoria de IA prática.',
+    'about.portrait.alt': 'Foto do Tiago',
+    'about.cta.btn': 'Iniciar conversa',
+    'about.eyebrow': 'Olá',
+    'about.hero.chip1': 'Solo dev',
+    'about.hero.chip2': 'Monterrey · MX',
+    'about.hero.title.p1': 'Uma pessoa.',
+    'about.hero.title.p2': 'Um estúdio.',
+    'about.hero.title.p3': 'Zero intermediários.',
+    'about.hero.lead':
+      'Responsabilidade completa. Projeto, codifico, publico e mantenho. Cada projeto tem repo próprio, CI/CD, documentação e handover. Sem intermediários filtrando o que digo — nem surpresas no final.',
+    'about.intro': 'Sou',
+    'about.intro.serif': 'Tiago',
+    'about.intro.p1':
+      'Desde 2019 construindo software — no início como estudo, depois como hobby obsessivo, e agora como trabalho. Comecei com Flutter porque queria enviar para iOS e Android sem duplicar código, e fiquei em mobile porque é onde se vê se você sabe produto ou só lança features.',
+    'about.intro.p2':
+      'O backend me ensinou Node. A infraestrutura me ensinou a errar. A IA me está ensinando o hype vs. o que realmente funciona em produção — estou aprendendo em tempo real, e te conto o que vale e o que não.',
+    'about.intro.p3':
+      'Creapolis não é uma agência disfarçada. É uma pessoa — eu — que projeta, codifica, publica e mantém. Se me contrata, fala comigo. Se te entrego algo, escrevi eu. Não tem equipe atrás que vai mudar o jogo no meio do projeto.',
+
+    'about.timeline.eyebrow': 'Trajetória',
+    'about.timeline.title.p1': 'De um repo vazio',
+    'about.timeline.title.serif': 'a apps nas lojas',
+    'about.timeline.desc':
+      'Não é uma linha reta. Cada projeto é uma decisão técnica: qual stack, qual arquitetura, o que sacrificar. Alguns chegaram à produção, outros morreram no commit 47. Tudo contribuiu.',
+
+    'about.values.eyebrow': 'Como trabalho',
+    'about.values.title.p1': 'Quatro princípios',
+    'about.values.title.serif': 'não negociáveis',
+    'about.values.desc':
+      'Nenhum é revolucionário. Todos são raros na indústria. Aqui estão por escrito para que saiba o que esperar antes de me contratar.',
+
+    'about.stack.eyebrow': 'Stack',
+    'about.stack.title.p1': 'O que uso',
+    'about.stack.title.serif': 'todo dia',
+    'about.stack.desc':
+      'Não é uma lista do que coloquei no CV três anos atrás. É o que escrevo esta semana. Se não está aqui, ou não domino ou não vale a pena.',
+
+    'about.ops.eyebrow': 'Como opero',
+    'about.ops.title.p1': 'Infraestrutura',
+    'about.ops.title.serif': 'real, não promessas',
+    'about.ops.desc':
+      'O que separa um projeto profissional de um amador: não é o código, é como se mantém depois do lançamento.',
+
+    'about.cta.title.p1': 'Essa forma',
+    'about.cta.title.serif': 'de trabalhar',
+    'about.cta.title.p2': ' faz sentido?',
+    'about.cta.lead':
+      'Se procura um colaborador direto, que pergunta antes de codar e que responde no mesmo dia — estamos na mesma página.',
 
     'services.meta.title': 'Serviços — Creapolis',
     'services.meta.desc':
@@ -980,6 +1156,68 @@ export const ui = {
     'contact.meta.title': 'Contato — Creapolis',
     'contact.meta.desc':
       'Vamos conversar sobre seu projeto. Resposta em menos de 24 horas.',
+
+    'contact.page.eyebrow': 'Contato',
+    'contact.page.title.p1': 'Conte sua ideia.',
+    'contact.page.title.p2': 'Respondemos no',
+    'contact.page.title.serif': 'mesmo dia',
+    'contact.page.subtitle':
+      'Sem formulários longos. Escreva em 2 minutos, respondo em menos de 24 horas com próximos passos concretos.',
+    'contact.promise.title': 'Minha promessa',
+    'contact.promise.subtitle': 'Respondo rápido. De verdade.',
+    'contact.promise.desc':
+      'Sem intermediários. Sem "vou perguntar pro time". Você fala comigo, eu respondo, eu escrevo o código.',
+    'contact.promise.metric': 'Tempo de resposta · últimos 90 dias',
+    'contact.write.title': 'Ou escreva direto',
+    'contact.write.desc': 'Se prefere email sem formulário:',
+    'contact.write.office.label': 'Escritório',
+    'contact.write.office.value': 'Monterrey, MX',
+    'contact.write.hours.label': 'Horário',
+    'contact.write.hours.value': 'Seg–Sex, 9–18 CDT',
+    'contact.write.lang.label': 'Idiomas',
+    'contact.write.lang.value': 'ES · EN · PT',
+    'contact.after.title': 'O que acontece depois',
+    'contact.after.step1': 'Resposta em < 24h',
+    'contact.after.step1.sub': 'Com próximos passos concretos',
+    'contact.after.step2': 'Ligação de 30 min',
+    'contact.after.step2.sub': 'Sem compromisso, sem vendas',
+    'contact.after.step3': 'Proposta em 48h',
+    'contact.after.step3.sub': 'Escopo, timeline e orçamento',
+    'contact.form.title': 'Começar',
+    'contact.form.title.serif': 'aqui',
+    'contact.form.intro': 'Só o mínimo. O resto resolvemos na ligação.',
+    'contact.form.name': 'Nome',
+    'contact.form.email': 'Email',
+    'contact.form.type': 'O que quer construir?',
+    'contact.form.type.placeholder': 'Selecionar...',
+    'contact.form.type.mobile': 'App mobile',
+    'contact.form.type.web': 'Aplicação web',
+    'contact.form.type.desktop': 'Software desktop',
+    'contact.form.type.ai': 'Integração de IA',
+    'contact.cta.form.type.consult': 'Ainda não sei · preciso de assessoria',
+    'contact.form.message': 'Conte um pouco mais',
+    'contact.cta.form.message.placeholder':
+      'Duas linhas bastam: o que quer construir, para quem, e qualquer data importante.',
+    'contact.form.submit': 'Enviar mensagem',
+    'contact.form.sending': 'Enviando...',
+    'contact.form.response': 'Respondo < 24h',
+    'contact.form.ok': 'Recebido! Te escrevo hoje',
+
+    'contact.success.title': 'Mensagem enviada',
+    'contact.success.title.serif': 'com sucesso',
+    'contact.success.desc':
+      'Obrigado por escrever. Respondo em menos de 24 horas com próximos passos concretos.',
+    'contact.success.calendar': 'Agendar uma ligação',
+    'contact.success.cal.title': '30 min — sem compromisso',
+    'contact.success.cal.desc':
+      'Se prefere falar direto, escolha um horário que funcione. Sem vendas, sem apresentações — só uma conversa sobre seu projeto.',
+    'contact.success.cal.cta': 'Agendar no Calendly',
+    'contact.success.email': 'Ou escrever para hola@creapolis.dev',
+
+    'contact.cta.form.error.wait': 'Espere um momento antes de enviar.',
+    'contact.cta.form.error.conn':
+      'Erro de conexão. Escreva para hola@creapolis.dev',
+    'contact.cta.form.success.hp': 'Mensagem enviada. Respondo em breve.',
 
     'blog.enOnly.title': 'Os artigos estão em espanhol',
     'blog.enOnly.desc':
@@ -1008,6 +1246,46 @@ export const ui = {
     'solennix.features.title.serif': 'precisa',
     'solennix.features.desc':
       'Cada função resolve um problema real. Nada de features decorativas que atrapalham.',
+    'solennix.case.eyebrow': 'Case Study',
+    'solennix.case.title.p1': 'Do Excel ao sistema.',
+    'solennix.case.title.serif': 'Como nasceu o Solennix.',
+    'solennix.case.stack': 'Stack técnico',
+    'solennix.case.chapters': [
+      {
+        title: 'O problema',
+        text: 'Organizadores de eventos profissionais na LATAM gerenciam tudo no Excel: clientes, orçamentos, inventário, pagos. Cada evento é um arquivo novo. Sem histórico, sem métricas, sem escalabilidade.',
+      },
+      {
+        title: 'A decisão',
+        text: 'Construir um CRM vertical para eventos, não um ERP genérico. Um único produto cobrindo o ciclo completo: captação, orçamento, execução e fechamento. Mobile-first porque os organizadores trabalham em campo.',
+      },
+      {
+        title: 'Meu papel',
+        text: 'Design, desenvolvimento e operação completa. Da arquitetura de dados à publicação nas lojas. Sem equipe, sem agência, sem intermediários.',
+      },
+      {
+        title: 'A solução',
+        text: 'Seis módulos integrados: Gestão de eventos, CRM de clientes, Orçamentos, Inventário, Dashboard e Notificações. Disponível em iOS, Android e web. Offline-first para campo sem sinal.',
+      },
+      {
+        title: 'Engenharia',
+        text: 'App nativa com React Native para iOS/Android, backend em Node.js, banco PostgreSQL. Sincronização offline com resolução de conflitos. Push notifications para lembretes de eventos.',
+      },
+      {
+        title: 'Resultados',
+        text: 'App em produção com usuários reais na América Latina. Nota 4.8 na App Store. Suporte direto com tempo de resposta menor que 24 horas.',
+      },
+    ],
+    'solennix.case.tech': [
+      'React Native',
+      'Node.js',
+      'PostgreSQL',
+      'Push Notifications',
+      'Offline-first',
+      'iOS',
+      'Android',
+      'Web',
+    ],
     'solennix.pricing.eyebrow': 'Planos',
     'solennix.pricing.title.p1': 'Preços',
     'solennix.pricing.title.serif': 'simples',
@@ -1036,6 +1314,7 @@ export const ui = {
 
     'project.back': 'Voltar aos projetos',
     'project.chip.live': 'Em produção',
+    'project.chip.dev': 'Em desenvolvimento',
     'project.chip.by': 'Por Creapolis',
     'project.info.platform': 'Plataforma',
     'project.info.category': 'Categoria',
@@ -1048,7 +1327,7 @@ export const ui = {
     'project.features.lead':
       'Cada módulo responde a um caso de uso real. Sem features decorativas que parecem boas na demo e atrapalham no dia a dia.',
     'project.case.eyebrow': 'Como construí',
-    'project.case.title.p1': 'Três decisões que',
+    'project.case.title.p1': 'Decisões que',
     'project.case.title.serif': 'importaram',
     'project.case.stack': 'Stack',
     'project.download.eyebrow': 'Download',
@@ -1056,7 +1335,13 @@ export const ui = {
     'project.download.title.serif': 'hoje',
     'project.download.desc':
       'Grátis, sem contas, sem anúncios chatos. Abra e use.',
+    'project.download.eyebrow.dev': 'Em breve',
+    'project.download.title.p1.dev': 'Estamos',
+    'project.download.title.serif.dev': 'construindo',
+    'project.download.desc.dev':
+      'Este app está em desenvolvimento. Estamos trabalhando nele e em breve estará disponível.',
     'project.download.store.small': 'Baixar no',
+    'project.download.store.soon': 'Em breve no',
     'project.resources.eyebrow': 'Recursos',
     'project.resources.title.p1': 'Aproveite ao máximo',
     'project.resources.read': 'Ler mais →',
@@ -1077,6 +1362,21 @@ export const ui = {
     'services.desc':
       'Descoberta, design, código e deploy. Um único responsável do início ao fim, uma única fatura. Sem agências intermediárias.',
     'services.more': 'Ver serviços e preços',
+
+    'services.page.eyebrow': 'Serviços',
+    'services.page.title.p1': 'Produto de ponta a ponta,',
+    'services.page.title.serif': 'sem intermediários',
+    'services.page.lead':
+      'Cinco formas de trabalhar juntos — desde validar uma ideia até manter um produto em produção. Cada serviço tem um resultado claro, entregáveis concretos e um processo transparente.',
+    'services.page.audience': 'Para quem',
+    'services.page.outcome': 'O que você ganha',
+    'services.page.deliverables': 'Entregáveis',
+    'services.page.method': 'Método e stack',
+    'services.page.how.eyebrow': 'Como trabalho',
+    'services.page.how.title.p1': 'Um processo com',
+    'services.page.how.title.serif': 'poucas surpresas',
+    'services.page.how.lead':
+      'Entregas visíveis a cada duas semanas. Canal direto com quem escreve o código. Sem intermediários que percam contexto — nem surpresas no final.',
 
     'process.eyebrow': 'Como trabalho',
     'process.title': 'Um processo com',

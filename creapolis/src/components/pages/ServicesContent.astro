@@ -32,50 +32,45 @@ const { services, process } = getServicesData(lang);
 
 <section class="section" style="background:var(--chalk)">
   <div class="wrap">
-    <div class="svc-detail-grid">
+    <div class="svc-grid">
       {services.map((s, i) => (
-        <article id={s.id} class={`svc-detail reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-          <div class="svc-detail-head">
-            <div class="svc-num-block">
-              <span class="svc-bignum">{String(i + 1).padStart(2, '0')}</span>
-              <span class="svc-mark">{s.title.charAt(0)}</span>
-            </div>
-            <div class="svc-detail-title">
-              <h3>{s.title}</h3>
-              <span class="svc-tagline">{s.tagline}</span>
-            </div>
+        <article id={s.id} class={`svc-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
+          <div class="svc-head">
+            <span class="svc-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <span class="svc-tagline">{s.tagline}</span>
           </div>
 
-          <div class="svc-detail-body">
-            <p class="svc-desc">{s.desc}</p>
-            <p class="svc-full">{s.fullDesc}</p>
+          <div class="svc-body">
+            <div class="svc-field">
+              <span class="svc-label">{t('services.page.audience')}</span>
+              <p>{s.audience}</p>
+            </div>
 
-            <div class="svc-features">
-              <h4>{t('services.page.includes')}</h4>
-              <div class="svc-feat-grid">
-                {s.features.map((f) => (
-                  <div class="svc-feat">
-                    <strong>{f.title}</strong>
-                    <span>{f.desc}</span>
+            <div class="svc-field svc-outcome">
+              <span class="svc-label">{t('services.page.outcome')}</span>
+              <p>{s.outcome}</p>
+            </div>
+
+            <div class="svc-field">
+              <span class="svc-label">{t('services.page.deliverables')}</span>
+              <div class="svc-deliverables">
+                {s.deliverables.map((d) => (
+                  <div class="svc-del">
+                    <strong>{d.title}</strong>
+                    <span>{d.desc}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div class="svc-tech">
-              <h4>{t('services.page.stack')}</h4>
+            <div class="svc-field svc-method">
+              <span class="svc-label">{t('services.page.method')}</span>
               <div class="svc-chips">
                 {s.tech.map((tech) => (
                   <span class="chip">{tech}</span>
                 ))}
               </div>
-            </div>
-
-            <div class="svc-deliverable">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M9 1a8 8 0 100 16A8 8 0 009 1zm0 14.5a6.5 6.5 0 110-13 6.5 6.5 0 010 13zm-1-9.75l3.5 2L8 9.75V5.75z" fill="currentColor"/>
-              </svg>
-              <span>{s.deliverable}</span>
             </div>
 
             <div class="svc-proof">
@@ -85,6 +80,11 @@ const { services, process } = getServicesData(lang);
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </a>
             </div>
+
+            <a href={getLocalizedPath(lang, s.ctaLink)} class="btn btn-primary svc-cta">
+              {s.ctaLabel}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </a>
           </div>
         </article>
       ))}
@@ -114,20 +114,6 @@ const { services, process } = getServicesData(lang);
             ))}
           </ul>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--chalk)">
-  <div class="wrap">
-    <div class="reveal" style="text-align:center; margin-bottom:40px">
-      <div class="eyebrow" style="margin-bottom:18px; justify-content:center"><span>{t('services.page.tech.eyebrow')}</span></div>
-      <h2>{t('services.page.tech.title.p1')} <span class="serif">{t('services.page.tech.title.serif')}</span>.</h2>
-    </div>
-    <div class="tech-cloud reveal reveal-delay-1">
-      {['Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Flutter', 'React Native', 'Next.js', 'React', 'Astro', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Tauri', 'Rust', 'Electron', 'OpenAI', 'LangChain', 'Python', 'TensorFlow', 'Firebase', 'Vercel', 'Node.js'].map((tech) => (
-        <span class="chip">{tech}</span>
       ))}
     </div>
   </div>
@@ -202,8 +188,8 @@ const { services, process } = getServicesData(lang);
   .page-hero h1 .serif { color: var(--iris); font-size: 1.02em; }
   .page-hero .lead { max-width: 52ch; }
 
-  .svc-detail-grid { display: grid; gap: 20px; }
-  .svc-detail {
+  .svc-grid { display: grid; gap: 20px; }
+  .svc-card {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
@@ -212,90 +198,69 @@ const { services, process } = getServicesData(lang);
     transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
     scroll-margin-top: 100px;
   }
-  .svc-detail:hover { border-color: var(--svc-color); box-shadow: var(--sh-2); }
-  .svc-detail:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
-  .svc-detail:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
-  .svc-detail:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
-  .svc-detail:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
+  .svc-card:hover { border-color: var(--svc-color); box-shadow: var(--sh-2); }
+  .svc-card:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
+  .svc-card:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
+  .svc-card:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
+  .svc-card:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
+  .svc-card:nth-child(5) { --svc-color: var(--amber); --svc-soft: var(--amber-soft); }
 
-  .svc-detail-head {
+  .svc-head {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 6px;
     margin-bottom: 28px;
     padding-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
-  .svc-num-block { position: relative; flex-shrink: 0; }
-  .svc-bignum {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 0.85;
-    letter-spacing: -0.04em;
+  .svc-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--svc-color);
+    margin-bottom: 4px;
   }
-  .svc-mark {
-    position: absolute;
-    top: -6px; right: -10px;
-    width: 32px; height: 32px;
-    border-radius: 10px;
-    background: var(--svc-soft);
-    color: var(--svc-color);
-    display: grid; place-items: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.15rem;
-  }
-  .svc-detail-title h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 4px; }
+  .svc-card h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
   .svc-tagline {
     font-family: var(--font-serif);
     font-style: italic;
     color: var(--svc-color);
     font-size: 1.05rem;
   }
-  .svc-detail-body { display: grid; gap: 24px; }
-  .svc-desc { font-size: 1.15rem; font-weight: 500; color: var(--ink); max-width: 60ch; }
-  .svc-full { font-size: 1rem; color: var(--ink-2); max-width: 60ch; }
 
-  .svc-features h4, .svc-tech h4 {
-    font-size: 0.8rem;
+  .svc-body { display: grid; gap: 24px; }
+  .svc-field { }
+  .svc-label {
+    display: block;
+    font-size: 0.72rem;
     font-family: var(--font-mono);
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-3);
-    margin-bottom: 14px;
+    margin-bottom: 8px;
   }
-  .svc-feat-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  @media (min-width: 640px) { .svc-feat-grid { grid-template-columns: repeat(2, 1fr); } }
-  .svc-feat {
-    padding: 18px;
+  .svc-field p { font-size: 1rem; color: var(--ink-2); max-width: 60ch; }
+  .svc-outcome p { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
+
+  .svc-deliverables { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  @media (min-width: 640px) { .svc-deliverables { grid-template-columns: repeat(2, 1fr); } }
+  .svc-del {
+    padding: 16px;
     background: var(--chalk);
     border: 1px solid var(--line);
     border-radius: var(--r-md);
     display: flex; flex-direction: column; gap: 4px;
   }
-  .svc-feat strong { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
-  .svc-feat span { font-size: 0.85rem; color: var(--ink-3); }
+  .svc-del strong { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
+  .svc-del span { font-size: 0.82rem; color: var(--ink-3); }
 
+  .svc-method { margin-top: 4px; }
   .svc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .svc-deliverable {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 22px;
-    background: var(--svc-soft);
-    border: 1px solid color-mix(in oklch, var(--svc-color) 25%, var(--line));
-    border-radius: var(--r-lg);
-    color: var(--svc-color);
-    font-weight: 500;
-    font-size: 0.95rem;
-    width: fit-content;
-  }
 
   .svc-proof {
-    margin-top: 8px;
+    margin-top: 4px;
     padding: 20px 24px;
     border-left: 3px solid var(--svc-color);
     background: color-mix(in oklch, var(--svc-soft) 50%, var(--paper));
@@ -323,6 +288,14 @@ const { services, process } = getServicesData(lang);
     transition: gap 0.2s var(--ease);
   }
   .svc-proof-link:hover { gap: 10px; }
+
+  .svc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin-top: 4px;
+  }
 
   .proc-header {
     display: grid;
@@ -381,15 +354,6 @@ const { services, process } = getServicesData(lang);
     left: 0;
     color: var(--step-color, var(--iris));
     font-weight: 700;
-  }
-
-  .tech-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    max-width: 800px;
-    margin: 0 auto;
   }
 
   .contact-cta {

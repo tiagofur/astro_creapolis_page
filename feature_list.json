@@ -1150,10 +1150,17 @@
       "references": [
         "review.md — §11, §54, §59"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "ProjectsListContent now imports products from products.ts (schema-driven)",
+        "Product cards use real OG images instead of abstract CSS mockups",
+        "Status chips derived from schema: live/pre_production/coming_soon/archived",
+        "Platform labels derived from schema: IOS · ANDROID · WEB etc.",
+        "Product data (name, category, description, color) all from products.ts",
+        "Cards link to /proyectos/{slug} using schema slugs"
+      ],
+      "completed_at": "2026-08-20T23:48:00Z"
     },
     {
       "id": "F031",
@@ -1182,10 +1189,18 @@
       "references": [
         "review.md — §11, §12, §14–§16, §44"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "ProjectDetail.astro — features section wrapped in conditional (omits if empty)",
+        "ProjectDetail.astro — story section wrapped in conditional (omits if empty)",
+        "ProjectDetail.astro — tech stack wrapped in conditional (omits if empty)",
+        "ProjectDetail.astro — store buttons show 'Próximamente' when storeLinks is empty",
+        "Added project.download.store.soon translation key (ES/EN/PT)",
+        "Added .store-soon CSS class (dashed border, muted, no hover effect)",
+        "Resources section already optional (was wrapped in conditional)"
+      ],
+      "completed_at": "2026-08-20T18:14:00Z"
     },
     {
       "id": "F032",
@@ -1214,10 +1229,18 @@
       "references": [
         "review.md — §12, §13"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Added case study section to Solennix page (6 chapters + tech stack)",
+        "Chapters: El problema, La决策, Mi papel, La solucion, Ingenieria, Resultados",
+        "Tech stack: React Native, Node.js, PostgreSQL, Push Notifications, Offline-first, iOS, Android, Web",
+        "Added case study translation keys for ES/EN/PT",
+        "Added case study CSS (case-grid, case-block, tech-chips)",
+        "Fixed useTranslations type to support array values",
+        "All 6 chapters render correctly in generated HTML"
+      ],
+      "completed_at": "2026-08-20T18:22:00Z"
     },
     {
       "id": "F033",
@@ -1246,10 +1269,20 @@
       "references": [
         "review.md — §18–§20"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Restructured services from platform-based (Mobile, Web, Desktop, AI) to outcome-based (Discovery Sprint, MVP Build, Codebase Rescue, AI Audit, Continuous Dev)",
+        "Each service defines: audience, outcome, deliverables (4 each), method/stack, proof with real example, and CTA",
+        "Removed aggressive copy (WordPress jab, 'ese barco ya se hundió')",
+        "Stack demoted to method chips per service",
+        "Removed standalone tech cloud section",
+        "Updated services.ts interface: ServiceItem now has audience, outcome, deliverables[], ctaLabel, ctaLink",
+        "Updated ServicesContent.astro with new template: svc-field layout with audience/outcome/deliverables/method/proof/CTA",
+        "Added PT services.page translations (audience, outcome, deliverables, method, how)",
+        "All 5 services render correctly in ES/EN/PT"
+      ],
+      "completed_at": "2026-08-21T09:30:00Z"
     },
     {
       "id": "F034",
@@ -1278,10 +1311,17 @@
       "references": [
         "review.md — §10, §21, §22"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Improved hero lead: 'Responsabilidad completa' framing with operational depth",
+        "Added ops section: 6 cards (repo, CI/CD, docs, backups, handover, support) with icons",
+        "Reframed timeline: 'Primer commit en Flutter' → 'Flutter y Node.js' (expertise, not learning)",
+        "Improved portrait placeholder: avatar with brand dots (no plain initial T)",
+        "Added PT translations for all about.* keys (hero, intro, timeline, values, stack, ops, cta)",
+        "All 3 locales render correctly"
+      ],
+      "completed_at": "2026-08-21T09:57:00Z"
     },
     {
       "id": "F035",
@@ -1313,10 +1353,21 @@
       "references": [
         "review.md — §28–§30"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Simplified form: removed company field, replaced radio buttons with select dropdown for type",
+        "Removed budget field (qualification happens in call, not form)",
+        "Improved loading state: spinner animation + disabled button",
+        "Improved success state: animated check icon, Calendly embed card, email fallback",
+        "Form switches to success view on submit (form-view → success-view)",
+        "Calendly link: calendly.com/creapolis/30min (30 min no commitment)",
+        "Honeypot + timing checks preserved for bot prevention",
+        "Analytics: only name, email, type, message sent to Web3Forms (no budget, no company, no sensitive data)",
+        "Added PT translations for full contact page (form, promise, steps, success state)",
+        "All 3 locales render correctly"
+      ],
+      "completed_at": "2026-08-21T10:14:00Z"
     },
     {
       "id": "F036",
@@ -1344,10 +1395,18 @@
       "references": [
         "review.md — §14, §17, §61"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Expanded Pepinillo case study from 3 to 9 chapters",
+        "Chapters: El problema, La decisión de stack, Offline-first, Timers background, Notificaciones, iOS Live Activities, Android Material You/Wear OS, Performance, Lo que aprendí",
+        "Explains tradeoffs: WorkManager vs Flutter, Room vs sync, Critical Alerts permissions, Live Activities complexity",
+        "Differentiates iOS and Android: each platform gets its own chapter with specific technical details",
+        "Added Swift/SwiftUI to tech stack", "Added Apple Store link to storeLinks",
+        "Updated all 3 locales (ES/EN/PT) with expanded case study",
+        "All 9 chapters render correctly in generated HTML"
+      ],
+      "completed_at": "2026-08-21T10:33:00Z"
     },
     {
       "id": "F037",
@@ -1373,10 +1432,18 @@
       "references": [
         "review.md — §15"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Expanded Películas case study from 3 to 8 chapters",
+        "Chapters: El problema, Arquitectura de datos, Cache agresivo, Búsqueda, Deep links, Offline, Performance, Lo que aprendí",
+        "Explains tradeoffs: TMDB API vs backend, Room+FTS vs server search, offline limitations",
+        "Reproducible metrics: <500ms cold start, 60fps scroll, <50ms search, <80MB RAM, <12MB APK",
+        "Metrics measured on mid-range device (Xiaomi Redmi Note 11), not flagship",
+        "Updated all 3 locales (ES/EN/PT) with expanded case study",
+        "All 8 chapters render correctly in generated HTML"
+      ],
+      "completed_at": "2026-08-21T10:44:00Z"
     },
     {
       "id": "F038",
@@ -1405,10 +1472,10 @@
       "references": [
         "review.md — §16, §55"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": ["Case study 8 capítulos (ES/EN/PT)", "Status chip derivado de schema", "Download section status-aware", "Case study heading genérico"],
+      "completed_at": "2026-08-21"
     },
     {
       "id": "F039",

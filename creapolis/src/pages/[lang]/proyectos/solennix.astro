@@ -1,6 +1,6 @@
 ---
 import { getSolennixData } from '../../../i18n/data/solennix';
-import type { Lang } from '../../../i18n/ui';
+import { type Lang, ui } from '../../../i18n/ui';
 import { useTranslations } from '../../../i18n/utils';
 
 export function getStaticPaths() {
@@ -123,6 +123,35 @@ const size = '24.6 MB';
             <p>{feature.desc}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study -->
+  <section id="case-study" class="section case-study" style="background: var(--chalk)">
+    <div class="wrap">
+      <div class="case-head reveal">
+        <div class="eyebrow" style="margin-bottom:16px"><span>{t('solennix.case.eyebrow')}</span></div>
+        <h2>{t('solennix.case.title.p1')}<br/><span class="serif">{t('solennix.case.title.serif')}</span></h2>
+      </div>
+
+      <div class="case-grid">
+        {(ui[lang] as any)['solennix.case.chapters'].map((chapter: { title: string; text: string }, i: number) => (
+          <div class={`case-block reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+            <div class="case-num" style="color: var(--iris)">{String(i + 1).padStart(2, '0')}</div>
+            <h3>{chapter.title}</h3>
+            <p>{chapter.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="tech-block reveal">
+        <div class="eyebrow" style="margin-bottom:14px"><span>{t('solennix.case.stack')}</span></div>
+        <div class="tech-chips">
+          {(ui[lang] as any)['solennix.case.tech'].map((tech: string) => (
+            <span class="tech-chip" style="--accent-color: var(--iris)">{tech}</span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -780,5 +809,34 @@ const size = '24.6 MB';
     max-width: 50ch;
     margin-bottom: 32px;
     color: var(--ink-2);
+  }
+
+  /* Case Study */
+  .case-head h2 { max-width: 20ch; }
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  @media (min-width: 720px) { .case-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; } }
+  @media (min-width: 1024px) { .case-grid { grid-template-columns: repeat(3, 1fr); } }
+  .case-block { position: relative; padding-left: 48px; }
+  .case-num {
+    position: absolute; left: 0; top: 0;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 0.08em;
+  }
+  .case-block h3 { font-size: 1.1rem; margin-bottom: 8px; }
+  .case-block p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.6; }
+  .tech-block { margin-top: 48px; }
+  .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tech-chip {
+    padding: 6px 14px; border-radius: var(--r-pill);
+    font-family: var(--font-mono); font-size: 0.78rem;
+    font-weight: 500; letter-spacing: 0.04em;
+    background: color-mix(in oklch, var(--accent-color) 12%, var(--paper));
+    color: var(--accent-color);
+    border: 1px solid color-mix(in oklch, var(--accent-color) 20%, var(--line));
   }
 </style>
