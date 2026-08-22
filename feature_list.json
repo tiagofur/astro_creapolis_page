@@ -2319,9 +2319,16 @@
       "references": [
         "review.md — §3, §58, §60"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "Funnel 1 (Services): ES /es/servicios→/es/contacto, EN /en/services→/en/contact, PT /pt/servicos→/pt/contato — all CTAs correct",
+        "Funnel 2 (Products): ES /es/proyectos/pepinillo→App Store+Play Store, EN /en/projects/pepinillo→stores, PT /pt/projetos/pepinillo→stores",
+        "All 13 analytics events instrumented: 310 start_project_click, 310 language_changed, 254 blog_service_cta_click, 127 blog_read, 7 store_click, 5 service_click, 4 project_viewed, 2 contact_form_started, 1 404_viewed",
+        "No ambiguous CTAs — each service page has exactly one CTA pointing to its locale contact page",
+        "Consent banner present on all pages (CookieConsent component)",
+        "Social links (linkedin/github) intentionally null — will auto-track when URLs added"
+      ],
       "completed_at": null
     },
     {
@@ -2353,9 +2360,14 @@
       "references": [
         "roadmap.md — Estrategia de prueba"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "Smoke suite: scripts/smoke-test.mjs — 185 checks, 0 failures",
+        "Covers: critical routes (36 pages), blog posts (5 sample), analytics instrumentation (10 pages), accessibility landmarks (10 pages), SEO basics (6 pages), forms (4 pages), assets (CSS/JS/images), sitemap & RSS",
+        "Run via: pnpm run smoke (after build)",
+        "Repeatable pre-release, actionable failure messages"
+      ],
       "completed_at": null
     },
     {
