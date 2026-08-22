@@ -2022,10 +2022,18 @@
       "references": [
         "review.md — §48"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Dynamic RSS feed from blog content (50 latest posts, proper RFC 822 dates)",
+        "RSS links use canonical URLs: /es/blog/slug (fixed from /blog/slug)",
+        "Removed stale static public/rss.xml with 9 outdated posts",
+        "Fixed hreflang es-ES → es-MX in sitemap, Layout, utils, blog pages",
+        "Sitemap: 441 URLs, no drafts, no redirects, no duplicates",
+        "Robots.txt: correct for production (Allow: /, Sitemap pointer)",
+        "Sitemap hreflang: es-MX, en-US, pt-BR"
+      ],
+      "completed_at": "2026-08-22T00:00:07.396Z"
     },
     {
       "id": "F052",

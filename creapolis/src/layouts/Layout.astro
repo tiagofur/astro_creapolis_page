@@ -109,7 +109,7 @@ const jsonLd = article
 
     <!-- Alternate language links (slug-aware: uses getAlternateLink to translate slugs) -->
     {getAlternateLink(Astro.url).map(({ lang: l, href }) => {
-      const hreflang = l === 'es' ? 'es-ES' : l === 'pt' ? 'pt-BR' : 'en-US';
+      const hreflang = l === 'es' ? 'es-MX' : l === 'pt' ? 'pt-BR' : 'en-US';
       return <link rel="alternate" hreflang={hreflang} href={new URL(href, Astro.site).href} />;
     })}
     <link rel="alternate" hreflang="x-default" href={new URL('/es/', Astro.site).href} />

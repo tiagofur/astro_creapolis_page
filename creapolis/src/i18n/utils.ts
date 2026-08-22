@@ -85,7 +85,7 @@ export function getAlternateLink(url: URL): { lang: Lang; href: string }[] {
 }
 
 export function formatDate(date: Date, lang: Lang): string {
-  const locale = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-ES';
+  const locale = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-MX';
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'short',

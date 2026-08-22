@@ -558,7 +558,7 @@ export const ui = {
     'solennix.pricing.pro.suffix': '/ mes',
     'solennix.cta.btn': 'Iniciar proyecto',
 
-    'postdate.locale': 'es-ES',
+    'postdate.locale': 'es-MX',
 
     // Hub navigation
     'hub.nav.overview': 'Resumen',

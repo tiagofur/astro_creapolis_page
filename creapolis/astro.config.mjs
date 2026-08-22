@@ -58,7 +58,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: {
-        locales: { es: 'es-ES', en: 'en-US', pt: 'pt-BR' },
+        locales: { es: 'es-MX', en: 'en-US', pt: 'pt-BR' },
         defaultLocale: 'es',
       },
       filter: (page) => !page.includes('/404') && !page.includes('/privacidad') && !page.includes('/terminos') && !page.includes('/eliminar-cuenta') && !page.includes('/privacy-policy') && !page.includes('/delete-account') && !page.includes('/terms-of-use'),
