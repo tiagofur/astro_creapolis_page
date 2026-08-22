@@ -2107,10 +2107,18 @@
       "references": [
         "review.md — §50, §51, §57"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Font loading: non-blocking (media=print + onload pattern)",
+        "Font metrics fallback: size-adjust, ascent-override, descent-override",
+        "content-visibility: auto on below-fold sections (stamps, mission, notes, contact)",
+        "All scripts: type=module (non-blocking, deferred)",
+        "All images: loading=lazy + decoding=async",
+        "CWV budget documented in CWV_BUDGET.md",
+        "Estimated LCP: ~1.5s, INP: ~50ms, CLS: ~0.05"
+      ],
+      "completed_at": "2026-08-22T00:29:03.021Z"
     },
     {
       "id": "F054",

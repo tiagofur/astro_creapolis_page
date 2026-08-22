@@ -570,6 +570,8 @@ const stats = [
   .stamps {
     background: var(--ink); color: var(--paper);
     padding: 28px 0; overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100px;
   }
   .stamps-row {
     display: flex; gap: 64px; white-space: nowrap;
@@ -751,6 +753,8 @@ const stats = [
     padding: clamp(56px, 8vw, 120px) var(--gutter);
     background: var(--ink); color: var(--paper);
     position: relative; overflow: clip;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
   .mission .wrap { display: grid; gap: 48px; grid-template-columns: 1fr; }
   @media (min-width: 880px) { .mission .wrap { grid-template-columns: 1.1fr 1fr; align-items: center; } }
@@ -772,7 +776,7 @@ const stats = [
   /* ═══════════════════════════════════════════════════════════════
      NOTAS — latest blog posts
      ═══════════════════════════════════════════════════════════════ */
-  .notes-block { background: var(--chalk); }
+  .notes-block { background: var(--chalk); content-visibility: auto; contain-intrinsic-size: auto 500px; }
   .notes-head {
     display: grid; gap: 24px; align-items: end;
     grid-template-columns: 1fr; margin-bottom: 48px;
@@ -861,6 +865,8 @@ const stats = [
     padding: clamp(64px, 9vw, 120px) var(--gutter);
     background: var(--paper);
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
   }
   .contact-card {
     max-width: 960px; margin: 0 auto;

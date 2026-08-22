@@ -151,15 +151,19 @@ const jsonLd = article
     <!-- Google Fonts — Geist + Geist Mono + Instrument Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
-    />
+    <!-- Non-blocking font loading: media=print + onload switches to all -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      />
+    </noscript>
     <!-- Font metrics fallback — reduces CLS while web fonts load -->
     <style is:inline>
       @font-face {
