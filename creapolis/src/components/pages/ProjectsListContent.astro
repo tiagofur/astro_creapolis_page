@@ -64,7 +64,7 @@ const aboutPath = getLocalizedPath(lang, '/sobre');
         <a href={getLocalizedPath(lang, `/proyectos/${product.slug}`)} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${product.color}`}>
           <div class="product-vis">
             <div class="glow"></div>
-            <img src={`/og/${product.slug}.svg`} alt={product.name} class="product-og" loading="lazy" />
+            <img src={`/og/${product.slug}.svg`} alt={product.name} class="product-og" loading="lazy" decoding="async" />
           </div>
           <div class="product-meta">
             <div class="head">

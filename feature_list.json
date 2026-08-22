@@ -2067,10 +2067,20 @@
       "references": [
         "review.md — §50, §51"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "JS total: 2.2 KB (1 module file, no frameworks)",
+        "CSS total: 184 KB (chunked per page type)",
+        "Images: 320 KB total (11 SVGs + 1 WebP)",
+        "og-default.png converted to WebP: 236KB → 20KB (91% reduction)",
+        "Blog content images: lazy loading via JavaScript + decoding=async",
+        "SVG images: added decoding=async for non-blocking decode",
+        "Blog image CSS: display:block, max-width:100%, background placeholder",
+        "Asset budget documented in ASSET_BUDGET.md",
+        "Build: 449 pages, 38MB dist"
+      ],
+      "completed_at": "2026-08-22T00:13:04.682Z"
     },
     {
       "id": "F053",

@@ -607,9 +607,13 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     font-size: 0.7rem;
   }
   .article-content :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
     border-radius: var(--r-lg);
-    margin: 32px 0;
+    margin: 32px auto;
     border: 1px solid var(--line);
+    background: var(--bg-2, #f8f8f8);
   }
   .article-content :global(table) {
     width: 100%;
@@ -1066,5 +1070,16 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
       // Also log to console for debugging (remove in production analytics)
       console.log('[CTA]', ctaType, window.location.pathname);
     });
+  });
+
+  // ─── Lazy loading: add loading="lazy" to all content images ──
+  document.querySelectorAll('.article-content img').forEach((img) => {
+    if (!img.getAttribute('loading')) {
+      img.setAttribute('loading', 'lazy');
+    }
+    // Add decoding="async" for non-blocking decode
+    if (!img.getAttribute('decoding')) {
+      img.setAttribute('decoding', 'async');
+    }
   });
 </script>

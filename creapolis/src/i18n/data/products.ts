@@ -175,7 +175,7 @@ export const products: Product[] = [
       title: 'Solennix — Gestión de eventos profesional',
       description:
         'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -260,7 +260,7 @@ export const products: Product[] = [
       title: 'Pepinillo — Timer de enfoque y productividad',
       description:
         'Productividad sin fricción: Pomodoro, tareas con prioridades, calendario, timer y estadísticas.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -299,7 +299,7 @@ export const products: Product[] = [
       title: 'Películas — Tu cine, a tu manera',
       description:
         'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -357,7 +357,7 @@ export const products: Product[] = [
       title: 'Subscription Guardian — Control de suscripciones para iOS',
       description:
         'Alertas antes de cada cobro, dashboard de gastos y privacidad total. Compra única USD $4.99.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 ];
