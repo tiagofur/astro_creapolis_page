@@ -2395,9 +2395,17 @@
       "references": [
         "review.md — §55, §57, §61, §62"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "§55 Prohibited patterns: PASS — no gradient abuse, no glassmorphism, no Framer Motion, no invented content",
+        "§57 Definition of Done: PASS — 16/16 items verified (hero, CTAs, forms, a11y, SEO, CWV, 404, analytics)",
+        "§61 Preserve what works: PASS — real products, honest copy, personal focus, direct contact, process visible",
+        "§62 How it should feel: PASS — 3s/10s/30s/2m mental sequence achieved",
+        "Smoke suite: 185/185 tests pass",
+        "No claims without evidence, no generic visual drift, no critical issues remaining",
+        "Final report: docs/final-review-report.md"
+      ],
       "completed_at": null
     },
     {
