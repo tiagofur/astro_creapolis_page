@@ -20,7 +20,7 @@ const { services, process } = getServicesData(lang);
 
 <Nav lang={lang} />
 
-<header class="page-hero" id="main-content">
+<header class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy reveal">
       <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.page.eyebrow')}</span></div>
@@ -37,7 +37,7 @@ const { services, process } = getServicesData(lang);
         <article id={s.id} class={`svc-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
           <div class="svc-head">
             <span class="svc-num">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{s.title}</h3>
+            <h2>{s.title}</h2>
             <span class="svc-tagline">{s.tagline}</span>
           </div>
 
@@ -106,7 +106,7 @@ const { services, process } = getServicesData(lang);
       {process.map((step, i) => (
         <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
           <span class="bignum">{step.n}</span>
-          <h4>{step.title}</h4>
+          <h3>{step.title}</h3>
           <p>{step.desc}</p>
           <ul class="step-details">
             {step.details.map((d) => (
@@ -221,7 +221,7 @@ const { services, process } = getServicesData(lang);
     color: var(--svc-color);
     margin-bottom: 4px;
   }
-  .svc-card h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+  .svc-card h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
   .svc-tagline {
     font-family: var(--font-serif);
     font-style: italic;

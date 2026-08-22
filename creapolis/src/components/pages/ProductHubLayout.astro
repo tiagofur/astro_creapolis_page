@@ -94,7 +94,7 @@ const visibleItems = sidebarItems.filter((item) => item.available);
   </aside>
 
   <!-- Main content -->
-  <main class="hub-main">
+  <div class="hub-main">
     <!-- Breadcrumbs -->
     <nav class="hub-breadcrumbs" aria-label="Breadcrumb">
       <ol>
@@ -120,7 +120,7 @@ const visibleItems = sidebarItems.filter((item) => item.available);
     <div class="hub-content">
       <slot />
     </div>
-  </main>
+  </div>
 </div>
 
 <Footer lang={lang} />

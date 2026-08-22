@@ -2151,10 +2151,21 @@
       "references": [
         "review.md — §42, §57"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "<main> landmark added to Layout.astro — all 449 pages now have proper main landmark",
+        "127 blog posts: main, header, nav, footer, aside all verified",
+        "Skip link: present on all pages (ES/EN/PT localized)",
+        ":focus-visible: 6 CSS rules with iris accent + glow",
+        "prefers-reduced-motion: global CSS disables all animations + transitions",
+        "Heading hierarchy fixed: services h1→h2, contact h1→h2, homepage h2→h3",
+        "id=\"main-content\" deduplicated — only on Layout <main>",
+        "Form labels: all inputs properly labeled (wrapping pattern)",
+        "Lang attributes: es, en, pt correct on all locale pages",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-22T15:56:52.682Z"
     },
     {
       "id": "F055",

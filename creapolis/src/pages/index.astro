@@ -214,7 +214,7 @@ const stats = [
 <Layout>
   <Nav />
 
-  <main id="main-content">
+  <div>
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
        ═══════════════════════════════════════════════════════════════ -->
@@ -386,7 +386,7 @@ const stats = [
         {steps.map((step, i) => (
           <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
             <span class="bignum">{step.n}</span>
-            <h4>{step.title}</h4>
+            <h3>{step.title}</h3>
             <p>{step.desc}</p>
           </div>
         ))}
@@ -488,7 +488,7 @@ const stats = [
     </div>
   </section>
 
-  </main>
+  </div>
 
   <Footer />
 </Layout>

@@ -16,7 +16,7 @@ const WEB3FORMS_KEY =
 
 <Nav lang={lang} />
 
-<header class="c-hero" id="main-content">
+<header class="c-hero">
   <div class="ribbon" aria-hidden="true">
     <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
       <defs>
@@ -41,7 +41,7 @@ const WEB3FORMS_KEY =
     <aside class="side">
       <div class="side-card promise reveal">
         <div class="eyebrow accent" style="--accent-color: var(--lime); color: var(--lime); margin-bottom:8px"><span>{t('contact.promise.title')}</span></div>
-        <h3>{t('contact.promise.subtitle')}</h3>
+        <h2>{t('contact.promise.subtitle')}</h2>
         <p>{t('contact.promise.desc')}</p>
         <div class="metric">
           <span class="big">&lt; 24h</span>
@@ -50,7 +50,7 @@ const WEB3FORMS_KEY =
       </div>
 
       <div class="side-card reveal reveal-delay-1">
-        <h3>{t('contact.write.title')}</h3>
+        <h2>{t('contact.write.title')}</h2>
         <p>{t('contact.write.desc')}</p>
         <a href="mailto:hola@creapolis.dev">hola@creapolis.dev →</a>
         <div class="row" style="margin-top:18px">
@@ -61,7 +61,7 @@ const WEB3FORMS_KEY =
       </div>
 
       <div class="side-card reveal reveal-delay-2">
-        <h3>{t('contact.after.title')}</h3>
+        <h2>{t('contact.after.title')}</h2>
         <div class="row" style="margin-top:8px">
           <div class="step">
             <span class="chip step-num">1</span>
@@ -331,7 +331,7 @@ const WEB3FORMS_KEY =
     border-radius: var(--r-lg);
     padding: 24px;
   }
-  .side-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+  .side-card h2 { font-size: 1.1rem; margin-bottom: 10px; }
   .side-card p, .side-card a { font-size: 0.92rem; color: var(--ink-2); }
   .side-card a { color: var(--iris); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; }
   .side-card .row { display: flex; flex-direction: column; gap: 12px; }
@@ -350,7 +350,7 @@ const WEB3FORMS_KEY =
     color: var(--paper);
     border-color: var(--ink);
   }
-  .side-card.promise h3 { color: var(--paper); }
+  .side-card.promise h2 { color: var(--paper); }
   .side-card.promise p { color: oklch(0.8 0.01 265); }
   .promise .metric {
     display: flex; align-items: baseline; gap: 10px;
