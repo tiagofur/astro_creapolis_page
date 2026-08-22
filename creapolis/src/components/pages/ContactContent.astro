@@ -91,7 +91,7 @@ const WEB3FORMS_KEY =
         <h2>{t('contact.form.title')} <span class="serif">{t('contact.form.title.serif')}</span>.</h2>
         <p class="intro">{t('contact.form.intro')}</p>
 
-        <form id="contact-form" class="big" autocomplete="on">
+        <form id="contact-form" class="big" autocomplete="on" data-track-form="contact_form_started">
           <div class="hp-field" aria-hidden="true">
             <label for="website">Website</label>
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
@@ -204,6 +204,7 @@ const WEB3FORMS_KEY =
 <Footer lang={lang} />
 
 <script>
+  import { trackEvent } from '../../lib/analytics';
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const formView = document.getElementById('form-view')!;
   const successView = document.getElementById('success-view')!;
@@ -256,6 +257,8 @@ const WEB3FORMS_KEY =
     formView.hidden = true;
     successView.hidden = false;
     formCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Track completion
+    trackEvent?.('contact_form_completed');
   }
 
   function buildPayload(): Record<string, unknown> {

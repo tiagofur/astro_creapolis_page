@@ -1,6 +1,7 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 import LanguageBanner from '../components/LanguageBanner.astro';
 import { defaultLang, type Lang } from '../i18n/ui';
 import { getAlternateLink, getLangFromUrl } from '../i18n/utils';
@@ -228,8 +229,14 @@ const jsonLd = article
       <slot />
     </main>
     <LanguageBanner lang={lang} />
+    <CookieConsent />
   </body>
 </html>
+
+<script>
+  // ─── Analytics event tracking ───
+  import '../lib/track-events.ts';
+</script>
 
 <script>
   // ─── Scroll Reveal ───

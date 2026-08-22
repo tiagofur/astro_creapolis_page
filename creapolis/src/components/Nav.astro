@@ -90,7 +90,7 @@ const langNames: Record<Lang, string> = {
           </button>
           <div class="lang-dropdown" role="listbox" aria-label={t('nav.lang')}>
             {otherLangs.map(({ lang: l, href }) => (
-              <a href={href} role="option" aria-label={langNames[l]} tabindex="-1">
+              <a href={href} role="option" aria-label={langNames[l]} tabindex="-1" data-track-event="language_changed" data-track-label={l}>
                 <span class="lang-option-label">{langLabels[l]}</span>
                 <span class="lang-option-name">{langNames[l]}</span>
               </a>
@@ -100,7 +100,7 @@ const langNames: Record<Lang, string> = {
       </div>
 
       {/* CTA */}
-      <a href={cta.href} class="nav-cta">
+      <a href={cta.href} class="nav-cta" data-track-event="start_project_click">
         {cta.label}
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />

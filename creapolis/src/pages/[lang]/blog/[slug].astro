@@ -229,7 +229,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
             <div class="cta-service-badge">{ctaService}</div>
             <h4 class="cta-title">{ctaTitle}</h4>
             <p class="cta-desc">{ctaDesc}</p>
-            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%" data-cta-track={ctaSlug}>{t('blog.sidebar.cta')}</a>
+            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%" data-cta-track={ctaSlug} data-track-event="blog_service_cta_click" data-track-label={ctaSlug}>{t('blog.sidebar.cta')}</a>
           </div>
         </aside>
       </div>
@@ -240,7 +240,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
           <div class="inline-cta-badge">{ctaService}</div>
           <h3 class="inline-cta-title">{ctaTitle}</h3>
           <p class="inline-cta-desc">{ctaDesc}</p>
-          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-cta-track={`inline_${ctaSlug}`}>{t('blog.sidebar.cta')} →</a>
+          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-cta-track={`inline_${ctaSlug}`} data-track-event="blog_service_cta_click" data-track-label={`inline_${ctaSlug}`}>{t('blog.sidebar.cta')} →</a>
         </div>
       </div>
 
@@ -278,6 +278,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
   </article>
 
   <Footer lang={lang} />
+  <div data-track-pageview="blog_read" data-track-slug={post.data.slug} hidden></div>
 </Layout>
 
 <style>

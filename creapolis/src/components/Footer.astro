@@ -57,7 +57,8 @@ const footerProducts = products
       <div class="footer-social">
         {socialLinks.map((s) =>
           s.url ? (
-            <a href={s.url} target="_blank" rel="noopener" aria-label={s.label} class="fsoc">
+            <a href={s.url} target="_blank" rel="noopener" aria-label={s.label} class="fsoc"
+              data-track-event={s.icon === 'linkedin' ? 'linkedin_click' : s.icon === 'github' ? 'github_click' : undefined}>
               {s.icon === 'linkedin' && (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
               )}
@@ -117,7 +118,7 @@ const footerProducts = products
         <p>{t('footer.cta.desc')}</p>
       </div>
       <div class="footer-cta-actions">
-        <a href={getLocalizedPath(lang, '/contacto')} class="footer-cta-btn">
+        <a href={getLocalizedPath(lang, '/contacto')} class="footer-cta-btn" data-track-event="start_project_click">
           {t('footer.cta.btn')}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>

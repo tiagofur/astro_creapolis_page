@@ -81,7 +81,7 @@ const { services, process } = getServicesData(lang);
               </a>
             </div>
 
-            <a href={getLocalizedPath(lang, s.ctaLink)} class="btn btn-primary svc-cta">
+            <a href={getLocalizedPath(lang, s.ctaLink)} class="btn btn-primary svc-cta" data-track-event="service_click" data-track-label={s.ctaLabel}>
               {s.ctaLabel}
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </a>
@@ -125,6 +125,7 @@ const { services, process } = getServicesData(lang);
     <h2>{t('contact.cta.title.p1')}<br/>{t('contact.cta.title.p2')} <span class="serif">{t('contact.cta.title.serif')}</span>.</h2>
     <p class="lead">{t('contact.cta.lead')}</p>
     <form class="c-form" id="svc-contact-form"
+      data-track-form="contact_form_started"
       data-msg-hp={t('contact.cta.form.success.hp')}
       data-msg-wait={t('contact.cta.form.error.wait')}
       data-msg-conn={t('contact.cta.form.error.conn')}
@@ -460,6 +461,7 @@ const { services, process } = getServicesData(lang);
 </style>
 
 <script>
+  import { trackEvent } from '../../lib/analytics';
   const form = document.getElementById('svc-contact-form') as HTMLFormElement;
   const msgEl = document.getElementById('svc-form-msg');
   const honeypot = document.getElementById('svc-website') as HTMLInputElement;
@@ -557,6 +559,7 @@ const { services, process } = getServicesData(lang);
         if (result.success) {
           setMsg('success', msgOk);
           form.reset();
+          trackEvent?.('contact_form_completed');
           if (okChip) okChip.hidden = false;
           setTimeout(() => { if (okChip) okChip.hidden = true; }, 4000);
           submitting = false;

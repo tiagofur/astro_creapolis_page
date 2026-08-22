@@ -1,0 +1,148 @@
+---
+/**
+ * Privacy-aware cookie consent banner.
+ * Shows on first visit, stores choice in localStorage.
+ * No cookies are used — only localStorage for consent status.
+ */
+---
+
+<div id="cookie-consent" class="cookie-consent" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>
+  <div class="cookie-inner">
+    <p class="cookie-text">
+      🍪 We use anonymous analytics to improve this site. No personal data is collected.
+      <a href="/en/privacy-policy" class="cookie-link">Learn more</a>
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="cookie-btn cookie-btn--accept" type="button">
+        Accept
+      </button>
+      <button id="cookie-deny" class="cookie-btn cookie-btn--deny" type="button">
+        Decline
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 24px;
+    animation: slide-up 0.3s ease-out;
+  }
+  .cookie-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cookie-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+    min-width: 280px;
+  }
+  .cookie-link {
+    color: var(--iris);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  .cookie-link:hover {
+    color: var(--iris);
+  }
+  .cookie-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .cookie-btn:active {
+    transform: scale(0.96);
+  }
+  .cookie-btn--accept {
+    background: var(--iris);
+    color: white;
+  }
+  .cookie-btn--accept:hover {
+    background: oklch(0.55 0.2 285);
+  }
+  .cookie-btn--deny {
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .cookie-btn--deny:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cookie-consent {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { getConsentStatus, setConsent, initAnalytics } from '../lib/analytics';
+
+  function init() {
+    const status = getConsentStatus();
+
+    if (status === 'pending') {
+      const banner = document.getElementById('cookie-consent');
+      if (banner) {
+        banner.hidden = false;
+
+        document.getElementById('cookie-accept')?.addEventListener('click', () => {
+          setConsent('granted');
+          banner.hidden = true;
+          initAnalytics();
+        });
+
+        document.getElementById('cookie-deny')?.addEventListener('click', () => {
+          setConsent('denied');
+          banner.hidden = true;
+        });
+      }
+    } else {
+      // Consent already given/denied — just init
+      initAnalytics();
+    }
+  }
+
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

@@ -2280,9 +2280,17 @@
       "references": [
         "review.md — §58"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
+      "evidence": [
+        "Analytics module: src/lib/analytics.ts — consent + trackEvent",
+        "Event tracker: src/lib/track-events.ts — auto-instrument via data-track-* attributes",
+        "Consent banner: src/components/CookieConsent.astro — GDPR/LFPDPPP opt-in",
+        "Events implemented: page_view, start_project_click, contact_form_started, contact_form_completed, project_viewed, service_click, store_click, blog_read, blog_service_cta_click, linkedin_click, github_click, language_changed, 404_viewed",
+        "No PII in any payload — only event name, timestamp, page path, locale",
+        "Consent stored in localStorage, not cookies",
+        "sendBeacon for non-blocking delivery in production"
+      ],
       "completed_at": null
     },
     {
