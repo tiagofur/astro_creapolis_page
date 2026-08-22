@@ -20,8 +20,7 @@ const footerProducts = products
   .filter((p) => p.status === 'live' || p.status === 'pre_production')
   .map((p) => ({
     name: p.name,
-    // Use raw /proyectos/ path — product routes are NOT localized
-    href: `/proyectos/${p.slug}`,
+    href: getLocalizedPath(lang, `/proyectos/${p.slug}`),
   }));
 ---
 

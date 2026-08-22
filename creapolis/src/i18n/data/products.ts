@@ -167,7 +167,7 @@ export const products: Product[] = [
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
       { type: 'changelog', icon: '📋', available: false },
       { type: 'privacy', icon: '🔒', available: true },
     ],
@@ -252,7 +252,7 @@ export const products: Product[] = [
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '🧠', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
       { type: 'changelog', icon: '📋', available: false },
       { type: 'privacy', icon: '🔒', available: true },
     ],
@@ -349,7 +349,7 @@ export const products: Product[] = [
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
       { type: 'changelog', icon: '📋', available: false },
       { type: 'privacy', icon: '🔒', available: true },
     ],

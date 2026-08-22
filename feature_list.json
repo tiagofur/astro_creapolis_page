@@ -2238,10 +2238,18 @@
       "references": [
         "review.md — §2, §33, §48, §49"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Footer: project links now use getLocalizedPath (was hardcoded /proyectos/ without locale)",
+        "Blog index + 404: contact links now use getLocalizedPath (was hardcoded /contacto)",
+        "Blog content: removed broken /faq#coding link from flutter-go-router post",
+        "Products: support resources marked available: false (no support pages exist)",
+        "Link audit: 941 unique internal links checked, all valid",
+        "Remaining known gaps: EN/PT missing changelog/privacy sub-pages (expected), #apps anchor (false positive)",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-22T16:22:46.673Z"
     },
     {
       "id": "F057",

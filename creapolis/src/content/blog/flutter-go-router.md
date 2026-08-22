@@ -317,7 +317,7 @@ class _TaskListScreenState extends State<TaskListScreen>    {
 }
 ```
 
-Usa el código [con precaución.](/faq#coding)
+Usa el código con precaución.
 
 Hemos agregado la función `_addTask` para actualizar la lista de tareas y llamar a `setState` para reconstruir la pantalla.
 
@@ -341,7 +341,7 @@ ElevatedButton(
 // ... (código restante) ...
 ```
 
-Usa el código [con precaución.](/faq#coding)
+Usa el código con precaución.
 
 Utilizamos `context.read()` para obtener una referencia a `TaskListScreen` y llamar a la función `_addTask` para agregar la nueva tarea.
 
@@ -392,7 +392,7 @@ GoRoute(
 ),
 ```
 
-Usa el código [con precaución.](/faq#coding)
+Usa el código con precaución.
 
 **4. ¿Cómo puedo acceder a los parámetros de una ruta en la pantalla de destino?**
 
