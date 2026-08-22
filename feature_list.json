@@ -2195,10 +2195,19 @@
       "references": [
         "review.md — §28–§30, §57"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Contact form: aria-live, aria-busy, retry with backoff, 10s timeout, double-submit guard",
+        "Services form: same resilience features — aria-live, retry, timeout, guard",
+        "Delete account forms: simple mailto — no JS needed, labels correct",
+        "Error states show retry button with aria-label for screen readers",
+        "Network timeout via AbortController (10s) with specific timeout message",
+        "Exponential backoff: 1s, 2s between retries (max 2 retries)",
+        "Form data preserved on error — user does not re-enter data",
+        "Typecheck: 0 errors, Build: 449 pages, Lint: 0 issues"
+      ],
+      "completed_at": "2026-08-22T16:12:07.212Z"
     },
     {
       "id": "F056",

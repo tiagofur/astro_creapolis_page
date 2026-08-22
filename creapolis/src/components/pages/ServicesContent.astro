@@ -166,7 +166,7 @@ const { services, process } = getServicesData(lang);
         <span class="hint">{t('contact.cta.email.hint')} <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></span>
         <span class="ok chip live" hidden style="margin-left:auto"><span class="chip-dot"></span>{t('contact.cta.sent')}</span>
       </div>
-      <div id="svc-form-msg" class="form-msg" hidden></div>
+      <div id="svc-form-msg" class="form-msg" role="status" aria-live="polite" hidden></div>
     </form>
   </div>
 </section>
@@ -467,8 +467,61 @@ const { services, process } = getServicesData(lang);
 
   if (tsInput) tsInput.value = Date.now().toString();
 
+  let submitting = false;
+  const MAX_RETRIES = 2;
+  const TIMEOUT_MS = 10000;
+
+  function setMsg(type: 'success' | 'error', text: string, retryable = false) {
+    if (!msgEl) return;
+    msgEl.hidden = false;
+    msgEl.className = `form-msg ${type}`;
+    msgEl.textContent = text;
+    if (retryable) {
+      const retryBtn = document.createElement('button');
+      retryBtn.type = 'button';
+      retryBtn.className = 'btn btn-ghost retry-btn';
+      retryBtn.textContent = 'Reintentar';
+      retryBtn.setAttribute('aria-label', 'Reintentar envío del formulario');
+      retryBtn.style.marginTop = '12px';
+      retryBtn.addEventListener('click', () => form?.requestSubmit());
+      msgEl.appendChild(retryBtn);
+    }
+  }
+
+  function buildPayload(): Record<string, unknown> {
+    const fd = new FormData(form);
+    return {
+      access_key: fd.get('access_key'),
+      subject: fd.get('subject'),
+      from_name: fd.get('from_name'),
+      name: fd.get('name'),
+      email: fd.get('email'),
+      service: fd.get('service'),
+      message: fd.get('message'),
+      botcheck: fd.get('website'),
+      timestamp: fd.get('timestamp'),
+    };
+  }
+
+  async function submitWithTimeout(payload: Record<string, unknown>): Promise<{success: boolean}> {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+      return await res.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (submitting) return;
 
     const msgHp = form.dataset.msgHp || '';
     const msgWait = form.dataset.msgWait || '';
@@ -476,11 +529,7 @@ const { services, process } = getServicesData(lang);
     const msgOk = form.dataset.msgOk || '';
 
     if (honeypot?.value) {
-      if (msgEl) {
-        msgEl.hidden = false;
-        msgEl.className = 'form-msg success';
-        msgEl.textContent = msgHp;
-      }
+      setMsg('success', msgHp);
       form.reset();
       return;
     }
@@ -488,60 +537,47 @@ const { services, process } = getServicesData(lang);
     const submittedAt = Date.now();
     const loadedAt = parseInt(tsInput?.value || '0');
     if (submittedAt - loadedAt < 2000) {
-      if (msgEl) {
-        msgEl.hidden = false;
-        msgEl.className = 'form-msg error';
-        msgEl.textContent = msgWait;
-      }
+      setMsg('error', msgWait);
       return;
     }
 
+    submitting = true;
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const okChip = form.querySelector('.ok') as HTMLElement;
     if (btn) btn.disabled = true;
+    form.setAttribute('aria-busy', 'true');
+    if (msgEl) msgEl.hidden = true;
 
-    const formData = new FormData(form);
-    const data = {
-      access_key: formData.get('access_key'),
-      subject: formData.get('subject'),
-      from_name: formData.get('from_name'),
-      name: formData.get('name'),
-      email: formData.get('email'),
-      service: formData.get('service'),
-      message: formData.get('message'),
-      botcheck: formData.get('website'),
-      timestamp: formData.get('timestamp'),
-    };
+    const payload = buildPayload();
+    let lastError = '';
 
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const result = await res.json();
-
-      if (msgEl) {
-        msgEl.hidden = false;
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const result = await submitWithTimeout(payload);
         if (result.success) {
-          msgEl.className = 'form-msg success';
-          msgEl.textContent = msgOk;
+          setMsg('success', msgOk);
           form.reset();
           if (okChip) okChip.hidden = false;
           setTimeout(() => { if (okChip) okChip.hidden = true; }, 4000);
-        } else {
-          msgEl.className = 'form-msg error';
-          msgEl.textContent = msgConn;
+          submitting = false;
+          if (btn) btn.disabled = false;
+          form.removeAttribute('aria-busy');
+          return;
         }
+        lastError = msgConn;
+      } catch (err: unknown) {
+        lastError = err instanceof DOMException && err.name === 'AbortError'
+          ? 'Tiempo de espera agotado. Verifica tu conexión.'
+          : msgConn;
       }
-    } catch {
-      if (msgEl) {
-        msgEl.hidden = false;
-        msgEl.className = 'form-msg error';
-        msgEl.textContent = msgConn;
+      if (attempt < MAX_RETRIES) {
+        await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
       }
-    } finally {
-      if (btn) btn.disabled = false;
     }
+
+    setMsg('error', lastError, true);
+    submitting = false;
+    if (btn) btn.disabled = false;
+    form.removeAttribute('aria-busy');
   });
 </script>
