@@ -2471,10 +2471,21 @@
       "references": [
         "review.md — §58, §63"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Post-launch review template: docs/POST_LAUNCH_REVIEW.md",
+        "CWV monitoring script: scripts/monitor-cwv.mjs (12/12 checks pass)",
+        "Baseline expectations documented: LCP ≤2.5s, INP ≤200ms, CLS ≤0.1",
+        "Conversion funnel targets documented: Home→Services 15-25%, Services→Contact 10-20%",
+        "Analytics event frequency baselines: 13 events documented",
+        "Data collection methods: CrUX, web-vitals library, Lighthouse CI",
+        "Review checklist: Week 1 + Week 2 verification steps",
+        "Decision framework: Maintain/Iterate/Fix",
+        "Review report template ready for data entry",
+        "Commit: 7f60339"
+      ],
+      "completed_at": "2026-08-23T04:18:26.792Z"
     }
   ]
 }

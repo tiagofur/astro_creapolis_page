@@ -16,6 +16,7 @@
     "format:check": "biome format .",
     "check": "astro check && biome check src/ scripts/",
     "smoke": "node scripts/smoke-test.mjs",
+    "monitor:cwv": "node scripts/monitor-cwv.mjs",
     "normalize:blog": "node scripts/normalize-blog.mjs",
     "normalize:blog:dry": "node scripts/normalize-blog.mjs --dry"
   },
