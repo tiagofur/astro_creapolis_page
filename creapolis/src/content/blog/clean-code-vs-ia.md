@@ -4,7 +4,7 @@ description: "En un mundo donde las herramientas de IA generan miles de líneas 
 pubDate: "2026-01-09"
 author: "tiagofur"
 tags: []
-categories: ["IA", "Vibe Code"]
+categories: ["AI/ML"]
 slug: "clean-code-vs-ia-es-posible-mantener-los-principios-en-la-era-de-la-inteligencia-artificial"
 originalUrl: "https://creapolis.dev/clean-code-vs-ia-es-posible-mantener-los-principios-en-la-era-de-la-inteligencia-artificial/"
 draft: false

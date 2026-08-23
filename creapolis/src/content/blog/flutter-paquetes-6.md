@@ -4,7 +4,7 @@ description: "¡Felicidades! Si estás leyendo este artículo, es muy probable q
 pubDate: "2025-04-14"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Intermedio", "Flutter - Paquetes"]
+categories: ["Mobile"]
 slug: "los-6-paquetes-flutter-que-impulsaran-tu-desarrollo-intermedio"
 originalUrl: "https://creapolis.dev/los-6-paquetes-flutter-que-impulsaran-tu-desarrollo-intermedio/"
 draft: false

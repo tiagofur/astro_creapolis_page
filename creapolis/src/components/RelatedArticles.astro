@@ -1,0 +1,175 @@
+---
+/**
+ * RelatedArticles — shows 3 related posts by shared tags/categories.
+ * Deduplicates against the current article.
+ */
+import { getCollection } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { getPostDescription } from '../utils/post';
+
+interface Props {
+  lang: Lang;
+  currentSlug: string;
+  currentTags: string[];
+  currentCategories?: string[];
+}
+
+const { lang, currentSlug, currentTags, currentCategories = [] } = Astro.props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Score each post by tag/category overlap with current article
+const scored = allPosts
+  .filter((p) => p.slug !== currentSlug)
+  .map((post) => {
+    let score = 0;
+    // Category match = 3 points each
+    for (const cat of currentCategories) {
+      const postCats = (post.data as any).categories as string[] | undefined;
+      if (postCats?.includes(cat)) score += 3;
+    }
+    // Tag match = 1 point each
+    for (const tag of currentTags) {
+      if (post.data.tags.includes(tag)) score += 1;
+    }
+    return { post, score };
+  })
+  .filter((item) => item.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3);
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat(
+    lang === 'es' ? 'es-MX' : lang === 'pt' ? 'pt-BR' : 'en-US',
+    {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    },
+  ).format(date);
+}
+
+const catColorMap: Record<string, string> = {
+  Engineering: '--lime',
+  Mobile: '--sky',
+  'AI/ML': '--coral',
+  Product: '--amber',
+  'Building Creapolis': '--iris',
+};
+---
+
+{scored.length > 0 && (
+  <section class="related-section reveal">
+    <div class="eyebrow" style="margin-bottom:14px"><span>Artículos relacionados</span></div>
+    <div class="related-grid">
+      {scored.map(({ post }) => {
+        const cats = (post.data as any).categories as string[] | undefined;
+        const primaryCat = cats?.[0] || 'Engineering';
+        const colorVar = catColorMap[primaryCat]?.replace('--', '') || 'default';
+        return (
+          <a href={`/${lang}/blog/${post.slug}`} class="related-card">
+            <div class={`related-accent related-accent--${colorVar}`}></div>
+            <div class="related-body">
+              <span class={`related-badge related-badge--${colorVar}`}>{primaryCat}</span>
+              <h4>{post.data.title}</h4>
+              <p>{getPostDescription(post)}</p>
+              <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+)}
+
+<style>
+  .related-section {
+    max-width: 720px;
+    margin: 48px auto 0;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 720px) {
+    .related-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: row;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s;
+  }
+  .related-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-2);
+    border-color: var(--line-2);
+  }
+
+  .related-accent {
+    width: 4px;
+    flex-shrink: 0;
+  }
+  .related-accent--iris { background: var(--iris); }
+  .related-accent--coral { background: var(--coral); }
+  .related-accent--lime  { background: var(--lime); }
+  .related-accent--sky   { background: var(--sky); }
+  .related-accent--amber { background: var(--amber); }
+  .related-accent--default { background: var(--ink-4); }
+
+  .related-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  .related-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .related-badge--iris { background: var(--iris-soft); color: var(--iris); }
+  .related-badge--coral { background: var(--coral-soft); color: var(--coral); }
+  .related-badge--lime  { background: var(--lime-soft);  color: oklch(0.55 0.18 128); }
+  .related-badge--sky   { background: var(--sky-soft);   color: var(--sky); }
+  .related-badge--amber { background: var(--amber-soft); color: oklch(0.5 0.14 70); }
+  .related-badge--default { background: var(--chalk); color: var(--ink-3); }
+
+  .related-body h4 {
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .related-body p {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .related-body time {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-4);
+  }
+</style>

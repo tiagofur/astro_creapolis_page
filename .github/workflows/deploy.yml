@@ -21,19 +21,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: creapolis/package-lock.json
+      - name: Install pnpm
+        run: npm install -g pnpm@11
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         working-directory: creapolis
 
       - name: Build Astro site
-        run: npm run build
+        run: pnpm run build
         working-directory: creapolis
 
       - name: Deploy Astro dist to VPS via rsync

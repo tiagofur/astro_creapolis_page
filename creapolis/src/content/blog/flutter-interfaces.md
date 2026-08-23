@@ -4,7 +4,7 @@ description: "Bienvenido al fascinante mundo de Flutter, donde la creación de i
 pubDate: "2024-11-09"
 author: "tiagofur"
 tags: ["ui", "flutter", "dart", "desarrollo", "mobile"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "construye-interfaces-impresionantes-con-widgets-en-flutter"
 originalUrl: "https://creapolis.dev/construye-interfaces-impresionantes-con-widgets-en-flutter/"
 draft: false

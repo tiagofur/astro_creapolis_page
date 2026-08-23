@@ -4,6 +4,7 @@ description: "Analizamos las ventajas del desarrollo nativo para iOS y Android, 
 pubDate: "2024-12-01"
 author: "tiagofur"
 tags: ["desarrollo", "mobile", "nativo"]
+categories: ["Mobile"]
 draft: false
 ---
 

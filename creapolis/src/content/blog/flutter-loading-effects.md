@@ -4,7 +4,7 @@ description: "En las aplicaciones móviles, la velocidad y el rendimiento son as
 pubDate: "2024-09-20"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "efecto carga", "flutter"]
-categories: ["Flutter - Animaciones", "Flutter - Basico", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "efectos-de-carga-personalizados-en-flutter-mas-alla-del-circularprogressindicator"
 originalUrl: "https://creapolis.dev/efectos-de-carga-personalizados-en-flutter-mas-alla-del-circularprogressindicator/"
 draft: false

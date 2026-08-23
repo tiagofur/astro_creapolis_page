@@ -1,0 +1,48 @@
+---
+/**
+ * Badge primitive — wraps the chip system as an Astro component.
+ *
+ * Variants: default, live, beta, dev, soon
+ *
+ * Usage:
+ *   <Badge variant="live">Live</Badge>
+ *   <Badge variant="soon">Coming soon</Badge>
+ *   <Badge>1.0</Badge>
+ */
+
+interface Props {
+  variant?: 'default' | 'live' | 'beta' | 'dev' | 'soon';
+  dot?: boolean;
+  class?: string;
+  ['aria-label']?: string;
+}
+
+const {
+  variant = 'default',
+  dot = true,
+  class: className = '',
+  ['aria-label']: ariaLabel,
+  ...rest
+} = Astro.props;
+
+const classes = ['chip', variant !== 'default' ? variant : '', className]
+  .filter(Boolean)
+  .join(' ');
+
+const roleMap: Record<string, 'status' | 'note'> = {
+  live: 'status',
+  beta: 'status',
+  dev: 'status',
+  soon: 'status',
+};
+---
+
+<span
+  class={classes}
+  role={roleMap[variant] ?? 'note'}
+  aria-label={ariaLabel}
+  {...rest}
+>
+  {dot && <span class="chip-dot" aria-hidden="true" />}
+  <slot />
+</span>

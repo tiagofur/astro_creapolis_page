@@ -4,7 +4,7 @@ description: "El 21 de octubre de 2024, el ecosistema React experimentó un seí
 pubDate: "2026-01-09"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "next-js-15-por-que-uncached-by-default-fue-la-mejor-decision"
 originalUrl: "https://creapolis.dev/next-js-15-por-que-uncached-by-default-fue-la-mejor-decision/"
 draft: false

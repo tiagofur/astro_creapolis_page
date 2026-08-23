@@ -1,12 +1,14 @@
 ---
-import type { Lang } from '../../../../i18n/ui';
-import Layout from '../../../../layouts/Layout.astro';
+import ProductHubLayout from '../../../../components/pages/ProductHubLayout.astro';
 import SGFeedbackContent from '../../../../components/pages/SGFeedbackContent.astro';
+import type { Lang } from '../../../../i18n/ui';
 
-export function getStaticPaths() { return [{ params: { lang: 'es' } }]; }
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }];
+}
 const lang = Astro.params.lang as Lang;
 ---
 
-<Layout lang={lang} title="Feedback y soporte — Subscription Guardian" description="¿Bug? ¿Sugerencia? ¿Preguntas? Acá estamos para ayudarte. Preguntas frecuentes y canales de contacto.">
+<ProductHubLayout lang={lang} slug="subscription-guardian" currentPage="support">
   <SGFeedbackContent lang={lang} />
-</Layout>
+</ProductHubLayout>

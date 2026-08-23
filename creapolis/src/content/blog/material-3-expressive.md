@@ -4,7 +4,7 @@ description: "Aprende sobre Material 3 Expressive: La Nueva Era del Diseño en A
 pubDate: "2025-05-21"
 author: "tiagofur"
 tags: ["desarrollo", "tutorial"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "material-3-expressive-la-nueva-era-del-diseno-en"
 originalUrl: "https://creapolis.dev/material-3-expressive-la-nueva-era-del-diseno-en/"
 draft: false

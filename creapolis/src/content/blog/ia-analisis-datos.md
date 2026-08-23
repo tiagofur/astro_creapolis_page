@@ -4,6 +4,7 @@ description: "Cómo usar IA para analizar grandes volúmenes de datos y obtener 
 pubDate: "2025-03-01"
 author: "tiagofur"
 tags: ["ia", "datos", "analytics", "negocio"]
+categories: ["AI/ML"]
 draft: false
 ---
 

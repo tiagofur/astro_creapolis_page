@@ -2,19 +2,40 @@
 import type { Lang } from '../i18n/ui';
 import { getAlternateLink } from '../i18n/utils';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 
 const alternates = getAlternateLink(Astro.url);
 const other = alternates.find((a) => a.lang !== lang);
 if (!other) return null;
 
-const langLabels: Record<string, string> = { en: 'English', es: 'Español', pt: 'Português' };
+const langLabels: Record<string, string> = {
+  en: 'English',
+  es: 'Español',
+  pt: 'Português',
+};
 const langFlags: Record<string, string> = { en: '🇬🇧', es: '🇪🇸', pt: '🇧🇷' };
-const langMessages: Record<string, { msg: string; cta: string; dismiss: string }> = {
-  en: { msg: 'This page is also available in English', cta: 'Switch', dismiss: 'Dismiss' },
-  es: { msg: 'Esta página también está disponible en español', cta: 'Cambiar', dismiss: 'Cerrar' },
-  pt: { msg: 'Esta página também está disponível em português', cta: 'Mudar', dismiss: 'Fechar' },
+const langMessages: Record<
+  string,
+  { msg: string; cta: string; dismiss: string }
+> = {
+  en: {
+    msg: 'This page is also available in English',
+    cta: 'Switch',
+    dismiss: 'Dismiss',
+  },
+  es: {
+    msg: 'Esta página también está disponible en español',
+    cta: 'Cambiar',
+    dismiss: 'Cerrar',
+  },
+  pt: {
+    msg: 'Esta página também está disponível em português',
+    cta: 'Mudar',
+    dismiss: 'Fechar',
+  },
 };
 
 const otherLabel = langLabels[other.lang] || other.lang;

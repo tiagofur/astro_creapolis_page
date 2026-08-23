@@ -4,7 +4,7 @@ description: "En nuestra guía anterior, construimos una API de Tareas completam
 pubDate: "2025-10-17"
 author: "tiagofur"
 tags: []
-categories: ["Backend - NestJs"]
+categories: ["Engineering"]
 slug: "nestjs-autenticacion-y-autorizacion-desde-cero-jwt"
 originalUrl: "https://creapolis.dev/nestjs-autenticacion-y-autorizacion-desde-cero-jwt/"
 draft: false

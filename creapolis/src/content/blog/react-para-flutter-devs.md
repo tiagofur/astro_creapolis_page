@@ -4,7 +4,7 @@ description: "Si sigues nuestro blog, probablemente me conozcas por mi entusiasm
 pubDate: "2025-04-21"
 author: "tiagofur"
 tags: []
-categories: ["React - General"]
+categories: ["Engineering"]
 slug: "react-para-desarrolladores-flutter-conceptos-clave-comparativas-y-retos"
 originalUrl: "https://creapolis.dev/react-para-desarrolladores-flutter-conceptos-clave-comparativas-y-retos/"
 draft: false

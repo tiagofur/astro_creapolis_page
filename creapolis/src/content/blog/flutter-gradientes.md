@@ -4,7 +4,7 @@ description: "https://podcasters.spotify.com/pod/show/creapolis-dev/episodes/Tra
 pubDate: "2024-11-05"
 author: "tiagofur"
 tags: ["ui", "boxdecoration", "colores", "container", "dart", "desarrollo", "flutter", "gradients", "lineargradient", "personalización visual", "radialgradient", "sweepgradient"]
-categories: ["Flutter - Intermedio", "Flutter - UI/UX", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "transforma-tus-apps-con-gradientes-flutter"
 originalUrl: "https://creapolis.dev/transforma-tus-apps-con-gradientes-flutter/"
 draft: false

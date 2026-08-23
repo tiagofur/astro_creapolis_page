@@ -4,6 +4,7 @@ description: "La tecnolog√≠a que usas afecta tu productividad, la calidad del c√
 pubDate: "2025-03-20"
 author: "tiagofur"
 tags: ["desarrollo", "herramientas", "productividad", "tech"]
+categories: ["Engineering"]
 draft: false
 ---
 

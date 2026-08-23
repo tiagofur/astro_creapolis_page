@@ -4,7 +4,7 @@ description: "El mundo de la tecnología se expande más allá de las pantallas 
 pubDate: "2024-12-19"
 author: "tiagofur"
 tags: ["ambient mode", "mobile", "complicaciones", "dart", "desarrollo", "desarrollo wearable", "diseño para wearables", "flutter", "herramientas", "relojes inteligentes", "smartwatches", "ui", "watch face", "wear os", "wearable technology"]
-categories: ["Flutter - Intermedio", "Flutter - WearOs"]
+categories: ["Mobile"]
 slug: "flutter-para-wear-os-crea-tu-primera-aplicacion-para-relojes-inteligentes"
 originalUrl: "https://creapolis.dev/flutter-para-wear-os-crea-tu-primera-aplicacion-para-relojes-inteligentes/"
 draft: false

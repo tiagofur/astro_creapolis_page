@@ -4,7 +4,7 @@ description: "https://podcasters.spotify.com/pod/show/creapolis-dev/episodes/Is-
 pubDate: "2021-09-07"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "introduccion-flutter-dart"
 originalUrl: "https://creapolis.dev/introduccion-flutter-dart/"
 draft: false

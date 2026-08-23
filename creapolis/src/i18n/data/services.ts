@@ -1,6 +1,6 @@
 import type { Lang } from '../ui';
 
-export interface ServiceFeature {
+export interface ServiceDeliverable {
   title: string;
   desc: string;
 }
@@ -16,13 +16,14 @@ export interface ServiceItem {
   id: string;
   title: string;
   tagline: string;
+  audience: string;
+  outcome: string;
   desc: string;
-  fullDesc: string;
-  color: string;
-  features: ServiceFeature[];
+  deliverables: ServiceDeliverable[];
   tech: string[];
-  deliverable: string;
   proof: ServiceProof;
+  ctaLabel: string;
+  ctaLink: string;
 }
 
 export interface ProcessStep {
@@ -35,272 +36,608 @@ export interface ProcessStep {
 const services: Record<Lang, ServiceItem[]> = {
   es: [
     {
-      id: 'moviles',
-      title: 'Apps móviles',
-      tagline: 'Apps que la gente abre todos los días',
-      desc: 'Mobile es mi terreno. Diseño, codeo y publico apps nativas y cross-platform — eligiendo la tecnología según el problema, no según la moda.',
-      fullDesc: 'Flutter para MVP rápido o cuando querés cubrir iOS + Android con una sola codebase. Swift o Kotlin nativo cuando el rendimiento, la integración con hardware, o los patterns de cada plataforma lo exigen. No existe un "stack universal" — existe el stack que sirve a tu caso.',
-      color: '#5856D6',
-      features: [
-        { title: 'Flutter · MVP rápido', desc: 'Una codebase, dos tiendas. Ideal para validar una idea o cubrir ambas plataformas con presupuesto ajustado.' },
-        { title: 'iOS nativo', desc: 'Swift + SwiftUI cuando necesitás integración profunda con el sistema, 60fps garantizados, o tu mercado es Apple-first.' },
-        { title: 'Android nativo', desc: 'Kotlin + Jetpack Compose para Android-first (LATAM, retail, workforce), Material You, o features del SDK que Flutter no cubre.' },
-        { title: 'Stores + soporte', desc: 'Publico en App Store y Google Play, respondo reviews, publico updates. No te entrego el APK y desaparezco.' },
+      id: 'discovery',
+      title: 'Discovery Sprint',
+      tagline: 'Validar tu idea antes de construir',
+      audience:
+        'Emprendedores y equipos que tienen una idea pero no saben si vale la pena construirla.',
+      outcome:
+        'Un roadmap técnico confeccionado, priorizado y costeado — listo para decidir sí o no.',
+      desc: 'En 5 días analizo tu mercado, reviso la competencia, defino los flujos clave y armo un plan técnico realista. Sin humo, sin vendor lock-in.',
+      deliverables: [
+        {
+          title: 'Análisis de mercado',
+          desc: 'Competencia directa, indirecta y oportunidades reales.',
+        },
+        {
+          title: 'Prototipo navegable',
+          desc: 'Wireframes de los flujos principales en Figma.',
+        },
+        {
+          title: 'Roadmap técnico',
+          desc: 'Stack recomendado, fases, estimación de tiempo y costo.',
+        },
+        {
+          title: 'Go/No-go',
+          desc: 'Recomendación honesta basada en datos, no en ganar el proyecto.',
+        },
       ],
-      tech: ['Flutter', 'Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Firebase', 'Room'],
-      deliverable: 'App publicada en App Store y Google Play, lista para recibir usuarios',
+      tech: ['Figma', 'Miro', 'Documentos técnicos', 'Análisis de mercado'],
       proof: {
-        label: 'Dónde lo apliqué',
-        text: 'Pepinillo (Android, Jetpack Compose) y Películas (Android, Kotlin) en Google Play. Solennix en iOS, Android y web — gestión real de eventos con CRM e inventario.',
-        link: '/proyectos',
-        linkLabel: 'Ver proyectos reales',
+        label: 'Ejemplo real',
+        text: 'Discovery para Solennix: se validó la necesidad de CRM + inventario antes del MVP, evitando construir features que nadie pedía.',
+        link: '/proyectos/solennix',
+        linkLabel: 'Ver Solennix',
       },
+      ctaLabel: 'Agendar Discovery Sprint',
+      ctaLink: '/contacto',
     },
     {
-      id: 'web',
-      title: 'Apps web',
-      tagline: 'Sitios que cargan rápido y convierten',
-      desc: 'Web es marketing, producto y ventas en un solo artefacto. Construyo experiencias que cargan en menos de un segundo, posicionan en Google, y convierten a visitantes en clientes.',
-      fullDesc: 'Astro para sitios de contenido o marketing. Next.js cuando hay SSR o estado complejo. React puro cuando es una SPA de verdad. Nada de WordPress — ese barco ya se hundió y llevarte ahí es condenarte a plugins rotos y velocidad de 2012.',
-      color: '#34C759',
-      features: [
-        { title: 'Sitios marketing', desc: 'Astro + Tailwind. 95+ Lighthouse en mobile, SEO técnico, cargás en menos de 1s en conexión promedio.' },
-        { title: 'Apps con estado', desc: 'Next.js + tRPC + Postgres. Auth, dashboards, portales internos, e-commerce con checkout propio.' },
-        { title: 'Headless CMS', desc: 'Sanity/Contentful/Decap + front en Astro o Next. Editorial feliz, developer feliz, build time aceptable.' },
-        { title: 'Migración desde WP', desc: 'WordPress → stack moderno sin perder SEO. Redirects 301, sitemap, schema markup, monitoreo post-migración.' },
+      id: 'mvp',
+      title: 'MVP Build',
+      tagline: 'Tu primer versión en el mercado',
+      audience:
+        'Equipos que ya validaron su idea y necesitan construir la primera versión funcional.',
+      outcome:
+        'Una app publicada en stores o desplegada en web, lista para recibir usuarios reales.',
+      desc: 'Construyo tu MVP con las features core, publicado y funcionando. El stack se elige según el problema, no según la moda.',
+      deliverables: [
+        {
+          title: 'App o sitio publicado',
+          desc: 'En App Store, Google Play o desplegado en web.',
+        },
+        {
+          title: 'Código en tu repositorio',
+          desc: 'Sin black box — el código es tuyo desde el día uno.',
+        },
+        {
+          title: 'CI/CD configurado',
+          desc: 'Tests, linting y deploy automático.',
+        },
+        {
+          title: 'Documentación',
+          desc: 'Guía de uso, arquitectura y decisiones técnicas.',
+        },
       ],
-      tech: ['Astro', 'Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'tRPC', 'PostgreSQL', 'Vercel'],
-      deliverable: 'Sitio desplegado, monitoreado y con guía de edición para vos',
+      tech: [
+        'React Native',
+        'Flutter',
+        'Swift',
+        'Kotlin',
+        'Astro',
+        'Next.js',
+        'TypeScript',
+      ],
       proof: {
-        label: 'Dónde lo apliqué',
-        text: 'Este mismo sitio. Astro + oklch + Google Fonts + backend en Go para el formulario. Tokens de diseño custom, animaciones con Intersection Observer, performance-first.',
-        link: '/',
-        linkLabel: 'Ver el sitio (sos vos ahora)',
+        label: 'Ejemplo real',
+        text: 'Pepinillo: de idea a Google Play en 8 semanas. Android nativo con Jetpack Compose, sync offline y widgets de enfoque.',
+        link: '/proyectos/pepinillo',
+        linkLabel: 'Ver Pepinillo',
       },
+      ctaLabel: 'Empezar tu MVP',
+      ctaLink: '/contacto',
     },
     {
-      id: 'escritorio',
-      title: 'Software de escritorio',
-      tagline: 'Cuando una web no alcanza',
-      desc: 'Escritorio es nicho, pero brutal cuando aplica. Punto de venta offline, herramientas internas, apps que manejan archivos grandes, workflows que no aguantan la latencia de una web.',
-      fullDesc: 'Tauri + Rust es mi default para desktop nuevo — apps de 5 a 15MB con rendimiento nativo, contra los 120MB de Electron que arrancan medio minuto. Nativo (Swift, Kotlin) cuando necesitás integración profunda con el sistema. Electron sólo si hay que compartir código con una web existente.',
-      color: '#FF9500',
-      features: [
-        { title: 'Tauri + Rust', desc: 'Mi default 2025. Bundles de ~10MB, cold start en ms, memoria mínima. Web stack adentro, binario nativo afuera.' },
-        { title: 'macOS nativo', desc: 'SwiftUI para apps que se sienten como Apple las haría. Integración con Spotlight, Shortcuts, Continuity.' },
-        { title: 'Herramientas internas', desc: 'Punto de venta, gestión de inventario, tools para tu operación. A veces la mejor app no es una web.' },
-        { title: 'Distribución', desc: 'Code signing, auto-updater, instaladores firmados para Windows, macOS y Linux. Sin warnings de "developer desconocido".' },
+      id: 'rescue',
+      title: 'Codebase Rescue',
+      tagline: 'Rescatar proyectos estancados o rotos',
+      audience:
+        'Equipos con código existente que no funciona, no escala o nadie entiende.',
+      outcome:
+        'Un codebase limpio, documentado, testeado y mantenido — listo para que tu equipo siga construyendo.',
+      desc: 'Reviso tu código, identifico los problemas críticos, refactorizo lo que hace falta y dejo todo documentado. Sin reescribir todo desde cero.',
+      deliverables: [
+        {
+          title: 'Auditoría de código',
+          desc: 'Análisis completo de deuda técnica, bugs críticos y riesgos.',
+        },
+        {
+          title: 'Plan de refactorización',
+          desc: 'Priorizado por impacto, con estimación de esfuerzo.',
+        },
+        {
+          title: 'Código refactorizado',
+          desc: 'Cambios incrementales, testeables, sin romper funcionalidad.',
+        },
+        {
+          title: 'Documentación de arquitectura',
+          desc: 'Cómo funciona, por qué se decidió así, cómo mantenerlo.',
+        },
       ],
-      tech: ['Tauri', 'Rust', 'Swift', 'SwiftUI', '.NET', 'Electron'],
-      deliverable: 'Instaladores firmados para Windows, macOS y Linux — listos para distribuir',
+      tech: [
+        'TypeScript',
+        'React',
+        'Node.js',
+        'PostgreSQL',
+        'Testing',
+        'CI/CD',
+      ],
       proof: {
-        label: 'Dónde lo apliqué',
-        text: 'Pepinillo Desktop (en desarrollo, Tauri + Rust) — versión de escritorio con sincronización y widgets de enfoque. Herramientas internas para flujos de eventos.',
-        link: '/#shelf',
-        linkLabel: 'Ver qué está en construcción',
+        label: 'Ejemplo real',
+        text: 'Rescate de proyecto web con dependencias obsoletas, sin tests y deploy manual. Transformado a CI/CD automatizado con coverage del 80%.',
+        link: '/contacto',
+        linkLabel: 'Contar tu caso',
       },
+      ctaLabel: 'Agendar auditoría',
+      ctaLink: '/contacto',
     },
     {
-      id: 'ia',
-      title: 'Consultoría de IA',
-      tagline: 'IA práctica, sin humo',
-      desc: 'La IA está en todos lados y la mitad es marketing. Te ayudo a separar lo que sirve de lo que es hype, y a integrar lo que vale la pena en tu flujo real.',
-      fullDesc: 'No vengo a venderte "transformación digital con IA". Vengo a ver dónde podés ahorrar horas semanales con un LLM bien integrado, o dónde un chatbot honesto puede manejar el 80% de consultas recurrentes. Lo demás es fricción disfrazada de innovación.',
-      color: '#0071E3',
-      features: [
-        { title: 'Auditoría de procesos', desc: 'Miro tus flujos, te digo qué tiene sentido automatizar con IA y qué no. Dos días de trabajo. Sin compromiso posterior.' },
-        { title: 'Chatbots honestos', desc: 'LLM + tus datos con RAG. Contestan sobre lo que saben, derivan lo que no. Sin alucinaciones sueltas al cliente.' },
-        { title: 'Automatización', desc: 'Clasificación de correo, resúmenes de reuniones, extracción de datos de PDFs. Tareas donde el LLM es mejor que una persona por 30 veces.' },
-        { title: 'IA en tu producto', desc: 'Feature de IA integrada en tu app existente. Desde search semántico hasta generación de contenido asistida.' },
+      id: 'ai-audit',
+      title: 'AI Audit',
+      tagline: 'Dónde la IA ahorra tiempo real',
+      audience:
+        'Equipos que quieren usar IA pero no saben dónde tiene sentido o cómo empezar.',
+      outcome:
+        'Un mapa de oportunidades con casos de uso concretos, estimación de ahorro y plan de implementación.',
+      desc: 'Analizo tus flujos de trabajo, identifico dónde un LLM bien integrado puede ahorrar horas semanales, y te doy un plan paso a paso.',
+      deliverables: [
+        {
+          title: 'Mapa de procesos',
+          desc: 'Tus flujos actuales, con tiempo y costo estimado.',
+        },
+        {
+          title: 'Oportunidades de IA',
+          desc: 'Casos de uso concretos, no "transformación digital" genérica.',
+        },
+        {
+          title: 'Estimación de ROI',
+          desc: 'Horas ahorradas, costo de implementación, payback period.',
+        },
+        {
+          title: 'Plan de implementación',
+          desc: 'Pasos concretos, tecnología recomendada, timeline.',
+        },
       ],
       tech: ['OpenAI', 'Anthropic', 'LangChain', 'Python', 'Vector DBs', 'RAG'],
-      deliverable: 'IA integrada en tu stack, con límites claros y monitoreo de costo',
       proof: {
-        label: 'Dónde lo apliqué',
-        text: 'Serene (en desarrollo) — diario de gratitud con IA consciente para ansiedad y burnout. IA con límites definidos: no diagnostica, no alucina, no reemplaza un terapeuta.',
-        link: '/#shelf',
-        linkLabel: 'Ver Serene en desarrollo',
+        label: 'Ejemplo real',
+        text: 'Auditoría para equipo de soporte: chatbot con RAG que maneja el 80% de consultas recurrentes, liberando al equipo para casos complejos.',
+        link: '/contacto',
+        linkLabel: 'Agendar tu auditoría',
       },
+      ctaLabel: 'Agendar AI Audit',
+      ctaLink: '/contacto',
+    },
+    {
+      id: 'continuous',
+      title: 'Continuous Development',
+      tagline: 'Tu producto crece sin contratar equipo',
+      audience:
+        'Equipos que necesitan desarrollo constante pero no pueden costear un equipo completo.',
+      outcome:
+        'Un socio técnico que mantiene, mejora y hace crecer tu producto mes a mes.',
+      desc: 'Desarrollo continuo con sprints regulares. Bug fixes, features nuevas, optimización de performance, monitoreo. Como tener un equipo de desarrollo dedicado, sin los costos fijos.',
+      deliverables: [
+        {
+          title: 'Sprints regulares',
+          desc: '2 semanas de desarrollo, demo cada viernes.',
+        },
+        {
+          title: 'Monitoreo proactivo',
+          desc: 'Performance, errores, uso — detecto problemas antes de que tus usuarios los vean.',
+        },
+        {
+          title: 'Mejoras continuas',
+          desc: 'Refactorización, optimización, features nuevas priorizadas por impacto.',
+        },
+        {
+          title: 'Reportes mensuales',
+          desc: 'Qué se hizo, qué impactó, qué viene next.',
+        },
+      ],
+      tech: ['El stack de tu producto', 'CI/CD', 'Monitoreo', 'Analytics'],
+      proof: {
+        label: 'Ejemplo real',
+        text: 'Solennix: desarrollo continuo con sprints de 2 semanas. Features nuevas cada mes, 0 downtime, performance optimizado.',
+        link: '/proyectos/solennix',
+        linkLabel: 'Ver Solennix',
+      },
+      ctaLabel: 'Empezar continuous dev',
+      ctaLink: '/contacto',
     },
   ],
   en: [
     {
-      id: 'mobile',
-      title: 'Mobile apps',
-      tagline: 'Apps people open every day',
-      desc: 'Mobile is my home turf. I design, code, and ship native and cross-platform apps — picking the tech for the problem, not for the trend.',
-      fullDesc: 'Flutter for a fast MVP or when you need iOS + Android on a single codebase. Native Swift or Kotlin when performance, hardware integration, or platform conventions demand it. There\'s no "universal stack" — there\'s the stack that fits your case.',
-      color: '#5856D6',
-      features: [
-        { title: 'Flutter · Fast MVP', desc: 'One codebase, two stores. Ideal to validate an idea or cover both platforms on a tight budget.' },
-        { title: 'Native iOS', desc: 'Swift + SwiftUI when you need deep system integration, guaranteed 60fps, or your market is Apple-first.' },
-        { title: 'Native Android', desc: 'Kotlin + Jetpack Compose for Android-first (LATAM, retail, workforce), Material You, or SDK features Flutter doesn\'t cover.' },
-        { title: 'Stores + support', desc: 'I publish to the App Store and Google Play, answer reviews, and ship updates. I don\'t hand you an APK and disappear.' },
+      id: 'discovery',
+      title: 'Discovery Sprint',
+      tagline: 'Validate your idea before building',
+      audience:
+        "Entrepreneurs and teams with an idea who aren't sure if it's worth building.",
+      outcome:
+        'A prioritized, costed technical roadmap — ready to decide yes or no.',
+      desc: 'In 5 days I analyze your market, review competitors, define key flows, and build a realistic technical plan. No smoke, no vendor lock-in.',
+      deliverables: [
+        {
+          title: 'Market analysis',
+          desc: 'Direct and indirect competition, real opportunities.',
+        },
+        {
+          title: 'Navigable prototype',
+          desc: 'Wireframes of key flows in Figma.',
+        },
+        {
+          title: 'Technical roadmap',
+          desc: 'Recommended stack, phases, time and cost estimate.',
+        },
+        {
+          title: 'Go/No-go',
+          desc: 'Honest recommendation based on data, not on winning the project.',
+        },
       ],
-      tech: ['Flutter', 'Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Firebase', 'Room'],
-      deliverable: 'App published in the App Store and Google Play, ready for real users',
+      tech: ['Figma', 'Miro', 'Technical documentation', 'Market analysis'],
       proof: {
-        label: 'Where I applied it',
-        text: 'Pepinillo (Android, Jetpack Compose) and Películas (Android, Kotlin) live on Google Play. Solennix on iOS, Android, and web — real event management with CRM and inventory.',
-        link: '/proyectos',
-        linkLabel: 'See real projects',
+        label: 'Real example',
+        text: 'Discovery for Solennix: validated the need for CRM + inventory before MVP, avoiding building features nobody asked for.',
+        link: '/proyectos/solennix',
+        linkLabel: 'See Solennix',
       },
+      ctaLabel: 'Schedule Discovery Sprint',
+      ctaLink: '/contacto',
     },
     {
-      id: 'web',
-      title: 'Web apps',
-      tagline: 'Sites that load fast and convert',
-      desc: 'Web is marketing, product, and sales in a single artifact. I build experiences that load in under a second, rank on Google, and convert visitors into customers.',
-      fullDesc: 'Astro for content or marketing sites. Next.js when there\'s SSR or complex state. Plain React when it\'s truly a SPA. No WordPress — that ship sank. Taking you there means broken plugins and 2012 speed.',
-      color: '#34C759',
-      features: [
-        { title: 'Marketing sites', desc: 'Astro + Tailwind. 95+ Lighthouse on mobile, technical SEO, under 1s load on an average connection.' },
-        { title: 'Apps with state', desc: 'Next.js + tRPC + Postgres. Auth, dashboards, internal portals, e-commerce with custom checkout.' },
-        { title: 'Headless CMS', desc: 'Sanity/Contentful/Decap + Astro or Next front-end. Happy editors, happy devs, acceptable build time.' },
-        { title: 'WP migration', desc: 'WordPress → modern stack without losing SEO. 301 redirects, sitemap, schema markup, post-migration monitoring.' },
+      id: 'mvp',
+      title: 'MVP Build',
+      tagline: 'Your first version in the market',
+      audience:
+        'Teams who validated their idea and need to build the first functional version.',
+      outcome:
+        'An app published in stores or deployed on web, ready for real users.',
+      desc: 'I build your MVP with core features, published and working. The stack is chosen for the problem, not for the trend.',
+      deliverables: [
+        {
+          title: 'Published app or site',
+          desc: 'On App Store, Google Play, or deployed on web.',
+        },
+        {
+          title: 'Code in your repo',
+          desc: 'No black box — the code is yours from day one.',
+        },
+        {
+          title: 'CI/CD configured',
+          desc: 'Tests, linting, and automated deploy.',
+        },
+        {
+          title: 'Documentation',
+          desc: 'Usage guide, architecture, and technical decisions.',
+        },
       ],
-      tech: ['Astro', 'Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'tRPC', 'PostgreSQL', 'Vercel'],
-      deliverable: 'Site deployed, monitored, and with an editing guide for you',
+      tech: [
+        'React Native',
+        'Flutter',
+        'Swift',
+        'Kotlin',
+        'Astro',
+        'Next.js',
+        'TypeScript',
+      ],
       proof: {
-        label: 'Where I applied it',
-        text: 'This very site. Astro + oklch + Google Fonts + a Go backend for the form. Custom design tokens, Intersection Observer animations, performance-first.',
-        link: '/',
-        linkLabel: 'See the site (you\'re on it)',
+        label: 'Real example',
+        text: 'Pepinillo: from idea to Google Play in 8 weeks. Native Android with Jetpack Compose, offline sync, and focus widgets.',
+        link: '/proyectos/pepinillo',
+        linkLabel: 'See Pepinillo',
       },
+      ctaLabel: 'Start your MVP',
+      ctaLink: '/contacto',
     },
     {
-      id: 'desktop',
-      title: 'Desktop software',
-      tagline: 'When the web isn\'t enough',
-      desc: 'Desktop is niche, but brutal when it fits. Offline point-of-sale, internal tools, apps that handle large files, workflows that can\'t take web latency.',
-      fullDesc: 'Tauri + Rust is my default for new desktop — 5–15MB apps with native performance, versus the 120MB Electron apps that take half a minute to start. Native (Swift, Kotlin) when deep system integration is needed. Electron only if you need to share code with an existing web app.',
-      color: '#FF9500',
-      features: [
-        { title: 'Tauri + Rust', desc: 'My 2025 default. ~10MB bundles, millisecond cold start, minimal memory. Web stack inside, native binary outside.' },
-        { title: 'Native macOS', desc: 'SwiftUI for apps that feel like Apple made them. Spotlight, Shortcuts, and Continuity integration.' },
-        { title: 'Internal tools', desc: 'Point-of-sale, inventory management, tools for your operation. Sometimes the best app isn\'t a web app.' },
-        { title: 'Distribution', desc: 'Code signing, auto-updater, signed installers for Windows, macOS, and Linux. No "unknown developer" warnings.' },
+      id: 'rescue',
+      title: 'Codebase Rescue',
+      tagline: 'Rescue stuck or broken projects',
+      audience:
+        "Teams with existing code that doesn't work, doesn't scale, or nobody understands.",
+      outcome:
+        'A clean, documented, tested, maintainable codebase — ready for your team to keep building.',
+      desc: 'I review your code, identify critical issues, refactor what needs it, and document everything. No rewriting from scratch.',
+      deliverables: [
+        {
+          title: 'Code audit',
+          desc: 'Complete analysis of technical debt, critical bugs, and risks.',
+        },
+        {
+          title: 'Refactoring plan',
+          desc: 'Prioritized by impact, with effort estimate.',
+        },
+        {
+          title: 'Refactored code',
+          desc: 'Incremental, testable changes without breaking functionality.',
+        },
+        {
+          title: 'Architecture documentation',
+          desc: 'How it works, why it was decided this way, how to maintain it.',
+        },
       ],
-      tech: ['Tauri', 'Rust', 'Swift', 'SwiftUI', '.NET', 'Electron'],
-      deliverable: 'Signed installers for Windows, macOS, and Linux — ready to ship',
+      tech: [
+        'TypeScript',
+        'React',
+        'Node.js',
+        'PostgreSQL',
+        'Testing',
+        'CI/CD',
+      ],
       proof: {
-        label: 'Where I applied it',
-        text: 'Pepinillo Desktop (in development, Tauri + Rust) — desktop version with sync and focus widgets. Internal tools for event workflows.',
-        link: '/#shelf',
-        linkLabel: 'See what\'s in progress',
+        label: 'Real example',
+        text: 'Web project rescue with obsolete dependencies, no tests, and manual deploy. Transformed to automated CI/CD with 80% coverage.',
+        link: '/contacto',
+        linkLabel: 'Tell us your case',
       },
+      ctaLabel: 'Schedule audit',
+      ctaLink: '/contacto',
     },
     {
-      id: 'ai',
-      title: 'AI consulting',
-      tagline: 'Practical AI, no smoke',
-      desc: 'AI is everywhere and half of it is marketing. I help you separate what\'s useful from what\'s hype, and integrate what\'s worth it into your real workflow.',
-      fullDesc: 'I\'m not here to sell you "digital transformation with AI". I\'m here to find where you can save weekly hours with a well-integrated LLM, or where an honest chatbot can handle 80% of recurring questions. The rest is friction disguised as innovation.',
-      color: '#0071E3',
-      features: [
-        { title: 'Process audit', desc: 'I look at your flows and tell you what makes sense to automate with AI and what doesn\'t. Two days of work. No commitment afterwards.' },
-        { title: 'Honest chatbots', desc: 'LLM + your data with RAG. They answer what they know and escalate what they don\'t. No hallucinations loose on your customers.' },
-        { title: 'Automation', desc: 'Email classification, meeting summaries, data extraction from PDFs. Tasks where an LLM beats a person 30x over.' },
-        { title: 'AI in your product', desc: 'An AI feature integrated into your existing app. From semantic search to assisted content generation.' },
+      id: 'ai-audit',
+      title: 'AI Audit',
+      tagline: 'Where AI saves real time',
+      audience:
+        "Teams who want to use AI but don't know where it makes sense or how to start.",
+      outcome:
+        'A map of opportunities with concrete use cases, estimated savings, and an implementation plan.',
+      desc: 'I analyze your workflows, identify where a well-integrated LLM can save weekly hours, and give you a step-by-step plan.',
+      deliverables: [
+        {
+          title: 'Process map',
+          desc: 'Your current flows, with time and cost estimates.',
+        },
+        {
+          title: 'AI opportunities',
+          desc: 'Concrete use cases, not generic "digital transformation".',
+        },
+        {
+          title: 'ROI estimate',
+          desc: 'Hours saved, implementation cost, payback period.',
+        },
+        {
+          title: 'Implementation plan',
+          desc: 'Concrete steps, recommended tech, timeline.',
+        },
       ],
       tech: ['OpenAI', 'Anthropic', 'LangChain', 'Python', 'Vector DBs', 'RAG'],
-      deliverable: 'AI integrated into your stack, with clear limits and cost monitoring',
       proof: {
-        label: 'Where I applied it',
-        text: 'Serene (in development) — a gratitude journal with conscious AI for anxiety and burnout. AI with defined limits: no diagnosing, no hallucinating, no replacing a therapist.',
-        link: '/#shelf',
-        linkLabel: 'See Serene in development',
+        label: 'Real example',
+        text: 'Audit for support team: RAG chatbot handling 80% of recurring queries, freeing the team for complex cases.',
+        link: '/contacto',
+        linkLabel: 'Schedule your audit',
       },
+      ctaLabel: 'Schedule AI Audit',
+      ctaLink: '/contacto',
+    },
+    {
+      id: 'continuous',
+      title: 'Continuous Development',
+      tagline: 'Your product grows without hiring a team',
+      audience:
+        "Teams who need ongoing development but can't afford a full team.",
+      outcome:
+        'A technical partner who maintains, improves, and grows your product month after month.',
+      desc: 'Continuous development with regular sprints. Bug fixes, new features, performance optimization, monitoring. Like having a dedicated dev team, without the fixed costs.',
+      deliverables: [
+        {
+          title: 'Regular sprints',
+          desc: '2 weeks of development, demo every Friday.',
+        },
+        {
+          title: 'Proactive monitoring',
+          desc: 'Performance, errors, usage — I catch issues before your users see them.',
+        },
+        {
+          title: 'Continuous improvements',
+          desc: 'Refactoring, optimization, new features prioritized by impact.',
+        },
+        {
+          title: 'Monthly reports',
+          desc: 'What was done, what impacted, what comes next.',
+        },
+      ],
+      tech: ["Your product's stack", 'CI/CD', 'Monitoring', 'Analytics'],
+      proof: {
+        label: 'Real example',
+        text: 'Solennix: continuous development with 2-week sprints. New features every month, 0 downtime, optimized performance.',
+        link: '/proyectos/solennix',
+        linkLabel: 'See Solennix',
+      },
+      ctaLabel: 'Start continuous dev',
+      ctaLink: '/contacto',
     },
   ],
   pt: [
     {
-      id: 'mobile',
-      title: 'Apps mobile',
-      tagline: 'Apps que as pessoas abrem todo dia',
-      desc: 'Mobile é meu território. Design, codifico e publico apps nativas e multiplataforma — escolhendo a tech para o problema, não para a trend.',
-      fullDesc: 'Flutter para um MVP rápido ou quando precisa de iOS + Android em uma só base de código. Nativo Swift ou Kotlin quando performance, integração de hardware ou convenções da plataforma exigem. Não existe "stack universal" — existe o stack que se encaixa no seu caso.',
-      color: '#5856D6',
-      features: [
-        { title: 'Flutter · MVP rápido', desc: 'Uma base de código, duas lojas. Ideal para validar uma ideia ou cobrir ambas plataformas com orçamento apertado.' },
-        { title: 'iOS nativo', desc: 'Swift + SwiftUI quando precisa de integração profunda com o sistema, 60fps garantido, ou seu mercado é Apple-first.' },
-        { title: 'Android nativo', desc: 'Kotlin + Jetpack Compose para Android-first (LATAM, varejo, força de trabalho), Material You, ou features de SDK que Flutter não cobre.' },
-        { title: 'Lojas + suporte', desc: 'Publico na App Store e Google Play, respondo reviews e mando atualizações. Não te entrego um APK e desapareço.' },
+      id: 'discovery',
+      title: 'Discovery Sprint',
+      tagline: 'Validar sua ideia antes de construir',
+      audience:
+        'Empreendedores e equipes com uma ideia que não sabem se vale a pena construir.',
+      outcome:
+        'Um roadmap técnico priorizado e com custo estimado — pronto para decidir sim ou não.',
+      desc: 'Em 5 dias analiso seu mercado, reviso concorrência, defino fluxos chave e monto um plano técnico realista. Sem fumaça, sem vendor lock-in.',
+      deliverables: [
+        {
+          title: 'Análise de mercado',
+          desc: 'Concorrência direta, indireta e oportunidades reais.',
+        },
+        {
+          title: 'Protótipo navegável',
+          desc: 'Wireframes dos fluxos principais no Figma.',
+        },
+        {
+          title: 'Roadmap técnico',
+          desc: 'Stack recomendado, fases, estimativa de tempo e custo.',
+        },
+        {
+          title: 'Go/No-go',
+          desc: 'Recomendação honesta baseada em dados, não em ganhar o projeto.',
+        },
       ],
-      tech: ['Flutter', 'Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Firebase', 'Room'],
-      deliverable: 'App publicado na App Store e Google Play, pronto para usuários reais',
+      tech: ['Figma', 'Miro', 'Documentação técnica', 'Análise de mercado'],
       proof: {
-        label: 'Onde apliquei',
-        text: 'Pepinillo (Android, Jetpack Compose) e Películas (Android, Kotlin) vivos no Google Play. Solennix no iOS, Android e web — gestão de eventos real com CRM e inventário.',
-        link: '/projetos',
-        linkLabel: 'Ver projetos reais',
+        label: 'Exemplo real',
+        text: 'Discovery para Solennix: validou a necessidade de CRM + inventário antes do MVP, evitando construir features que ninguém pediu.',
+        link: '/projetos/solennix',
+        linkLabel: 'Ver Solennix',
       },
+      ctaLabel: 'Agendar Discovery Sprint',
+      ctaLink: '/contacto',
     },
     {
-      id: 'web',
-      title: 'Apps web',
-      tagline: 'Sites que carregam rápido e convertem',
-      desc: 'Web é marketing, produto e vendas em um único artefato. Construo experiências que carregam em menos de um segundo, ranqueiam no Google e convertem visitantes em clientes.',
-      fullDesc: 'Astro para sites de conteúdo ou marketing. Next.js quando tem SSR ou estado complexo. React puro quando é realmente uma SPA. Sem WordPress — esse navio afundou. Te levar para lá significa plugins quebrados e velocidade de 2012.',
-      color: '#34C759',
-      features: [
-        { title: 'Sites de marketing', desc: 'Astro + Tailwind. 95+ Lighthouse no mobile, SEO técnico, menos de 1s de carregamento em conexão média.' },
-        { title: 'Apps com estado', desc: 'Next.js + tRPC + Postgres. Auth, dashboards, portais internos, e-commerce com checkout customizado.' },
-        { title: 'Headless CMS', desc: 'Sanity/Contentful/Decap + front-end em Astro ou Next. Editores felizes, devs felizes, tempo de build aceitável.' },
-        { title: 'Migração de WP', desc: 'WordPress → stack moderno sem perder SEO. Redirects 301, sitemap, schema markup, monitoramento pós-migração.' },
+      id: 'mvp',
+      title: 'MVP Build',
+      tagline: 'Sua primeira versão no mercado',
+      audience:
+        'Equipes que já validaram sua ideia e precisam construir a primeira versão funcional.',
+      outcome:
+        'Um app publicado nas lojas ou deployado na web, pronto para receber usuários reais.',
+      desc: 'Construo seu MVP com as features core, publicado e funcionando. O stack é escolhido para o problema, não para a tendência.',
+      deliverables: [
+        {
+          title: 'App ou site publicado',
+          desc: 'Na App Store, Google Play ou deployado na web.',
+        },
+        {
+          title: 'Código no seu repositório',
+          desc: 'Sem black box — o código é seu desde o dia um.',
+        },
+        {
+          title: 'CI/CD configurado',
+          desc: 'Tests, linting e deploy automático.',
+        },
+        {
+          title: 'Documentação',
+          desc: 'Guia de uso, arquitetura e decisões técnicas.',
+        },
       ],
-      tech: ['Astro', 'Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'tRPC', 'PostgreSQL', 'Vercel'],
-      deliverable: 'Site deployado, monitorado e com guia de edição para você',
+      tech: [
+        'React Native',
+        'Flutter',
+        'Swift',
+        'Kotlin',
+        'Astro',
+        'Next.js',
+        'TypeScript',
+      ],
       proof: {
-        label: 'Onde apliquei',
-        text: 'Este site mesmo. Astro + oklch + Google Fonts + um backend em Go para o formulário. Design tokens customizados, animações com Intersection Observer, performance-first.',
-        link: '/',
-        linkLabel: 'Ver o site (você está nele)',
+        label: 'Exemplo real',
+        text: 'Pepinillo: de ideia ao Google Play em 8 semanas. Android nativo com Jetpack Compose, sync offline e widgets de foco.',
+        link: '/projetos/pepinillo',
+        linkLabel: 'Ver Pepinillo',
       },
+      ctaLabel: 'Começar seu MVP',
+      ctaLink: '/contacto',
     },
     {
-      id: 'desktop',
-      title: 'Software desktop',
-      tagline: 'Quando a web não é suficiente',
-      desc: 'Desktop é nicho, mas brutal quando encaixa. Ponto de venda offline, ferramentas internas, apps que lidam com arquivos grandes, workflows que não aguentam latência web.',
-      fullDesc: 'Tauri + Rust é meu default para novo desktop — apps de 5-15MB com performance nativa, versus os apps Electron de 120MB que demoram meio minuto pra iniciar. Nativo (Swift, Kotlin) quando integração profunda com o sistema é necessária. Electron só se precisa compartilhar código com um app web existente.',
-      color: '#FF9500',
-      features: [
-        { title: 'Tauri + Rust', desc: 'Meu default 2025. Bundles de ~10MB, cold start em milissegundos, memória mínima. Stack web por dentro, binário nativo por fora.' },
-        { title: 'macOS nativo', desc: 'SwiftUI para apps que parecem feitos pela Apple. Integração com Spotlight, Atalhos e Continuity.' },
-        { title: 'Ferramentas internas', desc: 'Ponto de venda, gestão de inventário, ferramentas para sua operação. Às vezes o melhor app não é um web app.' },
-        { title: 'Distribuição', desc: 'Code signing, auto-updater, instaladores assinados para Windows, macOS e Linux. Sem avisos de "desenvolvedor desconhecido".' },
+      id: 'rescue',
+      title: 'Codebase Rescue',
+      tagline: 'Resgatar projetos travados ou quebrados',
+      audience:
+        'Equipes com código existente que não funciona, não escala ou ninguém entende.',
+      outcome:
+        'Um codebase limpo, documentado, testado e mantido — pronto para sua equipe continuar construindo.',
+      desc: 'Reviso seu código, identifico problemas críticos, refatoro o que precisa e documento tudo. Sem reescrever do zero.',
+      deliverables: [
+        {
+          title: 'Auditoria de código',
+          desc: 'Análise completa de dívida técnica, bugs críticos e riscos.',
+        },
+        {
+          title: 'Plano de refatoração',
+          desc: 'Priorizado por impacto, com estimativa de esforço.',
+        },
+        {
+          title: 'Código refatorado',
+          desc: 'Mudanças incrementais, testáveis, sem quebrar funcionalidade.',
+        },
+        {
+          title: 'Documentação de arquitetura',
+          desc: 'Como funciona, por que foi decidido assim, como manter.',
+        },
       ],
-      tech: ['Tauri', 'Rust', 'Swift', 'SwiftUI', '.NET', 'Electron'],
-      deliverable: 'Instaladores assinados para Windows, macOS e Linux — prontos para distribuir',
+      tech: [
+        'TypeScript',
+        'React',
+        'Node.js',
+        'PostgreSQL',
+        'Testing',
+        'CI/CD',
+      ],
       proof: {
-        label: 'Onde apliquei',
-        text: 'Pepinillo Desktop (em desenvolvimento, Tauri + Rust) — versão desktop com sync e widgets de foco. Ferramentas internas para workflows de eventos.',
-        link: '/#shelf',
-        linkLabel: 'Ver o que está em progresso',
+        label: 'Exemplo real',
+        text: 'Resgate de projeto web com dependências obsoletas, sem tests e deploy manual. Transformado para CI/CD automatizado com 80% de cobertura.',
+        link: '/contacto',
+        linkLabel: 'Conte seu caso',
       },
+      ctaLabel: 'Agendar auditoria',
+      ctaLink: '/contacto',
     },
     {
-      id: 'ai',
-      title: 'Consultoria de IA',
-      tagline: 'IA prática, sem fumaça',
-      desc: 'IA está em todo lugar e metade é marketing. Ajudo você a separar o que é útil do que é hype, e integrar o que vale a pena no seu fluxo real.',
-      fullDesc: 'Não estou aqui pra te vender "transformação digital com IA". Estou aqui pra encontrar onde você pode economizar horas semanais com um LLM bem integrado, ou onde um chatbot honesto pode atender 80% das perguntas recorrentes. O resto é atrito disfarçado de inovação.',
-      color: '#0071E3',
-      features: [
-        { title: 'Auditoria de processos', desc: 'Olho seus fluxos e te digo o que faz sentido automatizar com IA e o que não faz. Dois dias de trabalho. Sem compromisso depois.' },
-        { title: 'Chatbots honestos', desc: 'LLM + seus dados com RAG. Respondem o que sabem e escalam o que não sabem. Sem alucinações soltas nos seus clientes.' },
-        { title: 'Automação', desc: 'Classificação de emails, resumos de reuniões, extração de dados de PDFs. Tarefas onde um LLM supera uma pessoa 30x.' },
-        { title: 'IA no seu produto', desc: 'Uma feature de IA integrada no seu app existente. De busca semântica a geração assistida de conteúdo.' },
+      id: 'ai-audit',
+      title: 'AI Audit',
+      tagline: 'Onde a IA economiza tempo real',
+      audience:
+        'Equipes que querem usar IA mas não sabem onde faz sentido ou como começar.',
+      outcome:
+        'Um mapa de oportunidades com casos de uso concretos, estimativa de economia e plano de implementação.',
+      desc: 'Analiso seus fluxos de trabalho, identifico onde um LLM bem integrado pode economizar horas semanais e te dou um plano passo a passo.',
+      deliverables: [
+        {
+          title: 'Mapa de processos',
+          desc: 'Seus fluxos atuais, com tempo e custo estimado.',
+        },
+        {
+          title: 'Oportunidades de IA',
+          desc: 'Casos de uso concretos, não "transformação digital" genérica.',
+        },
+        {
+          title: 'Estimativa de ROI',
+          desc: 'Horas economizadas, custo de implementação, payback period.',
+        },
+        {
+          title: 'Plano de implementação',
+          desc: 'Passos concretos, tecnologia recomendada, timeline.',
+        },
       ],
       tech: ['OpenAI', 'Anthropic', 'LangChain', 'Python', 'Vector DBs', 'RAG'],
-      deliverable: 'IA integrada no seu stack, com limites claros e monitoramento de custo',
       proof: {
-        label: 'Onde apliquei',
-        text: 'Serene (em desenvolvimento) — um diário de gratidão com IA consciente para ansiedade e burnout. IA com limites definidos: sem diagnosticar, sem alucinar, sem substituir um terapeuta.',
-        link: '/#shelf',
-        linkLabel: 'Ver Serene em desenvolvimento',
+        label: 'Exemplo real',
+        text: 'Auditoria para equipe de suporte: chatbot com RAG atendendo 80% das consultas recorrentes, liberando a equipe para casos complexos.',
+        link: '/contacto',
+        linkLabel: 'Agendar sua auditoria',
       },
+      ctaLabel: 'Agendar AI Audit',
+      ctaLink: '/contacto',
+    },
+    {
+      id: 'continuous',
+      title: 'Continuous Development',
+      tagline: 'Seu produto cresce sem contratar equipe',
+      audience:
+        'Equipes que precisam de desenvolvimento constante mas não podem custear uma equipe completa.',
+      outcome:
+        'Um parceiro técnico que mantém, melhora e faz crescer seu produto mês a mês.',
+      desc: 'Desenvolvimento contínuo com sprints regulares. Bug fixes, features novas, otimização de performance, monitoramento. Como ter uma equipe de desenvolvimento dedicada, sem os custos fixos.',
+      deliverables: [
+        {
+          title: 'Sprints regulares',
+          desc: '2 semanas de desenvolvimento, demo toda sexta.',
+        },
+        {
+          title: 'Monitoramento proativo',
+          desc: 'Performance, erros, uso — detecto problemas antes de seus usuários verem.',
+        },
+        {
+          title: 'Melhorias contínuas',
+          desc: 'Refatoração, otimização, features novas priorizadas por impacto.',
+        },
+        {
+          title: 'Relatórios mensais',
+          desc: 'O que foi feito, o que impactou, o que vem next.',
+        },
+      ],
+      tech: ['O stack do seu produto', 'CI/CD', 'Monitoramento', 'Analytics'],
+      proof: {
+        label: 'Exemplo real',
+        text: 'Solennix: desenvolvimento contínuo com sprints de 2 semanas. Features novas a cada mês, 0 downtime, performance otimizada.',
+        link: '/projetos/solennix',
+        linkLabel: 'Ver Solennix',
+      },
+      ctaLabel: 'Começar continuous dev',
+      ctaLink: '/contacto',
     },
   ],
 };
@@ -309,79 +646,139 @@ const process: Record<Lang, ProcessStep[]> = {
   es: [
     {
       n: '01',
-      title: 'Descubrir',
-      desc: 'Escucho tu idea, leo tu mercado y armo un roadmap con fechas realistas.',
-      details: ['Llamada de 45 min', 'Análisis de competencia', 'Definición de KPIs', 'Propuesta técnica y presupuesto'],
+      title: 'Conversación',
+      desc: 'Escucho tu situación, entiendo tus constraints y defino qué éxito significa para vos.',
+      details: [
+        'Llamada de 30–45 min',
+        'Contexto del negocio',
+        'Restricciones técnicas',
+        'Expectativas de resultado',
+      ],
     },
     {
       n: '02',
-      title: 'Diseñar',
-      desc: 'Wireframes primero, prototipo navegable después, sistema de diseño documentado al final.',
-      details: ['Wireframes en papel digital', 'Prototipo en Figma', 'Diseño UI/UX', 'Design tokens y guía'],
+      title: 'Propuesta',
+      desc: 'Armo un plan claro con entregables, timeline y presupuesto. Sin sorpresas.',
+      details: [
+        'Alcance definido',
+        'Timeline con hitos',
+        'Presupuesto transparente',
+        'Preguntas antes de empezar',
+      ],
     },
     {
       n: '03',
-      title: 'Construir',
-      desc: 'Sprints de 2 semanas con demo cada viernes. Código en tu repo desde el día uno — sin black box.',
-      details: ['Demo semanal en vivo', 'Código en tu repositorio', 'Tests en lo crítico', 'CI/CD configurado'],
+      title: 'Ejecución',
+      desc: 'Sprints de 2 semanas con demo cada viernes. Código en tu repo desde el día uno.',
+      details: [
+        'Demo semanal en vivo',
+        'Código en tu repositorio',
+        'Feedback constante',
+        'Ajustes sin drama',
+      ],
     },
     {
       n: '04',
-      title: 'Lanzar',
-      desc: 'QA, publicación en tiendas, métricas conectadas. 30 días de soporte incluido post-lanzamiento.',
-      details: ['QA cruzado por dispositivo', 'Publicación en stores', 'Analytics y monitoring', 'Soporte 30 días incluido'],
+      title: 'Entrega',
+      desc: 'QA, documentación, handover. 30 días de soporte incluido post-entrega.',
+      details: [
+        'QA completo',
+        'Documentación técnica',
+        'Handover a tu equipo',
+        'Soporte 30 días',
+      ],
     },
   ],
   en: [
     {
       n: '01',
-      title: 'Discover',
-      desc: 'I listen to your idea, read your market, and build a roadmap with realistic dates.',
-      details: ['45-min call', 'Competitive analysis', 'KPI definition', 'Technical proposal and budget'],
+      title: 'Conversation',
+      desc: 'I listen to your situation, understand your constraints, and define what success means for you.',
+      details: [
+        '30–45 min call',
+        'Business context',
+        'Technical constraints',
+        'Expected outcomes',
+      ],
     },
     {
       n: '02',
-      title: 'Design',
-      desc: 'Wireframes first, navigable prototype second, documented design system at the end.',
-      details: ['Digital paper wireframes', 'Figma prototype', 'UI/UX design', 'Design tokens and guide'],
+      title: 'Proposal',
+      desc: 'I build a clear plan with deliverables, timeline, and budget. No surprises.',
+      details: [
+        'Defined scope',
+        'Milestone timeline',
+        'Transparent budget',
+        'Questions before starting',
+      ],
     },
     {
       n: '03',
-      title: 'Build',
-      desc: '2-week sprints with demos every Friday. Code in your repo from day one — no black box.',
-      details: ['Weekly live demo', 'Code in your repo', 'Tests on the critical path', 'CI/CD configured'],
+      title: 'Execution',
+      desc: '2-week sprints with demos every Friday. Code in your repo from day one.',
+      details: [
+        'Weekly live demo',
+        'Code in your repo',
+        'Constant feedback',
+        'Adjustments without drama',
+      ],
     },
     {
       n: '04',
-      title: 'Launch',
-      desc: 'QA, store publishing, metrics connected. 30 days of post-launch support included.',
-      details: ['Cross-device QA', 'Store publishing', 'Analytics and monitoring', '30 days of included support'],
+      title: 'Delivery',
+      desc: 'QA, documentation, handover. 30 days of support included post-delivery.',
+      details: [
+        'Complete QA',
+        'Technical documentation',
+        'Handover to your team',
+        '30 days of support',
+      ],
     },
   ],
   pt: [
     {
       n: '01',
-      title: 'Descobrir',
-      desc: 'Ouço sua ideia, analiso seu mercado e monto um roadmap com datas realistas.',
-      details: ['Ligação de 45 min', 'Análise de concorrência', 'Definição de KPIs', 'Proposta técnica e orçamento'],
+      title: 'Conversa',
+      desc: 'Ouço sua situação, entendo suas restrições e defino o que sucesso significa para você.',
+      details: [
+        'Ligação de 30–45 min',
+        'Contexto do negócio',
+        'Restrições técnicas',
+        'Expectativas de resultado',
+      ],
     },
     {
       n: '02',
-      title: 'Design',
-      desc: 'Wireframes primeiro, protótipo navegável depois, sistema de design documentado no final.',
-      details: ['Wireframes em papel digital', 'Protótipo no Figma', 'Design UI/UX', 'Design tokens e guia'],
+      title: 'Proposta',
+      desc: 'Monto um plano claro com entregables, timeline e orçamento. Sem surpresas.',
+      details: [
+        'Escopo definido',
+        'Timeline com marcos',
+        'Orçamento transparente',
+        'Perguntas antes de começar',
+      ],
     },
     {
       n: '03',
-      title: 'Construir',
-      desc: 'Sprints de 2 semanas com demo toda sexta. Código no seu repo desde o dia um — sem black box.',
-      details: ['Demo semanal ao vivo', 'Código no seu repositório', 'Tests no que é crítico', 'CI/CD configurado'],
+      title: 'Execução',
+      desc: 'Sprints de 2 semanas com demo toda sexta. Código no seu repo desde o dia um.',
+      details: [
+        'Demo semanal ao vivo',
+        'Código no seu repositório',
+        'Feedback constante',
+        'Ajustes sem drama',
+      ],
     },
     {
       n: '04',
-      title: 'Lançar',
-      desc: 'QA, publicação nas lojas, métricas conectadas. 30 dias de suporte incluídos pós-lançamento.',
-      details: ['QA cruzado por dispositivo', 'Publicação nas lojas', 'Analytics e monitoring', 'Suporte 30 dias incluído'],
+      title: 'Entrega',
+      desc: 'QA, documentação, handover. 30 dias de suporte incluídos pós-entrega.',
+      details: [
+        'QA completo',
+        'Documentação técnica',
+        'Handover para sua equipe',
+        '30 dias de suporte',
+      ],
     },
   ],
 };

@@ -1,12 +1,14 @@
 ---
-import type { Lang } from '../../../../i18n/ui';
-import Layout from '../../../../layouts/Layout.astro';
 import PepinilloGuideContent from '../../../../components/pages/PepinilloGuideContent.astro';
+import ProductHubLayout from '../../../../components/pages/ProductHubLayout.astro';
+import type { Lang } from '../../../../i18n/ui';
 
-export function getStaticPaths() { return [{ params: { lang: 'es' } }]; }
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }];
+}
 const lang = Astro.params.lang as Lang;
 ---
 
-<Layout lang={lang} title="Guía rápida — Pepinillo" description="Empezá a usar Pepinillo en menos de 2 minutos. Aprendé a elegir un modo, vincular tareas y enfocarte.">
+<ProductHubLayout lang={lang} slug="pepinillo" currentPage="guide">
   <PepinilloGuideContent lang={lang} />
-</Layout>
+</ProductHubLayout>

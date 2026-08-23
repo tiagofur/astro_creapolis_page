@@ -4,7 +4,7 @@ description: "¡Bienvenido de nuevo al mundo de Dart! Si has llegado hasta aquí
 pubDate: "2024-11-14"
 author: "tiagofur"
 tags: ["tutorial", "clases", "arquitectura", "dart", "desarrollo", "flutter", "funciones", "guía dart", "lenguaje dart", "objetos", "poo", "programación dart", "programación orientada a objetos", "sintaxis dart", "tipos de datos", "tutorial dart", "variables"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "dart-intermedio-sintaxis-variables-funciones-y-mas"
 originalUrl: "https://creapolis.dev/dart-intermedio-sintaxis-variables-funciones-y-mas/"
 draft: false

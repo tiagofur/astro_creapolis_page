@@ -4,7 +4,7 @@ description: "Flutter, el popular framework de Google para el desarrollo de apli
 pubDate: "2024-12-18"
 author: "tiagofur"
 tags: ["2d games", "ui", "audio", "colisiones", "componentes de juego", "dart", "desarrollo", "desarrollo de juegos", "flutter", "game development", "game engine", "guía flame", "juegos móviles", "motor de juego", "sprites", "tutorial flame"]
-categories: ["Flutter - Flame", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "domina-flame-desarrollo-de-juegos-con-flutter"
 originalUrl: "https://creapolis.dev/domina-flame-desarrollo-de-juegos-con-flutter/"
 draft: false

@@ -4,7 +4,7 @@ description: "El 73% de los fallos en producción ocurren por problemas de integ
 pubDate: "2026-01-16"
 author: "tiagofur"
 tags: ["e2e", "postgresql", "testcontainers"]
-categories: ["NestJS", "Testing"]
+categories: ["Engineering"]
 slug: "testing-e2e-con-testcontainers-en-nestjs"
 originalUrl: "https://creapolis.dev/testing-e2e-con-testcontainers-en-nestjs/"
 draft: false

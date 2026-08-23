@@ -1,0 +1,222 @@
+---
+/**
+ * Button primitive — renders <a> or <button> depending on href.
+ *
+ * Variants: primary (default), secondary, ghost, accent, danger
+ * Sizes: md (default), lg, sm
+ * States: disabled, loading (shows spinner)
+ *
+ * Usage:
+ *   <Button href="/contacto">Contact</Button>
+ *   <Button variant="ghost" size="lg">Learn more</Button>
+ *   <Button disabled>Unavailable</Button>
+ *   <Button loading>Sending…</Button>
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'accent' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  ['aria-label']?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  disabled = false,
+  loading = false,
+  type = 'button',
+  class: className = '',
+  ['aria-label']: ariaLabel,
+  target,
+  rel,
+  ...rest
+} = Astro.props;
+
+const classes = [
+  'ui-btn',
+  `ui-btn--${variant}`,
+  `ui-btn--${size}`,
+  disabled ? 'is-disabled' : '',
+  loading ? 'is-loading' : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const Tag = href ? 'a' : 'button';
+const hrefProps = href ? { href, target, rel } : {};
+const buttonProps = !href ? { type, disabled } : {};
+---
+
+<Tag
+  class={classes}
+  aria-label={ariaLabel}
+  aria-disabled={disabled || loading ? 'true' : undefined}
+  {...hrefProps}
+  {...buttonProps}
+  {...rest}
+>
+  {loading && <span class="ui-btn__spinner" aria-hidden="true" />}
+  <span class:list={['ui-btn__label', { 'sr-only': loading }]}>
+    <slot />
+  </span>
+</Tag>
+
+<style>
+  /* ─── Button Base ──────────────────────────────────────────────────── */
+  .ui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: var(--fw-medium);
+    line-height: 1.2;
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      transform var(--duration-fast) var(--ease),
+      box-shadow var(--duration-fast) var(--ease),
+      background var(--duration-fast) var(--ease),
+      border-color var(--duration-fast) var(--ease),
+      opacity var(--duration-fast) var(--ease);
+  }
+
+  /* ─── Focus ring (keyboard only) ───────────────────────────────────── */
+  .ui-btn:focus-visible {
+    outline: 2px solid var(--iris);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px oklch(0.62 0.2 285 / 0.15);
+  }
+
+  .ui-btn:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* ─── Hover ────────────────────────────────────────────────────────── */
+  .ui-btn:not(.is-disabled):not(.is-loading):hover {
+    transform: translateY(-1px);
+  }
+
+  /* ─── Variants ─────────────────────────────────────────────────────── */
+  .ui-btn--primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .ui-btn--primary:not(.is-disabled):not(.is-loading):hover {
+    background: oklch(0.28 0.015 265);
+    box-shadow: var(--sh-2);
+  }
+
+  .ui-btn--secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-2);
+  }
+  .ui-btn--secondary:not(.is-disabled):not(.is-loading):hover {
+    border-color: var(--ink);
+    background: var(--chalk);
+  }
+
+  .ui-btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: transparent;
+  }
+  .ui-btn--ghost:not(.is-disabled):not(.is-loading):hover {
+    background: var(--chalk);
+  }
+
+  .ui-btn--accent {
+    background: var(--accent-color, var(--iris));
+    color: white;
+    border-color: var(--accent-color, var(--iris));
+  }
+  .ui-btn--accent:not(.is-disabled):not(.is-loading):hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--accent-color, var(--iris)) 35%, transparent);
+  }
+
+  .ui-btn--danger {
+    background: oklch(0.55 0.2 25);
+    color: white;
+    border-color: oklch(0.55 0.2 25);
+  }
+  .ui-btn--danger:not(.is-disabled):not(.is-loading):hover {
+    background: oklch(0.48 0.22 25);
+    box-shadow: var(--sh-2);
+  }
+
+  /* ─── Sizes ────────────────────────────────────────────────────────── */
+  .ui-btn--sm {
+    padding: 10px 16px;
+    font-size: 0.8125rem;
+    min-height: 44px;
+  }
+
+  .ui-btn--md {
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+  }
+
+  .ui-btn--lg {
+    padding: 16px 28px;
+    font-size: 1rem;
+  }
+
+  /* ─── States ───────────────────────────────────────────────────────── */
+  .ui-btn.is-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .ui-btn.is-loading {
+    cursor: wait;
+    pointer-events: none;
+  }
+
+  /* ─── Spinner ──────────────────────────────────────────────────────── */
+  .ui-btn__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: ui-btn-spin 0.6s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes ui-btn-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ─── Reduced Motion ───────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .ui-btn {
+      transition: none;
+    }
+    .ui-btn__spinner {
+      animation-duration: 1.2s;
+    }
+    .ui-btn:not(.is-disabled):not(.is-loading):hover {
+      transform: none;
+    }
+  }
+</style>

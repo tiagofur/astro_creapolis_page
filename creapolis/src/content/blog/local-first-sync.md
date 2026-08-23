@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo web moderno, hemos estado atrapados en 
 pubDate: "2026-01-22"
 author: "tiagofur"
 tags: ["crdt", "electricsql", "datos", "offline-first", "powersync"]
-categories: ["Local-First"]
+categories: ["Engineering"]
 slug: "local-first-software-sincronizacion-de-datos-sin-dolor-con-bases-de-datos-en-el-cliente"
 originalUrl: "https://creapolis.dev/local-first-software-sincronizacion-de-datos-sin-dolor-con-bases-de-datos-en-el-cliente/"
 draft: false

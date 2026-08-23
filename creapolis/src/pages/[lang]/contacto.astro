@@ -1,8 +1,8 @@
 ---
+import ContactContent from '../../components/pages/ContactContent.astro';
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
-import ContactContent from '../../components/pages/ContactContent.astro';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'es' } }];
@@ -12,6 +12,6 @@ const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 ---
 
-<Layout lang={lang} title={t('contact.meta.title')} description={t('contact.meta.desc')}>
+<Layout lang={lang} title={t('contact.meta.title')} description={t('contact.meta.desc')} ogImage="/og/contacto.svg">
   <ContactContent lang={lang} />
 </Layout>

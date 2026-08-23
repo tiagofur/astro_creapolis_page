@@ -2,7 +2,10 @@
 import type { Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
 
-interface Props { lang: Lang; currentPath: string }
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
 const { lang, currentPath } = Astro.props;
 const t = useTranslations(lang);
 

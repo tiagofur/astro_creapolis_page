@@ -4,7 +4,7 @@ description: "En el ecosistema de desarrollo móvil actual, la consistencia visu
 pubDate: "2026-01-19"
 author: "tiagofur"
 tags: []
-categories: ["Flutter", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "ui-as-code-estandarizando-design-systems-en-flutter-para-equipos-de-alto-rendimiento"
 originalUrl: "https://creapolis.dev/ui-as-code-estandarizando-design-systems-en-flutter-para-equipos-de-alto-rendimiento/"
 draft: false

@@ -4,7 +4,7 @@ description: "https://podcasters.spotify.com/pod/show/creapolis-dev/episodes/Imp
 pubDate: "2024-10-14"
 author: "tiagofur"
 tags: ["ui", "charts", "charts_flutter", "dart", "data visualization", "datos", "desarrollo", "dynamic charts", "fl_chart", "flutter", "graficas", "gráficos dinámicos", "interactividad", "syncfusion_flutter_charts", "visualización de datos"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "implementacion-de-graficas-y-visualizaciones-dinamicas-en-flutter"
 originalUrl: "https://creapolis.dev/implementacion-de-graficas-y-visualizaciones-dinamicas-en-flutter/"
 draft: false

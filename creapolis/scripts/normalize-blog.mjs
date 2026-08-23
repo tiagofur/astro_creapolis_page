@@ -45,28 +45,28 @@ const FIELD_ORDER = [
 // Valor: tag canónico destino, o null para descartar.
 const TAG_REMAP = {
   // mobile
-  'android': 'mobile',
-  'ios': 'mobile',
-  'iphone': 'mobile',
-  'desarrollomobile': 'mobile',
+  android: 'mobile',
+  ios: 'mobile',
+  iphone: 'mobile',
+  desarrollomobile: 'mobile',
   'desarrollo mobile': 'mobile',
   'desarrollo móvil': 'mobile',
   'desarrollo movil': 'mobile',
   'cross-platform': 'mobile',
-  'crossplatform': 'mobile',
-  'desarrollomultiplataforma': 'mobile',
+  crossplatform: 'mobile',
+  desarrollomultiplataforma: 'mobile',
   'desarrollo multiplataforma': 'mobile',
-  'multiplataforma': 'mobile',
+  multiplataforma: 'mobile',
 
   // desktop
-  'desarrollodesktop': 'desktop',
+  desarrollodesktop: 'desktop',
   'desarrollo desktop': 'desktop',
-  'macos': 'desktop',
-  'windows': 'desktop',
-  'linux': 'desktop',
+  macos: 'desktop',
+  windows: 'desktop',
+  linux: 'desktop',
 
   // web
-  'desarrolloweb': 'web',
+  desarrolloweb: 'web',
   'desarrollo web': 'web',
 
   // flutter
@@ -74,16 +74,16 @@ const TAG_REMAP = {
   'guía flutter': 'flutter',
   'guia flutter': 'flutter',
   'tutorial flutter': 'flutter',
-  'scafold': 'flutter',
-  'cupertino': 'flutter',
-  'flame': 'flutter',
+  scafold: 'flutter',
+  cupertino: 'flutter',
+  flame: 'flutter',
 
   // dart
   'null safety': 'dart',
 
   // react
   'react native': 'react-native',
-  'reactnative': 'react-native',
+  reactnative: 'react-native',
 
   // nextjs
   'next.js': 'nextjs',
@@ -93,7 +93,7 @@ const TAG_REMAP = {
   // ui/ux
   'ui/ux': 'ui',
   'ui ux': 'ui',
-  'widgets': 'ui',
+  widgets: 'ui',
   'interfaz de usuario': 'ui',
   'diseño de interfaz': 'ui',
   'diseño visual': 'ui',
@@ -101,91 +101,91 @@ const TAG_REMAP = {
   'componentes de ui': 'ui',
   'construcción de ui': 'ui',
   'construccion de ui': 'ui',
-  'animaciones': 'ui',
+  animaciones: 'ui',
   'diseño ui/ux': 'ui',
   'material design': 'ui',
   'material 3': 'ui',
-  'layout': 'ui',
+  layout: 'ui',
   'diseño responsivo': 'ui',
-  'responsive': 'ui',
-  'responsivo': 'ui',
+  responsive: 'ui',
+  responsivo: 'ui',
   'apariencia visual': 'ui',
-  'sombras': 'ui',
-  'borderradius': 'ui',
-  'boxshadow': 'ui',
-  'gradientes': 'ui',
+  sombras: 'ui',
+  borderradius: 'ui',
+  boxshadow: 'ui',
+  gradientes: 'ui',
 
   // desarrollo (genérico)
   'desarrollo de apps': 'desarrollo',
-  'programación': 'desarrollo',
-  'programacion': 'desarrollo',
-  'código': 'desarrollo',
-  'codigo': 'desarrollo',
-  'tecnología': 'desarrollo',
-  'tecnologia': 'desarrollo',
+  programación: 'desarrollo',
+  programacion: 'desarrollo',
+  código: 'desarrollo',
+  codigo: 'desarrollo',
+  tecnología: 'desarrollo',
+  tecnologia: 'desarrollo',
 
   // tutorial
-  'guía': 'tutorial',
-  'guia': 'tutorial',
-  'tips': 'tutorial',
+  guía: 'tutorial',
+  guia: 'tutorial',
+  tips: 'tutorial',
   'buenas prácticas': 'tutorial',
   'buenas practicas': 'tutorial',
 
   // testing
-  'pruebas': 'testing',
+  pruebas: 'testing',
 
   // ia
   'inteligencia artificial': 'ia',
   'github copilot': 'ia',
-  'copilot': 'ia',
+  copilot: 'ia',
   'generación de código': 'ia',
   'generacion de codigo': 'ia',
-  'gemini': 'ia',
-  'llm': 'ia',
-  'agentic': 'ia',
-  'agentes': 'ia',
+  gemini: 'ia',
+  llm: 'ia',
+  agentic: 'ia',
+  agentes: 'ia',
   'vibe code': 'ia',
 
   // automatizacion
-  'automatización': 'automatizacion',
+  automatización: 'automatizacion',
 
   // arquitectura
   'arquitectura de software': 'arquitectura',
   'patrones de diseño': 'arquitectura',
-  'patrones': 'arquitectura',
+  patrones: 'arquitectura',
   'código limpio': 'arquitectura',
   'codigo limpio': 'arquitectura',
   'clean code': 'arquitectura',
   'clean architecture': 'arquitectura',
-  'hexagonal': 'arquitectura',
-  'solid': 'arquitectura',
-  'monolitos': 'arquitectura',
+  hexagonal: 'arquitectura',
+  solid: 'arquitectura',
+  monolitos: 'arquitectura',
 
   // estado
   'gestion de estado': 'estado',
   'gestión de estado': 'estado',
   'gerencia estado': 'estado',
   'manejo de estado': 'estado',
-  'provider': 'estado',
-  'bloc': 'estado',
-  'riverpod': 'estado',
+  provider: 'estado',
+  bloc: 'estado',
+  riverpod: 'estado',
 
   // performance
-  'rendimiento': 'performance',
-  'optimización': 'performance',
-  'optimizacion': 'performance',
+  rendimiento: 'performance',
+  optimización: 'performance',
+  optimizacion: 'performance',
 
   // seguridad
-  'ciberseguridad': 'seguridad',
-  'security': 'seguridad',
-  'devsecops': 'seguridad',
+  ciberseguridad: 'seguridad',
+  security: 'seguridad',
+  devsecops: 'seguridad',
   'shift-left': 'seguridad',
 
   // datos
-  'data': 'datos',
+  data: 'datos',
   'base de datos': 'datos',
-  'database': 'datos',
-  'persistencia': 'datos',
+  database: 'datos',
+  persistencia: 'datos',
   'persistencia de datos': 'datos',
   'almacenamiento local': 'datos',
   'local-first': 'datos',
@@ -193,48 +193,48 @@ const TAG_REMAP = {
   // devops
   'platform engineering': 'devops',
   'ci/cd': 'devops',
-  'cicd': 'devops',
-  'docker': 'devops',
+  cicd: 'devops',
+  docker: 'devops',
 
   // backend
-  'nestjs': 'backend',
+  nestjs: 'backend',
   'node.js': 'backend',
-  'nodejs': 'backend',
-  'api': 'backend',
+  nodejs: 'backend',
+  api: 'backend',
   'api restful': 'backend',
-  'rest': 'backend',
-  'graphql': 'backend',
-  'microservicios': 'backend',
-  'typeorm': 'backend',
+  rest: 'backend',
+  graphql: 'backend',
+  microservicios: 'backend',
+  typeorm: 'backend',
 
   // herramientas
-  'google': 'herramientas',
-  'vscode': 'herramientas',
+  google: 'herramientas',
+  vscode: 'herramientas',
   'vs code': 'herramientas',
-  'cursor': 'herramientas',
-  'windsurf': 'herramientas',
-  'git': 'herramientas',
-  'github': 'herramientas',
-  'biome': 'herramientas',
-  'eslint': 'herramientas',
-  'prettier': 'herramientas',
-  'turborepo': 'herramientas',
-  'monorepo': 'herramientas',
+  cursor: 'herramientas',
+  windsurf: 'herramientas',
+  git: 'herramientas',
+  github: 'herramientas',
+  biome: 'herramientas',
+  eslint: 'herramientas',
+  prettier: 'herramientas',
+  turborepo: 'herramientas',
+  monorepo: 'herramientas',
 
   // nativo
-  'native': 'nativo',
+  native: 'nativo',
 
   // pricing / negocio
-  'precio': 'pricing',
-  'precios': 'pricing',
-  'presupuesto': 'pricing',
+  precio: 'pricing',
+  precios: 'pricing',
+  presupuesto: 'pricing',
 
   // DROP — redundante o ruido
-  'creapolis': null,
-  'blog': null,
-  'post': null,
-  'articulo': null,
-  'artículo': null,
+  creapolis: null,
+  blog: null,
+  post: null,
+  articulo: null,
+  artículo: null,
 };
 
 // ─── Parser mínimo de frontmatter ─────────────────────────────
@@ -305,7 +305,7 @@ function parseFrontmatter(block) {
     }
 
     const key = m[1];
-    let rest = m[2];
+    const rest = m[2];
 
     // Array multilínea:
     //   tags:
@@ -486,7 +486,7 @@ function main() {
 
     modified++;
     const newFrontmatter = serializeFrontmatter(nextData);
-    const newFile = `${newFrontmatter}\n${body.startsWith('\n') ? body : '\n' + body}`;
+    const newFile = `${newFrontmatter}\n${body.startsWith('\n') ? body : `\n${body}`}`;
 
     if (DRY_RUN) {
       console.log(`  ${file} → ${changes.join(', ')}`);
@@ -497,15 +497,21 @@ function main() {
 
   console.log('');
   console.log(`Archivos escaneados: ${scanned}`);
-  console.log(`Archivos ${DRY_RUN ? 'a modificar' : 'modificados'}: ${modified}`);
+  console.log(
+    `Archivos ${DRY_RUN ? 'a modificar' : 'modificados'}: ${modified}`,
+  );
   if (problems.length) {
     console.log('');
     console.log('Problemas:');
-    problems.forEach((p) => console.log(`  - ${p}`));
+    problems.forEach((p) => {
+      console.log(`  - ${p}`);
+    });
   }
   if (DRY_RUN) {
     console.log('');
-    console.log('Dry run — ningún archivo fue escrito. Corré sin --dry para aplicar.');
+    console.log(
+      'Dry run — ningún archivo fue escrito. Corré sin --dry para aplicar.',
+    );
   }
 }
 

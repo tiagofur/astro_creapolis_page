@@ -1,16 +1,27 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getLegalLinks, getSocialLinks } from '../i18n/data/navigation';
+import { products } from '../i18n/data/products';
 import type { Lang } from '../i18n/ui';
+import {
+  getLangFromUrl,
+  getLocalizedPath,
+  useTranslations,
+} from '../i18n/utils';
 
 const year = new Date().getFullYear();
 const lang: Lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const social = {
-  linkedin: null,
-  github: null,
-  twitter: null,
-};
+const socialLinks = getSocialLinks();
+const legalLinks = getLegalLinks(lang);
+
+// Derive product links from canonical product data
+const footerProducts = products
+  .filter((p) => p.status === 'live' || p.status === 'pre_production')
+  .map((p) => ({
+    name: p.name,
+    href: getLocalizedPath(lang, `/proyectos/${p.slug}`),
+  }));
 ---
 
 <footer class="footer">
@@ -44,20 +55,21 @@ const social = {
         {t('footer.tagline')}
       </p>
       <div class="footer-social">
-        {social.linkedin && (
-          <a href={social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="fsoc">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
-          </a>
-        )}
-        {social.github && (
-          <a href={social.github} target="_blank" rel="noopener" aria-label="GitHub" class="fsoc">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-          </a>
-        )}
-        {social.twitter && (
-          <a href={social.twitter} target="_blank" rel="noopener" aria-label="X / Twitter" class="fsoc">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
-          </a>
+        {socialLinks.map((s) =>
+          s.url ? (
+            <a href={s.url} target="_blank" rel="noopener" aria-label={s.label} class="fsoc"
+              data-track-event={s.icon === 'linkedin' ? 'linkedin_click' : s.icon === 'github' ? 'github_click' : undefined}>
+              {s.icon === 'linkedin' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
+              )}
+              {s.icon === 'github' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+              )}
+              {s.icon === 'twitter' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
+              )}
+            </a>
+          ) : null,
         )}
       </div>
     </div>
@@ -75,10 +87,9 @@ const social = {
       <div class="fcol">
         <h5>{t('footer.projects')}</h5>
         <a href={getLocalizedPath(lang, '/proyectos')}>{t('footer.all')}</a>
-        <a href={getLocalizedPath(lang, '/solennix')}>Solennix</a>
-        <a href={getLocalizedPath(lang, '/proyectos/pepinillo')}>Pepinillo</a>
-        <a href={getLocalizedPath(lang, '/proyectos/peliculas')}>Películas</a>
-        <a href={getLocalizedPath(lang, '/proyectos/subscription-guardian')}>Subscription Guardian</a>
+        {footerProducts.map(p => (
+          <a href={p.href}>{p.name}</a>
+        ))}
       </div>
 
       <div class="fcol">
@@ -99,23 +110,37 @@ const social = {
     </div>
   </div>
 
+  <!-- Commercial CTA -->
+  <div class="footer-cta">
+    <div class="footer-cta-inner">
+      <div class="footer-cta-copy">
+        <h3>{t('footer.cta.title')}</h3>
+        <p>{t('footer.cta.desc')}</p>
+      </div>
+      <div class="footer-cta-actions">
+        <a href={getLocalizedPath(lang, '/contacto')} class="footer-cta-btn" data-track-event="start_project_click">
+          {t('footer.cta.btn')}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="mailto:hola@creapolis.dev" class="footer-cta-email">
+          {t('footer.cta.btn2')}
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="footer-legal">
     <div class="footer-legal-inner">
       <p class="footer-copyright">
         &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')} <span class="serif-it">{t('footer.care')}</span>.
       </p>
       <div class="footer-legal-links">
-        <a href={lang === 'en' ? '/privacy-policy' : lang === 'pt' ? '/privacy-policy' : '/privacidad'}>
-          {lang === 'en' ? 'Privacy Policy' : lang === 'pt' ? 'Política de Privacidade' : 'Privacidad'}
-        </a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href={lang === 'en' ? '/terms-of-use' : lang === 'pt' ? '/terms-of-use' : '/terminos'}>
-          {lang === 'en' ? 'Terms' : lang === 'pt' ? 'Termos' : 'Términos'}
-        </a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href={lang === 'en' ? '/delete-account' : lang === 'pt' ? '/delete-account' : '/eliminar-cuenta'}>
-          {lang === 'en' ? 'Delete Account' : lang === 'pt' ? 'Excluir conta' : 'Eliminar cuenta'}
-        </a>
+        {legalLinks.map((link, i) => (
+          <>
+            {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+            <a href={link.href}>{link.label}</a>
+          </>
+        ))}
       </div>
     </div>
   </div>
@@ -295,6 +320,79 @@ const social = {
     width: 8px; height: 8px; border-radius: 999px;
     background: var(--lime);
     box-shadow: 0 0 0 3px color-mix(in oklch, var(--lime) 20%, transparent);
+  }
+
+  /* Commercial CTA */
+  .footer-cta {
+    position: relative;
+    border-top: 1px solid oklch(0.28 0.02 265);
+    background: oklch(0.2 0.02 265);
+  }
+  .footer-cta-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 64px) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .footer-cta-inner {
+      flex-direction: row;
+      text-align: left;
+      justify-content: space-between;
+    }
+  }
+  .footer-cta-copy h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--paper);
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .footer-cta-copy p {
+    font-size: 0.95rem;
+    color: oklch(0.75 0.01 265);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .footer-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .footer-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: var(--r-pill);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  }
+  .footer-cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--sh-2);
+  }
+  .footer-cta-email {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--coral);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-cta-email:hover {
+    color: var(--lime);
   }
 
   /* Legal bottom strip */

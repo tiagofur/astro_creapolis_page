@@ -4,7 +4,7 @@ description: "¿Alguna vez has sentido que tu aplicación Flutter, a pesar de se
 pubDate: "2024-04-10"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "como-utilizar-los-colores-del-tema-en-flutter-y-dart"
 originalUrl: "https://creapolis.dev/como-utilizar-los-colores-del-tema-en-flutter-y-dart/"
 draft: false

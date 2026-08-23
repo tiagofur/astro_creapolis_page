@@ -4,7 +4,7 @@ description: "Durante la última década, la industria del software experimentó
 pubDate: "2026-01-21"
 author: "tiagofur"
 tags: ["arquitectura", "ddd", "monolito modular"]
-categories: ["Arquitectura"]
+categories: ["Engineering"]
 slug: "el-renacimiento-de-los-monolitos-modulares-arquitectura-de-software"
 originalUrl: "https://creapolis.dev/el-renacimiento-de-los-monolitos-modulares-arquitectura-de-software/"
 draft: false

@@ -4,7 +4,7 @@ description: "GitHub Copilot es una herramienta revolucionaria impulsada por int
 pubDate: "2024-10-09"
 author: "tiagofur"
 tags: ["aprendizaje automático", "asistente de programación", "autocompletado de código", "code completion", "ia", "desarrollo de software", "documentación", "herramientas", "machine learning", "openai", "productividad", "desarrollo", "testing", "refactorización"]
-categories: ["General"]
+categories: ["Engineering"]
 slug: "menos-esfuerzo-mas-resultados-la-magia-de-github-copilot-explicada"
 originalUrl: "https://creapolis.dev/menos-esfuerzo-mas-resultados-la-magia-de-github-copilot-explicada/"
 draft: false

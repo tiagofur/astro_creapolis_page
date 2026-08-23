@@ -4,7 +4,7 @@ description: "En el desarrollo de aplicaciones móviles con Flutter, todo gira e
 pubDate: "2024-11-02"
 author: "tiagofur"
 tags: ["ui", "flutter", "dart", "desarrollo", "statefulwidget", "statelesswidget"]
-categories: ["Flutter - Basico", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "widgets-en-flutter-la-clave-para-interfaces-de-usuario-excepcionales"
 originalUrl: "https://creapolis.dev/widgets-en-flutter-la-clave-para-interfaces-de-usuario-excepcionales/"
 draft: false

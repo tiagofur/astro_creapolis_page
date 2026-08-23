@@ -1,0 +1,254 @@
+---
+/**
+ * ChangelogContent.astro — Renders release notes for a product.
+ *
+ * Shows releases newest-first. Empty state when no releases exist.
+ * Does NOT include ProductHubLayout — that's handled by the page file.
+ */
+import {
+  categoryIcons,
+  categoryLabels,
+  getReleases,
+  hasReleases,
+} from '../../i18n/data/changelog';
+import { getProduct } from '../../i18n/data/products';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const t = useTranslations(lang);
+const product = getProduct(slug);
+
+const releases = getReleases(slug);
+const hasData = hasReleases(slug);
+const catLabels = categoryLabels[lang] ?? categoryLabels.en;
+
+function formatDate(iso: string): string {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString(
+    lang === 'es' ? 'es-MX' : lang === 'pt' ? 'pt-BR' : 'en-US',
+    { year: 'numeric', month: 'long', day: 'numeric' },
+  );
+}
+---
+
+<header class="cl-header">
+  <h1>{t('changelog.title')}</h1>
+  {hasData ? (
+    <p class="cl-subtitle">
+      {lang === 'es'
+        ? `Historial de versiones de ${product?.name}`
+        : lang === 'pt'
+          ? `Histórico de versões do ${product?.name}`
+          : `Version history for ${product?.name}`}
+    </p>
+  ) : (
+    <p class="cl-subtitle cl-empty-note">
+      {lang === 'es'
+        ? 'Aún no hay releases publicados. El changelog se actualizará cuando haya versiones disponibles.'
+        : lang === 'pt'
+          ? 'Nenhuma release publicada ainda. O changelog será atualizado quando houver versões disponíveis.'
+          : 'No releases published yet. The changelog will be updated when versions become available.'}
+    </p>
+  )}
+</header>
+
+{hasData ? (
+  <div class="cl-releases">
+    {releases.map((release) => (
+      <article class="cl-release">
+        <div class="cl-release-header">
+          <div class="cl-release-meta">
+            <span class="cl-version">{release.version}</span>
+            <time class="cl-date" datetime={release.date}>
+              {formatDate(release.date)}
+            </time>
+          </div>
+        </div>
+
+        <div class="cl-changes">
+          {(['added', 'improved', 'fixed', 'removed', 'security'] as const).map(
+            (cat) => {
+              const entries =
+                release.changes[lang]?.filter((c) => c.category === cat) ?? [];
+              if (entries.length === 0) return null;
+              return (
+                <div class="cl-category">
+                  <h4 class="cl-category-title">
+                    <span class="cl-category-icon">{categoryIcons[cat]}</span>
+                    {catLabels[cat]}
+                  </h4>
+                  <ul>
+                    {entries.map((entry) => (
+                      <li>{entry.text}</li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            },
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+) : (
+  <div class="cl-empty-state">
+    <div class="cl-empty-icon">📋</div>
+    <h3>
+      {lang === 'es'
+        ? 'Changelog vacío'
+        : lang === 'pt'
+          ? 'Changelog vazio'
+          : 'Empty changelog'}
+    </h3>
+    <p>
+      {lang === 'es'
+        ? `Las releases de ${product?.name} aparecerán aquí cuando estén disponibles.`
+        : lang === 'pt'
+          ? `As releases do ${product?.name} aparecerão aqui quando estiverem disponíveis.`
+          : `Releases for ${product?.name} will appear here when they become available.`}
+    </p>
+  </div>
+)}
+
+<style>
+  .cl-header {
+    margin-bottom: 40px;
+  }
+
+  .cl-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+
+  .cl-subtitle {
+    font-size: 1rem;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .cl-empty-note {
+    color: var(--ink-3);
+    font-style: italic;
+  }
+
+  /* ─── Releases ──────────────────────────────────────── */
+  .cl-releases {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .cl-release {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .cl-release:last-child {
+    border-bottom: none;
+  }
+
+  .cl-release-header {
+    margin-bottom: 16px;
+  }
+
+  .cl-release-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cl-version {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--hub-accent, var(--ink));
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .cl-date {
+    font-size: 0.9rem;
+    color: var(--ink-3);
+  }
+
+  /* ─── Changes ──────────────────────────────────────── */
+  .cl-changes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cl-category-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cl-category-icon {
+    font-size: 0.9rem;
+  }
+
+  .cl-changes ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cl-changes li {
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .cl-changes li::before {
+    content: '·';
+    position: absolute;
+    left: 2px;
+    color: var(--ink-3);
+    font-weight: 700;
+  }
+
+  /* ─── Empty State ──────────────────────────────────────── */
+  .cl-empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--ink-3);
+  }
+
+  .cl-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .cl-empty-state h3 {
+    font-size: 1.2rem;
+    color: var(--ink-2);
+    margin: 0 0 8px;
+  }
+
+  .cl-empty-state p {
+    font-size: 0.95rem;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+</style>

@@ -4,7 +4,7 @@ description: "Guía honesta para entender React Server Components y cuándo usar
 pubDate: "2026-01-13"
 author: "tiagofur"
 tags: ["nextjs", "react server components", "rsc"]
-categories: ["Next.js", "React"]
+categories: ["Engineering"]
 slug: "react-server-components-rsc-para-escepticos-una-guia-brutalmente-honesta"
 originalUrl: "https://creapolis.dev/react-server-components-rsc-para-escepticos-una-guia-brutalmente-honesta/"
 draft: false

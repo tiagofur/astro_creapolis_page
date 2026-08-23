@@ -1,0 +1,116 @@
+---
+/**
+ * TextLink primitive — styled <a> for inline text navigation.
+ *
+ * Variants:
+ *   default — inherits text color, underline on hover
+ *   subtle — muted color, underline on hover
+ *   accent — iris color, underline always
+ *   underline — always underlined
+ *
+ * Usage:
+ *   <TextLink href="/about">About us</TextLink>
+ *   <TextLink href="/blog" variant="subtle">Read more</TextLink>
+ *   <TextLink href="https://example.com" external>External</TextLink>
+ */
+
+interface Props {
+  href: string;
+  variant?: 'default' | 'subtle' | 'accent' | 'underline';
+  external?: boolean;
+  class?: string;
+  ['aria-label']?: string;
+}
+
+const {
+  href,
+  variant = 'default',
+  external = false,
+  class: className = '',
+  ['aria-label']: ariaLabel,
+  ...rest
+} = Astro.props;
+
+const classes = ['ui-link', `ui-link--${variant}`, className]
+  .filter(Boolean)
+  .join(' ');
+
+const externalProps = external
+  ? { target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+<a
+  class={classes}
+  href={href}
+  aria-label={ariaLabel}
+  {...externalProps}
+  {...rest}
+><slot /></a>
+
+<style>
+  /* ─── TextLink Base ────────────────────────────────────────────────── */
+  .ui-link {
+    color: inherit;
+    text-decoration: none;
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast) var(--ease);
+  }
+
+  .ui-link:focus-visible {
+    outline: 2px solid var(--iris);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .ui-link:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ─── Variants ─────────────────────────────────────────────────────── */
+  /* Default: subtle underline on hover */
+  .ui-link--default {
+    text-decoration: none;
+  }
+  .ui-link--default:hover {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+  }
+
+  /* Subtle: muted color, underline on hover */
+  .ui-link--subtle {
+    color: var(--color-text-secondary);
+  }
+  .ui-link--subtle:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+
+  /* Accent: iris color, always underlined */
+  .ui-link--accent {
+    color: var(--iris);
+    text-decoration: underline;
+    text-decoration-color: oklch(0.62 0.2 285 / 0.3);
+  }
+  .ui-link--accent:hover {
+    text-decoration-color: var(--iris);
+  }
+
+  /* Underline: always underlined */
+  .ui-link--underline {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+  }
+  .ui-link--underline:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* ─── Reduced Motion ───────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .ui-link {
+      transition: none;
+    }
+  }
+</style>

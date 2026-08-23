@@ -1,12 +1,14 @@
 ---
-import type { Lang } from '../../../../i18n/ui';
-import Layout from '../../../../layouts/Layout.astro';
 import PepinilloTipsContent from '../../../../components/pages/PepinilloTipsContent.astro';
+import ProductHubLayout from '../../../../components/pages/ProductHubLayout.astro';
+import type { Lang } from '../../../../i18n/ui';
 
-export function getStaticPaths() { return [{ params: { lang: 'es' } }]; }
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }];
+}
 const lang = Astro.params.lang as Lang;
 ---
 
-<Layout lang={lang} title="Tips de enfoque — Pepinillo" description="Dominá el deep work con estrategias probadas. Tips para Pomodoro, Flowtime y Time Blocking en Pepinillo.">
+<ProductHubLayout lang={lang} slug="pepinillo" currentPage="tips">
   <PepinilloTipsContent lang={lang} />
-</Layout>
+</ProductHubLayout>

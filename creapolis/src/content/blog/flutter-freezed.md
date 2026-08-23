@@ -4,7 +4,7 @@ description: "https://spotifyanchor-web.app.link/e/Pq0VNQRPoOb"
 pubDate: "2024-11-06"
 author: "tiagofur"
 tags: ["tutorial", "build_runner", "arquitectura", "copywith", "dart", "data classes", "desarrollo", "deserialización", "flutter", "freezed", "ia", "inmutabilidad", "json", "json_serializable", "modelos de datos", "serialización", "union types"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "freezed-el-arma-secreta-para-modelos-inmutables-y-json-en-flutter"
 originalUrl: "https://creapolis.dev/freezed-el-arma-secreta-para-modelos-inmutables-y-json-en-flutter/"
 draft: false

@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo móvil, la capacidad de una aplicación
 pubDate: "2024-11-19"
 author: "tiagofur"
 tags: ["datos", "mobile", "tutorial", "clave-valor", "dart", "datos de aplicación", "desarrollo", "flutter", "guardar datos", "key-value", "preferencias de usuario", "shared preferences", "ui"]
-categories: ["Flutter - Datos", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "olvidate-de-reiniciar-persistencia-de-datos-en-flutter-con-shared-preferences"
 originalUrl: "https://creapolis.dev/olvidate-de-reiniciar-persistencia-de-datos-en-flutter-con-shared-preferences/"
 draft: false

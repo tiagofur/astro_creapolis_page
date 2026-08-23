@@ -4,6 +4,7 @@ description: "Comparamos las tres principales opciones para desarrollo móvil. A
 pubDate: "2024-11-20"
 author: "tiagofur"
 tags: ["mobile", "flutter", "react-native", "desarrollo"]
+categories: ["Mobile"]
 draft: false
 ---
 

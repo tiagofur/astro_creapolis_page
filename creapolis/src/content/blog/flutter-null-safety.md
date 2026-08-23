@@ -4,7 +4,7 @@ description: "Null Safety es una de las características más importantes y reci
 pubDate: "2024-10-09"
 author: "tiagofur"
 tags: ["tutorial", "arquitectura", "dart", "desarrollo", "errores en tiempo de compilación", "flutter", "late", "migración a null safety", "nullpointerexception", "prevención de errores", "required", "seguridad de tipos", "tipos no nulos", "tipos nulos", "type safety"]
-categories: ["Dart", "Flutter - Intermedio"]
+categories: ["Mobile","Engineering"]
 slug: "null-safety-flutter-mejora-la-seguridad-y-estabilidad-de-tu-codigo"
 originalUrl: "https://creapolis.dev/null-safety-flutter-mejora-la-seguridad-y-estabilidad-de-tu-codigo/"
 draft: false

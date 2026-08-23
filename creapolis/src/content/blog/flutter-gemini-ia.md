@@ -4,7 +4,7 @@ description: "El desarrollo de software ha experimentado una transformación rad
 pubDate: "2025-03-21"
 author: "tiagofur"
 tags: ["backend", "asistentes virtuales", "chatbots", "dart", "desarrollo", "mobile", "flutter", "ia", "google ai", "google gemini", "modelos de lenguaje", "nlp", "procesamiento del lenguaje natural", "productividad"]
-categories: ["Flutter - IA, LR", "General"]
+categories: ["Mobile","Engineering"]
 slug: "gemini-flutter-programacion-acelerada-con-ia"
 originalUrl: "https://creapolis.dev/gemini-flutter-programacion-acelerada-con-ia/"
 draft: false

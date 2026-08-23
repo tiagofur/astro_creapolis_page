@@ -1,9 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import Ribbon from '../components/Ribbon.astro';
 import { getCollection } from 'astro:content';
+import Footer from '../components/Footer.astro';
+import Nav from '../components/Nav.astro';
+import Ribbon from '../components/Ribbon.astro';
+import { getPublishedCount, products } from '../i18n/data/products';
+import Layout from '../layouts/Layout.astro';
 import { getPostDescription } from '../utils/post';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -51,87 +52,173 @@ const postTagColors: Record<string, string> = {
 };
 
 function postDate(date: Date) {
-  return new Intl.DateTimeFormat('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat('es-MX', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 }
 
 const apps = [
   {
+    slug: 'solennix',
     name: 'Solennix',
     tagline: 'todo-en-uno para eventos',
     desc: 'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
-    href: '/solennix',
-    platform: 'iOS · Android · Web',
-    color: 'var(--iris)',
-    status: 'live',
+    href: '/proyectos/solennix',
     deviceRows: [[3], [2], [1]],
   },
   {
+    slug: 'pepinillo',
     name: 'Pepinillo',
     tagline: 'Pomodoro, tareas y timer',
     desc: 'Productividad todo-en-uno: Pomodoro configurable, tareas con prioridades y subtasks, calendario, timer y estadísticas.',
     href: '/proyectos/pepinillo',
-    platform: 'Android',
-    color: 'var(--lime)',
-    status: 'live',
     deviceRows: [[2], [3]],
   },
   {
+    slug: 'peliculas',
     name: 'Películas',
     tagline: 'tu cine, a tu manera',
     desc: 'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones basadas en tus gustos.',
     href: '/proyectos/peliculas',
-    platform: 'Android',
-    color: 'var(--coral)',
-    status: 'live',
     deviceRows: [[3], [2]],
+  },
+].map((app) => {
+  const canonical = products.find((p) => p.slug === app.slug);
+  if (!canonical) return { ...app, platform: '', color: '', status: 'live' };
+  const platformStr = canonical.platforms
+    .filter((pl) => pl.available)
+    .map((pl) => pl.id.toUpperCase())
+    .join(' · ');
+  return {
+    ...app,
+    platform: platformStr,
+    color: canonical.color,
+    status: canonical.status,
+  };
+});
+
+const shelf = [
+  {
+    ring: 'Sx',
+    name: 'Solennix · Mejora continua',
+    status: 'active',
+    statusLabel: 'En producción',
+    desc: 'Iteración constante: nuevas features por feedback de usuarios reales, estabilidad y preparación para escalar.',
+    progress: 92,
+    color: 'var(--iris)',
+    bg: 'var(--iris-soft)',
+  },
+  {
+    ring: 'Se',
+    name: 'Serene · Diario de gratitud',
+    status: 'dev',
+    statusLabel: 'En desarrollo',
+    desc: 'Diario de gratitud con IA consciente para ansiedad, burnout y depresión. Feedback terapéutico responsable — sin alucinaciones, sin diagnósticos, sin dañar.',
+    progress: 40,
+    color: 'var(--coral)',
+    bg: 'var(--coral-soft)',
+  },
+  {
+    ring: 'Pe',
+    name: 'Pepinillo para iOS',
+    status: 'dev',
+    statusLabel: 'En desarrollo',
+    desc: 'La app de productividad que ya funciona en Android, camino al iPhone. Próximo paso: migrar Android a nativo y construir versión desktop.',
+    progress: 28,
+    color: 'var(--lime)',
+    bg: 'var(--lime-soft)',
+  },
+  {
+    ring: 'SG',
+    name: 'Subscription Guardian',
+    status: 'pre',
+    statusLabel: 'Pre-lanzamiento',
+    desc: 'Control de suscripciones para iOS. Alertas antes de cada cobro, dashboard de gastos y privacidad total. Próximamente en App Store.',
+    progress: 70,
+    color: 'var(--sky)',
+    bg: 'var(--sky-soft)',
+  },
+  {
+    ring: '?',
+    name: 'En exploración · Asistente conectado',
+    status: 'soon',
+    statusLabel: 'Concepto',
+    desc: 'Idea explorando: un asistente que unifica WhatsApp, correo y CRM en un solo hilo para PyMEs. Todavía sin nombre definido.',
+    progress: 10,
+    color: 'var(--amber)',
+    bg: 'var(--amber-soft)',
   },
 ];
 
-const shelf = [
-  { ring: 'Sx', name: 'Solennix · Mejora continua', status: 'active', statusLabel: 'En producción', desc: 'Iteración constante: nuevas features por feedback de usuarios reales, estabilidad y preparación para escalar.', progress: 92, color: 'var(--iris)', bg: 'var(--iris-soft)' },
-  { ring: 'Se', name: 'Serene · Diario de gratitud', status: 'dev', statusLabel: 'En desarrollo', desc: 'Diario de gratitud con IA consciente para ansiedad, burnout y depresión. Feedback terapéutico responsable — sin alucinaciones, sin diagnósticos, sin dañar.', progress: 40, color: 'var(--coral)', bg: 'var(--coral-soft)' },
-  { ring: 'Pe', name: 'Pepinillo para iOS', status: 'dev', statusLabel: 'En desarrollo', desc: 'La app de productividad que ya funciona en Android, camino al iPhone. Próximo paso: migrar Android a nativo y construir versión desktop.', progress: 28, color: 'var(--lime)', bg: 'var(--lime-soft)' },
-  { ring: '?', name: 'En exploración · Asistente conectado', status: 'soon', statusLabel: 'Concepto', desc: 'Idea explorando: un asistente que unifica WhatsApp, correo y CRM en un solo hilo para PyMEs. Todavía sin nombre definido.', progress: 10, color: 'var(--amber)', bg: 'var(--amber-soft)' },
-];
-
 const services = [
-  { num: '01 / Móvil', mark: 'm', title: 'Apps móviles', desc: 'iOS y Android, nativas o multiplataforma. Publicamos, damos soporte y mantenemos stores.' },
-  { num: '02 / Web', mark: 'w', title: 'Apps web', desc: 'SPAs, e-commerce y dashboards con Next.js y Astro. Rápidas, seguras y medibles.' },
-  { num: '03 / Desktop', mark: 'd', title: 'Software de escritorio', desc: 'macOS, Windows y Linux. Tauri + Rust para rendimiento nativo y bundles pequeños.' },
-  { num: '04 / IA', mark: 'i', title: 'Consultoría de IA', desc: 'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.' },
+  {
+    num: '01 / Móvil',
+    mark: 'm',
+    title: 'Apps móviles',
+    desc: 'iOS y Android, nativas o multiplataforma. Publico, doy soporte y mantengo stores.',
+  },
+  {
+    num: '02 / Web',
+    mark: 'w',
+    title: 'Apps web',
+    desc: 'SPAs, e-commerce y dashboards con Next.js y Astro. Rápidas, seguras y medibles.',
+  },
+  {
+    num: '03 / Desktop',
+    mark: 'd',
+    title: 'Software de escritorio',
+    desc: 'macOS, Windows y Linux. Tauri + Rust para rendimiento nativo y bundles pequeños.',
+  },
+  {
+    num: '04 / IA',
+    mark: 'i',
+    title: 'Consultoría de IA',
+    desc: 'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.',
+  },
 ];
 
 const steps = [
-  { n: '1', title: 'Descubrir', desc: 'Llamada de 45 min, lectura del mercado, roadmap con fechas realistas y presupuesto.' },
-  { n: '2', title: 'Diseñar', desc: 'Wireframes, prototipo navegable en Figma y sistema de diseño documentado.' },
-  { n: '3', title: 'Construir', desc: 'Sprints de 2 semanas. Demo cada viernes. Código en tu repo desde el día uno.' },
-  { n: '4', title: 'Lanzar', desc: 'QA, publicación en stores, métricas. 30 días de soporte incluidos post-lanzamiento.' },
+  {
+    n: '1',
+    title: 'Descubrir',
+    desc: 'Llamada de 45 min, lectura del mercado, roadmap con fechas realistas y presupuesto.',
+  },
+  {
+    n: '2',
+    title: 'Diseñar',
+    desc: 'Wireframes, prototipo navegable en Figma y sistema de diseño documentado.',
+  },
+  {
+    n: '3',
+    title: 'Construir',
+    desc: 'Sprints de 2 semanas. Demo cada viernes. Código en tu repo desde el día uno.',
+  },
+  {
+    n: '4',
+    title: 'Lanzar',
+    desc: 'QA, publicación en stores, métricas. 30 días de soporte incluidos post-lanzamiento.',
+  },
 ];
 
+const publishedCount = getPublishedCount();
 const stats = [
   { n: '5+ años', label: 'Construyendo producto', color: 'c1' },
-  { n: '3 apps', label: 'Propias en tiendas', color: 'c2' },
+  { n: `${publishedCount} apps`, label: 'Propias en tiendas', color: 'c2' },
   { n: '1 persona', label: 'Cero intermediarios', color: 'c3' },
   { n: '< 24h', label: 'Respuesta a cada mensaje', color: 'c4' },
 ];
 ---
 
 <Layout>
-  <Nav
-    links={[
-      { label: 'Proyectos', href: '/#apps' },
-      { label: 'Servicios', href: '/servicios' },
-      { label: 'Sobre', href: '/sobre' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Contacto', href: '/contacto' },
-    ]}
-    cta={{ text: 'Iniciar proyecto', href: '/contacto' }}
-  />
+  <Nav />
 
+  <div>
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
        ═══════════════════════════════════════════════════════════════ -->
-  <header class="hero" id="main-content">
+  <header class="hero">
     <Ribbon />
     <div class="hero-grid">
       <div class="hero-copy reveal">
@@ -141,51 +228,20 @@ const stats = [
         <h1>Software que<br/><span class="serif">transforma</span> ideas<br/>en productos.</h1>
         <p class="lead">Diseño y desarrollo apps móviles, web y escritorio con el cuidado de quien las va a mantener y la velocidad de quien entrega cada semana. Consultoría de IA incluida.</p>
         <div class="hero-cta">
-          <a href="/contacto" class="btn btn-primary btn-lg">Iniciar proyecto
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <a href="/es/contacto" class="btn btn-primary btn-lg">Iniciar proyecto
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
           <a href="#apps" class="hero-cta-ghost">Ver mi trabajo ↓</a>
         </div>
         <div class="hero-trust">
           <span><strong>5+ años</strong> entregando producto</span>
-          <span><strong>3 apps propias</strong> en tiendas</span>
+          <span><strong>{publishedCount} apps propias</strong> en tiendas</span>
           <span><strong>Respuesta &lt;24h</strong> a cada mensaje</span>
         </div>
       </div>
 
-      <div class="showcase reveal reveal-delay-2" aria-hidden="true">
-        <!-- Card A: phone preview -->
-        <div class="sc-card sc-a">
-          <div class="eyebrow accent" style="--accent-color: var(--iris); font-size:0.62rem">Solennix · dashboard</div>
-          <div class="phone">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="big"></div>
-          </div>
-        </div>
-        <!-- Card B: big stat -->
-        <div class="sc-card sc-b">
-          <div class="mono-mini">INGRESOS · MAR</div>
-          <h4>Mes récord</h4>
-          <div class="num">+42%</div>
-        </div>
-        <!-- Card C: chart -->
-        <div class="sc-card sc-c">
-          <div class="chart">
-            <svg viewBox="0 0 200 80" preserveAspectRatio="none">
-              <polyline points="0,60 30,50 60,55 90,30 120,35 150,15 180,20 200,8"
-                fill="none" stroke="oklch(0.72 0.18 32)" stroke-width="3" stroke-linecap="round"/>
-              <polyline points="0,70 30,62 60,66 90,48 120,52 150,40 180,44 200,32"
-                fill="none" stroke="oklch(0.62 0.2 285)" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-            </svg>
-          </div>
-          <div class="meta">
-            <h4>Tráfico</h4>
-            <p>7 días</p>
-          </div>
-        </div>
+      <div class="showcase reveal reveal-delay-2">
+        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" decoding="async" />
       </div>
     </div>
   </header>
@@ -220,7 +276,7 @@ const stats = [
           <div class="eyebrow" style="margin-bottom:18px"><span>Mis apps · En producción</span></div>
           <h2>Producto propio,<br/><span class="serif">en las tiendas</span>.</h2>
         </div>
-        <p class="reveal reveal-delay-1">Antes de hacer el tuyo, hice el mío. Estas son tres apps creadas, mantenidas y operadas por mí. Usuarios reales, reseñas reales, código propio.</p>
+        <p class="reveal reveal-delay-1">Antes de hacer el tuyo, hice el mío. Estas son apps creadas, mantenidas y operadas por mí. Usuarios reales, reseñas reales, código propio.</p>
       </div>
 
       <div class="products">
@@ -241,7 +297,7 @@ const stats = [
             <div class="product-meta">
               <div class="head">
                 <h3>{app.name}</h3>
-                <span class="chip live"><span class="chip-dot"></span>Live</span>
+                <span class={`chip ${app.status === 'live' ? 'live' : 'pre'}`}><span class="chip-dot"></span>{app.status === 'live' ? 'Live' : 'Pre-lanzamiento'}</span>
               </div>
               <span class="tagline">{app.tagline}</span>
               <p>{app.desc}</p>
@@ -307,8 +363,8 @@ const stats = [
       </div>
 
       <div class="svc-more reveal">
-        <a href="/servicios" class="btn btn-ghost">Ver detalles de cada servicio
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <a href="/servicios" class="btn btn-primary">Ver servicios y tarifas
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
     </div>
@@ -330,7 +386,7 @@ const stats = [
         {steps.map((step, i) => (
           <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
             <span class="bignum">{step.n}</span>
-            <h4>{step.title}</h4>
+            <h3>{step.title}</h3>
             <p>{step.desc}</p>
           </div>
         ))}
@@ -360,7 +416,7 @@ const stats = [
         <h2>No es una agencia.<br/>Es un <span class="serif">desarrollador que vive en el producto</span>.</h2>
         <p class="big">Desde 2019 construyo software — al principio como experimento, ahora como trabajo. Hablás conmigo, te contesto yo, escribo el código yo. Sin agencias, sin equipos que cambian a mitad de proyecto, sin nadie que te traduzca lo que ya dijiste bien.</p>
         <a href="/sobre" class="btn btn-ghost" style="margin-top:24px;border-color:oklch(0.5 0.01 265);color:var(--paper)">Conocé más sobre mí
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
 
@@ -387,7 +443,7 @@ const stats = [
           <p class="notes-intro">Lo que aprendo construyendo apps reales — decisiones técnicas, errores que pagué, y lo que funciona cuando el hype se apaga.</p>
         </div>
         <a href="/blog" class="btn btn-ghost">Ver todas las notas
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
       </div>
 
@@ -405,7 +461,7 @@ const stats = [
               <h3>{post.data.title}</h3>
               <p>{getPostDescription(post)}</p>
               <span class="note-read">Leer nota
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </span>
             </a>
           );
@@ -424,13 +480,15 @@ const stats = [
       <p class="lead">Sin formularios de 20 campos ni disqueros. Escribime en 2 minutos, te respondo en menos de 24 horas con próximos pasos.</p>
 
       <div class="c-cta-row">
-        <a href="/contacto" class="btn btn-primary btn-lg">Iniciar conversación
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <a href="/es/contacto" class="btn btn-primary btn-lg">Iniciar conversación
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </a>
         <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
       </div>
     </div>
   </section>
+
+  </div>
 
   <Footer />
 </Layout>
@@ -492,39 +550,15 @@ const stats = [
 
   /* Canvas showpiece */
   .showcase {
-    position: relative; aspect-ratio: 4/5;
-    width: 100%; max-width: 460px; margin: 0 auto;
-  }
-  .sc-card {
-    position: absolute; background: var(--paper);
-    border: 1px solid var(--line);
-    box-shadow: var(--sh-3);
+    width: 100%; max-width: 520px; margin: 0 auto;
     border-radius: var(--r-lg);
     overflow: hidden;
+    box-shadow: var(--sh-3);
+    border: 1px solid var(--line);
   }
-  .sc-a { top: 0; left: 0; width: 62%; aspect-ratio: 3/4; z-index: 3; transform: rotate(-3deg); }
-  .sc-b { top: 8%; right: 0; width: 54%; aspect-ratio: 1/1; z-index: 2; transform: rotate(4deg); background: var(--ink); color: var(--paper); padding: 22px; }
-  .sc-c { bottom: 0; left: 14%; width: 72%; aspect-ratio: 16/11; z-index: 4; transform: rotate(-1.5deg); }
-  .sc-card:hover { transform: rotate(0); transition: transform 0.4s var(--ease); z-index: 10; }
-  .sc-a { padding: 20px; background: linear-gradient(160deg, var(--iris-soft), var(--paper)); }
-  .sc-a .phone {
-    margin: 10px auto 0; width: 80%; height: 78%;
-    background: var(--ink); border-radius: 24px; padding: 10px;
-    display: flex; flex-direction: column; gap: 6px;
+  .showcase-img {
+    width: 100%; height: auto; display: block;
   }
-  .sc-a .phone .bar { height: 14px; background: color-mix(in oklch, var(--iris) 40%, transparent); border-radius: 4px; }
-  .sc-a .phone .bar:nth-child(2) { width: 60%; }
-  .sc-a .phone .bar:nth-child(3) { width: 80%; background: color-mix(in oklch, var(--lime) 40%, transparent); }
-  .sc-a .phone .bar:nth-child(4) { width: 45%; }
-  .sc-a .phone .big { flex: 1; background: color-mix(in oklch, var(--iris) 55%, var(--ink)); border-radius: 10px; margin-top: 4px; }
-  .sc-b h4 { color: var(--paper); font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 6px; }
-  .sc-b .mono-mini { font-family: var(--font-mono); font-size: 0.65rem; color: oklch(0.7 0.02 265); }
-  .sc-b .num { font-family: var(--font-serif); font-style: italic; font-size: 3.4rem; line-height: 1; margin-top: 10px; color: var(--lime); }
-  .sc-c { padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
-  .sc-c .chart { flex: 1; height: 70%; position: relative; }
-  .sc-c .chart svg { width: 100%; height: 100%; }
-  .sc-c .meta h4 { font-size: 0.85rem; margin-bottom: 4px; }
-  .sc-c .meta p { font-size: 0.72rem; color: var(--ink-3); }
 
   /* ═══════════════════════════════════════════════════════════════
      MARQUEE

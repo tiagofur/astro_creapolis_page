@@ -4,7 +4,7 @@ description: "El widget Card en Flutter es ideal para presentar información en 
 pubDate: "2024-10-16"
 author: "tiagofur"
 tags: ["ui", "card", "contenido", "dart", "desarrollo", "elevación", "flutter", "personalización", "responsive design"]
-categories: ["Flutter - Basico", "Flutter - UI/UX", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "cards-personalizables-y-responsivos-en-flutter-todo-lo-que-necesitas-saber"
 originalUrl: "https://creapolis.dev/cards-personalizables-y-responsivos-en-flutter-todo-lo-que-necesitas-saber/"
 draft: false

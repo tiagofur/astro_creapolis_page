@@ -4,6 +4,7 @@ description: "WordPress fue great en su momento, pero hay opciones mejores para 
 pubDate: "2024-10-15"
 author: "tiagofur"
 tags: ["web", "wordpress", "astro", "jamstack"]
+categories: ["Engineering"]
 draft: false
 ---
 

@@ -1,8 +1,8 @@
 ---
-import type { Lang } from '../../../i18n/ui';
-import Layout from '../../../layouts/Layout.astro';
 import ProjectDetail from '../../../components/pages/ProjectDetail.astro';
 import { getProjectData, PROJECT_SLUGS } from '../../../i18n/data/projects';
+import type { Lang } from '../../../i18n/ui';
+import Layout from '../../../layouts/Layout.astro';
 
 export function getStaticPaths() {
   return PROJECT_SLUGS.map((slug) => ({
@@ -15,8 +15,45 @@ const slug = Astro.params.slug as string;
 const project = getProjectData(lang, slug);
 const title = project ? `${project.name} — Creapolis` : 'Creapolis';
 const description = project?.lead ?? '';
+const ogImage = `/og/${slug}.svg`;
+
+// Build SoftwareApplication JSON-LD
+let extraJsonLd: Record<string, unknown> | undefined;
+if (project) {
+  const appJsonLd: Record<string, unknown> = {
+    '@type': 'SoftwareApplication',
+    name: project.name,
+    description: project.lead,
+    applicationCategory: 'MobileApplication',
+    author: {
+      '@type': 'Organization',
+      name: 'Creapolis',
+      url: 'https://creapolis.dev',
+    },
+  };
+  if (project.platform) {
+    appJsonLd.operatingSystem = project.platform;
+  }
+  if (project.price) {
+    const priceNum = String(project.price).replace(/[^\d.]/g, '');
+    appJsonLd.offers = {
+      '@type': 'Offer',
+      ...(priceNum ? { price: priceNum } : {}),
+      priceCurrency: String(project.price).includes('USD') ? 'USD' : 'MXN',
+    };
+  }
+  extraJsonLd = appJsonLd;
+}
 ---
 
-<Layout lang={lang} title={title} description={description}>
+<Layout
+  lang={lang}
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  extraJsonLd={extraJsonLd}
+>
   <ProjectDetail lang={lang} slug={slug} />
 </Layout>
+
+<div data-track-pageview="project_viewed" data-track-slug={slug} hidden></div>

@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Build & Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        run: npm install -g pnpm@11
+
+      - name: Check Node version
+        run: node --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: creapolis
+
+      - name: Typecheck
+        run: pnpm run typecheck
+        working-directory: creapolis
+
+      - name: Lint
+        run: pnpm run lint
+        working-directory: creapolis
+
+      - name: Build
+        run: pnpm run build
+        working-directory: creapolis
+
+      - name: Check build output
+        run: |
+          echo "Pages built:"
+          find dist -name "*.html" | wc -l
+          echo "Total dist size:"
+          du -sh dist/
+        working-directory: creapolis

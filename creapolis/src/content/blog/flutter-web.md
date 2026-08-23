@@ -4,7 +4,7 @@ description: "Flutter ha revolucionado el mundo del desarrollo de aplicaciones m
 pubDate: "2024-11-14"
 author: "tiagofur"
 tags: ["aplicaciones web", "mobile", "css", "dart", "desarrollo", "web", "flutter", "flutter web", "html", "ui", "javascript", "navegador", "progressive web app", "pwa", "web apps"]
-categories: ["Flutter - Basico", "Flutter - Web"]
+categories: ["Mobile"]
 slug: "flutter-para-web-llevando-tu-app-al-navegador"
 originalUrl: "https://creapolis.dev/flutter-para-web-llevando-tu-app-al-navegador/"
 draft: false

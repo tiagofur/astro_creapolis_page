@@ -4,7 +4,7 @@ description: "El Container es uno de los widgets más fundamentales y versátile
 pubDate: "2024-10-21"
 author: "tiagofur"
 tags: ["alignment", "alineación", "ui", "bordes", "boxdecoration", "color", "constraints", "container", "dart", "desarrollo", "flutter", "margin", "padding", "restricciones"]
-categories: ["Flutter - Basico", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "explorando-el-poder-del-container-en-flutter-atributos-estilos-y-mas"
 originalUrl: "https://creapolis.dev/explorando-el-poder-del-container-en-flutter-atributos-estilos-y-mas/"
 draft: false

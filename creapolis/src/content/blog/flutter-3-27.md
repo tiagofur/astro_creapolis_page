@@ -4,7 +4,7 @@ description: "El mundo del desarrollo de aplicaciones móviles está en constant
 pubDate: "2024-12-18"
 author: "tiagofur"
 tags: ["actualización flutter", "mobile", "dart", "desarrollo", "flutter", "flutter 3.27", "desktop", "mejoras de rendimiento", "novedades flutter", "ui", "web"]
-categories: ["Dart"]
+categories: ["Engineering"]
 slug: "flutter-3-27-un-salto-adelante-en-el-desarrollo-multiplataforma"
 originalUrl: "https://creapolis.dev/flutter-3-27-un-salto-adelante-en-el-desarrollo-multiplataforma/"
 draft: false

@@ -4,7 +4,7 @@ description: "En el panorama actual de arquitecturas de microservicios (enero 20
 pubDate: "2026-01-16"
 author: "tiagofur"
 tags: ["grpc", "protobuf", "backend"]
-categories: ["Microservicios", "NestJS"]
+categories: ["Engineering"]
 slug: "microservicios-hibridos-nestjs-rest-grpc-en-una-solucion-unificada"
 originalUrl: "https://creapolis.dev/microservicios-hibridos-nestjs-rest-grpc-en-una-solucion-unificada/"
 draft: false

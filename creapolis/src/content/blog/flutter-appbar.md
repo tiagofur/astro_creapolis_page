@@ -4,7 +4,7 @@ description: "En Flutter, el AppBar es un componente clave dentro del diseño de
 pubDate: "2024-03-07"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "como-crear-y-personalizar-un-appbar-en-un-scaffold-en-flutter"
 originalUrl: "https://creapolis.dev/como-crear-y-personalizar-un-appbar-en-un-scaffold-en-flutter/"
 draft: false

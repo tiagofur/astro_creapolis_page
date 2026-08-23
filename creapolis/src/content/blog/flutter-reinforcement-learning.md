@@ -4,7 +4,7 @@ description: "En el mundo actual, las aplicaciones móviles que simplemente cump
 pubDate: "2024-12-18"
 author: "tiagofur"
 tags: ["ia", "algoritmos", "aprendizaje por refuerzo", "dart", "deep learning", "desarrollo", "mobile", "entornos", "flutter", "innovación", "machine learning", "ml", "python", "recompensas", "reinforcement learning", "tensorflow lite"]
-categories: ["Flutter - Avanzado", "Flutter - IA, LR"]
+categories: ["Mobile"]
 slug: "revoluciona-tus-apps-con-aprendizaje-por-refuerzo-en-flutter"
 originalUrl: "https://creapolis.dev/revoluciona-tus-apps-con-aprendizaje-por-refuerzo-en-flutter/"
 draft: false

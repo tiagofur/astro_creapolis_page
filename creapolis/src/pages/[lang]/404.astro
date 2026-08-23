@@ -1,14 +1,19 @@
 ---
 import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath } from '../../i18n/utils';
 export function getStaticPaths() {
-  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }, { params: { lang: 'pt' } }];
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'pt' } },
+  ];
 }
 
 const lang = Astro.params.lang as Lang;
 
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import Nav from '../../components/Nav.astro';
+import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout lang={lang}
@@ -74,7 +79,7 @@ import Footer from '../../components/Footer.astro';
             </span>
           </a>
 
-          <a href={`/${lang}/contacto`} class="nf-opt reveal reveal-delay-3">
+          <a href={getLocalizedPath(lang, '/contacto')} class="nf-opt reveal reveal-delay-3">
             <div class="opt-num">03</div>
             <h3>Contame qué pasó</h3>
             <p>Si llegaste acá por un link roto, avisame y lo arreglo.</p>
@@ -88,6 +93,7 @@ import Footer from '../../components/Footer.astro';
   </section>
 
   <Footer lang={lang} />
+  <div data-track-pageview="404_viewed" hidden></div>
 </Layout>
 
 <style>

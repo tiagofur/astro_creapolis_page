@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de aplicaciones móviles, la personaliz
 pubDate: "2025-03-05"
 author: "tiagofur"
 tags: ["ui", "canvas", "custompaint", "custompainter", "dart", "desarrollo", "mobile", "dibujo", "flutter", "formas geométricas", "gráficos", "path", "performance", "personalización visual", "pintura", "renderizado", "widgets personalizados"]
-categories: ["Flutter - Animaciones", "Flutter - Intermedio", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "custompainter-personalizacion-visual-flutter"
 originalUrl: "https://creapolis.dev/custompainter-personalizacion-visual-flutter/"
 draft: false

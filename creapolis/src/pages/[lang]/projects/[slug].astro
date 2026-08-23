@@ -1,8 +1,8 @@
 ---
-import type { Lang } from '../../../i18n/ui';
-import Layout from '../../../layouts/Layout.astro';
 import ProjectDetail from '../../../components/pages/ProjectDetail.astro';
 import { getProjectData, PROJECT_SLUGS } from '../../../i18n/data/projects';
+import type { Lang } from '../../../i18n/ui';
+import Layout from '../../../layouts/Layout.astro';
 
 export function getStaticPaths() {
   return PROJECT_SLUGS.map((slug) => ({

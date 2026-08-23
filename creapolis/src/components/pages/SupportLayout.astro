@@ -1,21 +1,19 @@
 ---
 import type { Lang } from '../../i18n/ui';
-import Nav from '../Nav.astro';
 import Footer from '../Footer.astro';
+import Nav from '../Nav.astro';
 
 type Accent = 'iris' | 'lime' | 'sky' | 'coral';
 
 interface Props {
   lang: Lang;
-  nav: { label: string; href: string }[];
-  cta: { text: string; href: string };
   accent: Accent;
 }
 
-const { lang, nav, cta, accent } = Astro.props;
+const { lang, accent } = Astro.props;
 ---
 
-<Nav lang={lang} links={nav} cta={cta} />
+<Nav lang={lang} />
 
 <div class="sup-shell" style={`--sup-accent: var(--${accent}); --sup-accent-soft: var(--${accent}-soft);`}>
   <slot />
