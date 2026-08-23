@@ -2,14 +2,14 @@
 
 /**
  * CWV Monitor — creapolis.dev
- * 
+ *
  * Measures estimated Core Web Vitals from the built static output.
  * For real-world CWV data, use Chrome UX Report (CrUX) or web-vitals library.
- * 
+ *
  * Usage: node scripts/monitor-cwv.mjs
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const DIST = join(import.meta.dirname, '..', 'dist');
@@ -76,17 +76,21 @@ let fontDisplayOk = 0;
 for (const page of pages) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   const fonts = count(html, 'font-family');
   const nonBlocking = count(html, 'media="print" onload');
   const display = count(html, 'font-display');
-  
+
   totalFonts += fonts;
   nonBlockingFonts += nonBlocking;
   fontDisplayOk += display;
 }
 
-check('Font loading non-blocking', nonBlockingFonts > 0, `${nonBlockingFonts} fonts use media="print"`);
+check(
+  'Font loading non-blocking',
+  nonBlockingFonts > 0,
+  `${nonBlockingFonts} fonts use media="print"`,
+);
 if (nonBlockingFonts === 0) {
   warn('No non-blocking fonts found — fonts may block LCP');
 }
@@ -102,7 +106,7 @@ let svgImages = 0;
 for (const page of pages) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   lazyImages += count(html, 'loading="lazy"');
   eagerImages += count(html, 'loading="eager"');
   webpImages += count(html, '.webp');
@@ -110,9 +114,17 @@ for (const page of pages) {
   svgImages += count(html, '.svg');
 }
 
-check('Lazy loading enabled', lazyImages > 0, `${lazyImages} images lazy-loaded`);
+check(
+  'Lazy loading enabled',
+  lazyImages > 0,
+  `${lazyImages} images lazy-loaded`,
+);
 const optimizedFormats = webpImages + avifImages + svgImages;
-check('Optimized image formats', optimizedFormats > 0, `${webpImages} WebP, ${avifImages} AVIF, ${svgImages} SVG`);
+check(
+  'Optimized image formats',
+  optimizedFormats > 0,
+  `${webpImages} WebP, ${avifImages} AVIF, ${svgImages} SVG`,
+);
 
 if (lazyImages === 0) {
   warn('No lazy-loaded images — may impact LCP/CLS');
@@ -129,7 +141,7 @@ let ldJsonScripts = 0;
 for (const page of pages) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   totalScripts += (html.match(/<script[\s>]/g) || []).length;
   moduleScripts += (html.match(/type="module"/g) || []).length;
   inlineScripts += (html.match(/<script>\s*[^<]+\s*<\/script>/g) || []).length;
@@ -137,13 +149,27 @@ for (const page of pages) {
   ldJsonScripts += (html.match(/type="application\/ld\+json"/g) || []).length;
 }
 
-const blockingScripts = totalScripts - moduleScripts - ldJsonScripts - inlineScripts;
+const blockingScripts =
+  totalScripts - moduleScripts - ldJsonScripts - inlineScripts;
 
-check('Module scripts (async)', moduleScripts > 0, `${moduleScripts} type="module" scripts`);
-check('No render-blocking scripts', blockingScripts === 0, blockingScripts === 0 ? 'all scripts async' : `${blockingScripts} blocking scripts`);
+check(
+  'Module scripts (async)',
+  moduleScripts > 0,
+  `${moduleScripts} type="module" scripts`,
+);
+check(
+  'No render-blocking scripts',
+  blockingScripts === 0,
+  blockingScripts === 0
+    ? 'all scripts async'
+    : `${blockingScripts} blocking scripts`,
+);
 
 if (inlineScripts > 5) {
-  warn('High inline script count — may impact INP', `${inlineScripts} inline scripts`);
+  warn(
+    'High inline script count — may impact INP',
+    `${inlineScripts} inline scripts`,
+  );
 }
 
 // 4. Layout Shift Prevention (CLS)
@@ -154,14 +180,18 @@ let fontMetrics = 0;
 for (const page of pages) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   explicitDimensions += count(html, 'width="\\d');
   explicitDimensions += count(html, 'height="\\d');
   fontMetrics += count(html, 'size-adjust');
   fontMetrics += count(html, 'ascent-override');
 }
 
-check('Explicit image dimensions', explicitDimensions > 0, `${explicitDimensions} dimensions found`);
+check(
+  'Explicit image dimensions',
+  explicitDimensions > 0,
+  `${explicitDimensions} dimensions found`,
+);
 if (fontMetrics > 0) {
   check('Font metrics fallback', true, `${fontMetrics} font metrics overrides`);
 } else {
@@ -176,7 +206,7 @@ let preconnects = 0;
 for (const page of pages) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   externalResources += count(html, 'https?://[^"\']+');
   preconnects += count(html, 'rel="preconnect"');
 }
@@ -188,10 +218,10 @@ console.log('\n▸ 6. Page Size');
 for (const page of pages.slice(0, 4)) {
   const html = readHTML(page.path);
   if (!html) continue;
-  
+
   const bytes = size(html);
   const kb = (bytes / 1024).toFixed(1);
-  
+
   check(`${page.name} size`, bytes < 100 * 1024, `${kb} KB`);
   if (bytes > 50 * 1024) {
     warn(`${page.name} is large`, `${kb} KB — consider code splitting`);
@@ -201,7 +231,9 @@ for (const page of pages.slice(0, 4)) {
 // ── Summary ──────────────────────────────────────────────────────────────────
 
 console.log('\n═══════════════════════════════════════════════');
-console.log(`  RESULTS: ${passed} passed, ${failed} failed, ${warnings} warnings`);
+console.log(
+  `  RESULTS: ${passed} passed, ${failed} failed, ${warnings} warnings`,
+);
 console.log('═══════════════════════════════════════════════\n');
 
 if (failed > 0) {
