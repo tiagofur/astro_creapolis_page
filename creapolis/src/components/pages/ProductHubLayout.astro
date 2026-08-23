@@ -1,7 +1,10 @@
 ---
+import '../../styles/tokens.css';
+import '../../styles/global.css';
 import { getProduct } from '../../i18n/data/products';
 import type { Lang } from '../../i18n/ui';
-import { getLocalizedPath, useTranslations } from '../../i18n/utils';
+import { getLocalizedPath, getAlternateLink, useTranslations } from '../../i18n/utils';
+import CookieConsent from '../CookieConsent.astro';
 import Footer from '../Footer.astro';
 import Nav from '../Nav.astro';
 
@@ -18,9 +21,12 @@ interface Props {
     | 'changelog'
     | 'privacy';
   accent?: Accent;
+  title?: string;
+  description?: string;
+  ogImage?: string;
 }
 
-const { lang, slug, currentPage, accent } = Astro.props;
+const { lang, slug, currentPage, accent, title, description, ogImage } = Astro.props;
 const t = useTranslations(lang);
 const product = getProduct(slug);
 
@@ -36,6 +42,16 @@ const accentMap: Record<string, Accent> = {
   'var(--coral)': 'coral',
 };
 const resolvedAccent = accent || accentMap[product.color] || 'iris';
+
+// SEO
+const pageLabel = currentPage === 'overview' ? '' : t(`hub.nav.${currentPage}`);
+const fullTitle = title
+  || (pageLabel ? `${pageLabel} — ${product.name}` : `${product.name} — Creapolis`);
+const fullDescription = description || product.seo.description;
+const fullOgImage = ogImage || product.seo.ogImage;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const htmlLang = lang === 'en' ? 'en' : lang === 'pt' ? 'pt' : 'es';
+const ogLocale = lang === 'en' ? 'en_US' : lang === 'pt' ? 'pt_BR' : 'es_MX';
 
 // Build sidebar items from product resources + overview
 const sidebarItems: {
@@ -65,65 +81,124 @@ const sidebarItems: {
 const visibleItems = sidebarItems.filter((item) => item.available);
 ---
 
-<Nav lang={lang} />
+<!DOCTYPE html>
+<html lang={htmlLang} dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={fullDescription} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
 
-<div class="hub-shell" style={`--hub-accent: var(--${resolvedAccent}); --hub-accent-soft: var(--${resolvedAccent}-soft);`}>
-  <!-- Sidebar -->
-  <aside class="hub-sidebar" aria-label="Product navigation">
-    <div class="hub-sidebar-inner">
-      <a href={getLocalizedPath(lang, `/proyectos/${slug}`)} class="hub-product-link">
-        <span class="hub-product-icon" style={`background: var(--${resolvedAccent})`}>
-          {product.name.charAt(0)}
-        </span>
-        <span class="hub-product-name">{product.name}</span>
-      </a>
+    {getAlternateLink(Astro.url).map(({ lang: l, href }) => {
+      const hreflang = l === 'es' ? 'es-MX' : l === 'pt' ? 'pt-BR' : 'en-US';
+      return <link rel="alternate" hreflang={hreflang} href={new URL(href, Astro.site).href} />;
+    })}
+    <link rel="alternate" hreflang="x-default" href={new URL('/es/', Astro.site).href} />
 
-      <nav class="hub-nav" aria-label="Sections">
-        {visibleItems.map((item) => (
-          <a
-            href={item.href}
-            class={`hub-nav-item ${item.type === currentPage ? 'active' : ''}`}
-            aria-current={item.type === currentPage ? 'page' : undefined}
-          >
-            <span class="hub-nav-icon">{item.icon}</span>
-            <span class="hub-nav-label">{item.label}</span>
+    <meta property="og:title" content={fullTitle.includes('Creapolis') ? fullTitle : `${fullTitle} — Creapolis`} />
+    <meta property="og:description" content={fullDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content="Creapolis" />
+    <meta property="og:image" content={new URL(fullOgImage, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={fullDescription} />
+    <meta name="twitter:image" content={new URL(fullOgImage, Astro.site).href} />
+
+    <meta name="theme-color" content="#5B4FBE" />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      />
+    </noscript>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Creapolis Blog RSS" href="/rss.xml" />
+
+    <title>{fullTitle.includes('Creapolis') ? fullTitle : `${fullTitle} — Creapolis`}</title>
+  </head>
+  <body>
+    <a href="#hub-content" class="skip-link">{lang === 'en' ? 'Skip to content' : lang === 'pt' ? 'Pular para o conteúdo' : 'Saltar al contenido'}</a>
+
+    <Nav lang={lang} />
+
+    <div class="hub-shell" style={`--hub-accent: var(--${resolvedAccent}); --hub-accent-soft: var(--${resolvedAccent}-soft);`}>
+      <!-- Sidebar -->
+      <aside class="hub-sidebar" aria-label="Product navigation">
+        <div class="hub-sidebar-inner">
+          <a href={getLocalizedPath(lang, `/proyectos/${slug}`)} class="hub-product-link">
+            <span class="hub-product-icon" style={`background: var(--${resolvedAccent})`}>
+              {product.name.charAt(0)}
+            </span>
+            <span class="hub-product-name">{product.name}</span>
           </a>
-        ))}
-      </nav>
+
+          <nav class="hub-nav" aria-label="Sections">
+            {visibleItems.map((item) => (
+              <a
+                href={item.href}
+                class={`hub-nav-item ${item.type === currentPage ? 'active' : ''}`}
+                aria-current={item.type === currentPage ? 'page' : undefined}
+              >
+                <span class="hub-nav-icon">{item.icon}</span>
+                <span class="hub-nav-label">{item.label}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div class="hub-main">
+        <!-- Breadcrumbs -->
+        <nav class="hub-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li>
+              <a href={getLocalizedPath(lang, '/proyectos')}>{t('hub.breadcrumb.projects')}</a>
+            </li>
+            <li>
+              <a href={getLocalizedPath(lang, `/proyectos/${slug}`)}>{product.name}</a>
+            </li>
+            {currentPage !== 'overview' && (
+              <li aria-current="page">
+                {t(`hub.nav.${currentPage}`)}
+              </li>
+            )}
+            {currentPage === 'overview' && (
+              <li aria-current="page">
+                {t('hub.nav.overview')}
+              </li>
+            )}
+          </ol>
+        </nav>
+
+        <div class="hub-content" id="hub-content">
+          <slot />
+        </div>
+      </div>
     </div>
-  </aside>
 
-  <!-- Main content -->
-  <div class="hub-main">
-    <!-- Breadcrumbs -->
-    <nav class="hub-breadcrumbs" aria-label="Breadcrumb">
-      <ol>
-        <li>
-          <a href={getLocalizedPath(lang, '/proyectos')}>{t('hub.breadcrumb.projects')}</a>
-        </li>
-        <li>
-          <a href={getLocalizedPath(lang, `/proyectos/${slug}`)}>{product.name}</a>
-        </li>
-        {currentPage !== 'overview' && (
-          <li aria-current="page">
-            {t(`hub.nav.${currentPage}`)}
-          </li>
-        )}
-        {currentPage === 'overview' && (
-          <li aria-current="page">
-            {t('hub.nav.overview')}
-          </li>
-        )}
-      </ol>
-    </nav>
-
-    <div class="hub-content">
-      <slot />
-    </div>
-  </div>
-</div>
-
-<Footer lang={lang} />
+    <Footer lang={lang} />
+    <CookieConsent />
+  </body>
+</html>
 
 <style is:global>
   .hub-shell {
