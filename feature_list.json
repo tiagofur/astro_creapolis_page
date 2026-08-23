@@ -2435,10 +2435,16 @@
       "references": [
         "roadmap.md — Fase 8"
       ],
-      "status": "pending",
+      "status": "done",
       "blocked_by": null,
-      "evidence": [],
-      "completed_at": null
+      "evidence": [
+        "Deploy workflow: .github/workflows/deploy.yml (GitHub Pages + actions/deploy-pages@v4)",
+        "Release checklist: docs/RELEASE_CHECKLIST.md with rollback procedure",
+        "Production verification: 484 routes, 185 smoke tests, sitemap/robots OK",
+        "Typecheck: 0 errors, Lint: 0 issues, Build: 449 pages in 3.97s",
+        "Commit: 90b7c54"
+      ],
+      "completed_at": "2026-08-23T04:09:28.069Z"
     },
     {
       "id": "F062",

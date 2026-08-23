@@ -15,7 +15,7 @@
  *   7. Redirect pages (root index → /es)
  */
 
-import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const DIST = join(import.meta.dirname, '..', 'dist');
@@ -81,7 +81,10 @@ const criticalRoutes = [
   { path: 'es/proyectos/pepinillo/index.html', name: 'ES Pepinillo' },
   { path: 'es/proyectos/peliculas/index.html', name: 'ES Películas' },
   { path: 'es/proyectos/solennix/index.html', name: 'ES Solennix' },
-  { path: 'es/proyectos/subscription-guardian/index.html', name: 'ES Subscription Guardian' },
+  {
+    path: 'es/proyectos/subscription-guardian/index.html',
+    name: 'ES Subscription Guardian',
+  },
   // EN
   { path: 'en/index.html', name: 'EN Homepage' },
   { path: 'en/services/index.html', name: 'EN Services' },
@@ -123,8 +126,14 @@ console.log('\n▸ 2. Blog Posts (sample)');
 
 const blogDir = join(DIST, 'es', 'blog');
 if (existsSync(blogDir)) {
-  const blogPosts = readdirSync(blogDir).filter(d => statSync(join(blogDir, d)).isDirectory());
-  check('Blog posts exist', blogPosts.length > 50, `Found ${blogPosts.length} posts`);
+  const blogPosts = readdirSync(blogDir).filter((d) =>
+    statSync(join(blogDir, d)).isDirectory(),
+  );
+  check(
+    'Blog posts exist',
+    blogPosts.length > 50,
+    `Found ${blogPosts.length} posts`,
+  );
 
   // Check a sample of blog posts for basic structure
   const sample = blogPosts.slice(0, 5);
@@ -132,10 +141,16 @@ if (existsSync(blogDir)) {
     const html = readHTML(join(blogDir, slug, 'index.html'));
     if (html) {
       check(`Blog "${slug}" has <title>`, /<title>[^<]+<\/title>/.test(html));
-      check(`Blog "${slug}" has meta description`, /meta name="description"/.test(html));
+      check(
+        `Blog "${slug}" has meta description`,
+        /meta name="description"/.test(html),
+      );
       check(`Blog "${slug}" has <main>`, /<main/.test(html));
       check(`Blog "${slug}" has lang attribute`, /lang="es"/.test(html));
-      check(`Blog "${slug}" has blog_read tracking`, /data-track-pageview="blog_read"/.test(html));
+      check(
+        `Blog "${slug}" has blog_read tracking`,
+        /data-track-pageview="blog_read"/.test(html),
+      );
     }
   }
 } else {
@@ -146,15 +161,51 @@ if (existsSync(blogDir)) {
 console.log('\n▸ 3. Analytics Instrumentation');
 
 const analyticsChecks = [
-  { path: 'es/index.html', name: 'ES Home', events: ['start_project_click', 'language_changed'] },
-  { path: 'es/servicios/index.html', name: 'ES Services', events: ['service_click'] },
-  { path: 'es/contacto/index.html', name: 'ES Contact', events: ['contact_form_started'] },
-  { path: 'es/proyectos/pepinillo/index.html', name: 'ES Pepinillo', events: ['project_viewed', 'store_click'] },
-  { path: 'es/proyectos/solennix/index.html', name: 'ES Solennix', events: ['project_viewed', 'store_click'] },
-  { path: 'en/services/index.html', name: 'EN Services', events: ['service_click'] },
-  { path: 'en/contact/index.html', name: 'EN Contact', events: ['contact_form_started'] },
-  { path: 'pt/servicos/index.html', name: 'PT Services', events: ['service_click'] },
-  { path: 'pt/contato/index.html', name: 'PT Contact', events: ['contact_form_started'] },
+  {
+    path: 'es/index.html',
+    name: 'ES Home',
+    events: ['start_project_click', 'language_changed'],
+  },
+  {
+    path: 'es/servicios/index.html',
+    name: 'ES Services',
+    events: ['service_click'],
+  },
+  {
+    path: 'es/contacto/index.html',
+    name: 'ES Contact',
+    events: ['contact_form_started'],
+  },
+  {
+    path: 'es/proyectos/pepinillo/index.html',
+    name: 'ES Pepinillo',
+    events: ['project_viewed', 'store_click'],
+  },
+  {
+    path: 'es/proyectos/solennix/index.html',
+    name: 'ES Solennix',
+    events: ['project_viewed', 'store_click'],
+  },
+  {
+    path: 'en/services/index.html',
+    name: 'EN Services',
+    events: ['service_click'],
+  },
+  {
+    path: 'en/contact/index.html',
+    name: 'EN Contact',
+    events: ['contact_form_started'],
+  },
+  {
+    path: 'pt/servicos/index.html',
+    name: 'PT Services',
+    events: ['service_click'],
+  },
+  {
+    path: 'pt/contato/index.html',
+    name: 'PT Contact',
+    events: ['contact_form_started'],
+  },
   { path: 'es/404/index.html', name: 'ES 404', events: ['404_viewed'] },
 ];
 
@@ -162,7 +213,10 @@ for (const checkItem of analyticsChecks) {
   const html = readHTML(join(DIST, checkItem.path));
   if (html) {
     for (const event of checkItem.events) {
-      const hasEvent = html.includes(`data-track-event="${event}"`) || html.includes(`data-track-pageview="${event}"`) || html.includes(`data-track-form="${event}"`);
+      const hasEvent =
+        html.includes(`data-track-event="${event}"`) ||
+        html.includes(`data-track-pageview="${event}"`) ||
+        html.includes(`data-track-form="${event}"`);
       check(`${checkItem.name}: ${event}`, hasEvent);
     }
     // Cookie consent banner
@@ -201,12 +255,42 @@ for (const page of landmarkPages) {
 console.log('\n▸ 5. SEO Basics');
 
 const seoPages = [
-  { path: 'es/index.html', name: 'ES Home', titlePattern: /Creapolis/i, descPattern: /meta name="description"/ },
-  { path: 'es/servicios/index.html', name: 'ES Services', titlePattern: /Servicios/i, descPattern: /meta name="description"/ },
-  { path: 'es/contacto/index.html', name: 'ES Contact', titlePattern: /Contacto/i, descPattern: /meta name="description"/ },
-  { path: 'en/services/index.html', name: 'EN Services', titlePattern: /Services/i, descPattern: /meta name="description"/ },
-  { path: 'en/contact/index.html', name: 'EN Contact', titlePattern: /Contact/i, descPattern: /meta name="description"/ },
-  { path: 'pt/servicos/index.html', name: 'PT Services', titlePattern: /Serviços|Servicos/i, descPattern: /meta name="description"/ },
+  {
+    path: 'es/index.html',
+    name: 'ES Home',
+    titlePattern: /Creapolis/i,
+    descPattern: /meta name="description"/,
+  },
+  {
+    path: 'es/servicios/index.html',
+    name: 'ES Services',
+    titlePattern: /Servicios/i,
+    descPattern: /meta name="description"/,
+  },
+  {
+    path: 'es/contacto/index.html',
+    name: 'ES Contact',
+    titlePattern: /Contacto/i,
+    descPattern: /meta name="description"/,
+  },
+  {
+    path: 'en/services/index.html',
+    name: 'EN Services',
+    titlePattern: /Services/i,
+    descPattern: /meta name="description"/,
+  },
+  {
+    path: 'en/contact/index.html',
+    name: 'EN Contact',
+    titlePattern: /Contact/i,
+    descPattern: /meta name="description"/,
+  },
+  {
+    path: 'pt/servicos/index.html',
+    name: 'PT Services',
+    titlePattern: /Serviços|Servicos/i,
+    descPattern: /meta name="description"/,
+  },
 ];
 
 for (const seo of seoPages) {
@@ -223,10 +307,18 @@ for (const seo of seoPages) {
 console.log('\n▸ 6. Forms');
 
 const formPages = [
-  { path: 'es/contacto/index.html', name: 'ES Contact', formId: 'contact-form' },
+  {
+    path: 'es/contacto/index.html',
+    name: 'ES Contact',
+    formId: 'contact-form',
+  },
   { path: 'en/contact/index.html', name: 'EN Contact', formId: 'contact-form' },
   { path: 'pt/contato/index.html', name: 'PT Contact', formId: 'contact-form' },
-  { path: 'es/servicios/index.html', name: 'ES Services', formId: 'svc-contact-form' },
+  {
+    path: 'es/servicios/index.html',
+    name: 'ES Services',
+    formId: 'svc-contact-form',
+  },
 ];
 
 for (const form of formPages) {
@@ -244,10 +336,18 @@ console.log('\n▸ 7. Assets');
 
 const astroDir = join(DIST, '_astro');
 if (existsSync(astroDir)) {
-  const cssFiles = readdirSync(astroDir).filter(f => f.endsWith('.css'));
-  const jsFiles = readdirSync(astroDir).filter(f => f.endsWith('.js'));
-  check('CSS files exist', cssFiles.length > 0, `Found ${cssFiles.length} CSS files`);
-  check('JS files exist', jsFiles.length > 0, `Found ${jsFiles.length} JS files`);
+  const cssFiles = readdirSync(astroDir).filter((f) => f.endsWith('.css'));
+  const jsFiles = readdirSync(astroDir).filter((f) => f.endsWith('.js'));
+  check(
+    'CSS files exist',
+    cssFiles.length > 0,
+    `Found ${cssFiles.length} CSS files`,
+  );
+  check(
+    'JS files exist',
+    jsFiles.length > 0,
+    `Found ${jsFiles.length} JS files`,
+  );
 
   // Check total JS size
   let totalJS = 0;
@@ -259,8 +359,12 @@ if (existsSync(astroDir)) {
   // Check OG images
   const ogDir = join(DIST, 'og');
   if (existsSync(ogDir)) {
-    const ogImages = readdirSync(ogDir).filter(f => f.endsWith('.svg'));
-    check('OG images exist', ogImages.length > 0, `Found ${ogImages.length} OG images`);
+    const ogImages = readdirSync(ogDir).filter((f) => f.endsWith('.svg'));
+    check(
+      'OG images exist',
+      ogImages.length > 0,
+      `Found ${ogImages.length} OG images`,
+    );
   }
 } else {
   warn('_astro directory not found');
@@ -285,12 +389,18 @@ if (rss) {
 }
 
 function readXML(path) {
-  try { return readFileSync(path, 'utf8'); } catch { return null; }
+  try {
+    return readFileSync(path, 'utf8');
+  } catch {
+    return null;
+  }
 }
 
 // ─── SUMMARY ───
 console.log('\n═══════════════════════════════════════════════');
-console.log(`  RESULTS: ${passed} passed, ${failed} failed, ${warnings} warnings`);
+console.log(
+  `  RESULTS: ${passed} passed, ${failed} failed, ${warnings} warnings`,
+);
 console.log('═══════════════════════════════════════════════\n');
 
 if (failures.length > 0) {
