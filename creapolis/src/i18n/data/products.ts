@@ -160,15 +160,38 @@ export const products: Product[] = [
       { id: 'web', available: true },
     ],
     stores: [
-      // TODO: Add verified store URLs when available
+      {
+        platform: 'ios',
+        url: 'https://apps.apple.com/mx/app/solennix/id6760874129',
+        verified: true,
+        storeName: 'Solennix',
+      },
+      {
+        platform: 'android',
+        url: 'https://play.google.com/store/apps/details?id=com.solennix.app',
+        verified: true,
+        storeName: 'Solennix',
+      },
+      {
+        platform: 'web',
+        url: 'https://solennix.com',
+        verified: true,
+        storeName: 'Solennix Web',
+      },
     ],
-    tech: [],
+    tech: [
+      'React Native',
+      'Node.js',
+      'PostgreSQL',
+      'Push Notifications',
+      'Offline-first',
+    ],
     hasCaseStudy: true,
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
       { type: 'support', icon: '💬', available: false },
-      { type: 'changelog', icon: '📋', available: false },
+      { type: 'changelog', icon: '📋', available: true },
       { type: 'privacy', icon: '🔒', available: true },
     ],
     seo: {
@@ -253,7 +276,7 @@ export const products: Product[] = [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '🧠', available: true },
       { type: 'support', icon: '💬', available: false },
-      { type: 'changelog', icon: '📋', available: false },
+      { type: 'changelog', icon: '📋', available: true },
       { type: 'privacy', icon: '🔒', available: true },
     ],
     seo: {
