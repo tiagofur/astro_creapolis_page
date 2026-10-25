@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo móvil, la navegación es la clave para
 pubDate: "2025-01-06"
 author: "tiagofur"
 tags: ["arquitectura de aplicaciones", "dart", "deep linking", "desarrollo", "mobile", "flutter", "estado", "materialapp", "named routes", "navegación", "navigator", "navigator 2.0", "page", "router", "rutas", "transiciones", "ui", "web"]
-categories: ["Flutter - Intermedio", "Flutter - Navegacion", "Flutter - Web"]
+categories: ["Mobile"]
 slug: "domina-la-navegacion-en-flutter-rutas-transiciones-y-navigator-2-0"
 originalUrl: "https://creapolis.dev/domina-la-navegacion-en-flutter-rutas-transiciones-y-navigator-2-0/"
 draft: false

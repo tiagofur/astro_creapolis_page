@@ -4,7 +4,7 @@ description: "El acceso a APIs RESTful desde Flutter es una habilidad esencial p
 pubDate: "2024-09-19"
 author: "tiagofur"
 tags: ["mobile", "backend", "dart", "desktop", "web", "flutter"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "acceso-a-apis-restful-desde-flutter"
 originalUrl: "https://creapolis.dev/acceso-a-apis-restful-desde-flutter/"
 draft: false

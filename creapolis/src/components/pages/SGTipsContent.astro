@@ -2,7 +2,6 @@
 import { getSGSupportData } from '../../i18n/data/subscription-guardian-support';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath } from '../../i18n/utils';
-import SGSupportLayout from './SGSupportLayout.astro';
 
 interface Props {
   lang: Lang;
@@ -11,42 +10,38 @@ const { lang } = Astro.props;
 const tp = getSGSupportData(lang).tips;
 ---
 
-<SGSupportLayout lang={lang}>
-  <section class="sup-page">
-    <div class="sup-inner">
-      <div class="sup-head reveal">
-        <div class="eyebrow" style="margin-bottom:14px"><span>{tp.eyebrow}</span></div>
-        <h1>{tp.title} <span class="serif">{tp.titleSerif}</span>.</h1>
-        <p class="subtitle">{tp.subtitle}</p>
-      </div>
+<section class="hub-page">
+  <div class="sup-head reveal">
+    <div class="eyebrow" style="margin-bottom:14px"><span>{tp.eyebrow}</span></div>
+    <h1>{tp.title} <span class="serif">{tp.titleSerif}</span>.</h1>
+    <p class="subtitle">{tp.subtitle}</p>
+  </div>
 
-      <div class="tips-grid">
-        {tp.items.map((tip) => (
-          <article class="tip-card reveal">
-            <div class="tip-icon">{tip.icon}</div>
-            <h2>{tip.title}</h2>
-            <p>{tip.desc}</p>
-          </article>
-        ))}
-      </div>
+  <div class="tips-grid">
+    {tp.items.map((tip) => (
+      <article class="tip-card reveal">
+        <div class="tip-icon">{tip.icon}</div>
+        <h2>{tip.title}</h2>
+        <p>{tip.desc}</p>
+      </article>
+    ))}
+  </div>
 
-      <div class="sup-next reveal">
-        <h3>{tp.nextTitle}</h3>
-        <div class="sup-link-grid">
-          {tp.nextCards.map((c) => (
-            <a href={getLocalizedPath(lang, c.href)} class="sup-next-card">
-              <span class="next-icon">{c.icon}</span>
-              <div>
-                <span class="next-title">{c.title}</span>
-                <span class="next-desc">{c.desc}</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
+  <div class="sup-next reveal">
+    <h3>{tp.nextTitle}</h3>
+    <div class="sup-link-grid">
+      {tp.nextCards.map((c) => (
+        <a href={getLocalizedPath(lang, c.href)} class="sup-next-card">
+          <span class="next-icon">{c.icon}</span>
+          <div>
+            <span class="next-title">{c.title}</span>
+            <span class="next-desc">{c.desc}</span>
+          </div>
+        </a>
+      ))}
     </div>
-  </section>
-</SGSupportLayout>
+  </div>
+</section>
 
 <style>
   .tips-grid {

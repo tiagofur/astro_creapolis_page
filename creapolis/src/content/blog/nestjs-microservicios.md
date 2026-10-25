@@ -4,7 +4,7 @@ description: "¡Has llegado al gran final de nuestra serie! A lo largo de este v
 pubDate: "2025-10-21"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "no-pongas-todo-en-un-solo-lugar-introduccion-a-microservicios-con-nestjs"
 originalUrl: "https://creapolis.dev/no-pongas-todo-en-un-solo-lugar-introduccion-a-microservicios-con-nestjs/"
 draft: false

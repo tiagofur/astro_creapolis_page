@@ -4,7 +4,7 @@ description: "El ecosistema Node.js está en constante evolución, y NestJS se h
 pubDate: "2026-01-08"
 author: "tiagofur"
 tags: []
-categories: ["Backend - NestJs"]
+categories: ["Engineering"]
 slug: "nestjs-11-5-caracteristicas-clave-que-debes-probar-esta-semana-para-mejorar-tu-startup-time"
 originalUrl: "https://creapolis.dev/nestjs-11-5-caracteristicas-clave-que-debes-probar-esta-semana-para-mejorar-tu-startup-time/"
 draft: false

@@ -4,6 +4,7 @@ description: "Desglosamos los costos reales de desarrollo de apps móviles y web
 pubDate: "2025-01-15"
 author: "tiagofur"
 tags: ["costos", "pricing", "desarrollo"]
+categories: ["Product"]
 draft: false
 ---
 

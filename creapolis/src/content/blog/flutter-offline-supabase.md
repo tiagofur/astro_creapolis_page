@@ -4,7 +4,7 @@ description: "Cuando desarrollamos aplicaciones móviles, la conectividad es uno
 pubDate: "2024-10-09"
 author: "tiagofur"
 tags: ["datos", "aplicaciones móviles", "arquitectura", "backend", "brick", "conectividad", "dart", "desarrollo", "mobile", "firebase alternative", "flutter", "modo offline", "offline first", "sincronización de datos", "supabase"]
-categories: ["Flutter - Avanzado"]
+categories: ["Mobile"]
 slug: "construyendo-aplicaciones-moviles-offline-first-con-supabase-flutter-y-brick"
 originalUrl: "https://creapolis.dev/construyendo-aplicaciones-moviles-offline-first-con-supabase-flutter-y-brick/"
 draft: false

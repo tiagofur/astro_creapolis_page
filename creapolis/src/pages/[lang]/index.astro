@@ -212,10 +212,10 @@ const stats = [
 ];
 ---
 
-<Layout lang={lang}>
+<Layout lang={lang} ogImage="/og/home.svg">
   <Nav lang={lang} />
 
-  <main id="main-content">
+  <div>
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
        ═══════════════════════════════════════════════════════════════ -->
@@ -242,7 +242,7 @@ const stats = [
       </div>
 
       <div class="showcase reveal reveal-delay-2">
-        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" />
+        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" decoding="async" />
       </div>
     </div>
   </header>
@@ -391,7 +391,7 @@ const stats = [
         {steps.map((step, i) => (
           <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
             <span class="bignum">{step.n}</span>
-            <h4>{step.title}</h4>
+            <h3>{step.title}</h3>
             <p>{step.desc}</p>
           </div>
         ))}
@@ -492,7 +492,7 @@ const stats = [
       </div>
     </div>
   </section>
-  </main>
+  </div>
 
   <Footer lang={lang} />
 </Layout>
@@ -570,6 +570,8 @@ const stats = [
   .stamps {
     background: var(--ink); color: var(--paper);
     padding: 28px 0; overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100px;
   }
   .stamps-row {
     display: flex; gap: 64px; white-space: nowrap;
@@ -751,6 +753,8 @@ const stats = [
     padding: clamp(56px, 8vw, 120px) var(--gutter);
     background: var(--ink); color: var(--paper);
     position: relative; overflow: clip;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
   .mission .wrap { display: grid; gap: 48px; grid-template-columns: 1fr; }
   @media (min-width: 880px) { .mission .wrap { grid-template-columns: 1.1fr 1fr; align-items: center; } }
@@ -772,7 +776,7 @@ const stats = [
   /* ═══════════════════════════════════════════════════════════════
      NOTAS — latest blog posts
      ═══════════════════════════════════════════════════════════════ */
-  .notes-block { background: var(--chalk); }
+  .notes-block { background: var(--chalk); content-visibility: auto; contain-intrinsic-size: auto 500px; }
   .notes-head {
     display: grid; gap: 24px; align-items: end;
     grid-template-columns: 1fr; margin-bottom: 48px;
@@ -861,6 +865,8 @@ const stats = [
     padding: clamp(64px, 9vw, 120px) var(--gutter);
     background: var(--paper);
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
   }
   .contact-card {
     max-width: 960px; margin: 0 auto;

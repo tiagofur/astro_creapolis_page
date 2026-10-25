@@ -4,7 +4,7 @@ description: "Flutter ha trascendido sus orígenes móviles para convertirse en 
 pubDate: "2025-04-02"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Avanzado", "Flutter - Desktop", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "dominando-fluent_ui-desarrollo-avanzado-de-flutter-para-una-experiencia-windows-autentica"
 originalUrl: "https://creapolis.dev/dominando-fluent_ui-desarrollo-avanzado-de-flutter-para-una-experiencia-windows-autentica/"
 draft: false

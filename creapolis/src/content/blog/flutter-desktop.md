@@ -4,7 +4,7 @@ description: "Flutter ha revolucionado el mundo del desarrollo de aplicaciones, 
 pubDate: "2024-11-27"
 author: "tiagofur"
 tags: ["aplicaciones de escritorio", "mobile", "dart", "desarrollo", "desktop apps", "flutter", "flutter desktop", "ui", "desktop", "performance"]
-categories: ["Flutter - Avanzado", "Flutter - Desktop", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "flutter-desktop-la-guia-definitiva-para-el-desarrollo-multiplataforma"
 originalUrl: "https://creapolis.dev/flutter-desktop-la-guia-definitiva-para-el-desarrollo-multiplataforma/"
 draft: false

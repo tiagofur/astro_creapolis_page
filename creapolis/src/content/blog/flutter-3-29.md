@@ -4,7 +4,7 @@ description: "Flutter 3.29 ha llegado, trayendo consigo una serie de mejoras y a
 pubDate: "2025-03-18"
 author: "tiagofur"
 tags: ["actualización flutter", "mobile", "dart", "desarrollo", "flutter", "flutter 3.29", "desktop", "mejoras de rendimiento", "novedades flutter", "performance", "ui", "web"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "flutter-3-29-novedades-imprescindibles-desarrollo"
 originalUrl: "https://creapolis.dev/flutter-3-29-novedades-imprescindibles-desarrollo/"
 draft: false

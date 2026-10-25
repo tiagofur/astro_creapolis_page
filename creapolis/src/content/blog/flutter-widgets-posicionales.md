@@ -4,7 +4,7 @@ description: "En Flutter, los widgets posicionales son componentes fundamentales
 pubDate: "2024-09-13"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "introduccion-a-los-widgets-posicionales"
 originalUrl: "https://creapolis.dev/introduccion-a-los-widgets-posicionales/"
 draft: false

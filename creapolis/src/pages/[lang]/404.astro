@@ -1,5 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
+import { getLocalizedPath } from '../../i18n/utils';
 export function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
@@ -78,7 +79,7 @@ import Layout from '../../layouts/Layout.astro';
             </span>
           </a>
 
-          <a href={`/${lang}/contacto`} class="nf-opt reveal reveal-delay-3">
+          <a href={getLocalizedPath(lang, '/contacto')} class="nf-opt reveal reveal-delay-3">
             <div class="opt-num">03</div>
             <h3>Contame qué pasó</h3>
             <p>Si llegaste acá por un link roto, avisame y lo arreglo.</p>
@@ -92,6 +93,7 @@ import Layout from '../../layouts/Layout.astro';
   </section>
 
   <Footer lang={lang} />
+  <div data-track-pageview="404_viewed" hidden></div>
 </Layout>
 
 <style>

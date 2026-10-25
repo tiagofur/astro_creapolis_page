@@ -1,6 +1,7 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 import LanguageBanner from '../components/LanguageBanner.astro';
 import { defaultLang, type Lang } from '../i18n/ui';
 import { getAlternateLink, getLangFromUrl } from '../i18n/utils';
@@ -16,14 +17,16 @@ interface Props {
     author?: string;
     tags?: string[];
   };
+  extraJsonLd?: Record<string, unknown>;
 }
 
 const {
   title = 'Creapolis — Software que transforma ideas en productos',
   description = 'Estudio de desarrollo en Monterrey. Diseño y construcción de apps móviles, web y de escritorio, con consultoría de IA práctica.',
-  ogImage = '/og-default.png',
+  ogImage = '/og-default.webp',
   lang = getLangFromUrl(Astro.url),
   article,
+  extraJsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -107,7 +110,7 @@ const jsonLd = article
 
     <!-- Alternate language links (slug-aware: uses getAlternateLink to translate slugs) -->
     {getAlternateLink(Astro.url).map(({ lang: l, href }) => {
-      const hreflang = l === 'es' ? 'es-ES' : l === 'pt' ? 'pt-BR' : 'en-US';
+      const hreflang = l === 'es' ? 'es-MX' : l === 'pt' ? 'pt-BR' : 'en-US';
       return <link rel="alternate" hreflang={hreflang} href={new URL(href, Astro.site).href} />;
     })}
     <link rel="alternate" hreflang="x-default" href={new URL('/es/', Astro.site).href} />
@@ -149,15 +152,19 @@ const jsonLd = article
     <!-- Google Fonts — Geist + Geist Mono + Instrument Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
-    />
+    <!-- Non-blocking font loading: media=print + onload switches to all -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      />
+    </noscript>
     <!-- Font metrics fallback — reduces CLS while web fonts load -->
     <style is:inline>
       @font-face {
@@ -187,14 +194,49 @@ const jsonLd = article
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
+    <!-- BreadcrumbList structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: `https://creapolis.dev/${lang}/` },
+        ...Astro.url.pathname
+          .replace(/^\/\w+\//, '')
+          .split('/')
+          .filter(Boolean)
+          .map((segment, i, arr) => ({
+            '@type': 'ListItem' as const,
+            position: i + 2,
+            name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+            item: `https://creapolis.dev/${lang}/${arr.slice(0, i + 1).join('/')}/`,
+          })),
+      ],
+    })} />
+
+    <!-- Extra page-specific JSON-LD -->
+    {extraJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        ...extraJsonLd,
+      })} />
+    )}
+
     <title>{fullTitle}</title>
   </head>
   <body>
     <a href="#main-content" class="skip-link">{lang === 'en' ? 'Skip to content' : lang === 'pt' ? 'Pular para o conteúdo' : 'Saltar al contenido'}</a>
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
     <LanguageBanner lang={lang} />
+    <CookieConsent />
   </body>
 </html>
+
+<script>
+  // ─── Analytics event tracking ───
+  import '../lib/track-events.ts';
+</script>
 
 <script>
   // ─── Scroll Reveal ───

@@ -4,7 +4,7 @@ description: "Imagina que estás construyendo una casa. ¿Empezarías por coloca
 pubDate: "2024-10-25"
 author: "tiagofur"
 tags: ["arquitectura", "arquitectura limpia", "casos de uso", "dart", "data sources", "dependency injection", "desarrollo", "dominio", "entidades", "flutter", "infraestructura", "inversión de dependencias", "presentación", "principios solid", "repositorios", "ui", "use cases"]
-categories: ["Flutter - Animaciones", "Flutter - Avanzado"]
+categories: ["Mobile"]
 slug: "flutter-y-la-arquitectura-limpia-construye-apps-robustas-escalables-y-mantenibles"
 originalUrl: "https://creapolis.dev/flutter-y-la-arquitectura-limpia-construye-apps-robustas-escalables-y-mantenibles/"
 draft: false

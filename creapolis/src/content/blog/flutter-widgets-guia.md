@@ -4,7 +4,7 @@ description: "Flutter es un framework de desarrollo de software de código abier
 pubDate: "2023-10-02"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Basico", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "descubriendo-el-mundo-de-los-widgets-en-flutter-construye-tu-interfaz-de-usuario-perfecta"
 originalUrl: "https://creapolis.dev/descubriendo-el-mundo-de-los-widgets-en-flutter-construye-tu-interfaz-de-usuario-perfecta/"
 draft: false

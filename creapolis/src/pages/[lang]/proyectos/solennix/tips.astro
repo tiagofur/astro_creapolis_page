@@ -1,18 +1,14 @@
 ---
+import ProductHubLayout from '../../../../components/pages/ProductHubLayout.astro';
 import SolennixTipsContent from '../../../../components/pages/SolennixTipsContent.astro';
 import type { Lang } from '../../../../i18n/ui';
-import Layout from '../../../../layouts/Layout.astro';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'es' } },
-    { params: { lang: 'en' } },
-    { params: { lang: 'pt' } },
-  ];
+  return [{ params: { lang: 'es' } }];
 }
 const lang = Astro.params.lang as Lang;
 ---
 
-<Layout lang={lang} title="Tips para organizadores — Solennix" description="Estrategias prácticas para cobrar más, organizar mejor y no quemarte en temporada alta.">
+<ProductHubLayout lang={lang} slug="solennix" currentPage="tips">
   <SolennixTipsContent lang={lang} />
-</Layout>
+</ProductHubLayout>

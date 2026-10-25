@@ -30,8 +30,8 @@ export function getLangFromUrl(url: URL): Lang {
 export function useTranslations(lang: Lang) {
   // Use Record<string, string> to allow PT to have fewer keys than ES;
   // missing keys fall back to the default locale via the || operator.
-  const locale = ui[lang] as Record<string, string>;
-  const fallback = ui[defaultLang] as Record<string, string>;
+  const locale = ui[lang] as Record<string, any>;
+  const fallback = ui[defaultLang] as Record<string, any>;
   return function t(key: UIKey): string {
     return locale[key] || fallback[key];
   };
@@ -85,7 +85,7 @@ export function getAlternateLink(url: URL): { lang: Lang; href: string }[] {
 }
 
 export function formatDate(date: Date, lang: Lang): string {
-  const locale = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-ES';
+  const locale = lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-BR' : 'es-MX';
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'short',

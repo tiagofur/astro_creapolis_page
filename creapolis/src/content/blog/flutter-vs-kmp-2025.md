@@ -4,7 +4,7 @@ description: "Elegir entre Flutter y Kotlin Multiplatform (KMP) se ha convertido
 pubDate: "2025-10-17"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "flutter-vs-kmp-2025-4-verdades-que-decidiran-tu-eleccion"
 originalUrl: "https://creapolis.dev/flutter-vs-kmp-2025-4-verdades-que-decidiran-tu-eleccion/"
 draft: false

@@ -4,7 +4,7 @@ description: "¡Bienvenido, desarrollador Flutter de nivel intermedio! Si estás
 pubDate: "2025-05-13"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "flutter-y-webassembly-llevando-tus-aplicaciones-a-un-nuevo-nivel-de-portabilidad-y-rendimiento-web-guia-intermedia-2025"
 originalUrl: "https://creapolis.dev/flutter-y-webassembly-llevando-tus-aplicaciones-a-un-nuevo-nivel-de-portabilidad-y-rendimiento-web-guia-intermedia-2025/"
 draft: false

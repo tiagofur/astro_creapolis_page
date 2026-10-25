@@ -160,20 +160,45 @@ export const products: Product[] = [
       { id: 'web', available: true },
     ],
     stores: [
-      // TODO: Add verified store URLs when available
+      {
+        platform: 'ios',
+        url: 'https://apps.apple.com/mx/app/solennix/id6760874129',
+        verified: true,
+        storeName: 'Solennix',
+      },
+      {
+        platform: 'android',
+        url: 'https://play.google.com/store/apps/details?id=com.solennix.app',
+        verified: true,
+        storeName: 'Solennix',
+      },
+      {
+        platform: 'web',
+        url: 'https://solennix.com',
+        verified: true,
+        storeName: 'Solennix Web',
+      },
     ],
-    tech: [],
+    tech: [
+      'React Native',
+      'Node.js',
+      'PostgreSQL',
+      'Push Notifications',
+      'Offline-first',
+    ],
     hasCaseStudy: true,
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
+      { type: 'changelog', icon: '📋', available: true },
+      { type: 'privacy', icon: '🔒', available: true },
     ],
     seo: {
       title: 'Solennix — Gestión de eventos profesional',
       description:
         'CRM, cotizaciones, inventario y dashboard para organizadores profesionales en Latinoamérica.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -250,13 +275,15 @@ export const products: Product[] = [
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '🧠', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
+      { type: 'changelog', icon: '📋', available: true },
+      { type: 'privacy', icon: '🔒', available: true },
     ],
     seo: {
       title: 'Pepinillo — Timer de enfoque y productividad',
       description:
         'Productividad sin fricción: Pomodoro, tareas con prioridades, calendario, timer y estadísticas.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -287,12 +314,15 @@ export const products: Product[] = [
     ],
     tech: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Coil', 'Room', 'Hilt'],
     hasCaseStudy: false,
-    resources: [],
+    resources: [
+      { type: 'changelog', icon: '📋', available: false },
+      { type: 'privacy', icon: '🔒', available: true },
+    ],
     seo: {
       title: 'Películas — Tu cine, a tu manera',
       description:
         'Catálogo de películas y series, listas personalizadas, búsqueda avanzada y recomendaciones.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 
@@ -342,13 +372,15 @@ export const products: Product[] = [
     resources: [
       { type: 'guide', icon: '📖', available: true },
       { type: 'tips', icon: '💡', available: true },
-      { type: 'support', icon: '💬', available: true },
+      { type: 'support', icon: '💬', available: false },
+      { type: 'changelog', icon: '📋', available: false },
+      { type: 'privacy', icon: '🔒', available: true },
     ],
     seo: {
       title: 'Subscription Guardian — Control de suscripciones para iOS',
       description:
         'Alertas antes de cada cobro, dashboard de gastos y privacidad total. Compra única USD $4.99.',
-      ogImage: '/og-default.png',
+      ogImage: '/og-default.webp',
     },
   },
 ];

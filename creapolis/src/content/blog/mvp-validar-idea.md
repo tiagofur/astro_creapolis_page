@@ -4,6 +4,7 @@ description: "Por qué empezar con un MVP es la mejor estrategia para startups. 
 pubDate: "2025-03-15"
 author: "tiagofur"
 tags: ["startup", "mvp", "producto", "estrategia"]
+categories: ["Product"]
 draft: false
 ---
 

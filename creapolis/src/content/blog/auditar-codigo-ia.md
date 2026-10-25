@@ -4,7 +4,7 @@ description: "La revolución de la inteligencia artificial ha transformado radic
 pubDate: "2026-01-12"
 author: "tiagofur"
 tags: []
-categories: ["IA"]
+categories: ["AI/ML"]
 slug: "como-auditar-codigo-generado-por-ia-guia-para-seniors-2026"
 originalUrl: "https://creapolis.dev/como-auditar-codigo-generado-por-ia-guia-para-seniors-2026/"
 draft: false

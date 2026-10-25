@@ -4,7 +4,7 @@ description: "¡Qué emoción! Si estás leyendo esto, probablemente ya sabes qu
 pubDate: "2025-04-03"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Avanzado", "Flutter - Intermedio", "Flutter - Paquetes", "General"]
+categories: ["Mobile","Engineering"]
 slug: "depender-o-no-depender-guia-inteligente-para-paquetes-flutter"
 originalUrl: "https://creapolis.dev/depender-o-no-depender-guia-inteligente-para-paquetes-flutter/"
 draft: false

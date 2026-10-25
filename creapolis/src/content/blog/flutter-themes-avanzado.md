@@ -4,7 +4,7 @@ description: "Flutter nos ofrece un potente sistema de temas que nos permite per
 pubDate: "2025-03-10"
 author: "tiagofur"
 tags: ["ui", "arquitectura", "tutorial", "componentes reutilizables", "custom themes", "dart", "desarrollo", "mobile", "diseño modular", "estilos", "flutter", "paquetes flutter", "personalización de temas", "reutilización de código", "temas", "themedata"]
-categories: ["Flutter - Avanzado", "Flutter - Intermedio", "Flutter - UI/UX"]
+categories: ["Mobile"]
 slug: "flutter-themes-personalizacion-avanzada-y-reutilizacion-de-paquetes"
 originalUrl: "https://creapolis.dev/flutter-themes-personalizacion-avanzada-y-reutilizacion-de-paquetes/"
 draft: false

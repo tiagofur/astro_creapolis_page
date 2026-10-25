@@ -4,7 +4,7 @@ description: "Si has seguido esta serie, has logrado algo impresionante. Tienes 
 pubDate: "2025-10-20"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "como-escribir-tests-en-nestjs-con-jest-unit-e2e"
 originalUrl: "https://creapolis.dev/como-escribir-tests-en-nestjs-con-jest-unit-e2e/"
 draft: false

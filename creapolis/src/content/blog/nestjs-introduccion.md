@@ -4,7 +4,7 @@ description: "Aprende guía completa de guía completa de nestjs para desarrolla
 pubDate: "2025-10-17"
 author: "tiagofur"
 tags: ["desarrollo", "ejemplos", "tutorial"]
-categories: ["Backend - NestJs"]
+categories: ["Engineering"]
 slug: "guia-completa-de-guia-completa-de-nestjs-para-desa"
 originalUrl: "https://creapolis.dev/guia-completa-de-guia-completa-de-nestjs-para-desa/"
 draft: false

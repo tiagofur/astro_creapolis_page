@@ -4,7 +4,7 @@ description: "¿Vale la pena pagar $10/mes por GitHub Copilot Pro?"
 pubDate: "2025-04-29"
 author: "tiagofur"
 tags: []
-categories: ["General"]
+categories: ["Engineering"]
 slug: "github-copilot-pro-10-mes-como-sacarle-todo-el-provecho-a-tu-suscripcion"
 originalUrl: "https://creapolis.dev/github-copilot-pro-10-mes-como-sacarle-todo-el-provecho-a-tu-suscripcion/"
 draft: false
@@ -1587,10 +1587,10 @@ Comparte tu experiencia en los comentarios:
 - Tests de rendimiento y usabilidad
 - Cuándo elegir cada herramienta
 
-**2. [De Copilot a Agente: La Evolución hacia Agentes Autónomos](https://creapolis.dev/de-copilot-a-agente-evoluci-n-hacia-agentes-aut-nomos/)**
+**2. [De Copilot a Agente: La Evolución hacia AI/ML Autónomos](https://creapolis.dev/de-copilot-a-agente-evoluci-n-hacia-agentes-aut-nomos/)**
 
 - El futuro de la IA en el desarrollo
-- Agentes autónomos vs. asistentes pasivos
+- AI/ML autónomos vs. asistentes pasivos
 - Qué esperar en 2026 y más allá
 
 **3. [10 Herramientas de IA para Desarrolladores en 2026](https://creapolis.dev/blog/)**

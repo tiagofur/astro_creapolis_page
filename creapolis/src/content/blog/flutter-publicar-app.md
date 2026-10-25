@@ -4,7 +4,7 @@ description: "¡Enhorabuena! Has llegado a la etapa final del desarrollo de tu a
 pubDate: "2024-11-11"
 author: "tiagofur"
 tags: ["mobile", "app store", "ciclo de vida de la app", "compilación", "desarrollo", "despliegue de apps", "firma de apps", "flutter", "google play store", "guía para principiantes", "play store", "testing", "publicación de apps", "release", "tutorial", "versiones de apps"]
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "ultimos-pasos-antes-de-generar-la-app-y-subir-a-las-app-stores-guia-iniciantes"
 originalUrl: "https://creapolis.dev/ultimos-pasos-antes-de-generar-la-app-y-subir-a-las-app-stores-guia-iniciantes/"
 draft: false

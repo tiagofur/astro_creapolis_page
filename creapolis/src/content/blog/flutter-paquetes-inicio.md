@@ -4,7 +4,7 @@ description: "Si estás dando tus primeros pasos en el emocionante mundo de Flut
 pubDate: "2025-04-05"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "paquetes-esenciales-de-flutter-que-todo-principiante-debe-conocer"
 originalUrl: "https://creapolis.dev/paquetes-esenciales-de-flutter-que-todo-principiante-debe-conocer/"
 draft: false

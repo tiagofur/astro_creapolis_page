@@ -4,7 +4,7 @@ description: "En el competitivo mundo del desarrollo móvil, las aplicaciones ne
 pubDate: "2026-01-19"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Arquitectura", "Flutter - UI/UX"]
+categories: ["Mobile","Engineering"]
 slug: "server-driven-ui-con-flutter-la-tendencia-del-ano-para-desarrollo-movil-nativo"
 originalUrl: "https://creapolis.dev/server-driven-ui-con-flutter-la-tendencia-del-ano-para-desarrollo-movil-nativo/"
 draft: false

@@ -4,7 +4,7 @@ description: "Flutter ha revolucionado la forma en que construimos aplicaciones 
 pubDate: "2025-04-02"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Avanzado", "Flutter - Desktop", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "desarrollo-flutter-nativo-para-escritorio-mac-con-el-paquete-macos_ui"
 originalUrl: "https://creapolis.dev/desarrollo-flutter-nativo-para-escritorio-mac-con-el-paquete-macos_ui/"
 draft: false

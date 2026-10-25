@@ -4,7 +4,7 @@ description: "En el mundo del desarrollo de aplicaciones móviles, la navegació
 pubDate: "2024-10-30"
 author: "tiagofur"
 tags: ["appbar", "dart", "desarrollo", "ui", "drawer", "flutter", "menú", "navegación", "navegación lateral", "scaffold", "side navigation"]
-categories: ["Flutter - Basico", "Flutter - Intermedio", "Flutter - Navegacion", "Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "flutter-drawer-guia-completa-para-una-navegacion-lateral-impecable"
 originalUrl: "https://creapolis.dev/flutter-drawer-guia-completa-para-una-navegacion-lateral-impecable/"
 draft: false

@@ -10,19 +10,30 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const { timeline, values, stack, heroChips } = getAboutData(lang);
+const { timeline, values, stack, heroChips, ops } = getAboutData(lang);
 
-// Completar con las URLs reales de perfil. Si quedan en null, no se renderiza el botón.
 const links = {
   linkedin: null as string | null,
   github: null as string | null,
   twitter: null as string | null,
 };
+
+const opsIcons: Record<string, string> = {
+  repo: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
+  ci: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+  docs: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+  backup:
+    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>',
+  handover:
+    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  support:
+    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+};
 ---
 
 <Nav lang={lang} />
 
-<header class="s-hero" id="main-content">
+<header class="s-hero">
   <div class="ribbon" aria-hidden="true">
     <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
       <defs>
@@ -52,7 +63,12 @@ const links = {
       <div class="portrait-visual reveal">
         <div class="portrait-frame">
           <div class="portrait-placeholder" aria-label={t('about.portrait.alt')}>
-            <span class="initial">T</span>
+            <div class="portrait-avatar">
+              <span class="initial">T</span>
+              <div class="portrait-dots" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="portrait-links">
@@ -126,6 +142,26 @@ const links = {
           <div class="v-letter">{v.letter}</div>
           <h3>{v.title}</h3>
           <p>{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section ops-section" style="background: var(--chalk)">
+  <div class="wrap">
+    <div class="ops-header reveal">
+      <div class="eyebrow" style="margin-bottom:18px"><span>{t('about.ops.eyebrow')}</span></div>
+      <h2>{t('about.ops.title.p1')} <span class="serif">{t('about.ops.title.serif')}</span>.</h2>
+      <p>{t('about.ops.desc')}</p>
+    </div>
+
+    <div class="ops-grid">
+      {ops.map((op, i) => (
+        <div class={`ops-card reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`}>
+          <div class="ops-icon" set:html={opsIcons[op.icon] || ''} />
+          <h3>{op.title}</h3>
+          <p>{op.desc}</p>
         </div>
       ))}
     </div>
@@ -238,14 +274,30 @@ const links = {
     width: 100%; height: 100%;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 12px;
     background: linear-gradient(135deg, var(--coral-soft), var(--iris-soft));
+    position: relative;
   }
-  .portrait-placeholder .initial {
+  .portrait-avatar {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 16px;
+  }
+  .portrait-avatar .initial {
     font-family: var(--font-serif); font-style: italic;
     font-size: 6rem; line-height: 1;
     color: var(--iris);
   }
+  .portrait-dots {
+    display: flex; gap: 8px;
+  }
+  .portrait-dots span {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--iris);
+    opacity: 0.4;
+  }
+  .portrait-dots span:nth-child(2) { opacity: 0.6; background: var(--coral); }
+  .portrait-dots span:nth-child(3) { opacity: 0.8; }
+  .portrait-dots span:nth-child(4) { opacity: 0.6; background: var(--lime); }
+  .portrait-dots span:nth-child(5) { opacity: 0.4; background: var(--amber); }
   .portrait-links {
     display: flex; flex-wrap: wrap; gap: 10px;
     margin-top: 20px;
@@ -372,6 +424,53 @@ const links = {
   .value-card:nth-child(4) .v-letter { color: var(--amber); }
   .value-card h3 { font-size: 1.2rem; margin: 0 0 10px; color: var(--ink); }
   .value-card p { font-size: 0.98rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  /* Ops section */
+  .ops-header {
+    max-width: 640px; margin-bottom: 48px;
+  }
+  .ops-header h2 {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  .ops-header h2 .serif {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--iris);
+  }
+  .ops-header p { font-size: 1rem; color: var(--ink-2); max-width: 56ch; }
+
+  .ops-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .ops-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .ops-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ops-card {
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .ops-card:hover { transform: translateY(-2px); box-shadow: var(--sh-2); border-color: var(--iris); }
+  .ops-icon {
+    width: 48px; height: 48px;
+    display: grid; place-items: center;
+    background: var(--iris-soft);
+    border-radius: var(--r-md);
+    color: var(--iris);
+    margin-bottom: 16px;
+  }
+  .ops-card:nth-child(2) .ops-icon { background: var(--lime-soft); color: var(--lime); }
+  .ops-card:nth-child(3) .ops-icon { background: var(--coral-soft); color: var(--coral); }
+  .ops-card:nth-child(4) .ops-icon { background: var(--sky-soft); color: var(--sky); }
+  .ops-card:nth-child(5) .ops-icon { background: var(--amber-soft); color: var(--amber); }
+  .ops-card:nth-child(6) .ops-icon { background: var(--iris-soft); color: var(--iris); }
+  .ops-card h3 { font-size: 1.05rem; margin: 0 0 8px; color: var(--ink); }
+  .ops-card p { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
 
   .stack-head { max-width: 640px; margin-bottom: 56px; }
   .stack-head h2 {

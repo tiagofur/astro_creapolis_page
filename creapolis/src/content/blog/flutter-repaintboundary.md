@@ -4,7 +4,7 @@ description: "En el universo de Flutter, nuestra meta constante es crear interfa
 pubDate: "2025-10-17"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "domina-repaintboundary-en-flutter-optimiza-y-captura-widgets"
 originalUrl: "https://creapolis.dev/domina-repaintboundary-en-flutter-optimiza-y-captura-widgets/"
 draft: false

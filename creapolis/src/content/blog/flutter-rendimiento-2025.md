@@ -4,7 +4,7 @@ description: "En 2025, Flutter ha dejado de ser una promesa para consolidarse co
 pubDate: "2025-10-15"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Avanzado", "Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "rendimiento-flutter-2025-guia-avanzada-para-optimizar-apps"
 originalUrl: "https://creapolis.dev/rendimiento-flutter-2025-guia-avanzada-para-optimizar-apps/"
 draft: false

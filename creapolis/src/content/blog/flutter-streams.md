@@ -4,7 +4,7 @@ description: "En Flutter, los Streams representan un flujo de datos asincrónico
 pubDate: "2024-04-10"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "gesionestado", "streams"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "dominando-el-uso-de-streams-en-flutter-una-guia-completa"
 originalUrl: "https://creapolis.dev/dominando-el-uso-de-streams-en-flutter-una-guia-completa/"
 draft: false

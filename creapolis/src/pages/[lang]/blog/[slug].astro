@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BlogSpanishNotice from '../../../components/BlogSpanishNotice.astro';
 import Footer from '../../../components/Footer.astro';
 import Nav from '../../../components/Nav.astro';
+import RelatedArticles from '../../../components/RelatedArticles.astro';
 import type { Lang } from '../../../i18n/ui';
 import { getLocalizedPath, useTranslations } from '../../../i18n/utils';
 import Layout from '../../../layouts/Layout.astro';
@@ -26,7 +27,7 @@ const { Content } = await render(post);
 const description = getPostDescription(post);
 
 function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('es-ES', {
+  return new Intl.DateTimeFormat('es-MX', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -83,11 +84,41 @@ const mainTagStyle = tagColors[mainTag] || {
   color: 'var(--iris)',
   icon: '📝',
 };
+
+// Reading time estimate (avg 200 words/min in Spanish)
+const plainText =
+  post.body?.replace(/[#*`>[\]()!\-_~|]/g, ' ').replace(/\s+/g, ' ') || '';
+const wordCount = plainText.split(' ').filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// Build URL for sharing
+const shareUrl = Astro.url.href;
+const shareTitle = post.data.title;
+
+// ─── OG image: use cover, seo.ogImage, or default ─────────────
+const blogOgImage =
+  (post.data as any).seo?.ogImage || (post.data as any).cover || '/og/blog.svg';
+
+// ─── Contextual CTA mapping ───────────────────────────────────
+const cats = (post.data as any).categories as string[] | undefined;
+const primaryCat = cats?.[0] || 'Engineering';
+const ctaKeyMap: Record<string, string> = {
+  Engineering: 'engineering',
+  Mobile: 'mobile',
+  'AI/ML': 'aiml',
+  Product: 'product',
+  'Building Creapolis': 'building',
+};
+const ctaSlug = ctaKeyMap[primaryCat] || 'default';
+const ctaTitle = t(`blog.cta.${ctaSlug}.title` as any);
+const ctaDesc = t(`blog.cta.${ctaSlug}.desc` as any);
+const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
 ---
 
 <Layout lang={lang}
   title={post.data.title}
   description={description || post.data.title}
+  ogImage={blogOgImage}
   article={{
     publishedTime: post.data.pubDate.toISOString(),
     author: post.data.author,
@@ -160,6 +191,20 @@ const mainTagStyle = tagColors[mainTag] || {
 
         <!-- Sidebar -->
         <aside class="article-sidebar reveal reveal-delay-1">
+          <!-- Reading time -->
+          <div class="sidebar-reading">
+            <span class="reading-icon">📖</span>
+            <span>{readingMinutes} {t('blog.toc.reading')}</span>
+          </div>
+
+          <!-- TOC card -->
+          <div class="sidebar-card sidebar-card--toc" id="toc-sidebar">
+            <h4 class="sidebar-title">{t('blog.toc.title')}</h4>
+            <nav class="toc-nav" aria-label="Tabla de contenido">
+              <ol class="toc-list" id="toc-list"></ol>
+            </nav>
+          </div>
+
           <!-- Tags card -->
           <div class="sidebar-card">
             <h4 class="sidebar-title">Tags</h4>
@@ -180,13 +225,32 @@ const mainTagStyle = tagColors[mainTag] || {
           </div>
 
           <!-- CTA card -->
-          <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}>
-            <h4 class="sidebar-title">{t('blog.sidebar.helpTitle')}</h4>
-            <p>{t('blog.sidebar.helpDesc')}</p>
-            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%">{t('blog.sidebar.cta')}</a>
+          <div class="sidebar-card sidebar-card--cta" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}> 
+            <div class="cta-service-badge">{ctaService}</div>
+            <h4 class="cta-title">{ctaTitle}</h4>
+            <p class="cta-desc">{ctaDesc}</p>
+            <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" style="width: 100%" data-cta-track={ctaSlug} data-track-event="blog_service_cta_click" data-track-label={ctaSlug}>{t('blog.sidebar.cta')}</a>
           </div>
         </aside>
       </div>
+
+      <!-- Inline CTA -->
+      <div class="inline-cta reveal" style={`--cta-color: ${mainTagStyle.color}; --cta-bg: ${mainTagStyle.bg}`}> 
+        <div class="inline-cta-inner">
+          <div class="inline-cta-badge">{ctaService}</div>
+          <h3 class="inline-cta-title">{ctaTitle}</h3>
+          <p class="inline-cta-desc">{ctaDesc}</p>
+          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-cta-track={`inline_${ctaSlug}`} data-track-event="blog_service_cta_click" data-track-label={`inline_${ctaSlug}`}>{t('blog.sidebar.cta')} →</a>
+        </div>
+      </div>
+
+      <!-- Related articles -->
+      <RelatedArticles
+        lang={lang}
+        currentSlug={post.slug}
+        currentTags={post.data.tags}
+        currentCategories={(post.data as any).categories || []}
+      />
 
       <!-- Footer -->
       <div class="article-footer reveal">
@@ -198,7 +262,15 @@ const mainTagStyle = tagColors[mainTag] || {
           </a>
           <div class="footer-share">
             <span class="footer-label">{t('blog.sidebar.share')}</span>
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener" class="share-btn">𝕏</a>
+            <button type="button" class="share-btn share-btn--native" id="share-native" title="Share">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" class="share-btn" title="Twitter">𝕏</a>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" class="share-btn" title="LinkedIn">in</a>
+            <a href={`https://wa.me/?text=${encodeURIComponent(post.data.title + ' ' + shareUrl)}`} target="_blank" rel="noopener" class="share-btn" title="WhatsApp">💬</a>
+            <button type="button" class="share-btn share-btn--copy" id="share-copy" title="Copy link" data-url="{shareUrl}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -206,6 +278,7 @@ const mainTagStyle = tagColors[mainTag] || {
   </article>
 
   <Footer lang={lang} />
+  <div data-track-pageview="blog_read" data-track-slug={post.data.slug} hidden></div>
 </Layout>
 
 <style>
@@ -535,9 +608,13 @@ const mainTagStyle = tagColors[mainTag] || {
     font-size: 0.7rem;
   }
   .article-content :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
     border-radius: var(--r-lg);
-    margin: 32px 0;
+    margin: 32px auto;
     border: 1px solid var(--line);
+    background: var(--bg-2, #f8f8f8);
   }
   .article-content :global(table) {
     width: 100%;
@@ -604,10 +681,32 @@ const mainTagStyle = tagColors[mainTag] || {
     background: linear-gradient(180deg, var(--cta-bg, var(--chalk)), var(--paper));
     border-color: color-mix(in oklch, var(--cta-color, var(--iris)) 20%, var(--line));
   }
-  .sidebar-card--cta p {
+  .cta-service-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: color-mix(in oklch, var(--cta-color, var(--iris)) 15%, var(--paper));
+    color: var(--cta-color, var(--iris));
+    margin-bottom: 12px;
+  }
+  .cta-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .cta-desc {
     font-size: 0.88rem;
     color: var(--ink-2);
     margin-bottom: 16px;
+    line-height: 1.5;
   }
 
   .sidebar-title {
@@ -663,6 +762,49 @@ const mainTagStyle = tagColors[mainTag] || {
   /* ═══════════════════════════════════════════════════════════════
      ARTICLE FOOTER
      ═══════════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════════════
+     INLINE CTA — mid-article contextual call to action
+     ═══════════════════════════════════════════════════════════════ */
+  .inline-cta {
+    max-width: 720px;
+    margin: 48px auto;
+    padding: 32px;
+    background: linear-gradient(135deg, var(--cta-bg, var(--chalk)), var(--paper));
+    border: 1px solid color-mix(in oklch, var(--cta-color, var(--iris)) 25%, var(--line));
+    border-radius: var(--r-xl);
+    text-align: center;
+  }
+  .inline-cta-inner {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .inline-cta-badge {
+    display: inline-flex;
+    padding: 4px 14px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: color-mix(in oklch, var(--cta-color, var(--iris)) 12%, var(--paper));
+    color: var(--cta-color, var(--iris));
+    margin-bottom: 16px;
+  }
+  .inline-cta-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .inline-cta-desc {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
   .article-footer {
     max-width: 720px;
     margin-top: 56px;
@@ -709,4 +851,236 @@ const mainTagStyle = tagColors[mainTag] || {
     color: var(--paper);
     border-color: var(--ink);
   }
+  .share-btn--copy.copied {
+    background: oklch(0.85 0.15 145);
+    border-color: oklch(0.65 0.18 145);
+    color: oklch(0.25 0.05 145);
+  }
+  .share-btn--native {
+    display: none; /* shown by JS when Web Share API available */
+  }
+  .share-btn--native.is-available {
+    display: grid;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     READING TIME
+     ═══════════════════════════════════════════════════════════════ */
+  .sidebar-reading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    padding: 0 0 4px;
+  }
+  .reading-icon {
+    font-size: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+     ═══════════════════════════════════════════════════════════════ */
+  .sidebar-card--toc {
+    position: sticky;
+    top: 88px;
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .toc-list li {
+    margin: 0;
+  }
+  .toc-list a {
+    display: block;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--ink-3);
+    text-decoration: none;
+    border-radius: var(--r-sm);
+    border-left: 2px solid transparent;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+  }
+  .toc-list a:hover {
+    color: var(--ink);
+    background: var(--chalk);
+  }
+  .toc-list a.is-active {
+    color: var(--iris);
+    border-left-color: var(--iris);
+    background: var(--iris-soft);
+    font-weight: 500;
+  }
+  .toc-list .toc-h3 {
+    padding-left: 24px;
+    font-size: 0.78rem;
+  }
+  @media (max-width: 1079px) {
+    .sidebar-card--toc {
+      position: static;
+      min-width: 280px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESPONSIVE CONTENT — prevent overflow
+     ═══════════════════════════════════════════════════════════════ */
+  .article-content :global(pre) {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .article-content :global(table) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .article-content :global(img) {
+    max-width: 100%;
+    height: auto;
+  }
+  .article-content :global(video) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--r-lg);
+    margin: 32px 0;
+  }
+  .article-content :global(iframe) {
+    max-width: 100%;
+  }
+  .article-content :global(.embed-responsive) {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+  .article-content :global(.embed-responsive iframe) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
+
+<script>
+  // ─── TOC: Generate from headings ──────────────────────────────
+  const articleContent = document.querySelector('.article-content');
+  const tocList = document.getElementById('toc-list');
+  if (articleContent && tocList) {
+    const headings = articleContent.querySelectorAll('h2, h3');
+    headings.forEach((heading, i) => {
+      // Ensure heading has an id
+      if (!heading.id) {
+        heading.id = heading.textContent
+          ?.toLowerCase()
+          .replace(/[^a-z0-9áéíóúñü]+/g, '-')
+          .replace(/^-|-$/g, '') || `section-${i}`;
+      }
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent;
+      if (heading.tagName === 'H3') a.classList.add('toc-h3');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', `#${heading.id}`);
+      });
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Active heading tracking via IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            tocList.querySelectorAll('a').forEach((a) => {
+              a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+    );
+    headings.forEach((h) => observer.observe(h));
+  }
+
+  // ─── Share: Web Share API + copy fallback ────────────────────
+  const shareUrl = window.location.href;
+  const shareTitle = document.querySelector('h1')?.textContent || document.title;
+
+  // Native share button
+  const nativeBtn = document.getElementById('share-native');
+  if (nativeBtn && navigator.share) {
+    nativeBtn.classList.add('is-available');
+    nativeBtn.addEventListener('click', () => {
+      navigator.share({ title: shareTitle, url: shareUrl }).catch(() => {});
+    });
+  }
+
+  // Copy link button
+  const copyBtn = document.getElementById('share-copy');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        copyBtn.classList.add('copied');
+        copyBtn.title = 'Copied!';
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.title = 'Copy link';
+        }, 2000);
+      } catch {
+        // Fallback: select text
+        const input = document.createElement('input');
+        input.value = shareUrl;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        copyBtn.classList.add('copied');
+        setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+      }
+    });
+  }
+
+  // ─── CTA tracking: dispatch custom event (no sensitive data) ──
+  document.querySelectorAll<HTMLElement>('[data-cta-track]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const ctaType = el.dataset.ctaTrack || 'unknown';
+      window.dispatchEvent(
+        new CustomEvent('cta_click', {
+          detail: {
+            cta: ctaType,
+            path: window.location.pathname,
+            timestamp: Date.now(),
+          },
+        })
+      );
+      // Also log to console for debugging (remove in production analytics)
+      console.log('[CTA]', ctaType, window.location.pathname);
+    });
+  });
+
+  // ─── Lazy loading: add loading="lazy" to all content images ──
+  document.querySelectorAll('.article-content img').forEach((img) => {
+    if (!img.getAttribute('loading')) {
+      img.setAttribute('loading', 'lazy');
+    }
+    // Add decoding="async" for non-blocking decode
+    if (!img.getAttribute('decoding')) {
+      img.setAttribute('decoding', 'async');
+    }
+  });
+</script>

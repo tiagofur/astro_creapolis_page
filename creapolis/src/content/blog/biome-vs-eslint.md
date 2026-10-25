@@ -4,7 +4,7 @@ description: "El ecosistema de desarrollo frontend ha presenciado una revolució
 pubDate: "2026-01-15"
 author: "tiagofur"
 tags: ["herramientas", "dx"]
-categories: ["Frontend", "Tooling &amp; DX"]
+categories: ["Engineering"]
 slug: "biome-vs-eslint-prettier-el-nuevo-estandar-en-desarrollo-frontend"
 originalUrl: "https://creapolis.dev/biome-vs-eslint-prettier-el-nuevo-estandar-en-desarrollo-frontend/"
 draft: false

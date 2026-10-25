@@ -4,6 +4,7 @@ description: "Cómo identificar procesos ripe para automatización con IA y los 
 pubDate: "2025-02-15"
 author: "tiagofur"
 tags: ["ia", "automatizacion", "procesos", "eficiencia"]
+categories: ["AI/ML"]
 draft: false
 ---
 

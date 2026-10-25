@@ -4,6 +4,7 @@ description: "De la idea al lanzamiento: nuestro proceso de desarrollo en 4 etap
 pubDate: "2024-09-01"
 author: "tiagofur"
 tags: ["proceso", "desarrollo", "metodologia"]
+categories: ["AI/ML"]
 draft: false
 ---
 

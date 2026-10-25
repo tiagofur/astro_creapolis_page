@@ -4,7 +4,7 @@ description: "El Drawer en Flutter es un componente clave que permite agregar un
 pubDate: "2024-03-07"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "flutter", "ui"]
-categories: ["Flutter - Widgets"]
+categories: ["Mobile"]
 slug: "explorando-el-drawer-en-flutter-navegacion-lateral-con-elegancia"
 originalUrl: "https://creapolis.dev/explorando-el-drawer-en-flutter-navegacion-lateral-con-elegancia/"
 draft: false

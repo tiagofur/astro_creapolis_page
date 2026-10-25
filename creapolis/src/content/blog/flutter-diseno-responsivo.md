@@ -4,7 +4,7 @@ description: "La creación de aplicaciones responsivas es un pilar esencial en e
 pubDate: "2024-09-24"
 author: "tiagofur"
 tags: ["mobile", "dart", "desktop", "web", "efecto carga", "flutter", "ui"]
-categories: ["Flutter - Intermedio"]
+categories: ["Mobile"]
 slug: "domina-el-diseno-responsivo-en-flutter-guia-completa-para-apps-flexibles"
 originalUrl: "https://creapolis.dev/domina-el-diseno-responsivo-en-flutter-guia-completa-para-apps-flexibles/"
 draft: false

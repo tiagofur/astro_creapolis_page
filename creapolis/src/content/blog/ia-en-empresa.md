@@ -4,6 +4,7 @@ description: "Guía práctica para integrar inteligencia artificial en procesos 
 pubDate: "2024-12-10"
 author: "tiagofur"
 tags: ["ia", "empresa", "automatizacion", "productividad"]
+categories: ["AI/ML"]
 draft: false
 ---
 

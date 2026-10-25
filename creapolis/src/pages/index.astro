@@ -52,7 +52,7 @@ const postTagColors: Record<string, string> = {
 };
 
 function postDate(date: Date) {
-  return new Intl.DateTimeFormat('es-ES', {
+  return new Intl.DateTimeFormat('es-MX', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -214,7 +214,7 @@ const stats = [
 <Layout>
   <Nav />
 
-  <main id="main-content">
+  <div>
   <!-- ═══════════════════════════════════════════════════════════════
        HERO — full-height with ribbon + showcase cards
        ═══════════════════════════════════════════════════════════════ -->
@@ -241,7 +241,7 @@ const stats = [
       </div>
 
       <div class="showcase reveal reveal-delay-2">
-        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" />
+        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" decoding="async" />
       </div>
     </div>
   </header>
@@ -386,7 +386,7 @@ const stats = [
         {steps.map((step, i) => (
           <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
             <span class="bignum">{step.n}</span>
-            <h4>{step.title}</h4>
+            <h3>{step.title}</h3>
             <p>{step.desc}</p>
           </div>
         ))}
@@ -488,7 +488,7 @@ const stats = [
     </div>
   </section>
 
-  </main>
+  </div>
 
   <Footer />
 </Layout>

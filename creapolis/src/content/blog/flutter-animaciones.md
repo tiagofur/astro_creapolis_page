@@ -4,7 +4,7 @@ description: "Las animaciones son una parte crucial de la experiencia de usuario
 pubDate: "2024-09-17"
 author: "tiagofur"
 tags: ["mobile", "ui", "dart", "desktop", "web", "flutter"]
-categories: ["Flutter - Animaciones"]
+categories: ["Mobile"]
 slug: "domina-las-animaciones-en-flutter-guia-completa-para-crear-apps-dinamicas-y-sorprendentes"
 originalUrl: "https://creapolis.dev/domina-las-animaciones-en-flutter-guia-completa-para-crear-apps-dinamicas-y-sorprendentes/"
 draft: false

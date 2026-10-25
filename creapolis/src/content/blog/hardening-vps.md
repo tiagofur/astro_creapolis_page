@@ -4,7 +4,7 @@ description: "Guía práctica de hardening VPS: en esta guía aprenderás a prot
 pubDate: "2026-01-13"
 author: "tiagofur"
 tags: []
-categories: ["Flutter - Basico"]
+categories: ["Mobile"]
 slug: "sobreviviendo-a-un-ciberataque-guia-completa-de-hardening-para-vps-y-el-dilema-del-self-hosting"
 originalUrl: "https://creapolis.dev/sobreviviendo-a-un-ciberataque-guia-completa-de-hardening-para-vps-y-el-dilema-del-self-hosting/"
 draft: false
