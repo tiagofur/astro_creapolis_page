@@ -16,8 +16,8 @@ const lastUpdated = 'April 23, 2026';
   <section class="legal-page">
     <div class="legal-inner">
       <div class="legal-head">
-        <div class="eyebrow" style="margin-bottom:12px"><span>Legal</span></div>
-        <h1>Terms of <span class="serif">Use</span></h1>
+        <p class="eyebrow" style="--accent-color: var(--c-yellow); margin-bottom: 14px;">Legal</p>
+        <h1>Terms of <span class="tone">Use</span></h1>
         <p class="last-updated">Last updated: {lastUpdated}</p>
       </div>
 
@@ -82,37 +82,37 @@ const lastUpdated = 'April 23, 2026';
 <style>
   .legal-page {
     padding: 140px var(--gutter) 100px;
-    background:
-      radial-gradient(60% 40% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
-      var(--paper);
+    background: var(--paper);
     min-height: 80vh;
   }
 
   .legal-inner {
-    max-width: 760px;
+    max-width: min(72ch, 100%);
     margin: 0 auto;
   }
 
-  .legal-head { margin-bottom: 40px; }
+  .legal-head { margin-bottom: 48px; }
 
   .legal-head h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
     line-height: 1.05;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    font-weight: var(--fw-semibold);
     color: var(--ink);
-    margin: 0 0 12px;
+    margin: 0 0 14px;
+    text-wrap: balance;
   }
 
-  .legal-head h1 .serif {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--iris);
+  .legal-head h1 .tone {
+    color: var(--ink-4);
   }
 
   .last-updated {
-    font-size: 0.85rem;
-    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-4);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
     margin: 0;
   }
 
@@ -121,18 +121,21 @@ const lastUpdated = 'April 23, 2026';
     color: var(--ink-2);
     line-height: 1.7;
     margin: 0 0 40px;
-    padding: 24px;
+    padding: 20px 24px;
     background: var(--chalk);
-    border-radius: var(--r-md);
-    border-left: 3px solid var(--iris);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    border-left: 3px solid var(--c-yellow);
   }
 
   h2 {
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.25;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
     color: var(--ink);
-    margin: 40px 0 12px;
-    letter-spacing: -0.01em;
+    margin: 44px 0 14px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
   }
 
   p {
@@ -155,25 +158,14 @@ const lastUpdated = 'April 23, 2026';
   }
 
   a {
-    color: var(--iris);
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-thickness 0.15s;
   }
 
-  a:hover { text-decoration: underline; }
+  a:hover { text-decoration-thickness: 2px; }
 
-  strong { color: var(--ink); }
-
-  .eyebrow { display: inline-flex; }
-
-  .eyebrow span {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--iris);
-    background: var(--iris-soft);
-    border: 1px solid oklch(0.62 0.2 285 / 0.2);
-    border-radius: var(--r-pill);
-    padding: 5px 12px;
-  }
+  strong { color: var(--ink); font-weight: var(--fw-semibold); }
 </style>

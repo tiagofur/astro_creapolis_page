@@ -57,11 +57,20 @@ export function canonicalSlug(slug: string, lang: Lang): string {
  * Builds a localized path: translates slugs and prefixes with language.
  * e.g. getLocalizedPath('en', '/contacto') → '/en/contact'
  * e.g. getLocalizedPath('es', '/proyectos/pepinillo') → '/es/proyectos/pepinillo'
+ * Hash-aware: getLocalizedPath('en', '/servicios#ai-agents') → '/en/services#ai-agents'
  */
 export function getLocalizedPath(lang: Lang, path: string): string {
-  const segments = path.split('/').filter(Boolean);
+  const hashIdx = path.indexOf('#');
+  if (hashIdx === -1) {
+    const segments = path.split('/').filter(Boolean);
+    const translated = segments.map((s) => translateSlug(s, lang));
+    return `/${lang}${translated.length ? `/${translated.join('/')}` : ''}`;
+  }
+  const base = path.slice(0, hashIdx);
+  const hash = path.slice(hashIdx);
+  const segments = base.split('/').filter(Boolean);
   const translated = segments.map((s) => translateSlug(s, lang));
-  return `/${lang}${translated.length ? `/${translated.join('/')}` : ''}`;
+  return `/${lang}${translated.length ? `/${translated.join('/')}` : ''}/${hash}`;
 }
 
 /**

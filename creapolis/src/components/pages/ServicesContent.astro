@@ -16,6 +16,9 @@ const t = useTranslations(lang);
 const WEB3FORMS_KEY =
   import.meta.env.WEB3FORMS_KEY || 'YOUR_WEB3FORMS_ACCESS_KEY';
 const { services, process } = getServicesData(lang);
+
+/* ─── CMYK accent cycle: cyan → magenta → yellow ─── */
+const ACCENTS = ['var(--c-cyan)', 'var(--c-magenta)', 'var(--c-yellow)'] as const;
 ---
 
 <Nav lang={lang} />
@@ -23,25 +26,39 @@ const { services, process } = getServicesData(lang);
 <header class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy reveal">
-      <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.page.eyebrow')}</span></div>
-      <h1>{t('services.page.title.p1')}<br/><span class="serif">{t('services.page.title.serif')}</span>.</h1>
+      <p class="eyebrow" style="margin-bottom:18px; --accent-color: var(--c-cyan);"><span>{t('services.page.eyebrow')}</span></p>
+      <h1>{t('services.page.title.p1')}<br/><span class="tone">{t('services.page.title.serif')}.</span></h1>
       <p class="lead">{t('services.page.lead')}</p>
     </div>
   </div>
 </header>
 
-<section class="section" style="background:var(--chalk)">
+<section class="section section-alt">
   <div class="wrap">
     <div class="svc-grid">
       {services.map((s, i) => (
-        <article id={s.id} class={`svc-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
+        <article
+          id={s.id}
+          class={`svc-card reveal${i > 0 ? ` reveal-delay-${Math.min(i, 4)}` : ''}`}
+          style={`--accent-color: ${ACCENTS[i % 3]};`}
+        >
+          <span class="card-bar" aria-hidden="true"></span>
+
           <div class="svc-head">
-            <span class="svc-num">{String(i + 1).padStart(2, '0')}</span>
+            <div class="svc-head-top">
+              <span class="svc-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="svc-badges">
+                {s.timeline && <span class="svc-timeline">{s.timeline}</span>}
+                {s.price && <span class="svc-price">{s.price}</span>}
+              </div>
+            </div>
             <h2>{s.title}</h2>
-            <span class="svc-tagline">{s.tagline}</span>
+            <p class="svc-tagline">{s.tagline}</p>
           </div>
 
           <div class="svc-body">
+            {s.desc && <p class="svc-desc-text">{s.desc}</p>}
+
             <div class="svc-field">
               <span class="svc-label">{t('services.page.audience')}</span>
               <p>{s.audience}</p>
@@ -54,14 +71,14 @@ const { services, process } = getServicesData(lang);
 
             <div class="svc-field">
               <span class="svc-label">{t('services.page.deliverables')}</span>
-              <div class="svc-deliverables">
+              <ul class="svc-deliverables">
                 {s.deliverables.map((d) => (
-                  <div class="svc-del">
+                  <li class="svc-del">
                     <strong>{d.title}</strong>
                     <span>{d.desc}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
             <div class="svc-field svc-method">
@@ -74,16 +91,16 @@ const { services, process } = getServicesData(lang);
             </div>
 
             <div class="svc-proof">
-              <div class="svc-proof-label">{s.proof.label}</div>
+              <span class="svc-proof-label">{s.proof.label}</span>
               <p>{s.proof.text}</p>
               <a href={s.proof.link.startsWith('/#') ? `${getLocalizedPath(lang, '/')}${s.proof.link.slice(1)}` : getLocalizedPath(lang, s.proof.link)} class="svc-proof-link">{s.proof.linkLabel}
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </a>
             </div>
 
             <a href={getLocalizedPath(lang, s.ctaLink)} class="btn btn-primary svc-cta" data-track-event="service_click" data-track-label={s.ctaLabel}>
               {s.ctaLabel}
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </a>
           </div>
         </article>
@@ -94,18 +111,16 @@ const { services, process } = getServicesData(lang);
 
 <section id="proceso" class="section">
   <div class="wrap">
-    <div class="proc-header">
-      <div class="reveal">
-        <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.page.how.eyebrow')}</span></div>
-        <h2>{t('services.page.how.title.p1')}<br/><span class="serif">{t('services.page.how.title.serif')}</span>.</h2>
-      </div>
-      <p class="reveal reveal-delay-1">{t('services.page.how.lead')}</p>
+    <div class="section-head reveal">
+      <p class="eyebrow" style="--accent-color: var(--c-magenta);"><span>{t('services.page.how.eyebrow')}</span></p>
+      <h2 class="section-title">{t('services.page.how.title.p1')} <span class="tone">{t('services.page.how.title.serif')}.</span></h2>
     </div>
+    <p class="section-lead reveal reveal-delay-1">{t('services.page.how.lead')}</p>
 
-    <div class="proc">
+    <div class="hairline-grid proc-grid reveal">
       {process.map((step, i) => (
-        <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-          <span class="bignum">{step.n}</span>
+        <div class={`hairline-cell step${i > 0 ? ` reveal reveal-delay-${Math.min(i, 4)}` : ' reveal'}`}>
+          <span class="step-number">{step.n}</span>
           <h3>{step.title}</h3>
           <p>{step.desc}</p>
           <ul class="step-details">
@@ -119,276 +134,418 @@ const { services, process } = getServicesData(lang);
   </div>
 </section>
 
-<section id="contacto" class="contact-cta">
-  <div class="contact-card reveal">
-    <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.cta.eyebrow')}</span></div>
-    <h2>{t('contact.cta.title.p1')}<br/>{t('contact.cta.title.p2')} <span class="serif">{t('contact.cta.title.serif')}</span>.</h2>
-    <p class="lead">{t('contact.cta.lead')}</p>
-    <form class="c-form" id="svc-contact-form"
-      data-track-form="contact_form_started"
-      data-msg-hp={t('contact.cta.form.success.hp')}
-      data-msg-wait={t('contact.cta.form.error.wait')}
-      data-msg-conn={t('contact.cta.form.error.conn')}
-      data-msg-ok={t('contact.cta.form.success.hp')}
-    >
-      <div class="hp-field" aria-hidden="true">
-        <label for="svc-website">Website</label>
-        <input type="text" id="svc-website" name="website" tabindex="-1" autocomplete="off" />
-      </div>
-      <input type="hidden" id="svc-timestamp" name="timestamp" value="" />
-      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-      <input type="hidden" name="subject" value="Nuevo contacto (Servicios) desde creapolis.dev" />
-      <input type="hidden" name="from_name" value="Creapolis · Formulario web" />
+<section id="contacto" class="section contact-cta">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <p class="eyebrow" style="margin-bottom:16px; --accent-color: var(--c-yellow);"><span>{t('contact.cta.eyebrow')}</span></p>
+      <h2>{t('contact.cta.title.p1')}<br/>{t('contact.cta.title.p2')} <span class="tone">{t('contact.cta.title.serif')}.</span></h2>
+      <p class="lead">{t('contact.cta.lead')}</p>
+      <form class="c-form" id="svc-contact-form"
+        data-track-form="contact_form_started"
+        data-msg-hp={t('contact.cta.form.success.hp')}
+        data-msg-wait={t('contact.cta.form.error.wait')}
+        data-msg-conn={t('contact.cta.form.error.conn')}
+        data-msg-ok={t('contact.cta.form.success.hp')}
+      >
+        <div class="hp-field" aria-hidden="true">
+          <label for="svc-website">Website</label>
+          <input type="text" id="svc-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" id="svc-timestamp" name="timestamp" value="" />
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="Nuevo contacto (Servicios) desde creapolis.dev" />
+        <input type="hidden" name="from_name" value="Creapolis · Formulario web" />
 
-      <div class="two">
-        <label>{t('contact.form.name')}
-          <input type="text" name="name" required placeholder="María González" />
+        <div class="two">
+          <label>{t('contact.form.name')}
+            <input type="text" name="name" required placeholder="María González" />
+          </label>
+          <label>{t('contact.form.email')}
+            <input type="email" name="email" required placeholder="maria@empresa.com" />
+          </label>
+        </div>
+        <label>{t('contact.form.type')}
+          <select name="service">
+            <option>{t('contact.form.type.mobile')}</option>
+            <option>{t('contact.form.type.web')}</option>
+            <option>{t('contact.form.type.desktop')}</option>
+            <option>{t('contact.form.type.ai')}</option>
+            <option>{t('contact.cta.form.type.consult')}</option>
+          </select>
         </label>
-        <label>{t('contact.form.email')}
-          <input type="email" name="email" required placeholder="maria@empresa.com" />
+        <label>{t('contact.form.message')}
+          <textarea name="message" placeholder={t('contact.cta.form.message.placeholder')}></textarea>
         </label>
-      </div>
-      <label>{t('contact.form.type')}
-        <select name="service">
-          <option>{t('contact.form.type.mobile')}</option>
-          <option>{t('contact.form.type.web')}</option>
-          <option>{t('contact.form.type.desktop')}</option>
-          <option>{t('contact.form.type.ai')}</option>
-          <option>{t('contact.cta.form.type.consult')}</option>
-        </select>
-      </label>
-      <label>{t('contact.form.message')}
-        <textarea name="message" placeholder={t('contact.cta.form.message.placeholder')}></textarea>
-      </label>
-      <div class="row-cta">
-        <button type="submit" class="btn btn-primary btn-lg">{t('contact.form.submit')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-        <span class="hint">{t('contact.cta.email.hint')} <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></span>
-        <span class="ok chip live" hidden style="margin-left:auto"><span class="chip-dot"></span>{t('contact.cta.sent')}</span>
-      </div>
-      <div id="svc-form-msg" class="form-msg" role="status" aria-live="polite" hidden></div>
-    </form>
+        <div class="row-cta">
+          <button type="submit" class="btn btn-primary btn-lg">{t('contact.form.submit')}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <span class="hint">{t('contact.cta.email.hint')} <a href="mailto:hola@creapolis.dev">hola@creapolis.dev</a></span>
+          <span class="ok chip live" hidden style="margin-left:auto"><span class="chip-dot"></span>{t('contact.cta.sent')}</span>
+        </div>
+        <div id="svc-form-msg" class="form-msg" role="status" aria-live="polite" hidden></div>
+      </form>
+    </div>
   </div>
 </section>
 
-<Footer lang={lang} />
+<Footer lang={lang} hideCta={true} />
 
 <style>
-  .page-hero {
-    padding: 160px var(--gutter) 80px;
-    position: relative;
-    overflow: clip;
-    background:
-      radial-gradient(50% 45% at 10% 80%, var(--coral-soft) 0%, transparent 70%),
-      radial-gradient(60% 50% at 90% 10%, var(--iris-soft) 0%, transparent 60%),
-      var(--paper);
+  .tone {
+    color: var(--ink-4);
   }
-  .page-hero-copy { max-width: 720px; }
-  .page-hero h1 { margin-bottom: 24px; }
-  .page-hero h1 .serif { color: var(--iris); font-size: 1.02em; }
-  .page-hero .lead { max-width: 52ch; }
 
-  .svc-grid { display: grid; gap: 20px; }
-  .svc-card {
+  /* ═══════════════════════════════════════════════════════════════
+     HERO — white canvas, two-tone headline
+     ═══════════════════════════════════════════════════════════════ */
+  .page-hero {
+    padding: 168px var(--gutter) 72px;
     background: var(--paper);
+  }
+  .page-hero-copy {
+    max-width: 720px;
+  }
+  .page-hero h1 {
+    margin-bottom: 24px;
+  }
+  .page-hero .lead {
+    max-width: 52ch;
+  }
+
+  .section {
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+  .section-alt {
+    background: var(--chalk);
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 40px;
+    max-width: 640px;
+  }
+  .section-head .eyebrow {
+    margin: 0;
+  }
+  .section-title {
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .section-lead {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    max-width: 60ch;
+    margin: -20px 0 40px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SERVICE CARDS — zai color-card: white, hairline, 3px accent bar
+     ═══════════════════════════════════════════════════════════════ */
+  .svc-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .svc-card {
+    position: relative;
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
     padding: clamp(28px, 4vw, 48px);
-    position: relative;
-    transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    overflow: hidden;
     scroll-margin-top: 100px;
+    transition:
+      box-shadow 0.25s var(--ease),
+      transform 0.25s var(--ease);
   }
-  .svc-card:hover { border-color: var(--svc-color); box-shadow: var(--sh-2); }
-  .svc-card:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
-  .svc-card:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
-  .svc-card:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
-  .svc-card:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
-  .svc-card:nth-child(5) { --svc-color: var(--amber); --svc-soft: var(--amber-soft); }
+  .svc-card:hover {
+    box-shadow: var(--sh-hover);
+    transform: translateY(-4px);
+  }
 
   .svc-head {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     margin-bottom: 28px;
     padding-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
-  .svc-num {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--svc-color);
+  .svc-head-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 4px;
   }
-  .svc-card h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+  .svc-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+  }
+  .svc-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .svc-timeline {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-4);
+  }
+  .svc-price {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    background: var(--chalk-2);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+  }
+  .svc-card h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+  }
   .svc-tagline {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--svc-color);
-    font-size: 1.05rem;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    max-width: 60ch;
   }
 
-  .svc-body { display: grid; gap: 24px; }
-  .svc-field { }
+  .svc-body {
+    display: grid;
+    gap: 24px;
+  }
   .svc-label {
     display: block;
-    font-size: 0.72rem;
     font-family: var(--font-mono);
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-mono);
     text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 8px;
+    color: var(--ink-4);
+    margin-bottom: 10px;
   }
-  .svc-field p { font-size: 1rem; color: var(--ink-2); max-width: 60ch; }
-  .svc-outcome p { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
+  .svc-desc-text {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 68ch;
+  }
+  .svc-field p {
+    font-size: 1rem;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+  .svc-outcome p {
+    font-size: 1.05rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink);
+  }
 
-  .svc-deliverables { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  @media (min-width: 640px) { .svc-deliverables { grid-template-columns: repeat(2, 1fr); } }
+  /* Deliverables — clean hairline list */
+  .svc-deliverables {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 640px) {
+    .svc-deliverables {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .svc-deliverables li:nth-last-child(1):nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
   .svc-del {
-    padding: 16px;
-    background: var(--chalk);
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 16px 16px 0;
+    border-bottom: 1px solid var(--line);
   }
-  .svc-del strong { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
-  .svc-del span { font-size: 0.82rem; color: var(--ink-3); }
+  @media (min-width: 640px) {
+    .svc-del {
+      padding-right: 24px;
+    }
+    .svc-del:nth-child(odd) {
+      padding-right: 24px;
+    }
+    .svc-del:nth-child(even) {
+      padding-left: 24px;
+    }
+  }
+  .svc-del strong {
+    font-size: 0.92rem;
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+  }
+  .svc-del span {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
 
-  .svc-method { margin-top: 4px; }
-  .svc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .svc-method {
+    margin-top: 4px;
+  }
+  .svc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
+  /* Case proof — hairline note with 3px accent edge */
   .svc-proof {
     margin-top: 4px;
     padding: 20px 24px;
-    border-left: 3px solid var(--svc-color);
-    background: color-mix(in oklch, var(--svc-soft) 50%, var(--paper));
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent-color, var(--c-cyan));
     border-radius: 0 var(--r-md) var(--r-md) 0;
+    background: var(--chalk);
   }
   .svc-proof-label {
+    display: block;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 11px;
+    font-weight: var(--fw-medium);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--svc-color);
+    letter-spacing: var(--ls-mono);
+    color: var(--ink-4);
     margin-bottom: 8px;
   }
-  .svc-proof p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); margin: 0 0 12px; }
+  .svc-proof p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 12px;
+  }
   .svc-proof-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--svc-color);
+    font-size: 0.85rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink);
     text-decoration: none;
-    transition: gap 0.2s var(--ease);
+    border-bottom: 1px solid var(--line-2);
+    padding-bottom: 2px;
+    transition: border-color 0.2s, gap 0.2s var(--ease);
   }
-  .svc-proof-link:hover { gap: 10px; }
+  .svc-proof-link:hover {
+    border-color: var(--ink);
+    gap: 10px;
+  }
 
   .svc-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     width: fit-content;
     margin-top: 4px;
   }
 
-  .proc-header {
+  /* ═══════════════════════════════════════════════════════════════
+     PROCESS — hairline grid
+     ═══════════════════════════════════════════════════════════════ */
+  .hairline-grid {
     display: grid;
-    gap: 28px;
-    grid-template-columns: 1fr;
-    margin-bottom: 56px;
-    align-items: end;
-  }
-  @media (min-width: 720px) { .proc-header { grid-template-columns: 1.1fr 1fr; gap: 48px; } }
-  .proc-header h2 { max-width: 14ch; }
-  .proc-header h2 .serif { color: var(--coral); }
-  .proc-header p { font-size: 1.05rem; max-width: 48ch; color: var(--ink-2); }
-
-  .proc { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  @media (min-width: 720px) { .proc { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .proc { grid-template-columns: repeat(4, 1fr); } }
-
-  .step {
-    background: var(--paper);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 1px;
+    background: var(--line);
     border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    padding: 28px 24px;
-    position: relative;
+    border-radius: var(--r-xl);
     overflow: hidden;
   }
-  .step .bignum {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 5rem;
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-    color: var(--step-color, var(--iris));
+  .hairline-cell {
+    background: #ffffff;
+    padding: 26px 24px;
   }
-  .step h4 { font-size: 1.1rem; margin: 14px 0 6px; }
-  .step p { font-size: 0.88rem; color: var(--ink-2); margin-bottom: 16px; }
-  .step:nth-child(1) { --step-color: var(--iris); }
-  .step:nth-child(2) { --step-color: var(--coral); }
-  .step:nth-child(3) { --step-color: var(--lime); }
-  .step:nth-child(4) { --step-color: var(--amber); }
-
+  .step-number {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+    margin-bottom: 10px;
+  }
+  .hairline-cell h3 {
+    font-size: 1.05rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    margin: 0 0 6px 0;
+  }
+  .hairline-cell p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0 0 14px 0;
+  }
   .step-details {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
   .step-details li {
     font-size: 0.8rem;
     color: var(--ink-3);
-    padding-left: 16px;
+    padding-left: 14px;
     position: relative;
+    line-height: 1.45;
   }
   .step-details li::before {
-    content: '·';
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--step-color, var(--iris));
-    font-weight: 700;
+    top: 0.5em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink-4);
   }
 
-  .contact-cta {
-    padding: clamp(64px, 9vw, 120px) var(--gutter);
-    background: var(--paper);
-    position: relative;
-  }
+  /* ═══════════════════════════════════════════════════════════════
+     CONTACT — white card, flat hairline, black-focus inputs
+     ═══════════════════════════════════════════════════════════════ */
   .contact-card {
     max-width: 960px;
     margin: 0 auto;
-    background: linear-gradient(180deg, var(--paper), var(--chalk));
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
     padding: clamp(40px, 6vw, 72px);
-    position: relative;
-    overflow: clip;
-    box-shadow: var(--sh-3);
   }
-  .contact-card::before {
-    content: "";
-    position: absolute;
-    inset: -40% -20% auto auto;
-    width: 70%; height: 180%;
-    background: radial-gradient(circle, var(--iris-soft) 0%, transparent 60%);
-    z-index: 0;
+  .contact-card h2 {
+    max-width: 22ch;
+    margin-bottom: 14px;
   }
-  .contact-card > * { position: relative; z-index: 1; }
-  .contact-card h2 { max-width: 22ch; margin-bottom: 14px; }
-  .contact-card h2 .serif { color: var(--iris); }
   .contact-card p.lead {
     font-size: 1.1rem;
     max-width: 50ch;
     margin-bottom: 32px;
-    color: var(--ink-2);
+    color: var(--ink-3);
   }
 
   .c-form {
@@ -398,41 +555,75 @@ const { services, process } = getServicesData(lang);
     max-width: 640px;
   }
   @media (min-width: 640px) {
-    .c-form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .c-form .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
   }
   .c-form label {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: 0.8rem;
-    color: var(--ink-3);
     font-family: var(--font-mono);
-    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: var(--fw-medium);
     letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
   }
-  .c-form input, .c-form textarea, .c-form select {
+  .c-form input,
+  .c-form textarea,
+  .c-form select {
     padding: 14px 16px;
-    border-radius: var(--r-md);
+    border-radius: var(--r-sm);
     border: 1px solid var(--line-2);
-    background: var(--paper);
+    background: #ffffff;
     font-size: 1rem;
     font-family: var(--font-sans);
     color: var(--ink);
-    transition: border-color 0.2s, box-shadow 0.2s;
     text-transform: none;
     letter-spacing: normal;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
   }
-  .c-form input:focus, .c-form textarea:focus, .c-form select:focus {
-    outline: none;
-    border-color: var(--iris);
-    box-shadow: 0 0 0 4px color-mix(in oklch, var(--iris) 20%, transparent);
+  .c-form input:focus,
+  .c-form textarea:focus,
+  .c-form select:focus {
+    outline: 2px solid var(--ink);
+    outline-offset: 0;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.1);
   }
-  .c-form textarea { resize: vertical; min-height: 120px; }
+  .c-form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
   .c-form .row-cta {
-    display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 6px;
   }
-  .c-form .hint { font-size: 0.82rem; color: var(--ink-3); font-family: var(--font-mono); }
-  .c-form .hint a { color: var(--iris); font-weight: 500; }
+  .c-form .hint {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-4);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+  .c-form .hint a {
+    color: var(--ink-2);
+    font-weight: var(--fw-medium);
+    border-bottom: 1px solid var(--line-2);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .c-form .hint a:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
 
   .hp-field {
     position: absolute;
@@ -444,19 +635,19 @@ const { services, process } = getServicesData(lang);
 
   .form-msg {
     padding: 14px 18px;
-    border-radius: var(--r-md);
+    border-radius: var(--r-sm);
     font-size: 0.92rem;
     margin-top: 4px;
   }
   .form-msg.success {
-    background: var(--lime-soft);
-    color: oklch(0.45 0.12 128);
-    border: 1px solid color-mix(in oklch, var(--lime) 30%, var(--line));
+    background: var(--c-cyan-soft);
+    color: var(--c-cyan-3);
+    border: 1px solid rgba(0, 174, 239, 0.3);
   }
   .form-msg.error {
-    background: var(--coral-soft);
-    color: oklch(0.45 0.12 25);
-    border: 1px solid color-mix(in oklch, var(--coral) 30%, var(--line));
+    background: var(--c-magenta-soft);
+    color: #c40075;
+    border: 1px solid rgba(236, 0, 140, 0.3);
   }
 </style>
 

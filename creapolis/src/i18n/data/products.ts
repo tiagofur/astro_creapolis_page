@@ -141,7 +141,7 @@ export const products: Product[] = [
     name: 'Solennix',
     status: 'live',
     category: 'Gestión de eventos',
-    color: 'var(--iris)',
+    color: 'var(--c-cyan)',
     colorSoft: 'var(--iris-soft)',
     ribbonStops: [
       { offset: '0%', color: 'oklch(0.72 0.14 235)', opacity: '0.4' },
@@ -207,7 +207,7 @@ export const products: Product[] = [
     name: 'Pepinillo',
     status: 'live',
     category: 'Productividad',
-    color: 'var(--lime)',
+    color: 'var(--c-yellow)',
     colorSoft: 'var(--lime-soft)',
     ribbonStops: [
       { offset: '0%', color: 'oklch(0.84 0.18 128)', opacity: '0.4' },
@@ -292,7 +292,7 @@ export const products: Product[] = [
     name: 'Películas',
     status: 'live',
     category: 'Entretenimiento',
-    color: 'var(--coral)',
+    color: 'var(--c-magenta)',
     colorSoft: 'var(--coral-soft)',
     ribbonStops: [
       { offset: '0%', color: 'oklch(0.72 0.18 32)', opacity: '0.4' },
@@ -331,7 +331,7 @@ export const products: Product[] = [
     name: 'Subscription Guardian',
     status: 'pre_production',
     category: 'Finanzas',
-    color: 'var(--sky)',
+    color: 'var(--key)',
     colorSoft: 'var(--sky-soft)',
     ribbonStops: [
       { offset: '0%', color: 'oklch(0.72 0.14 235)', opacity: '0.4' },

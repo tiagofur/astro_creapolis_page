@@ -124,17 +124,18 @@ const { msg, cta, dismiss } = langMessages[other.lang] || langMessages.en;
     align-items: center;
     gap: 14px;
     padding: 12px 16px;
-    background: var(--ink);
-    color: var(--paper);
+    background: #ffffff;
+    color: var(--ink);
+    border: 1px solid var(--line);
     border-radius: var(--r-pill);
-    box-shadow: 0 20px 50px oklch(0.15 0.02 265 / 0.35);
-    font-size: 0.9rem;
+    box-shadow: var(--sh-3);
+    font-size: 0.88rem;
     flex-wrap: wrap;
     justify-content: center;
   }
   .lb-flag { font-size: 1.1rem; line-height: 1; flex-shrink: 0; }
   .lb-msg {
-    color: oklch(0.88 0.01 265);
+    color: var(--ink-3);
     flex: 1;
     min-width: 200px;
   }
@@ -142,17 +143,17 @@ const { msg, cta, dismiss } = langMessages[other.lang] || langMessages.en;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 14px;
-    background: var(--paper);
-    color: var(--ink);
+    padding: 8px 16px;
+    background: var(--ink);
+    color: #ffffff;
     border-radius: var(--r-pill);
-    font-weight: 500;
-    font-size: 0.85rem;
+    font-weight: var(--fw-medium);
+    font-size: 0.84rem;
     text-decoration: none;
     white-space: nowrap;
     transition: background 0.2s;
   }
-  .lb-cta:hover { background: var(--lime); }
+  .lb-cta:hover { background: #3f3f46; }
   .lb-dismiss {
     display: inline-flex;
     align-items: center;
@@ -161,14 +162,14 @@ const { msg, cta, dismiss } = langMessages[other.lang] || langMessages.en;
     height: 28px;
     background: transparent;
     border: none;
-    color: oklch(0.72 0.01 265);
+    color: var(--ink-4);
     cursor: pointer;
     border-radius: 50%;
     transition: background 0.2s, color 0.2s;
   }
   .lb-dismiss:hover {
-    background: oklch(0.28 0.02 265);
-    color: var(--paper);
+    background: var(--chalk-2);
+    color: var(--ink);
   }
 
   @media (max-width: 600px) {

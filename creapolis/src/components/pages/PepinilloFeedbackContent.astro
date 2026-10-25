@@ -12,7 +12,7 @@ const fb = getPepinilloSupportData(lang).feedback;
 <section class="hub-page">
   <div class="sup-head reveal">
     <div class="eyebrow" style="margin-bottom:14px"><span>{fb.eyebrow}</span></div>
-    <h1>{fb.title} <span class="serif">{fb.titleSerif}</span>.</h1>
+    <h1>{fb.title} <span class="tone">{fb.titleSerif}</span>.</h1>
     <p class="subtitle">{fb.subtitle}</p>
   </div>
 
@@ -41,6 +41,7 @@ const fb = getPepinilloSupportData(lang).feedback;
 </section>
 
 <style>
+  .tone { color: var(--ink-4); }
   .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -56,11 +57,11 @@ const fb = getPepinilloSupportData(lang).feedback;
     transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
     align-items: flex-start;
   }
-  .option-card:hover { box-shadow: var(--sh-2); border-color: var(--lime); }
+  .option-card:hover { box-shadow: var(--sh-2); border-color: var(--c-yellow); }
   .opt-icon { font-size: 1.5rem; flex-shrink: 0; }
   .option-card h2 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 4px; }
   .option-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.5; margin: 0 0 8px; }
-  .opt-link { font-size: 0.85rem; color: var(--lime); font-weight: 500; }
+  .opt-link { font-size: 0.85rem; color: var(--c-yellow); font-weight: 500; }
 
   .faq h2 {
     font-size: 1.2rem; font-weight: 600;
@@ -81,12 +82,12 @@ const fb = getPepinilloSupportData(lang).feedback;
     list-style: none;
   }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item[open] summary { margin-bottom: 12px; color: var(--lime); }
+  .faq-item[open] summary { margin-bottom: 12px; color: var(--c-yellow); }
   .faq-item p {
     font-size: 0.92rem;
     color: var(--ink-2);
     line-height: 1.6;
     margin: 0;
   }
-  .faq-item a { color: var(--lime); }
+  .faq-item a { color: var(--c-yellow); }
 </style>

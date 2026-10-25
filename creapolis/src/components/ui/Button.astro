@@ -71,15 +71,16 @@ const buttonProps = !href ? { type, disabled } : {};
 </Tag>
 
 <style>
-  /* ─── Button Base ──────────────────────────────────────────────────── */
+  /* ─── Button Base — v3 black pill (zai) ────────────────────────────── */
   .ui-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 20px;
+    height: 48px;
+    padding: 0 28px;
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
+    font-size: 15px;
     font-weight: var(--fw-medium);
     line-height: 1.2;
     border-radius: var(--r-pill);
@@ -95,11 +96,16 @@ const buttonProps = !href ? { type, disabled } : {};
       opacity var(--duration-fast) var(--ease);
   }
 
-  /* ─── Focus ring (keyboard only) ───────────────────────────────────── */
+  /* ─── Press feedback ───────────────────────────────────────────────── */
+  .ui-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* ─── Focus ring (keyboard only, ink) ──────────────────────────────── */
   .ui-btn:focus-visible {
-    outline: 2px solid var(--iris);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px oklch(0.62 0.2 285 / 0.15);
+    box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.1);
   }
 
   .ui-btn:focus:not(:focus-visible) {
@@ -107,76 +113,84 @@ const buttonProps = !href ? { type, disabled } : {};
     box-shadow: none;
   }
 
-  /* ─── Hover ────────────────────────────────────────────────────────── */
-  .ui-btn:not(.is-disabled):not(.is-loading):hover {
-    transform: translateY(-1px);
-  }
-
   /* ─── Variants ─────────────────────────────────────────────────────── */
+  /* Primary: ink pill, white text */
   .ui-btn--primary {
     background: var(--ink);
     color: var(--paper);
     border-color: var(--ink);
   }
   .ui-btn--primary:not(.is-disabled):not(.is-loading):hover {
-    background: oklch(0.28 0.015 265);
-    box-shadow: var(--sh-2);
+    background: var(--ink-2);
+    border-color: var(--ink-2);
+    box-shadow: 0 12px 32px rgba(9, 9, 11, 0.15);
   }
 
+  /* Secondary: white bg, zinc-200 border pill */
   .ui-btn--secondary {
-    background: transparent;
-    color: var(--ink);
+    background: #ffffff;
+    color: var(--ink-2);
     border-color: var(--line-2);
   }
   .ui-btn--secondary:not(.is-disabled):not(.is-loading):hover {
-    border-color: var(--ink);
+    border-color: #d4d4d8;
     background: var(--chalk);
+    color: var(--ink);
   }
 
+  /* Ghost: quiet text link button */
   .ui-btn--ghost {
     background: transparent;
-    color: var(--ink);
+    color: var(--ink-2);
     border-color: transparent;
+    padding-left: 12px;
+    padding-right: 12px;
   }
   .ui-btn--ghost:not(.is-disabled):not(.is-loading):hover {
     background: var(--chalk);
+    color: var(--ink);
   }
 
+  /* Accent: CMYK accent via --accent-color, defaults to ink */
   .ui-btn--accent {
-    background: var(--accent-color, var(--iris));
-    color: white;
-    border-color: var(--accent-color, var(--iris));
+    background: var(--accent-color, var(--ink));
+    color: #ffffff;
+    border-color: var(--accent-color, var(--ink));
   }
   .ui-btn--accent:not(.is-disabled):not(.is-loading):hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-    box-shadow: 0 10px 30px color-mix(in oklch, var(--accent-color, var(--iris)) 35%, transparent);
+    background: color-mix(in srgb, var(--accent-color, var(--ink)) 85%, #000000);
+    border-color: color-mix(in srgb, var(--accent-color, var(--ink)) 85%, #000000);
+    box-shadow: var(--sh-hover);
   }
 
+  /* Danger: CMYK magenta shade */
   .ui-btn--danger {
-    background: oklch(0.55 0.2 25);
-    color: white;
-    border-color: oklch(0.55 0.2 25);
+    background: var(--c-magenta-2);
+    color: #ffffff;
+    border-color: var(--c-magenta-2);
   }
   .ui-btn--danger:not(.is-disabled):not(.is-loading):hover {
-    background: oklch(0.48 0.22 25);
-    box-shadow: var(--sh-2);
+    background: var(--c-magenta-3);
+    border-color: var(--c-magenta-3);
+    box-shadow: var(--sh-hover);
   }
 
-  /* ─── Sizes ────────────────────────────────────────────────────────── */
+  /* ─── Sizes: 40 / 48 / 56 ──────────────────────────────────────────── */
   .ui-btn--sm {
-    padding: 10px 16px;
+    height: 40px;
+    padding: 0 18px;
     font-size: 0.8125rem;
-    min-height: 44px;
   }
 
   .ui-btn--md {
-    padding: 12px 20px;
+    height: 48px;
+    padding: 0 28px;
     font-size: 0.9375rem;
   }
 
   .ui-btn--lg {
-    padding: 16px 28px;
+    height: 56px;
+    padding: 0 34px;
     font-size: 1rem;
   }
 
@@ -215,7 +229,7 @@ const buttonProps = !href ? { type, disabled } : {};
     .ui-btn__spinner {
       animation-duration: 1.2s;
     }
-    .ui-btn:not(.is-disabled):not(.is-loading):hover {
+    .ui-btn:active {
       transform: none;
     }
   }

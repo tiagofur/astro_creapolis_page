@@ -1,118 +1,53 @@
-# Product Hub Route Model
+# Product Hub & Store Compliance Route Model (Creapolis V3)
 
-**Date**: 2026-08-20  
-**Feature**: F017 — product_hub_route_model
+**Updated**: 2026-10-24  
+**Purpose**: Standardize all product pages, user help hubs, and Apple App Store / Google Play compliance routes while keeping the Home page strictly focused on B2B conversion.
 
-## Current State
+---
 
-### Route Pattern
-All products live under `/proyectos/[slug]/` with optional subpages:
+## 1. Role of Product Pages in Creapolis V3
 
-```
-/proyectos/[slug]/              — Landing page (hero, features, stores, CTA)
-/proyectos/[slug]/guide         — User guide / getting started
-/proyectos/[slug]/tips          — Tips, tricks, advanced usage
-/proyectos/[slug]/feedback      — Bug reports, feature requests, support
-```
+1. **On the Home Page (`/[lang]/`)**:
+   - Own products are presented concisely as **Production Engineering Proof**:
+     - **Solennix** is highlighted as a full-stack B2B Vertical CRM & Operations case study.
+     - **Pepinillo**, **Películas**, and **Subscription Guardian** appear as compact editorial rows (index, one-line architecture summary, platform pills, live status dot, and quick-view `<dialog>` / hub link).
+2. **Inside `/[lang]/proyectos/[slug]/*`**:
+   - Each product has a comprehensive, self-contained **Product Hub** serving both end users and App Store / Google Play compliance reviewers.
 
-### Per-Product Coverage
+---
 
-| Product | Status | Landing | Guide | Tips | Feedback | Stores |
-|---------|--------|---------|-------|------|----------|--------|
-| Solennix | live | ✅ | ✅ | ✅ | ✅ | iOS + Android |
-| Pepinillo | live | ✅ | ✅ | ✅ | ✅ | iOS + Android |
-| Películas | live | ✅ | ❌ | ❌ | ❌ | Android only |
-| Subscription Guardian | pre_production | ✅ | ✅ | ✅ | ✅ | None (correct) |
+## 2. Standardized Route Matrix Per Product
 
-## Design Principles
+Every product in `src/i18n/data/products.ts` (`solennix`, `pepinillo`, `peliculas`, `subscription-guardian`) exposes the following routes across `es`, `en`, and `pt`:
 
-### 1. No Empty Pages
-Every published page must have real content. Don't create route stubs for future content.
-
-**Rule**: If a product doesn't have enough content for a page, don't create the page.
-
-### 2. Dynamic Route for Subpages
-All subpages use `[slug].astro` with content components, not individual page files:
-
-```
-src/pages/[lang]/proyectos/[slug].astro          — Dynamic landing
-src/pages/[lang]/proyectos/[slug]/guide.astro    — Dynamic guide
-src/pages/[lang]/proyectos/[slug]/tips.astro     — Dynamic tips
-src/pages/[lang]/proyectos/[slug]/feedback.astro — Dynamic feedback
+```text
+/[lang]/proyectos/[slug]             — Product Overview, Features, Architecture Case Study, Store Badges & Compliance Summary
+/[lang]/proyectos/[slug]/guide       — Step-by-step User Guide & Onboarding
+/[lang]/proyectos/[slug]/tips        — Best Practices & Power-User Tips
+/[lang]/proyectos/[slug]/feedback    — User Support, Bug Reporting, Feature Requests & Direct Support Email
+/[lang]/proyectos/[slug]/changelog   — Version History & Release Notes
+/[lang]/proyectos/[slug]/privacy     — App-Specific Data Safety, Permissions, Third-Party SDKs & Deletion Policy
 ```
 
-Each subpage imports a content component:
-```
-PepinilloGuideContent.astro   → pepinillo/guide
-PepinilloTipsContent.astro    → pepinillo/tips
-SGGuideContent.astro          → subscription-guardian/guide
-```
+### Complete 4-App Parity in V3
+- **Solennix**: Full Hub (`overview`, `guide`, `tips`, `feedback`, `changelog`, `privacy`) + App Store & Google Play links.
+- **Pepinillo**: Full Hub (`overview`, `guide`, `tips`, `feedback`, `changelog`, `privacy`) + App Store & Google Play links.
+- **Películas**: Upgraded in V3 with `src/i18n/data/peliculas-support.ts` so `/guide`, `/tips`, `/feedback`, `/changelog`, and `/privacy` are 100% populated.
+- **Subscription Guardian**: Full Hub (`overview`, `guide`, `tips`, `feedback`, `changelog`, `privacy`) with pre-production status and USD $4.99 one-time pricing disclosure.
 
-### 3. Route Visibility via Schema
-Product visibility is controlled by `products.ts`:
-- `resources[].available: true` → page is published
-- `resources[].available: false` → page is not built
-- `status: 'live'` → stores section shown
-- `status: 'pre_production'` → "Coming soon" CTA
+---
 
-### 4. Consistent Navigation
-Every product page has:
-- **Breadcrumb**: Home → Proyectos → [Product] → [Section]
-- **Back link**: "← Volver a [Product]"
-- **Next/Prev**: Links to other sections of same product
-- **Footer**: Links to all products
+## 3. Apple App Store & Google Play Store Compliance Architecture
 
-## Proposed Route Model
+To prevent store rejections under **Apple App Store Review Guidelines 5.1.1(v) (Account Deletion)** and **Google Play User Data & Data Safety Policies**, every Product Hub and Legal route enforces:
 
-### For Live Products (Solennix, Pepinillo, Películas)
-```
-/proyectos/[slug]/           — Landing (hero, features, stores, pricing)
-/proyectos/[slug]/guide      — Getting started guide
-/proyectos/[slug]/tips       — Tips and tricks
-/proyectos/[slug]/feedback   — Support, bug reports, feature requests
-```
-
-### For Pre-Production (Subscription Guardian)
-```
-/proyectos/[slug]/           — Landing (hero, features, "Coming soon")
-/proyectos/[slug]/guide      — Feature preview / roadmap
-/proyectos/[slug]/tips       — Usage tips (for beta testers)
-/proyectos/[slug]/feedback   — Beta feedback, feature requests
-```
-
-### Not Recommended (No Content Yet)
-```
-/features   — Would be empty for most products
-/changelog  — No changelog data source yet
-/privacy    — Handled at site level (/privacidad), not per-product
-```
-
-## Películas Gap Analysis
-
-Películas currently has only a landing page. Recommended additions:
-
-| Page | Content | Priority |
-|------|---------|----------|
-| `/proyectos/peliculas/guide` | How to use the app, features walkthrough | P1 |
-| `/proyectos/peliculas/tips` | Movie discovery tips, list management | P2 |
-| `/proyectos/peliculas/feedback` | Bug reports, feature requests | P1 |
-
-## Breadcrumb Pattern
-
-```astro
-<nav aria-label="Breadcrumb">
-  <ol>
-    <li><a href={getLocalizedPath(lang, '/')}>Home</a></li>
-    <li><a href={getLocalizedPath(lang, '/proyectos')}>Proyectos</a></li>
-    <li><a href={getLocalizedPath(lang, `/proyectos/${slug}`)}>{productName}</a></li>
-    <li aria-current="page">{sectionName}</li>
-  </ol>
-</nav>
-```
-
-## Implementation Notes
-
-- All subpages use the same `[slug].astro` pattern with `getStaticPaths()`
-- Content is loaded via dynamic imports based on slug
-- `products.ts` controls which pages are generated
-- No individual page files per product (DRY)
+1. **Data Collection & Third-Party SDK Transparency**:
+   - Each product's `/privacy` page and the global `/privacidad` + `/privacy-policy` pages explicitly document what data is stored locally on-device vs. in the cloud, encryption standards (TLS 1.3 / AES-256), and third-party processors.
+2. **Self-Service Account & Data Deletion (`/eliminar-cuenta` & `/delete-account`)**:
+   - Accessible directly from every Product Hub sidebar, footer, and `/privacy` page via `?app=[slug]`.
+   - Displays a clear side-by-side comparison:
+     - **What is permanently deleted**: Profile, credentials, cloud preferences, workspaces, and user-generated records.
+     - **What is retained**: Anonymized tax/billing records required by law and aggregate crash telemetry.
+   - Displays a prominent warning box detailing the **30-day deletion SLA**, **7-day grace window to cancel**, and instructions to **cancel active App Store / Google Play billing subscriptions** before deleting the account.
+3. **Root Canonical Legal URLs Fixed**:
+   - `/privacy-policy` and `/terms-of-use` serve the complete multi-product Creapolis policy in English (matching `/privacidad` and `/terminos` in Spanish), with dedicated product appendices for `Solennix`, `Pepinillo`, `Películas`, and `Subscription Guardian`.

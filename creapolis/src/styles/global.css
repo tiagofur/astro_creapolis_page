@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
-   CREAPOLIS — Design System v2
-   Unique brand: warm-minimal + multi-hue accents + ribbon motif
+   CREAPOLIS — Design System v3 "CMYK Studio"
+   White canvas · ink type · 3 CMYK accents in small doses · flat
    ═══════════════════════════════════════════════════════════════════ */
 
 /* Tokens are defined in tokens.css and imported via Layout.astro */
@@ -20,6 +20,29 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
   --space-4xl: 96px;
+}
+
+/* ─── CMYK signature details ──────────────────────────────────────── */
+::selection {
+  background: var(--c-magenta);
+  color: #ffffff;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 #ffffff;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -158,10 +181,14 @@ p {
 
 em,
 .serif {
-  font-family: var(--font-serif);
   font-style: italic;
   font-weight: var(--fw-normal);
   letter-spacing: var(--ls-tight);
+}
+
+/* v3: two-tone headline fragment — trailing muted phrase */
+.tone-muted {
+  color: var(--ink-4);
 }
 
 .mono-mini {
@@ -170,17 +197,17 @@ em,
   color: var(--color-text-tertiary);
 }
 
-/* ─── Eyebrow label ─── */
+/* ─── Eyebrow label — mono uppercase + 6px accent dot ─── */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: var(--type-micro);
+  font-size: 11px;
   font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-wider);
+  letter-spacing: var(--ls-mono);
   text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--ink-3);
 }
 
 .eyebrow::before {
@@ -188,17 +215,16 @@ em,
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: currentColor;
-  opacity: 0.5;
+  background: var(--accent-color, var(--ink-4));
+  flex-shrink: 0;
 }
 
 .eyebrow.accent {
-  color: var(--accent-color, var(--iris));
+  color: var(--ink-3);
 }
 
 .eyebrow.accent::before {
-  opacity: 1;
-  background: var(--accent-color, var(--iris));
+  background: var(--accent-color, var(--c-cyan));
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -333,9 +359,9 @@ em,
   width: 100%;
   max-width: var(--max);
   padding: 10px 12px 10px 22px;
-  background: oklch(0.985 0.003 85 / 0.72);
-  backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
   box-shadow: var(--sh-1);
@@ -566,21 +592,22 @@ em,
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   Buttons — v2
+   Buttons — v3 black pill (zai)
    ───────────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 22px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  height: 48px;
+  padding: 0 28px;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
   border-radius: var(--r-pill);
   transition:
-    transform 0.2s var(--ease),
-    box-shadow 0.2s,
-    background 0.2s,
+    background 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    transform 0.15s var(--ease),
     border-color 0.2s;
   white-space: nowrap;
   cursor: pointer;
@@ -588,59 +615,77 @@ em,
   text-decoration: none;
 }
 
+.btn:active {
+  transform: scale(0.98);
+}
+
 .btn-primary {
   background: var(--ink);
-  color: var(--paper);
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--sh-2);
+  background: #3f3f46;
+  box-shadow: 0 12px 32px rgba(9, 9, 11, 0.15);
 }
 
 .btn-secondary,
 .btn-ghost {
-  background: transparent;
-  color: var(--ink);
+  background: #ffffff;
+  color: var(--ink-2);
   border: 1px solid var(--line-2);
 }
 
 .btn-secondary:hover,
 .btn-ghost:hover {
-  border-color: var(--ink);
+  border-color: #d4d4d8;
   background: var(--chalk);
+  color: var(--ink);
 }
 
 .btn-accent {
-  background: var(--accent-color, var(--iris));
-  color: white;
+  background: var(--accent-color, var(--ink));
+  color: #ffffff;
 }
 
 .btn-accent:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-  box-shadow: 0 10px 30px
-    color-mix(in oklch, var(--accent-color, var(--iris)) 35%, transparent);
+  background: color-mix(in srgb, var(--accent-color, var(--ink)) 85%, #000000);
+  box-shadow: var(--sh-hover);
 }
 
 .btn-lg {
-  padding: 18px 28px;
+  height: 56px;
+  padding: 0 34px;
   font-size: 1rem;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   Cards
+   Cards — v3 flat hairline (zai)
    ───────────────────────────────────────────────────────────────────── */
 .card {
-  background: var(--paper);
-  border-radius: var(--r-lg);
+  background: #ffffff;
+  border-radius: var(--r-xl);
   border: 1px solid var(--line);
-  transition: all 0.3s var(--ease);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 
 .card:hover {
-  box-shadow: var(--sh-2);
-  transform: translateY(-2px);
+  box-shadow: var(--sh-hover);
+  transform: translateY(-4px);
+}
+
+/* Colored 3px top bar — the v3 accent dose on cards */
+.card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--accent-bar);
+  border-radius: var(--accent-bar) var(--accent-bar) 0 0;
+  background: var(--accent-color, var(--c-cyan));
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -821,20 +866,22 @@ em,
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   Chip System — v2
+   Chip System — v3 mono zinc pills (zai)
    ───────────────────────────────────────────────────────────────────── */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: var(--r-pill);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: var(--fw-medium);
   font-family: var(--font-mono);
-  background: var(--chalk);
-  color: var(--ink-2);
-  border: 1px solid var(--line);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: #ffffff;
+  color: var(--ink-3);
+  border: 1px solid var(--line-2);
 }
 
 .chip-dot {
@@ -845,39 +892,38 @@ em,
 }
 
 .chip.live {
-  color: var(--lime);
-  background: var(--lime-soft);
-  border-color: color-mix(in oklch, var(--lime) 30%, var(--line));
+  color: var(--c-cyan-3);
+  background: var(--c-cyan-soft);
+  border-color: rgba(0, 174, 239, 0.3);
 }
 
 .chip.live .chip-dot {
-  background: var(--lime);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--lime) 30%, transparent);
+  background: var(--c-cyan);
   animation: chip-pulse 1.8s var(--ease) infinite;
 }
 
 .chip.beta {
-  color: var(--iris);
-  background: var(--iris-soft);
-  border-color: color-mix(in oklch, var(--iris) 25%, var(--line));
+  color: var(--c-magenta-3);
+  background: var(--c-magenta-soft);
+  border-color: rgba(236, 0, 140, 0.25);
 }
 
 .chip.dev {
-  color: var(--coral);
-  background: var(--coral-soft);
-  border-color: color-mix(in oklch, var(--coral) 25%, var(--line));
+  color: var(--c-yellow-3);
+  background: var(--c-yellow-soft);
+  border-color: rgba(255, 196, 0, 0.35);
 }
 
 .chip.soon {
-  color: var(--amber);
-  background: var(--amber-soft);
-  border-color: color-mix(in oklch, var(--amber) 25%, var(--line));
+  color: var(--ink-3);
+  background: var(--chalk);
+  border-color: var(--line-2);
 }
 
 @keyframes chip-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 color-mix(in oklch, var(--lime) 45%, transparent);
+    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0.45);
   }
   50% {
     box-shadow: 0 0 0 5px transparent;
@@ -1005,21 +1051,18 @@ em,
    Utility Classes
    ───────────────────────────────────────────────────────────────────── */
 .glass {
-  background: oklch(0.985 0.003 85 / 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--line);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--iris), var(--coral));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--ink);
 }
 
 .glow {
-  box-shadow: 0 0 40px oklch(0.62 0.2 285 / 0.15);
+  box-shadow: 0 0 40px rgba(9, 9, 11, 0.08);
 }
 
 .glow-accent {
@@ -1059,21 +1102,21 @@ em,
   background-size: 8px 8px;
 }
 
-/* ─── Focus Management ─────────────────────────────────────────────── */
-/* Global focus-visible ring for all interactive elements */
+/* ─── Focus Management — v3 ink outline (zai) ─────────────────────── */
+/* Global focus-visible ring: black outline, never a blue/purple ring */
 :focus-visible {
-  outline: 2px solid var(--iris);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Button/link specific: thicker ring with soft glow */
+/* Button/link specific: outline + soft ink halo */
 button:focus-visible,
 a:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid var(--iris);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px oklch(0.62 0.2 285 / 0.15);
+  box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.1);
 }
 
 /* Suppress outline when using mouse (ring stays only for keyboard) */
@@ -1084,7 +1127,7 @@ a:focus-visible,
 
 /* Skip link is the exception — always visible when focused */
 .skip-link:focus {
-  outline: 2px solid var(--paper);
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 

@@ -37,3 +37,5 @@ Thumbs.db
 # Go binary (built locally for dev; production uses Docker image)
 creapolis/backend/server
 package-lock.json
+creapolis_backup/
+zai/

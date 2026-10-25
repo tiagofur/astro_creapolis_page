@@ -1,177 +1,71 @@
-# PRD — Creapolis Website
+# PRD — Creapolis V3 (B2B AI Automation & Custom Software Studio)
 
-## Product Requirements Document
+## 1. Product Vision & Strategic Repositioning
 
----
+**Objective**: Transform `creapolis.dev` into a high-converting B2B sales and authority asset that allows Tiago to confidently send outbound campaigns to business owners, COOs, and founders—converting prospects into **AI Agent / Workflow Automation** and **Custom Software Development** clients—while providing comprehensive, compliant Product Hubs for end users and App Store / Google Play reviewers.
 
-## 1. Vision
-
-**Objective**: Create a professional, corporate website that:
-- Convinces users to use our apps or request quotes for custom app development
-- Showcases AI implementation consulting services for enterprises
-- Provides a blog for content marketing and thought leadership
-- Projects credibility and trust (like Apple/Google style)
-
-**Tone**: Professional, minimal, serious, trustworthy. Not a landing page — a real corporate website.
+### Core Positioning Shift
+- **Before (V1/V2 Problem)**: The Home page looked like an indie mobile developer showcase dominated by personal apps (`Pepinillo`, `Películas`, `Subscription Guardian`), a 5-card "in-development" progress ring shelf, legacy platform buckets (`Móvil`, `Web`, `Desktop`, `IA`), and duplicated sections across `/proyectos` and the footer.
+- **After (V3 Solution)**:
+  1. **Home & Services = B2B Conversion Engine**: Leads with quantifiable business outcomes—autonomous AI Agents for customer service and internal operations, automated appointment scheduling integrated with Calendar + CRM, and custom production software (Web, Mobile, Desktop)—backed by transparent productized sprints and a live interactive AI Agent on the page.
+  2. **Own Apps on Home = Concise Production Proof**: Presented in a compact, high-density editorial format (inspired by `/zai`), proving that Creapolis ships, scales, and maintains real software in production (`Solennix` as flagship B2B vertical CRM case study, plus compact rows for `Pepinillo`, `Películas`, and `Subscription Guardian`).
+  3. **Product Hub Pages (`/[lang]/proyectos/[slug]/*`) = Complete User & App Store Ecosystem**: Deep product landing pages, user guides (`/guide`), tips (`/tips`), support/feedback (`/feedback`), changelog (`/changelog`), per-app privacy/data safety (`/privacy`), and account deletion (`/eliminar-cuenta`, `/delete-account`) tailored for Apple App Store and Google Play compliance.
 
 ---
 
-## 2. Target Audience
+## 2. Target Audiences & Dual-Funnel Architecture
 
-| Segment | Needs |
-|---------|-------|
-| Startups | MVPs, mobile apps, web platforms |
-| SMEs | Process automation, internal tools, AI integration |
-| Enterprises | Consulting, custom software, digital transformation |
-| Individual users | Our published apps (Pepinillo, Peliculas, Solennix) |
+| Funnel | Target Persona | Primary Needs | Journey on `creapolis.dev` |
+| :--- | :--- | :--- | :--- |
+| **Funnel A: B2B Prospects (Primary Revenue)** | Founders, SMB/Mid-Market Directors, Operations & Commercial Leaders | Automate lead response & appointment scheduling, reduce manual operational load with AI agents, build custom CRMs/ERPs or mobile/web MVPs without agency bloat. | `Home` (Hero + Live AI Agent + AI Systems + Services & Pricing + Production Proof) → `Interactive AI Agent / Servicios` → `Contacto / Agendar Diagnóstico` |
+| **Funnel B: App Users & Store Reviewers** | End users of `Solennix`, `Pepinillo`, `Películas`, `Subscription Guardian` & Apple/Google review teams | Understand app features, download from official stores, read tutorials/FAQs, request support, inspect data safety, or request account/data deletion. | `Direct App Link / Proyectos` → `/proyectos/[slug]` → `/guide` · `/tips` · `/feedback` · `/privacy` · `/eliminar-cuenta` |
 
 ---
 
-## 3. Services Offered
+## 3. Core B2B Offer & AI Automation Systems
 
-### Core Services
+### 3.1 Flagship AI & Automation Capabilities (Highlighted on Home & Services)
+1. **Agentes de Atención a Clientes y Agendamiento Automático (WhatsApp / Web + Calendario + CRM)**
+   - Instant 24/7 response (`< 30s`), lead qualification, real-time availability check on Google Calendar / Cal.com / Outlook, automatic meeting creation, reminders, and bidirectional sync with HubSpot, Pipedrive, or custom CRMs.
+2. **Agentes de IA para Uso Interno y Operaciones (RAG + Tool Calling)**
+   - Internal copilot and workflow agents connected securely to company documents, databases, inventory, and quoting rules to automate repetitive back-office tasks and support tickets.
+3. **Automatización de Procesos End-to-End e Integración de Sistemas**
+   - Connecting islands of information (ERP, billing, WhatsApp, email, spreadsheets) into reliable, audited workflows with error handling and human-in-the-loop approvals.
+4. **Desarrollo de Software y Aplicaciones a Medida (Web, iOS, Android, Desktop)**
+   - Full-lifecycle product engineering from architecture and UI/UX to App Store / Play Store deployment and cloud infrastructure.
 
-1. **Aplicaciones Móviles** — iOS & Android (native or cross-platform)
-2. **Aplicaciones Web** — SPAs, portals, e-commerce, dashboards
-3. **Software de Escritorio** — macOS, Windows, Linux
-4. **Desarrollo Multiplataforma** — One code, all platforms
-
-### New Service
-
-5. **Consultorías de IA** — Implementation of AI in business processes to:
-   - Minimize errors
-   - Improve productivity
-   - Do more with the same team
-
----
-
-## 4. Pages Structure
-
-| Page | Purpose |
-|------|---------|
-| `/` | Home — Hero, apps showcase, services, process, about, contact |
-| `/blog` | Blog listing |
-| `/blog/[slug]` | Individual blog post |
-| `/proyectos` | Portfolio of our apps |
-| `/proyectos/[slug]` | Individual project detail |
-| `/privacidad` | Privacy policy |
-| `/terminos` | Terms and conditions |
+### 3.2 Productized Service Tiers
+1. **01 / Discovery & AI Architecture Sprint (1–2 Weeks)** — Fixed-scope audit, clickable prototype or agent blueprint, ROI calculation, and implementation roadmap.
+2. **02 / AI Agent & Workflow Automation Sprint (2–4 Weeks)** — End-to-end implementation of customer/internal AI agents, calendar booking flows, and CRM integrations.
+3. **03 / Custom Software & App MVP Build (6–10 Weeks)** — Production web, mobile, or internal vertical system delivered in 2-week sprints with Friday demos.
+4. **04 / Codebase Rescue & Modernization (2–4 Weeks)** — Technical audit, stabilization, performance optimization, and bug elimination for stalled projects.
+5. **05 / Continuous Development & AI Ops (Monthly Retainer)** — Dedicated senior engineering and AI optimization capacity without long-term lock-in.
 
 ---
 
-## 5. Design System
+## 4. UI/UX & Visual Design Specification (Astro + Best of `/zai`)
 
-### Colors
-
-```
---color-bg: #FFFFFF
---color-bg-alt: #F5F5F7
---color-text: #1D1D1F
---color-text-secondary: #6E6E73
---color-accent: #0071E3
---color-border: #E8E8ED
-```
-
-### Typography
-
-- **Font**: System fonts (`-apple-system`, `SF Pro`, `system-ui`)
-- **Headings**: 700-800 weight, tight letter-spacing
-- **Body**: 400 weight, 1.6 line-height
-
-### Layout
-
-- Max width: 1120px
-- Generous whitespace
-- Alternating section backgrounds
+- **Brand Identity**: Geometric CMYK `CubePyramid` and 3-dot `CmyDots` signature (`#00AEEF`, `#EC008C`, `#FFC400`, `#111111`) ported from `/zai` into pure zero-JS Astro SVG components.
+- **Surface & Color Discipline**:
+  - High-contrast light editorial canvas (`--paper`, `--chalk`) with `1px solid rgba(0,0,0,0.06)` hairline borders.
+  - Accent colors restricted to `3px` top card bars, status dots, and interactive badges—eliminating overlapping `<Ribbon>` SVG waves on content sections.
+  - Single dark (`--ink`) closing CTA card per page, followed by a clean light 4-column `Footer.astro` (removing the duplicate footer CTA banner).
+- **Interactive AI Agent Widget (`AgentWidget.astro`)**:
+  - Accessible from the Hero, the AI Systems section, and a floating bottom-right pill.
+  - Includes pre-built scenario chips (*"Agente de citas + Calendario"*, *"Agente interno / CRM"*, *"App o software a medida"*, *"Cotizar proyecto"*), interactive calendar slot selection preview, and a clean connector (`src/lib/ai-agent/connector.ts`) ready to plug into Tiago's live agent workflow.
 
 ---
 
-## 6. Blog System
+## 5. App Store & Google Play Compliance Requirements
 
-### Technology
+Every published or pre-production application (`Solennix`, `Pepinillo`, `Películas`, `Subscription Guardian`) must satisfy strict Apple App Store (Guidelines 5.1.1 / 5.1.2) and Google Play (Data Safety & Account Deletion) policies:
 
-- Astro Content Collections
-- Markdown for content
-- Type-safe with Zod schemas
-
-### Schema
-
-```ts
-{
-  title: string,
-  description: string,
-  pubDate: date,
-  author: string,
-  tags: string[],
-  draft: boolean
-}
-```
-
-### Content Strategy
-
-- Articles on development best practices
-- Tech stack comparisons
-- Case studies from our projects
-- AI implementation insights
-
----
-
-## 7. Roadmap
-
-### Phase 1 — MVP (COMPLETED)
-- [x] Setup Astro project
-- [x] Design system (CSS variables)
-- [x] Home page with all sections
-- [x] Blog system with content collections
-- [x] Projects pages
-- [x] Legal pages (privacy, terms)
-
-### Phase 2 — Content (IN PROGRESS)
-- [ ] Write 5-10 blog posts
-- [ ] Add OG images for social sharing
-- [ ] RSS feed
-
-### Phase 3 — SEO & Performance
-- [ ] Sitemap
-- [ ] Meta tags optimization
-- [ ] Performance audit
-
-### Phase 4 — Enhancements
-- [ ] Animation improvements
-- [ ] More project details
-- [ ] Contact form (optional)
-
----
-
-## 8. Success Metrics
-
-- Pages load under 2 seconds
-- Lighthouse score > 90
-- Mobile-friendly (responsive)
-- All links working
-- Blog posts indexed by search engines
-
----
-
-## 9. Future Enhancements
-
-- Add a contact form with backend
-- Add analytics (optional)
-- Multi-language support (English/Spanish)
-- Dark mode toggle
-- More project case studies
-- Testimonials section
-
----
-
-## 10. Competitors / Inspiration
-
-- Apple.com — Minimal, product-focused
-- Google.dev — Clean, developer-centric
-- Linear — Premium, understated
-- Vercel — Modern, fast
-
----
-
-*Document version: 1.0*  
-*Last updated: {new Date().getFullYear()}*
+1. **Dedicated Product Hub (`/proyectos/[slug]`)**: Accurate pricing, platform availability, official store badges, architecture overview, and screenshots.
+2. **User Help & Documentation (`/guide`, `/tips`, `/feedback`)**: Complete for all 4 apps (including adding `peliculas-support.ts` for `Películas`).
+3. **Per-App Privacy & Data Safety (`/proyectos/[slug]/privacy` + `/privacidad` + `/privacy-policy`)**:
+   - Explicit breakdown of data collected, purpose, encryption, third-party SDKs, and retention policies across ES, EN, and PT.
+   - Root `/privacy-policy` and `/terms-of-use` updated to cover all Creapolis services and apps (fixing the legacy Pepinillo-only hardcoding).
+4. **Self-Service Account & Data Deletion (`/eliminar-cuenta` & `/delete-account`)**:
+   - Selector covering all apps (`Solennix`, `Pepinillo`, `Películas`, `Subscription Guardian`, `Otra app`).
+   - Clear side-by-side matrix: **What gets deleted** vs. **What is retained for legal/tax compliance**.
+   - Explicit warning on **30-day processing SLA**, **7-day grace window**, and **mandatory cancellation of active App Store / Google Play subscriptions**.

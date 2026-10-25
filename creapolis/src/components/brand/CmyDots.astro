@@ -1,0 +1,34 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 5, class: className = '' } = Astro.props;
+---
+
+<span class={`cmy-dots ${className}`} aria-hidden="true" style={`--dot-size: ${size}px;`}>
+  <span class="dot c"></span>
+  <span class="dot m"></span>
+  <span class="dot y"></span>
+  <span class="dot k"></span>
+</span>
+
+<style>
+  .cmy-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--dot-size) * 0.7);
+    vertical-align: middle;
+  }
+  .dot {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 9999px;
+    display: inline-block;
+  }
+  .dot.c { background-color: #00AEEF; }
+  .dot.m { background-color: #EC008C; }
+  .dot.y { background-color: #FFC400; }
+  .dot.k { background-color: #111111; }
+</style>

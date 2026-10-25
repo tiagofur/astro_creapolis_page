@@ -34,14 +34,26 @@ if (!product) {
   return Astro.redirect(getLocalizedPath(lang, '/proyectos'));
 }
 
-// Determine accent from product color
-const accentMap: Record<string, Accent> = {
-  'var(--iris)': 'iris',
-  'var(--lime)': 'lime',
-  'var(--sky)': 'sky',
-  'var(--coral)': 'coral',
+// ─── V3 CMYK accents ────────────────────────────────────────────────
+// One accent per product: solennix=cyan, pepinillo=yellow,
+// peliculas=magenta, subscription-guardian=key(ink).
+// `deep` is the text-safe shade for small text/glyphs on white.
+const productAccent: Record<string, { css: string; soft: string; deep: string }> = {
+  solennix: { css: 'var(--sol-accent)', soft: 'var(--sol-soft)', deep: 'var(--c-cyan-3)' },
+  pepinillo: { css: 'var(--pep-accent)', soft: 'var(--pep-soft)', deep: 'var(--c-yellow-3)' },
+  peliculas: { css: 'var(--pel-accent)', soft: 'var(--pel-soft)', deep: 'var(--c-magenta-3)' },
+  'subscription-guardian': { css: 'var(--sg-accent)', soft: 'var(--sg-soft)', deep: 'var(--ink-2)' },
 };
-const resolvedAccent = accent || accentMap[product.color] || 'iris';
+
+// Legacy accent prop names → same V3 product accents
+const legacyAccent: Record<Accent, { css: string; soft: string; deep: string }> = {
+  iris: productAccent.solennix,
+  lime: productAccent.pepinillo,
+  sky: productAccent['subscription-guardian'],
+  coral: productAccent.peliculas,
+};
+
+const resolvedAccent = (accent && legacyAccent[accent]) || productAccent[slug] || legacyAccent.iris;
 
 // SEO
 const pageLabel = currentPage === 'overview' ? '' : t(`hub.nav.${currentPage}`);
@@ -111,21 +123,21 @@ const visibleItems = sidebarItems.filter((item) => item.available);
     <meta name="twitter:description" content={fullDescription} />
     <meta name="twitter:image" content={new URL(fullOgImage, Astro.site).href} />
 
-    <meta name="theme-color" content="#5B4FBE" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
       />
     </noscript>
 
@@ -139,12 +151,12 @@ const visibleItems = sidebarItems.filter((item) => item.available);
 
     <Nav lang={lang} />
 
-    <div class="hub-shell" style={`--hub-accent: var(--${resolvedAccent}); --hub-accent-soft: var(--${resolvedAccent}-soft);`}>
+    <div class="hub-shell" style={`--hub-accent: ${resolvedAccent.css}; --hub-accent-soft: ${resolvedAccent.soft}; --hub-accent-3: ${resolvedAccent.deep};`}>
       <!-- Sidebar -->
       <aside class="hub-sidebar" aria-label="Product navigation">
         <div class="hub-sidebar-inner">
           <a href={getLocalizedPath(lang, `/proyectos/${slug}`)} class="hub-product-link">
-            <span class="hub-product-icon" style={`background: var(--${resolvedAccent})`}>
+            <span class="hub-product-icon">
               {product.name.charAt(0)}
             </span>
             <span class="hub-product-name">{product.name}</span>
@@ -203,12 +215,13 @@ const visibleItems = sidebarItems.filter((item) => item.available);
 <style is:global>
   .hub-shell {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 248px 1fr;
     min-height: 100vh;
     padding-top: 72px; /* nav height */
+    background: var(--paper);
   }
 
-  /* ─── Sidebar ─────────────────────────────────────── */
+  /* ─── Sidebar — sticky left nav, mono uppercase labels ─── */
   .hub-sidebar {
     position: sticky;
     top: 72px;
@@ -220,7 +233,7 @@ const visibleItems = sidebarItems.filter((item) => item.available);
   }
 
   .hub-sidebar-inner {
-    padding: 32px 24px;
+    padding: 28px 20px;
   }
 
   .hub-product-link {
@@ -228,27 +241,32 @@ const visibleItems = sidebarItems.filter((item) => item.available);
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--line);
   }
 
+  /* Tinted icon tile — accent-soft bg + text-safe glyph shade */
   .hub-product-icon {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: var(--r-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-weight: var(--fw-medium);
     font-size: 0.9rem;
-    color: white;
+    color: var(--hub-accent-3, var(--ink));
+    background: var(--hub-accent-soft, var(--chalk));
+    border: 1px solid var(--line);
     flex-shrink: 0;
   }
 
   .hub-product-name {
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: var(--fw-semibold);
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
     color: var(--ink);
   }
 
@@ -259,70 +277,98 @@ const visibleItems = sidebarItems.filter((item) => item.available);
   }
 
   .hub-nav-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 9px 12px 9px 14px;
+    border-radius: var(--r-sm);
     text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--ink-2);
-    transition: background 0.15s, color 0.15s;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+
+  /* 3px accent left bar */
+  .hub-nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 14px;
+    border-radius: 2px;
+    background: transparent;
+    transition: background 0.2s var(--ease);
   }
 
   .hub-nav-item:hover {
-    background: var(--hub-accent-soft);
+    background: var(--chalk);
     color: var(--ink);
   }
 
   .hub-nav-item.active {
-    background: var(--hub-accent-soft);
-    color: var(--hub-accent);
-    font-weight: 600;
+    background: var(--chalk);
+    color: var(--ink);
+  }
+
+  .hub-nav-item.active::before {
+    background: var(--hub-accent, var(--ink));
   }
 
   .hub-nav-icon {
-    font-size: 1rem;
-    width: 20px;
+    font-size: 12px;
+    width: 18px;
     text-align: center;
     flex-shrink: 0;
+    opacity: 0.85;
   }
 
-  /* ─── Main ─────────────────────────────────────── */
+  /* ─── Main — white content column ─────────────────── */
   .hub-main {
     min-height: 100vh;
-    background: radial-gradient(55% 35% at 50% 0%, var(--hub-accent-soft) 0%, transparent 60%), var(--paper);
+    background: var(--paper);
   }
 
   .hub-content {
-    max-width: 800px;
+    max-width: 760px;
     margin: 0 auto;
     padding: 40px var(--gutter) 100px;
   }
 
-  /* ─── Breadcrumbs ─────────────────────────────────────── */
+  /* ─── Breadcrumbs — mono 11px ─────────────────────── */
   .hub-breadcrumbs {
     padding: 20px var(--gutter) 0;
-    max-width: 800px;
+    max-width: 760px;
     margin: 0 auto;
+    border-bottom: 1px solid var(--line);
   }
 
   .hub-breadcrumbs ol {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     list-style: none;
     margin: 0;
-    padding: 0;
-    font-size: 0.8rem;
-    color: var(--ink-3);
+    padding: 0 0 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-4);
   }
 
   .hub-breadcrumbs li {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    white-space: nowrap;
   }
 
   .hub-breadcrumbs li:not(:last-child)::after {
@@ -331,21 +377,20 @@ const visibleItems = sidebarItems.filter((item) => item.available);
   }
 
   .hub-breadcrumbs a {
-    color: var(--ink-3);
+    color: var(--ink-4);
     text-decoration: none;
-    transition: color 0.15s;
+    transition: color 0.2s var(--ease);
   }
 
   .hub-breadcrumbs a:hover {
-    color: var(--hub-accent);
-  }
-
-  .hub-breadcrumbs [aria-current="page"] {
     color: var(--ink);
-    font-weight: 500;
   }
 
-  /* ─── Mobile ─────────────────────────────────────── */
+  .hub-breadcrumbs [aria-current='page'] {
+    color: var(--ink-3);
+  }
+
+  /* ─── Mobile — horizontal scrollable chip row ─────── */
   @media (max-width: 768px) {
     .hub-shell {
       grid-template-columns: 1fr;
@@ -359,29 +404,64 @@ const visibleItems = sidebarItems.filter((item) => item.available);
     }
 
     .hub-sidebar-inner {
-      padding: 16px;
+      padding: 14px 16px;
+    }
+
+    .hub-product-link {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
     }
 
     .hub-nav {
       flex-direction: row;
       overflow-x: auto;
-      gap: 4px;
+      gap: 6px;
       -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
     }
 
     .hub-nav-item {
       white-space: nowrap;
-      padding: 8px 12px;
-      font-size: 0.82rem;
+      padding: 7px 12px;
+      border: 1px solid var(--line-2);
+      border-radius: var(--r-pill);
+      background: #ffffff;
     }
 
-    .hub-product-link {
-      margin-bottom: 16px;
-      padding-bottom: 16px;
+    .hub-nav-item::before {
+      /* no room for the bar inside chips — accent dot instead */
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .hub-nav-item.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    .hub-nav-item.active::before {
+      background: var(--hub-accent, #ffffff);
+    }
+
+    .hub-nav-icon {
+      display: none;
+    }
+
+    .hub-breadcrumbs ol {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .hub-breadcrumbs ol::-webkit-scrollbar {
+      display: none;
     }
 
     .hub-content {
-      padding: 24px var(--gutter) 80px;
+      padding: 28px var(--gutter) 80px;
     }
   }
 </style>

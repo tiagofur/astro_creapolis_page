@@ -13,7 +13,7 @@ const tp = getSGSupportData(lang).tips;
 <section class="hub-page">
   <div class="sup-head reveal">
     <div class="eyebrow" style="margin-bottom:14px"><span>{tp.eyebrow}</span></div>
-    <h1>{tp.title} <span class="serif">{tp.titleSerif}</span>.</h1>
+    <h1>{tp.title} <span class="tone">{tp.titleSerif}</span>.</h1>
     <p class="subtitle">{tp.subtitle}</p>
   </div>
 
@@ -44,6 +44,7 @@ const tp = getSGSupportData(lang).tips;
 </section>
 
 <style>
+  .tone { color: var(--ink-4); }
   .tips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

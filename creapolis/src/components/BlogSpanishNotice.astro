@@ -16,7 +16,7 @@ const esHref = currentPath.replace(/^\/(en|pt)\//, '/es/');
 
 <div class="blog-es-notice" role="note">
   <div class="wrap">
-    <div class="icon" aria-hidden="true">ℹ️</div>
+    <span class="label" aria-hidden="true">ES</span>
     <div class="body">
       <strong>{t('blog.enOnly.title')}</strong>
       <span>{t('blog.enOnly.desc')}</span>
@@ -27,10 +27,10 @@ const esHref = currentPath.replace(/^\/(en|pt)\//, '/es/');
 
 <style>
   .blog-es-notice {
-    background: var(--amber-soft, oklch(0.95 0.06 85));
-    border-bottom: 1px solid color-mix(in oklch, var(--amber, oklch(0.78 0.16 70)) 25%, var(--line));
-    padding: 16px var(--gutter);
-    margin-top: 72px;
+    background: var(--c-yellow-soft);
+    border-bottom: 1px solid rgba(255, 196, 0, 0.3);
+    padding: 14px var(--gutter);
+    margin-top: 64px;
   }
   .blog-es-notice .wrap {
     max-width: var(--max);
@@ -40,7 +40,18 @@ const esHref = currentPath.replace(/^\/(en|pt)\//, '/es/');
     gap: 14px;
     flex-wrap: wrap;
   }
-  .blog-es-notice .icon { font-size: 1.2rem; flex-shrink: 0; }
+  .blog-es-notice .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-yellow-3);
+    border: 1px solid rgba(255, 196, 0, 0.5);
+    border-radius: var(--r-pill);
+    padding: 3px 10px;
+    flex-shrink: 0;
+  }
   .blog-es-notice .body {
     display: flex;
     flex-direction: column;
@@ -51,26 +62,28 @@ const esHref = currentPath.replace(/^\/(en|pt)\//, '/es/');
   .blog-es-notice .body strong {
     font-size: 0.9rem;
     color: var(--ink);
-    font-weight: 600;
+    font-weight: var(--fw-semibold);
   }
   .blog-es-notice .body span {
     font-size: 0.82rem;
-    color: var(--ink-2);
+    color: var(--ink-3);
     line-height: 1.45;
   }
   .blog-es-notice .cta {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: var(--fw-medium);
     color: var(--ink);
     text-decoration: none;
     padding: 8px 16px;
-    border: 1px solid var(--ink);
+    border: 1px solid var(--line-2);
+    background: #ffffff;
     border-radius: var(--r-pill);
     white-space: nowrap;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, border-color 0.2s;
   }
   .blog-es-notice .cta:hover {
     background: var(--ink);
-    color: var(--paper);
+    color: #ffffff;
+    border-color: var(--ink);
   }
 </style>

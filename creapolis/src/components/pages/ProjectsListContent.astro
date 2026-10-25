@@ -1,5 +1,4 @@
 ---
-import { getHomeData } from '../../i18n/data/home';
 import {
   type Product,
   type ProductStatus,
@@ -9,15 +8,16 @@ import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath, useTranslations } from '../../i18n/utils';
 import Footer from '../Footer.astro';
 import Nav from '../Nav.astro';
+import CubePyramid from '../brand/CubePyramid.astro';
+import CmyDots from '../brand/CmyDots.astro';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const { apps, shelf, services, steps, stats } = getHomeData(lang);
 
-// Use schema-derived products for the work index
+// Filter products: live and pre_production
 const workProducts = products.filter(
   (p) => p.status === 'live' || p.status === 'pre_production',
 );
@@ -37,8 +37,6 @@ function getPlatformLabel(platforms: Product['platforms']): string {
 }
 
 const contactPath = getLocalizedPath(lang, '/contacto');
-const servicesPath = getLocalizedPath(lang, '/servicios');
-const aboutPath = getLocalizedPath(lang, '/sobre');
 ---
 
 <Nav lang={lang} />
@@ -47,624 +45,382 @@ const aboutPath = getLocalizedPath(lang, '/sobre');
 <header class="page-hero">
   <div class="wrap">
     <div class="page-copy reveal">
-      <div class="eyebrow" style="margin-bottom:20px">
-        <span>{t('home.hero.eyebrow')}</span>
-      </div>
-      <h1>{t('home.hero.title.p1')}<br/><span class="serif">{t('home.hero.title.serif')}</span>.</h1>
-      <p class="lead">{t('home.hero.lead')}</p>
+      <p class="hero-eyebrow">
+        <CmyDots size={4} />
+        <span>{lang === 'es' ? 'Productos & Software Propio' : lang === 'en' ? 'Proprietary Software & Apps' : 'Produtos & Software Próprio'}</span>
+      </p>
+      <h1>
+        {lang === 'es' ? (
+          <>Software que diseñamos, publicamos <span class="tone">y operamos</span>.</>
+        ) : lang === 'en' ? (
+          <>Software we design, publish <span class="tone">and operate</span>.</>
+        ) : (
+          <>Software que projetamos, publicamos <span class="tone">e operamos</span>.</>
+        )}
+      </h1>
+      <p class="lead">
+        {lang === 'es'
+          ? 'Creapolis no es solo una consultora: es un laboratorio de ingeniería. Cada producto aquí publicado cuenta con documentación de arquitectura, guías de usuario y soporte oficial en App Store y Google Play.'
+          : lang === 'en'
+            ? 'Creapolis is an active software laboratory. Each published application features architecture case studies, complete user guides, and official support for App Store and Google Play.'
+            : 'A Creapolis não é só uma consultoria: é um laboratório de engenharia. Cada produto publicado aqui conta com documentação de arquitetura, guias de usuário e suporte oficial na App Store e Google Play.'}
+      </p>
     </div>
   </div>
 </header>
 
-<!-- ─── APPS GRID ─── -->
+<!-- ─── PRODUCTS GRID ─── -->
 <section class="section">
   <div class="wrap">
-    <div class="products">
+    <div class="products-grid">
       {workProducts.map((product, i) => (
-        <a href={getLocalizedPath(lang, `/proyectos/${product.slug}`)} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${product.color}`}>
-          <div class="product-vis">
-            <div class="glow"></div>
-            <img src={`/og/${product.slug}.svg`} alt={product.name} class="product-og" loading="lazy" decoding="async" />
-          </div>
-          <div class="product-meta">
-            <div class="head">
-              <h3>{product.name}</h3>
-              <span class={`chip ${product.status === 'live' ? 'live' : 'dev'}`}><span class="chip-dot"></span>{statusLabels[product.status]}</span>
-            </div>
-            <span class="tagline serif">{product.category}</span>
-            <p>{product.seo.description}</p>
-            <div class="foot">
-              <span class="plat">{getPlatformLabel(product.platforms)}</span>
-              <span>{t('apps.details')}</span>
-            </div>
-          </div>
-        </a>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ─── SHELF ─── -->
-<section class="section" style="background:var(--chalk)">
-  <div class="wrap">
-    <div class="shelf-header reveal">
-      <div class="eyebrow" style="margin-bottom:18px"><span>{t('apps.shelf.eyebrow')}</span></div>
-      <h2>{t('apps.shelf.title')}</h2>
-    </div>
-
-    <div class="shelf-grid">
-      {shelf.map((item, i) => (
-        <div class={`shelf-item reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--shelf-color: ${item.color}; --shelf-bg: ${item.bg}`}>
-          <div class="shelf-top">
-            <div class="shelf-ring">{item.ring}</div>
-            <div class="shelf-info">
-              <h3>{item.name}</h3>
-              <span class={`shelf-status status-${item.status}`}>
-                <span class="status-dot"></span>
-                {item.statusLabel}
+        <a href={getLocalizedPath(lang, `/proyectos/${product.slug}`)} class={`product-card reveal${i > 0 && i < 4 ? ` reveal-delay-${i}` : ''}`} style={`--card-accent: ${product.color}`}>
+          <span class="card-bar" aria-hidden="true"></span>
+          <div class="product-card-top">
+            <div class="product-badge-group">
+              <span class="product-num">0{i + 1}</span>
+              <span class={`status-pill ${product.status}`}>
+                <span class="pulse-dot"></span>
+                {statusLabels[product.status]}
               </span>
             </div>
+            <span class="platform-tags">{getPlatformLabel(product.platforms)}</span>
           </div>
-          <p class="shelf-desc">{item.desc}</p>
-          <div class="shelf-progress">
-            <div class="shelf-progress-bar" style={`width: ${item.progress}%`}></div>
+
+          <div class="product-preview-box">
+            <img src={`/og/${product.slug}.svg`} alt={product.name} class="product-preview-img" loading="lazy" decoding="async" />
           </div>
-          <span class="shelf-pct">{item.progress}%</span>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
 
-<!-- ─── SERVICES ─── -->
-<section class="section">
-  <div class="wrap">
-    <div class="sec-header reveal">
-      <div>
-        <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.eyebrow')}</span></div>
-        <h2>{t('services.title')}<br/><span class="serif">{t('services.title.serif')}</span></h2>
-      </div>
-      <p>{t('services.desc')}</p>
-    </div>
+          <div class="product-card-body">
+            <h3>{product.name}</h3>
+            <span class="product-category-title">{product.category}</span>
+            <p>{product.seo.description}</p>
+          </div>
 
-    <div class="svc-grid">
-      {services.map((s, i) => (
-        <div class={`svc-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-          <span class="svc-num">{s.num}</span>
-          <div class="svc-mark" aria-hidden="true">{s.mark}</div>
-          <h3>{s.title}</h3>
-          <p>{s.desc}</p>
-        </div>
-      ))}
-    </div>
-
-    <div class="sec-footer reveal">
-      <a href={servicesPath} class="link-arrow">
-        {t('services.more')}
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ─── PROCESS ─── -->
-<section class="section" style="background:var(--chalk)">
-  <div class="wrap">
-    <div class="sec-header reveal">
-      <div>
-        <div class="eyebrow" style="margin-bottom:18px"><span>{t('process.eyebrow')}</span></div>
-        <h2>{t('process.title')}<br/><span class="serif">{t('process.title.serif')}</span>.</h2>
-      </div>
-      <p>{t('process.desc')}</p>
-    </div>
-
-    <div class="proc-grid">
-      {steps.map((step, i) => (
-        <div class={`step-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-          <span class="step-bignum">{step.n}</span>
-          <h4>{step.title}</h4>
-          <p>{step.desc}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ─── MISSION ─── -->
-<section class="section">
-  <div class="wrap">
-    <div class="mission-grid">
-      <div class="mission-copy reveal">
-        <div class="eyebrow" style="margin-bottom:18px"><span>{t('mission.eyebrow')}</span></div>
-        <h2>{t('mission.title.p1')}<br/>{t('mission.title.p2')} <span class="serif">{t('mission.title.serif')}</span>.</h2>
-        <p class="mission-desc">{t('mission.desc')}</p>
-        <a href={aboutPath} class="btn btn-primary">{t('mission.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <div class="product-card-footer">
+            <div class="quick-links">
+              <span>{lang === 'es' ? 'Guía' : lang === 'en' ? 'Guide' : 'Guia'}</span> · <span>Tips</span> · <span>{lang === 'es' ? 'Soporte' : lang === 'en' ? 'Support' : 'Suporte'}</span>
+            </div>
+            <span class="enter-link">
+              {lang === 'es' ? 'Abrir Hub del Producto' : lang === 'en' ? 'Open Product Hub' : 'Abrir Hub do Produto'} →
+            </span>
+          </div>
         </a>
-      </div>
-
-      <div class="stats-grid reveal reveal-delay-1">
-        {stats.map((s) => (
-          <div class="stat-item">
-            <span class="stat-num">{s.n}</span>
-            <span class="stat-label">{s.label}</span>
-          </div>
-        ))}
-      </div>
+      ))}
     </div>
   </div>
 </section>
 
-<!-- ─── CTA ─── -->
-<section class="section contact-cta">
+<!-- ─── B2B CALL TO ACTION — the page's one dark card ─── -->
+<section class="section b2b-bridge-section">
   <div class="wrap">
-    <div class="contact-card reveal">
-      <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.cta.eyebrow')}</span></div>
-      <h2>{t('contact.cta.title.p1')}<br/>{t('contact.cta.title.p2')} <span class="serif">{t('contact.cta.title.serif')}</span>.</h2>
-      <p class="lead">{t('contact.cta.lead')}</p>
-      <div class="cta-row">
-        <a href={contactPath} class="btn btn-primary btn-lg">{t('nav.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-        <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
+    <div class="bridge-card reveal">
+      <div class="cta-glow cta-glow-magenta" aria-hidden="true"></div>
+      <div class="cta-glow cta-glow-cyan" aria-hidden="true"></div>
+      <div class="bridge-content">
+        <CubePyramid size={30} variant="cmyk" />
+        <h2>{lang === 'es' ? '¿Quieres que construyamos un sistema con este nivel para tu empresa?' : lang === 'en' ? 'Want us to engineer a custom system for your business?' : 'Quer que a gente construa um sistema desse nível para sua empresa?'}</h2>
+        <p>
+          {lang === 'es'
+            ? 'Desde un agente de agendamiento automático hasta un CRM o una app móvil de punta a punta. Aplicamos el mismo rigor que ves en nuestros propios productos.'
+            : lang === 'en'
+              ? 'From automated appointment agents to full-stack CRMs and mobile apps. We bring the exact same engineering craft to your company.'
+              : 'De um agente de agendamento automático a um CRM ou app mobile completo. Aplicamos o mesmo rigor que você vê nos nossos próprios produtos.'}
+        </p>
+        <div class="bridge-actions">
+          <a href={contactPath} class="bridge-btn-primary">
+            {lang === 'es' ? 'Agendar llamada de diagnóstico' : lang === 'en' ? 'Book a discovery session' : 'Agendar chamada de diagnóstico'}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4.5M11 3V9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+          <a href={getLocalizedPath(lang, '/servicios')} class="bridge-btn-email">
+            {lang === 'es' ? 'Ver servicios y metodología' : lang === 'en' ? 'View services & methodology' : 'Ver serviços e metodologia'}
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<Footer lang={lang} />
+<Footer lang={lang} hideCta={true} />
 
 <style>
-  /* ─── HERO ─── */
+  .tone { color: var(--ink-4); }
+
   .page-hero {
-    position: relative;
-    padding: 160px var(--gutter) 80px;
-    overflow: clip;
-    background:
-      radial-gradient(60% 50% at 80% 10%, var(--iris-soft) 0%, transparent 60%),
-      radial-gradient(50% 45% at 10% 80%, var(--coral-soft) 0%, transparent 70%),
-      radial-gradient(70% 60% at 50% 120%, var(--lime-soft) 0%, transparent 70%),
-      var(--paper);
-  }
-  .page-copy { max-width: 680px; }
-  .page-copy h1 { margin-bottom: 20px; }
-  .page-copy h1 .serif { color: var(--iris); font-size: 1.02em; }
-  .page-copy .lead { max-width: 48ch; }
-
-  /* ─── SECTION HEADER (shared) ─── */
-  .sec-header {
-    display: grid;
-    gap: 28px;
-    grid-template-columns: 1fr;
-    margin-bottom: 56px;
-    align-items: end;
-  }
-  @media (min-width: 720px) { .sec-header { grid-template-columns: 1.1fr 1fr; gap: 48px; } }
-  .sec-header h2 { max-width: 14ch; }
-  .sec-header h2 .serif { color: var(--iris); }
-  .sec-header p { font-size: 1.05rem; max-width: 48ch; color: var(--ink-2); }
-
-  .sec-footer {
-    margin-top: 40px;
-    text-align: center;
-  }
-  .link-arrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--iris);
-    text-decoration: none;
-    transition: gap 0.2s var(--ease);
-  }
-  .link-arrow:hover { gap: 10px; }
-
-  /* ─── APPS GRID ─── */
-  .products {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 720px) { .products { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .products { grid-template-columns: repeat(3, 1fr); } }
-
-  .product {
-    position: relative;
+    padding: 160px var(--gutter) 56px;
     background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
-    text-decoration: none;
-    color: inherit;
   }
-  .product:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--sh-3);
-    border-color: var(--line-2);
-  }
-
-  .product-vis {
-    aspect-ratio: 4/3;
-    position: relative;
-    overflow: hidden;
-    background: var(--chalk);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .product-vis .glow {
-    position: absolute;
-    inset: -20%;
-    background: radial-gradient(circle at 50% 40%, var(--product-color), transparent 60%);
-    opacity: 0.28;
-  }
-  .product-og {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 1;
-  }
-  .product-vis .device {
-    position: absolute;
-    inset: 12% 18% 0 18%;
-    background: var(--ink);
-    border-radius: 22px 22px 0 0;
-    padding: 14px 12px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .product-vis .device::before {
-    content: "";
-    position: absolute;
-    top: 6px; left: 50%;
-    transform: translateX(-50%);
-    width: 44px; height: 5px;
-    background: oklch(0.3 0.01 265);
-    border-radius: 4px;
-  }
-  .product-vis .device .title {
-    height: 10px; width: 60%;
-    background: var(--paper);
-    border-radius: 3px;
-    margin-top: 10px;
-  }
-  .product-vis .device .row { display: flex; gap: 6px; }
-  .product-vis .device .row .bit {
-    flex: 1; height: 26px;
-    background: color-mix(in oklch, var(--product-color) 40%, var(--ink));
-    border-radius: 6px;
-  }
-  .product-vis .device .row .bit:nth-child(2) {
-    background: color-mix(in oklch, var(--product-color) 70%, var(--ink));
-  }
-  .product-vis .device .big {
-    flex: 1;
-    background: color-mix(in oklch, var(--product-color) 80%, var(--ink));
-    border-radius: 10px 10px 0 0;
-    margin-top: 2px;
-  }
-
-  .product-meta {
-    padding: 22px 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-  }
-  .product-meta .head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .product-meta h3 { font-size: 1.35rem; }
-  .product-meta .tagline { color: var(--product-color); font-size: 1.05rem; }
-  .product-meta p { font-size: 0.92rem; color: var(--ink-2); }
-  .product-meta .foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    font-size: 0.85rem;
-  }
-  .product-meta .foot .plat {
-    font-family: var(--font-mono);
-    color: var(--ink-3);
-    font-size: 0.78rem;
-  }
-
-  /* ─── SHELF ─── */
-  .shelf-header { margin-bottom: 48px; }
-  .shelf-header h2 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
-  }
-
-  .shelf-grid {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 720px) { .shelf-grid { grid-template-columns: repeat(2, 1fr); } }
-
-  .shelf-item {
-    padding: 28px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    border-left: 3px solid var(--shelf-color);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .shelf-item:hover { transform: translateY(-2px); box-shadow: var(--sh-2); }
-
-  .shelf-top {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-  .shelf-ring {
-    width: 44px; height: 44px;
-    border-radius: 14px;
-    background: var(--shelf-bg);
-    color: var(--shelf-color);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .shelf-info { min-width: 0; }
-  .shelf-info h3 { font-size: 1.05rem; margin-bottom: 4px; }
-  .shelf-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-3);
-  }
-  .status-dot {
-    width: 7px; height: 7px;
-    border-radius: 999px;
-    background: var(--ink-4);
-  }
-  .status-active .status-dot { background: var(--lime); }
-  .status-dev .status-dot { background: var(--amber); }
-  .status-soon .status-dot { background: var(--ink-4); }
-
-  .shelf-desc {
-    font-size: 0.92rem;
-    color: var(--ink-2);
-    line-height: 1.6;
-    margin-bottom: 18px;
-  }
-  .shelf-progress {
-    height: 4px;
-    background: var(--line);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 6px;
-  }
-  .shelf-progress-bar {
-    height: 100%;
-    background: var(--shelf-color);
-    border-radius: 2px;
-    transition: width 0.6s var(--ease);
-  }
-  .shelf-pct {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-3);
-  }
-
-  /* ─── SERVICES ─── */
-  .svc-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 640px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .svc-grid { grid-template-columns: repeat(4, 1fr); } }
-
-  .svc-card {
-    padding: 28px 24px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
-  }
-  .svc-card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
-  .svc-card:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
-  .svc-card:nth-child(1):hover { border-color: var(--iris); }
-  .svc-card:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
-  .svc-card:nth-child(2):hover { border-color: var(--lime); }
-  .svc-card:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
-  .svc-card:nth-child(3):hover { border-color: var(--coral); }
-  .svc-card:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
-  .svc-card:nth-child(4):hover { border-color: var(--sky); }
-
-  .svc-num {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
-    display: block;
-    margin-bottom: 20px;
-  }
-  .svc-mark {
-    position: absolute;
-    top: -8px; right: -4px;
-    width: 56px; height: 56px;
-    border-radius: 999px;
-    background: var(--svc-soft);
-    opacity: 0.5;
-    display: grid;
-    place-items: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.6rem;
-    color: var(--svc-color);
-  }
-  .svc-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
-  .svc-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; }
-
-  /* ─── PROCESS ─── */
-  .proc-grid {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 640px) { .proc-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .proc-grid { grid-template-columns: repeat(4, 1fr); } }
-
-  .step-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    padding: 28px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-  .step-card:nth-child(1) { --step-color: var(--iris); }
-  .step-card:nth-child(2) { --step-color: var(--coral); }
-  .step-card:nth-child(3) { --step-color: var(--lime); }
-  .step-card:nth-child(4) { --step-color: var(--amber); }
-
-  .step-bignum {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 4rem;
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-    color: var(--step-color);
-  }
-  .step-card h4 { font-size: 1.1rem; margin: 14px 0 8px; }
-  .step-card p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; }
-
-  /* ─── MISSION + STATS ─── */
-  .mission-grid {
-    display: grid;
-    gap: 56px;
-    grid-template-columns: 1fr;
-    align-items: center;
-  }
-  @media (min-width: 880px) { .mission-grid { grid-template-columns: 1.2fr 1fr; gap: 72px; } }
-
-  .mission-copy h2 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
-    text-wrap: balance;
-  }
-  .mission-copy h2 .serif {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--coral);
-  }
-  .mission-desc {
-    font-size: 1.02rem;
-    line-height: 1.7;
-    color: var(--ink-2);
-    max-width: 52ch;
-    margin-bottom: 28px;
-  }
-
-  .stats-grid {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stat-item {
-    text-align: center;
-    padding: 28px 16px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-  }
-  .stat-item:nth-child(1) { --stat-color: var(--iris); }
-  .stat-item:nth-child(2) { --stat-color: var(--lime); }
-  .stat-item:nth-child(3) { --stat-color: var(--coral); }
-  .stat-item:nth-child(4) { --stat-color: var(--amber); }
-
-  .stat-num {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    color: var(--stat-color);
-    display: block;
-    line-height: 1.1;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-size: 0.82rem;
-    color: var(--ink-3);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  /* ─── CTA ─── */
-  .contact-cta { background: var(--paper); }
-  .contact-cta .wrap { max-width: var(--max); margin: 0 auto; }
-  .contact-card {
+  .page-copy {
     max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(40px, 6vw, 64px);
-    text-align: center;
-    background: linear-gradient(180deg, var(--paper), var(--chalk));
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
+    color: var(--ink-3);
+  }
+  .page-copy h1 {
+    font-size: clamp(2.3rem, 4.6vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: var(--ls-display);
+    font-weight: var(--fw-semibold);
+    margin: 18px 0 18px;
+    text-wrap: balance;
+  }
+  .page-copy .lead {
+    font-size: 1.04rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    text-wrap: pretty;
+  }
+
+  .section {
+    padding: clamp(56px, 7vw, 96px) var(--gutter);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 24px;
+  }
+
+  .product-card {
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
-    box-shadow: var(--sh-3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
     position: relative;
-    overflow: clip;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    inset: -40% -20% auto auto;
-    width: 70%; height: 180%;
-    background: radial-gradient(circle, var(--iris-soft) 0%, transparent 60%);
-    z-index: 0;
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sh-hover);
   }
-  .contact-card > * { position: relative; z-index: 1; }
-  .contact-card h2 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    margin: 0 0 14px;
+
+  .product-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px 14px;
+  }
+  .product-badge-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .product-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+  }
+  .status-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--c-cyan-soft);
+    color: var(--c-cyan-3);
+    border: 1px solid rgba(0, 174, 239, 0.3);
+  }
+  .status-pill.pre_production {
+    background: var(--c-yellow-soft);
+    color: var(--c-yellow-3);
+    border-color: rgba(255, 196, 0, 0.35);
+  }
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .platform-tags {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    background: #ffffff;
+    border: 1px solid var(--line-2);
+    padding: 4px 9px;
+    border-radius: var(--r-pill);
+  }
+
+  .product-preview-box {
+    padding: 0 24px;
+  }
+  .product-preview-img {
+    width: 100%;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--chalk);
+  }
+
+  .product-card-body {
+    padding: 20px 24px;
+    flex: 1;
+  }
+  .product-card-body h3 {
+    font-size: 1.3rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+    margin: 0 0 4px 0;
+  }
+  .product-category-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .product-card-body p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  .product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: var(--chalk);
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .quick-links {
+    color: var(--ink-4);
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .enter-link {
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+  .product-card:hover .enter-link {
     color: var(--ink);
   }
-  .contact-card h2 .serif {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--iris);
+
+  /* B2B Bridge — dark mega-card */
+  .b2b-bridge-section {
+    padding: 16px var(--gutter) 96px;
   }
-  .contact-card p.lead {
-    font-size: 1.05rem;
-    color: var(--ink-2);
-    max-width: 44ch;
-    margin: 0 auto 32px;
+  .bridge-card {
+    position: relative;
+    background: #09090b;
+    color: #ffffff;
+    border-radius: var(--r-mega);
+    padding: clamp(40px, 6vw, 72px);
+    text-align: center;
+    overflow: hidden;
   }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .cta-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .cta-glow-magenta {
+    background: radial-gradient(circle, #ec008c, transparent 65%);
+    top: -160px;
+    left: -80px;
+  }
+  .cta-glow-cyan {
+    background: radial-gradient(circle, #00aeef, transparent 65%);
+    bottom: -160px;
+    right: -80px;
+  }
+  .bridge-content {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .bridge-content h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    line-height: 1.14;
+    margin: 20px 0 14px;
+    text-wrap: balance;
+  }
+  .bridge-content p {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+    margin: 0 0 28px;
+  }
+  .bridge-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .bridge-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 28px;
+    border-radius: var(--r-pill);
+    background: #ffffff;
+    color: #09090b;
+    font-size: 15px;
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    transition: box-shadow 0.2s var(--ease), transform 0.15s;
+  }
+  .bridge-btn-primary:hover {
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.18);
+  }
+  .bridge-btn-primary:active { transform: scale(0.98); }
+  .bridge-btn-email {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #d4d4d8;
+    font-size: 0.9rem;
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .bridge-btn-email:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
 </style>
