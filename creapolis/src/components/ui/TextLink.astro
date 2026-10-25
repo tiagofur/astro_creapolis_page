@@ -3,9 +3,9 @@
  * TextLink primitive — styled <a> for inline text navigation.
  *
  * Variants:
- *   default — inherits text color, underline on hover
+ *   default — underlined ink, hover darkens
  *   subtle — muted color, underline on hover
- *   accent — iris color, underline always
+ *   accent — text-safe cyan, underline always
  *   underline — always underlined
  *
  * Usage:
@@ -49,16 +49,17 @@ const externalProps = external
 ><slot /></a>
 
 <style>
-  /* ─── TextLink Base ────────────────────────────────────────────────── */
+  /* ─── TextLink Base — v3 underlined ink links ──────────────────────── */
   .ui-link {
-    color: inherit;
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: color var(--duration-fast) var(--ease);
+    transition: color var(--duration-fast) var(--ease), text-decoration-thickness var(--duration-fast) var(--ease);
   }
 
   .ui-link:focus-visible {
-    outline: 2px solid var(--iris);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -68,42 +69,41 @@ const externalProps = external
   }
 
   /* ─── Variants ─────────────────────────────────────────────────────── */
-  /* Default: subtle underline on hover */
-  .ui-link--default {
-    text-decoration: none;
-  }
+  /* Default: underlined ink, hover darkens */
   .ui-link--default:hover {
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-    text-underline-offset: 3px;
+    color: var(--key);
+    text-decoration-thickness: 2px;
   }
 
   /* Subtle: muted color, underline on hover */
   .ui-link--subtle {
     color: var(--color-text-secondary);
+    text-decoration: none;
   }
   .ui-link--subtle:hover {
     color: var(--ink);
     text-decoration: underline;
+    text-decoration-thickness: 2px;
   }
 
-  /* Accent: iris color, always underlined */
+  /* Accent: text-safe cyan shade, always underlined */
   .ui-link--accent {
-    color: var(--iris);
+    color: var(--c-cyan-3);
     text-decoration: underline;
-    text-decoration-color: oklch(0.62 0.2 285 / 0.3);
+    text-decoration-color: rgba(0, 145, 198, 0.35);
   }
   .ui-link--accent:hover {
-    text-decoration-color: var(--iris);
+    color: var(--c-cyan-2);
+    text-decoration-color: var(--c-cyan-2);
   }
 
   /* Underline: always underlined */
   .ui-link--underline {
-    text-decoration: underline;
     text-decoration-color: currentColor;
     text-underline-offset: 3px;
   }
   .ui-link--underline:hover {
+    color: var(--key);
     text-decoration-thickness: 2px;
   }
 

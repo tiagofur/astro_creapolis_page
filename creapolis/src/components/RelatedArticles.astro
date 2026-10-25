@@ -50,22 +50,22 @@ function formatDate(date: Date) {
 }
 
 const catColorMap: Record<string, string> = {
-  Engineering: '--lime',
-  Mobile: '--sky',
-  'AI/ML': '--coral',
-  Product: '--amber',
-  'Building Creapolis': '--iris',
+  Engineering: 'cyan',
+  Mobile: 'magenta',
+  'AI/ML': 'yellow',
+  Product: 'cyan',
+  'Building Creapolis': 'magenta',
 };
 ---
 
 {scored.length > 0 && (
   <section class="related-section reveal">
-    <div class="eyebrow" style="margin-bottom:14px"><span>Artículos relacionados</span></div>
+    <p class="eyebrow" style="margin:0 0 14px"><span>Artículos relacionados</span></p>
     <div class="related-grid">
       {scored.map(({ post }) => {
         const cats = (post.data as any).categories as string[] | undefined;
         const primaryCat = cats?.[0] || 'Engineering';
-        const colorVar = catColorMap[primaryCat]?.replace('--', '') || 'default';
+        const colorVar = catColorMap[primaryCat] || 'default';
         return (
           <a href={`/${lang}/blog/${post.slug}`} class="related-card">
             <div class={`related-accent related-accent--${colorVar}`}></div>
@@ -99,29 +99,26 @@ const catColorMap: Record<string, string> = {
   .related-card {
     display: flex;
     flex-direction: row;
-    background: var(--paper);
+    background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: var(--r-lg);
+    border-radius: var(--r-md);
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
   .related-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--sh-2);
-    border-color: var(--line-2);
+    transform: translateY(-4px);
+    box-shadow: var(--sh-hover);
   }
 
   .related-accent {
-    width: 4px;
+    width: 3px;
     flex-shrink: 0;
   }
-  .related-accent--iris { background: var(--iris); }
-  .related-accent--coral { background: var(--coral); }
-  .related-accent--lime  { background: var(--lime); }
-  .related-accent--sky   { background: var(--sky); }
-  .related-accent--amber { background: var(--amber); }
+  .related-accent--cyan { background: var(--c-cyan); }
+  .related-accent--magenta { background: var(--c-magenta); }
+  .related-accent--yellow { background: var(--c-yellow); }
   .related-accent--default { background: var(--ink-4); }
 
   .related-body {
@@ -135,24 +132,22 @@ const catColorMap: Record<string, string> = {
   .related-badge {
     display: inline-flex;
     align-self: flex-start;
-    padding: 2px 8px;
+    padding: 2px 9px;
     border-radius: var(--r-pill);
     font-family: var(--font-mono);
-    font-size: 0.62rem;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: var(--fw-medium);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
   }
-  .related-badge--iris { background: var(--iris-soft); color: var(--iris); }
-  .related-badge--coral { background: var(--coral-soft); color: var(--coral); }
-  .related-badge--lime  { background: var(--lime-soft);  color: oklch(0.55 0.18 128); }
-  .related-badge--sky   { background: var(--sky-soft);   color: var(--sky); }
-  .related-badge--amber { background: var(--amber-soft); color: oklch(0.5 0.14 70); }
+  .related-badge--cyan { background: var(--c-cyan-soft); color: var(--c-cyan-3); }
+  .related-badge--magenta { background: var(--c-magenta-soft); color: var(--c-magenta-3); }
+  .related-badge--yellow { background: var(--c-yellow-soft); color: var(--c-yellow-3); }
   .related-badge--default { background: var(--chalk); color: var(--ink-3); }
 
   .related-body h4 {
     font-size: 0.92rem;
-    font-weight: 500;
+    font-weight: var(--fw-semibold);
     line-height: 1.3;
     color: var(--ink);
     letter-spacing: -0.01em;
@@ -160,7 +155,7 @@ const catColorMap: Record<string, string> = {
   .related-body p {
     font-size: 0.8rem;
     line-height: 1.45;
-    color: var(--ink-2);
+    color: var(--ink-3);
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;

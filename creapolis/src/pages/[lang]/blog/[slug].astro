@@ -37,51 +37,51 @@ function formatDate(date: Date) {
 // Mapa canónico de tags → estilo visual (soft bg + color + icono)
 const tagColors: Record<string, { bg: string; color: string; icon: string }> = {
   // device / platform
-  mobile: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📱' },
-  desktop: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '💻' },
-  nativo: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '📲' },
+  mobile: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '📱' },
+  desktop: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '💻' },
+  nativo: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '📲' },
   // tech
-  flutter: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '💙' },
-  dart: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '🎯' },
-  react: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '⚛️' },
-  'react-native': { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '⚛️' },
-  nextjs: { bg: 'var(--sky-soft)', color: 'var(--sky)', icon: '▲' },
-  astro: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🚀' },
+  flutter: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '💙' },
+  dart: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '🎯' },
+  react: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '⚛️' },
+  'react-native': { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '⚛️' },
+  nextjs: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '▲' },
+  astro: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '🚀' },
   // web / backend / ops
-  web: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🌐' },
-  backend: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🛠' },
-  devops: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '⚙︎' },
+  web: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '🌐' },
+  backend: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '🛠' },
+  devops: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '⚙︎' },
   // topics
-  ui: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '🎨' },
-  estado: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '↻' },
-  arquitectura: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🏛' },
-  testing: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '✓' },
-  performance: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '⚡' },
-  seguridad: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '🔒' },
-  datos: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '📊' },
+  ui: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '🎨' },
+  estado: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '↻' },
+  arquitectura: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '🏛' },
+  testing: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '✓' },
+  performance: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '⚡' },
+  seguridad: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '🔒' },
+  datos: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '📊' },
   // AI / automation
-  ia: { bg: 'var(--coral-soft)', color: 'var(--coral)', icon: '🤖' },
+  ia: { bg: 'var(--c-magenta-soft)', color: 'var(--c-magenta)', icon: '🤖' },
   automatizacion: {
-    bg: 'var(--coral-soft)',
-    color: 'var(--coral)',
+    bg: 'var(--c-magenta-soft)',
+    color: 'var(--c-magenta)',
     icon: '⚡',
   },
   // meta
-  desarrollo: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '⚙️' },
-  tutorial: { bg: 'var(--iris-soft)', color: 'var(--iris)', icon: '📖' },
-  herramientas: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '🛠️' },
+  desarrollo: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '⚙️' },
+  tutorial: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '📖' },
+  herramientas: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '🛠️' },
   // business
-  pricing: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '💰' },
-  mvp: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🎯' },
-  startup: { bg: 'var(--amber-soft)', color: 'var(--amber)', icon: '🚀' },
-  wordpress: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '📝' },
-  jamstack: { bg: 'var(--lime-soft)', color: 'var(--lime)', icon: '⚡' },
+  pricing: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '💰' },
+  mvp: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '🎯' },
+  startup: { bg: 'var(--c-cyan-soft)', color: 'var(--c-cyan)', icon: '🚀' },
+  wordpress: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '📝' },
+  jamstack: { bg: 'var(--c-yellow-soft)', color: 'var(--c-yellow)', icon: '⚡' },
 };
 
 const mainTag = post.data.tags[0] || 'desarrollo';
 const mainTagStyle = tagColors[mainTag] || {
-  bg: 'var(--iris-soft)',
-  color: 'var(--iris)',
+  bg: 'var(--c-cyan-soft)',
+  color: 'var(--c-cyan)',
   icon: '📝',
 };
 
@@ -297,7 +297,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     inset: -40% -20% auto auto;
     width: 80%;
     height: 200%;
-    background: radial-gradient(ellipse at 70% 30%, color-mix(in oklch, var(--iris) 25%, var(--ink)) 0%, transparent 55%);
+    background: radial-gradient(ellipse at 70% 30%, rgba(0, 174, 239, 0.12) 0%, transparent 55%);
     pointer-events: none;
   }
   .hero-inner {
@@ -320,7 +320,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     gap: 6px;
     font-size: 0.78rem;
     font-weight: 500;
-    color: oklch(0.6 0.01 265);
+    color: var(--ink-3);
     margin-bottom: 24px;
     transition: color 0.2s;
   }
@@ -351,7 +351,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
   .hero-desc {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: oklch(0.72 0.01 265);
+    color: var(--ink-3);
     max-width: 52ch;
     margin-bottom: 24px;
   }
@@ -362,13 +362,13 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     gap: 10px;
     font-size: 0.82rem;
     font-family: var(--font-mono);
-    color: oklch(0.55 0.01 265);
+    color: var(--ink-4);
   }
   .author-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--lime);
+    background: var(--c-cyan);
   }
   .meta-sep { opacity: 0.4; }
 
@@ -415,9 +415,9 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     margin-top: 4px;
   }
   .vis-num {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 3rem;
+    font-family: var(--font-mono);
+    font-weight: var(--fw-medium);
+    font-size: 2.2rem;
   }
   .vis-card:hover {
     transform: rotate(0);
@@ -465,7 +465,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     left: 0;
     width: 48px;
     height: 2px;
-    background: var(--iris);
+    background: var(--ink);
   }
   .article-content :global(h3) {
     font-size: 1.25rem;
@@ -482,7 +482,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--coral);
+    background: var(--c-cyan);
     flex-shrink: 0;
   }
   .article-content :global(p) {
@@ -507,7 +507,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     padding-left: 4px;
   }
   .article-content :global(li::marker) {
-    color: var(--iris);
+    color: var(--c-cyan-3);
   }
   .article-content :global(strong) {
     font-weight: 600;
@@ -523,7 +523,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     background: var(--chalk);
     padding: 2px 8px;
     border-radius: var(--r-sm);
-    color: var(--iris);
+    color: var(--c-cyan-3);
     border: 1px solid var(--line);
   }
   .article-content :global(pre) {
@@ -565,7 +565,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     border: none;
   }
   .article-content :global(blockquote) {
-    border-left: 3px solid var(--iris);
+    border-left: 3px solid var(--c-cyan);
     padding: 16px 0 16px 24px;
     margin: 32px 0;
     background: var(--chalk);
@@ -573,21 +573,20 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     position: relative;
   }
   .article-content :global(blockquote p) {
-    font-style: italic;
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    line-height: 1.6;
+    font-weight: var(--fw-medium);
+    font-size: 1.12rem;
+    line-height: 1.65;
     color: var(--ink);
   }
   .article-content :global(a) {
-    color: var(--iris);
+    color: var(--c-cyan-3);
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: color-mix(in oklch, var(--iris) 40%, transparent);
+    text-decoration-color: rgba(0, 174, 239, 0.4);
     transition: text-decoration-color 0.2s;
   }
   .article-content :global(a:hover) {
-    text-decoration-color: var(--iris);
+    text-decoration-color: var(--c-cyan-3);
   }
   .article-content :global(hr) {
     border: none;
@@ -679,7 +678,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
   }
   .sidebar-card--cta {
     background: linear-gradient(180deg, var(--cta-bg, var(--chalk)), var(--paper));
-    border-color: color-mix(in oklch, var(--cta-color, var(--iris)) 20%, var(--line));
+    border-color: color-mix(in oklch, var(--cta-color, var(--c-cyan-3)) 20%, var(--line));
   }
   .cta-service-badge {
     display: inline-flex;
@@ -691,8 +690,8 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    background: color-mix(in oklch, var(--cta-color, var(--iris)) 15%, var(--paper));
-    color: var(--cta-color, var(--iris));
+    background: color-mix(in oklch, var(--cta-color, var(--c-cyan-3)) 15%, var(--paper));
+    color: var(--cta-color, var(--c-cyan-3));
     margin-bottom: 12px;
   }
   .cta-title {
@@ -718,7 +717,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     margin-bottom: 12px;
   }
   .sidebar-card--dark .sidebar-title {
-    color: oklch(0.55 0.01 265);
+    color: var(--ink-4);
   }
 
   .sidebar-tags {
@@ -738,11 +737,11 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: var(--iris);
+    background: var(--ink);
     color: var(--paper);
     display: grid;
     place-items: center;
-    font-family: var(--font-serif);
+    font-family: var(--font-mono);
     font-style: italic;
     font-size: 1.25rem;
     margin-bottom: 14px;
@@ -754,7 +753,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
   }
   .sidebar-author-bio {
     font-size: 0.82rem;
-    color: oklch(0.6 0.01 265);
+    color: var(--ink-3);
     line-height: 1.5;
     margin-top: 6px;
   }
@@ -770,7 +769,7 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     margin: 48px auto;
     padding: 32px;
     background: linear-gradient(135deg, var(--cta-bg, var(--chalk)), var(--paper));
-    border: 1px solid color-mix(in oklch, var(--cta-color, var(--iris)) 25%, var(--line));
+    border: 1px solid color-mix(in oklch, var(--cta-color, var(--c-cyan-3)) 25%, var(--line));
     border-radius: var(--r-xl);
     text-align: center;
   }
@@ -787,8 +786,8 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    background: color-mix(in oklch, var(--cta-color, var(--iris)) 12%, var(--paper));
-    color: var(--cta-color, var(--iris));
+    background: color-mix(in oklch, var(--cta-color, var(--c-cyan-3)) 12%, var(--paper));
+    color: var(--cta-color, var(--c-cyan-3));
     margin-bottom: 16px;
   }
   .inline-cta-title {
@@ -913,8 +912,8 @@ const ctaService = t(`blog.cta.${ctaSlug}.service` as any);
     background: var(--chalk);
   }
   .toc-list a.is-active {
-    color: var(--iris);
-    border-left-color: var(--iris);
+    color: var(--c-cyan-3);
+    border-left-color: var(--c-cyan-3);
     background: var(--iris-soft);
     font-weight: 500;
   }

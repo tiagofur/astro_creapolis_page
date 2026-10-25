@@ -7,6 +7,14 @@ import {
   getLocalizedPath,
   useTranslations,
 } from '../i18n/utils';
+import CubePyramid from './brand/CubePyramid.astro';
+import CmyDots from './brand/CmyDots.astro';
+
+interface Props {
+  lang?: Lang;
+  /** v3: footer CTA banner removed — one dark CTA card per page instead. */
+  hideCta?: boolean;
+}
 
 const year = new Date().getFullYear();
 const lang: Lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
@@ -25,114 +33,75 @@ const footerProducts = products
 ---
 
 <footer class="footer">
-  <div class="footer-ribbon" aria-hidden="true">
-    <svg viewBox="0 0 1400 80" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="footer-rib" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.7" />
-          <stop offset="35%" stop-color="oklch(0.62 0.2 285)" stop-opacity="0.7" />
-          <stop offset="70%" stop-color="oklch(0.84 0.18 128)" stop-opacity="0.65" />
-          <stop offset="100%" stop-color="oklch(0.78 0.16 70)" stop-opacity="0.6" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M 0,50 C 300,10 600,80 900,35 C 1100,5 1300,60 1400,25"
-        fill="none"
-        stroke="url(#footer-rib)"
-        stroke-width="60"
-        stroke-linecap="round"
-      />
-    </svg>
-  </div>
-
-  <div class="footer-main">
-    <div class="footer-brand-col">
+  <div class="footer-stripe" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <!-- Brand column -->
+    <div class="footer-brand">
       <a href={getLocalizedPath(lang, '/')} class="footer-brand-link" aria-label="Creapolis home">
-        <div class="footer-logo-mark">C</div>
+        <CubePyramid size={26} variant="cmyk" />
         <span class="footer-brand-name">Creapolis</span>
+        <CmyDots size={4} />
       </a>
-      <p class="footer-tagline">
-        {t('footer.tagline')}
-      </p>
+      <p class="footer-tagline">{t('footer.tagline')}</p>
       <div class="footer-social">
         {socialLinks.map((s) =>
           s.url ? (
             <a href={s.url} target="_blank" rel="noopener" aria-label={s.label} class="fsoc"
               data-track-event={s.icon === 'linkedin' ? 'linkedin_click' : s.icon === 'github' ? 'github_click' : undefined}>
               {s.icon === 'linkedin' && (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
               )}
               {s.icon === 'github' && (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
               )}
               {s.icon === 'twitter' && (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
               )}
             </a>
           ) : null,
         )}
       </div>
+      <span class="footer-location">Monterrey · MX</span>
     </div>
 
-    <div class="footer-nav">
-      <div class="fcol">
-        <h5>{t('footer.site')}</h5>
-        <a href={getLocalizedPath(lang, '/')}>{t('footer.home')}</a>
-        <a href={getLocalizedPath(lang, '/#apps')}>{t('footer.apps')}</a>
-        <a href={getLocalizedPath(lang, '/servicios')}>{t('footer.services')}</a>
-        <a href={getLocalizedPath(lang, '/sobre')}>{t('footer.about')}</a>
-        <a href={getLocalizedPath(lang, '/blog')}>{t('footer.blog')}</a>
-      </div>
+    <!-- Navigation columns -->
+    <nav class="footer-col" aria-label={t('footer.site')}>
+      <h5>{t('footer.site')}</h5>
+      <a href={getLocalizedPath(lang, '/')}>{t('footer.home')}</a>
+      <a href={getLocalizedPath(lang, '/#apps')}>{t('footer.apps')}</a>
+      <a href={getLocalizedPath(lang, '/servicios')}>{t('footer.services')}</a>
+      <a href={getLocalizedPath(lang, '/sobre')}>{t('footer.about')}</a>
+      <a href={getLocalizedPath(lang, '/blog')}>{t('footer.blog')}</a>
+    </nav>
 
-      <div class="fcol">
-        <h5>{t('footer.projects')}</h5>
-        <a href={getLocalizedPath(lang, '/proyectos')}>{t('footer.all')}</a>
-        {footerProducts.map(p => (
-          <a href={p.href}>{p.name}</a>
-        ))}
-      </div>
+    <nav class="footer-col" aria-label={t('footer.projects')}>
+      <h5>{t('footer.projects')}</h5>
+      <a href={getLocalizedPath(lang, '/proyectos')}>{t('footer.all')}</a>
+      {footerProducts.map((p) => (
+        <a href={p.href}>{p.name}</a>
+      ))}
+    </nav>
 
-      <div class="fcol">
-        <h5>{t('footer.contact')}</h5>
-        <a href={getLocalizedPath(lang, '/contacto')}>{t('footer.form')}</a>
-        <a href="mailto:hola@creapolis.dev" class="fcol-email">
-          hola@creapolis.dev
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-        <div class="fcol-meta">
-          <span class="chip-dot"></span>
-          <span>{t('footer.location')}</span>
-        </div>
-        <div class="fcol-meta">
-         <span>{t('footer.response')}</span>
-        </div>
-      </div>
-    </div>
+    <nav class="footer-col" aria-label={t('footer.contact')}>
+      <h5>{t('footer.contact')}</h5>
+      <a href={getLocalizedPath(lang, '/contacto')}>{t('footer.form')}</a>
+      <a href="mailto:hola@creapolis.dev" class="footer-email">
+        hola@creapolis.dev
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <span class="footer-meta">
+        <span class="dot" aria-hidden="true"></span>
+        {t('footer.location')}
+      </span>
+      <span class="footer-meta">{t('footer.response')}</span>
+    </nav>
   </div>
 
-  <!-- Commercial CTA -->
-  <div class="footer-cta">
-    <div class="footer-cta-inner">
-      <div class="footer-cta-copy">
-        <h3>{t('footer.cta.title')}</h3>
-        <p>{t('footer.cta.desc')}</p>
-      </div>
-      <div class="footer-cta-actions">
-        <a href={getLocalizedPath(lang, '/contacto')} class="footer-cta-btn" data-track-event="start_project_click">
-          {t('footer.cta.btn')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-        <a href="mailto:hola@creapolis.dev" class="footer-cta-email">
-          {t('footer.cta.btn2')}
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-legal">
-    <div class="footer-legal-inner">
+  <!-- Legal bottom strip -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
       <p class="footer-copyright">
-        &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')} <span class="serif-it">{t('footer.care')}</span>.
+        &copy; {year} Creapolis · Tiago David Furtado. {t('footer.copyright')}
       </p>
       <div class="footer-legal-links">
         {legalLinks.map((link, i) => (
@@ -148,290 +117,203 @@ const footerProducts = products
 
 <style>
   /* ═══════════════════════════════════════════════════════════════
-     FOOTER — dark v2 with ribbon accent
+     FOOTER — v3 ink (CMYK "Key") with CMYK gradient stripe
      ═══════════════════════════════════════════════════════════════ */
   .footer {
-    position: relative;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 0;
-    border-top: none;
-    overflow: hidden;
+    background: #09090b;
+    color: #ffffff;
   }
 
-  .footer-ribbon {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 80px;
-    pointer-events: none;
-    opacity: 0.55;
+  /* The one splash of color: cyan → magenta → yellow hairline */
+  .footer-stripe {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--c-cyan) 0%,
+      var(--c-magenta) 50%,
+      var(--c-yellow) 100%
+    );
   }
-  .footer-ribbon svg { width: 100%; height: 100%; }
 
-  /* Main content */
-  .footer-main {
-    position: relative;
+  .footer-inner {
     max-width: var(--max);
     margin: 0 auto;
-    padding: clamp(64px, 8vw, 96px) var(--gutter) 48px;
+    padding: clamp(32px, 4vw, 48px) var(--gutter) 28px;
     display: grid;
-    gap: 48px;
     grid-template-columns: 1fr;
+    gap: 28px;
   }
+
   @media (min-width: 880px) {
-    .footer-main {
-      grid-template-columns: 1.2fr 2fr;
-      gap: 64px;
+    .footer-inner {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: 24px;
     }
   }
 
   /* Brand column */
-  .footer-brand-col {
+  .footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    align-items: flex-start;
   }
+
   .footer-brand-link {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
-    color: var(--paper);
-    width: fit-content;
+    color: #ffffff;
   }
-  .footer-logo-mark {
-    width: 36px; height: 36px;
-    background: var(--paper);
-    color: var(--ink);
-    border-radius: 10px;
-    display: grid; place-items: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 20px;
-    position: relative;
-    overflow: hidden;
-  }
-  .footer-logo-mark::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: conic-gradient(
-      from 210deg,
-      transparent 0deg,
-      var(--iris) 60deg,
-      var(--coral) 160deg,
-      var(--lime) 260deg,
-      transparent 340deg
-    );
-    mix-blend-mode: multiply;
-    opacity: 0.55;
-  }
+
   .footer-brand-name {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.4rem;
-    color: var(--paper);
-  }
-  .footer-tagline {
+    font-weight: var(--fw-semibold);
     font-size: 0.95rem;
-    line-height: 1.6;
-    color: oklch(0.82 0.01 265);
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .footer-tagline {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: #a1a1aa;
     max-width: 36ch;
     margin: 0;
   }
 
-  /* Social icons */
   .footer-social {
     display: flex;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 8px;
   }
+
   .fsoc {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px; height: 40px;
-    border-radius: var(--r-md);
-    background: oklch(0.28 0.02 265);
-    color: var(--paper);
-    transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: #d4d4d8;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
+
   .fsoc:hover {
-    transform: translateY(-2px);
-    background: var(--paper);
-    color: var(--ink);
-  }
-  .fsoc:nth-child(1):hover { background: var(--sky); color: var(--ink); }
-  .fsoc:nth-child(2):hover { background: var(--lime); color: var(--ink); }
-  .fsoc:nth-child(3):hover { background: var(--coral); color: var(--ink); }
-
-  /* Navigation columns */
-  .footer-nav {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  @media (min-width: 560px) {
-    .footer-nav { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
   }
 
-  .fcol { display: flex; flex-direction: column; gap: 8px; }
-  .fcol h5 {
+  .footer-location {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--lime);
-    margin: 0 0 10px;
-    font-weight: 500;
+    letter-spacing: var(--ls-mono);
+    color: #71717a;
   }
-  .fcol a {
-    font-size: 0.95rem;
-    color: oklch(0.82 0.01 265);
+
+  /* Columns */
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-col h5 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
+    color: #71717a;
+    margin: 0 0 4px;
+  }
+
+  .footer-col a {
+    font-size: 0.85rem;
+    color: #a1a1aa;
     text-decoration: none;
-    padding: 2px 0;
     width: fit-content;
     transition: color 0.2s;
   }
-  .fcol a:hover { color: var(--paper); }
 
-  .fcol-email {
+  .footer-col a:hover {
+    color: #ffffff;
+  }
+
+  .footer-email {
     display: inline-flex !important;
     align-items: center;
     gap: 6px;
-    color: var(--coral) !important;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    margin-top: 4px;
-  }
-  .fcol-email:hover { color: var(--lime) !important; gap: 10px; transition: gap 0.2s var(--ease); }
-
-  .fcol-meta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    color: oklch(0.7 0.01 265);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 10px;
-  }
-  .fcol-meta .chip-dot {
-    width: 8px; height: 8px; border-radius: 999px;
-    background: var(--lime);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--lime) 20%, transparent);
+    color: #ffffff !important;
   }
 
-  /* Commercial CTA */
-  .footer-cta {
-    position: relative;
-    border-top: 1px solid oklch(0.28 0.02 265);
-    background: oklch(0.2 0.02 265);
+  .footer-email:hover {
+    color: var(--c-cyan) !important;
   }
-  .footer-cta-inner {
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: clamp(40px, 6vw, 64px) var(--gutter);
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    align-items: center;
-    text-align: center;
-  }
-  @media (min-width: 640px) {
-    .footer-cta-inner {
-      flex-direction: row;
-      text-align: left;
-      justify-content: space-between;
-    }
-  }
-  .footer-cta-copy h3 {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 400;
-    color: var(--paper);
-    margin: 0 0 8px;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-  .footer-cta-copy p {
-    font-size: 0.95rem;
-    color: oklch(0.75 0.01 265);
-    margin: 0;
-    line-height: 1.5;
-  }
-  .footer-cta-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-shrink: 0;
-  }
-  .footer-cta-btn {
+
+  .footer-meta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
-    border-radius: var(--r-pill);
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: transform 0.2s var(--ease), box-shadow 0.2s;
-  }
-  .footer-cta-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--sh-2);
-  }
-  .footer-cta-email {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--coral);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-cta-email:hover {
-    color: var(--lime);
+    font-size: 10px;
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
-  /* Legal bottom strip */
-  .footer-legal {
-    position: relative;
-    border-top: 1px solid oklch(0.28 0.02 265);
-    background: oklch(0.15 0.01 265);
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-cyan);
   }
-  .footer-legal-inner {
+
+  /* Bottom strip */
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-bottom-inner {
     max-width: var(--max);
     margin: 0 auto;
-    padding: 24px var(--gutter);
+    padding: 14px var(--gutter);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 10px;
   }
+
   .footer-copyright {
-    font-size: 0.82rem;
-    color: oklch(0.65 0.01 265);
+    font-size: 0.76rem;
+    color: #71717a;
     margin: 0;
   }
-  .footer-copyright .serif-it {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--coral);
-  }
+
   .footer-legal-links {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.82rem;
+    font-size: 0.76rem;
   }
+
   .footer-legal-links a {
-    color: oklch(0.72 0.01 265);
+    color: #a1a1aa;
     text-decoration: none;
     transition: color 0.2s;
   }
-  .footer-legal-links a:hover { color: var(--paper); }
-  .footer-legal-links .sep { color: oklch(0.4 0.01 265); }
+
+  .footer-legal-links a:hover {
+    color: #ffffff;
+  }
+
+  .footer-legal-links .sep {
+    color: #52525b;
+  }
 </style>

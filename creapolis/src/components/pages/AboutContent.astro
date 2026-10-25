@@ -2,6 +2,7 @@
 import { getAboutData } from '../../i18n/data/about';
 import type { Lang } from '../../i18n/ui';
 import { getLocalizedPath, useTranslations } from '../../i18n/utils';
+import CmyDots from '../brand/CmyDots.astro';
 import Footer from '../Footer.astro';
 import Nav from '../Nav.astro';
 
@@ -12,6 +13,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const { timeline, values, stack, heroChips, ops } = getAboutData(lang);
 
+const ACCENTS = ['var(--c-cyan)', 'var(--c-magenta)', 'var(--c-yellow)', 'var(--key)'] as const;
+
 const links = {
   linkedin: null as string | null,
   github: null as string | null,
@@ -19,40 +22,31 @@ const links = {
 };
 
 const opsIcons: Record<string, string> = {
-  repo: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
-  ci: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>',
-  docs: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+  repo: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
+  ci: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+  docs: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
   backup:
-    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>',
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>',
   handover:
-    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
   support:
-    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
 };
 ---
 
 <Nav lang={lang} />
 
 <header class="s-hero">
-  <div class="ribbon" aria-hidden="true">
-    <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="sobre-rib" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="oklch(0.62 0.2 285)" stop-opacity="0.4"/>
-          <stop offset="50%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="oklch(0.84 0.18 128)" stop-opacity="0.3"/>
-        </linearGradient>
-      </defs>
-      <path d="M -100,400 C 300,200 500,500 800,300 C 1100,100 1300,400 1500,250"
-            fill="none" stroke="url(#sobre-rib)" stroke-width="100" stroke-linecap="round"/>
-    </svg>
-  </div>
   <div class="wrap reveal">
+    <div class="hero-eyebrow">
+      <CmyDots size={4} />
+      <span>{t('about.eyebrow')}</span>
+    </div>
     <div class="chips-row">
       <span class="chip live"><span class="chip-dot"></span>{heroChips.dev}</span>
-      <span class="chip mx-chip">{heroChips.location}</span>
+      <span class="chip">{heroChips.location}</span>
     </div>
-    <h1>{t('about.hero.title.p1')}<br/><span class="serif">{t('about.hero.title.p2')}</span><br/>{t('about.hero.title.p3')}</h1>
+    <h1>{t('about.hero.title.p1')} <span class="tone">{t('about.hero.title.p2')}</span> {t('about.hero.title.p3')}</h1>
     <p class="lead">{t('about.hero.lead')}</p>
   </div>
 </header>
@@ -65,28 +59,26 @@ const opsIcons: Record<string, string> = {
           <div class="portrait-placeholder" aria-label={t('about.portrait.alt')}>
             <div class="portrait-avatar">
               <span class="initial">T</span>
-              <div class="portrait-dots" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
             </div>
+            <CmyDots size={6} class="portrait-dots" />
           </div>
         </div>
         <div class="portrait-links">
           {links.linkedin && (
             <a href={links.linkedin} target="_blank" rel="noopener" class="plink">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.5V9.75H5.67v7.75h2.67zM7 8.58a1.54 1.54 0 1 0 0-3.08 1.54 1.54 0 0 0 0 3.08zM18.34 17.5v-4.24c0-2.29-1.23-3.35-2.87-3.35-1.32 0-1.91.73-2.24 1.24V9.75h-2.67v7.75h2.67v-4.33c0-1.16.22-2.29 1.66-2.29 1.42 0 1.44 1.33 1.44 2.37v4.25h2.01z"/></svg>
               LinkedIn
             </a>
           )}
           {links.github && (
             <a href={links.github} target="_blank" rel="noopener" class="plink">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
               GitHub
             </a>
           )}
           {links.twitter && (
             <a href={links.twitter} target="_blank" rel="noopener" class="plink">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-6.6L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6 4.2-6zm-1.1 18h1.8L7.3 4H5.4l12.4 16z"/></svg>
               X
             </a>
           )}
@@ -94,8 +86,7 @@ const opsIcons: Record<string, string> = {
       </div>
 
       <div class="portrait-copy reveal reveal-delay-1">
-        <div class="eyebrow" style="margin-bottom:16px"><span>{t('about.eyebrow')}</span></div>
-        <h2>{t('about.intro')} <span class="serif">{t('about.intro.serif')}</span>.</h2>
+        <h2>{t('about.intro')} <span class="tone">{t('about.intro.serif')}.</span></h2>
         <p class="intro">{t('about.intro.p1')}</p>
         <p>{t('about.intro.p2')}</p>
         <p>{t('about.intro.p3')}</p>
@@ -104,17 +95,17 @@ const opsIcons: Record<string, string> = {
   </div>
 </section>
 
-<section class="section timeline-section" style="background: var(--chalk)">
+<section class="section timeline-section section-alt">
   <div class="wrap">
-    <div class="tl-head reveal">
-      <div class="eyebrow" style="margin-bottom:18px"><span>{t('about.timeline.eyebrow')}</span></div>
-      <h2>{t('about.timeline.title.p1')} <span class="serif">{t('about.timeline.title.serif')}</span>.</h2>
+    <div class="section-head reveal">
+      <p class="eyebrow" style="--accent-color: var(--c-cyan);"><span>{t('about.timeline.eyebrow')}</span></p>
+      <h2>{t('about.timeline.title.p1')} <span class="tone">{t('about.timeline.title.serif')}.</span></h2>
       <p>{t('about.timeline.desc')}</p>
     </div>
 
     <div class="timeline">
       {timeline.map((item, i) => (
-        <div class={`tl-item reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`}>
+        <div class={`tl-item reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`} style={`--tl-accent: ${ACCENTS[i % 3]}`}>
           <div class="tl-year">{item.year}</div>
           <div class="tl-body">
             <h3>{item.title}</h3>
@@ -128,18 +119,19 @@ const opsIcons: Record<string, string> = {
 
 <section class="section">
   <div class="wrap">
-    <div class="products-header">
-      <div class="reveal">
-        <div class="eyebrow" style="margin-bottom:18px"><span>{t('about.values.eyebrow')}</span></div>
-        <h2>{t('about.values.title.p1')}<br/><span class="serif">{t('about.values.title.serif')}</span>.</h2>
-      </div>
-      <p class="reveal reveal-delay-1">{t('about.values.desc')}</p>
+    <div class="section-head reveal">
+      <p class="eyebrow" style="--accent-color: var(--c-magenta);"><span>{t('about.values.eyebrow')}</span></p>
+      <h2>{t('about.values.title.p1')} <span class="tone">{t('about.values.title.serif')}.</span></h2>
+      <p>{t('about.values.desc')}</p>
     </div>
 
     <div class="values-grid">
       {values.map((v, i) => (
-        <div class={`value-card reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
-          <div class="v-letter">{v.letter}</div>
+        <div class={`value-card reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`} style={`--accent-color: ${ACCENTS[i % 3]}`}>
+          <div class="v-letter">
+            <span class="v-dot" aria-hidden="true"></span>
+            {v.letter}
+          </div>
           <h3>{v.title}</h3>
           <p>{v.desc}</p>
         </div>
@@ -148,17 +140,17 @@ const opsIcons: Record<string, string> = {
   </div>
 </section>
 
-<section class="section ops-section" style="background: var(--chalk)">
+<section class="section ops-section section-alt">
   <div class="wrap">
-    <div class="ops-header reveal">
-      <div class="eyebrow" style="margin-bottom:18px"><span>{t('about.ops.eyebrow')}</span></div>
-      <h2>{t('about.ops.title.p1')} <span class="serif">{t('about.ops.title.serif')}</span>.</h2>
+    <div class="section-head reveal">
+      <p class="eyebrow" style="--accent-color: var(--c-yellow);"><span>{t('about.ops.eyebrow')}</span></p>
+      <h2>{t('about.ops.title.p1')} <span class="tone">{t('about.ops.title.serif')}.</span></h2>
       <p>{t('about.ops.desc')}</p>
     </div>
 
     <div class="ops-grid">
       {ops.map((op, i) => (
-        <div class={`ops-card reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`}>
+        <div class={`ops-card reveal${i % 2 === 1 ? ' reveal-delay-1' : ''}`} style={`--accent-color: ${ACCENTS[i % 3]}`}>
           <div class="ops-icon" set:html={opsIcons[op.icon] || ''} />
           <h3>{op.title}</h3>
           <p>{op.desc}</p>
@@ -168,17 +160,17 @@ const opsIcons: Record<string, string> = {
   </div>
 </section>
 
-<section class="section stack-section" style="background: var(--ink); color: var(--paper)">
+<section class="section stack-section">
   <div class="wrap">
-    <div class="stack-head reveal">
-      <div class="eyebrow" style="margin-bottom:18px; color: oklch(0.72 0.01 265)"><span>{t('about.stack.eyebrow')}</span></div>
-      <h2>{t('about.stack.title.p1')} <span class="serif">{t('about.stack.title.serif')}</span>.</h2>
+    <div class="section-head reveal">
+      <p class="eyebrow" style="--accent-color: var(--c-cyan);"><span>{t('about.stack.eyebrow')}</span></p>
+      <h2>{t('about.stack.title.p1')} <span class="tone">{t('about.stack.title.serif')}.</span></h2>
       <p>{t('about.stack.desc')}</p>
     </div>
 
     <div class="stack-grid">
       {stack.map((group, i) => (
-        <div class={`stack-group reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`}>
+        <div class={`stack-group reveal${i === 1 ? ' reveal-delay-1' : ''}${i === 2 ? ' reveal-delay-2' : ''}`} style={`--accent-color: ${ACCENTS[i % 3]}`}>
           <div class="sg-label">{group.group}</div>
           <div class="sg-chips">
             {group.items.map((item) => <span class="sg-chip">{item}</span>)}
@@ -191,15 +183,16 @@ const opsIcons: Record<string, string> = {
 
 <section class="contact-cta">
   <div class="wrap">
-    <div class="contact-card reveal">
-      <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.cta.eyebrow')}</span></div>
-      <h2>{t('about.cta.title.p1')} <span class="serif">{t('about.cta.title.serif')}</span>{t('about.cta.title.p2')}</h2>
+    <div class="cta-card reveal">
+      <div class="cta-glow cta-glow-magenta" aria-hidden="true"></div>
+      <div class="cta-glow cta-glow-cyan" aria-hidden="true"></div>
+      <h2>{t('about.cta.title.p1')} <span class="tone">{t('about.cta.title.serif')}{t('about.cta.title.p2')}</span></h2>
       <p class="lead">{t('about.cta.lead')}</p>
       <div class="cta-row">
-        <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('about.cta.btn')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <a href={getLocalizedPath(lang, '/contacto')} class="cta-btn-primary">{t('about.cta.btn')}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H4.5M11 3V9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </a>
-        <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
+        <a href="mailto:hola@creapolis.dev" class="cta-btn-email">hola@creapolis.dev</a>
       </div>
     </div>
   </div>
@@ -208,335 +201,453 @@ const opsIcons: Record<string, string> = {
 <Footer lang={lang} />
 
 <style>
+  .tone { color: var(--ink-4); }
+
+  /* ─── Hero ─────────────────────────────────────────────────────────── */
   .s-hero {
-    position: relative;
-    overflow: clip;
-    padding: 140px var(--gutter) 80px;
-    background:
-      radial-gradient(70% 50% at 50% 0%, var(--iris-soft) 0%, transparent 60%),
-      var(--paper);
+    padding: 168px var(--gutter) 72px;
+    background: var(--paper);
   }
-  .s-hero .ribbon { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-  .s-hero .ribbon svg { width: 100%; height: 100%; }
   .s-hero .wrap {
-    position: relative; z-index: 1;
-    max-width: 900px; margin: 0 auto;
+    max-width: 860px;
+    margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
+    color: var(--ink-3);
   }
   .chips-row {
-    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-    margin-bottom: 28px;
-  }
-  .mx-chip {
-    color: var(--iris);
-    background: var(--iris-soft);
-    border-color: color-mix(in oklch, var(--iris) 25%, var(--line));
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   .s-hero h1 {
-    font-size: clamp(2.8rem, 6.4vw, 5rem);
-    line-height: 1; letter-spacing: -0.025em;
-    color: var(--ink); margin: 0 0 24px;
+    font-size: clamp(2.5rem, 6vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: var(--ls-display);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin: 0;
     text-wrap: balance;
   }
-  .s-hero h1 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--coral);
-  }
   .s-hero p.lead {
-    font-size: 1.12rem; line-height: 1.55;
-    color: var(--ink-2); max-width: 58ch; margin: 0 auto;
+    font-size: clamp(1rem, 1.4vw, 1.18rem);
+    line-height: 1.6;
+    color: var(--ink-3);
+    max-width: 58ch;
+    margin: 0;
+    text-wrap: pretty;
   }
 
+  /* ─── Sections ─────────────────────────────────────────────────────── */
   .section {
-    padding: clamp(64px, 9vw, 120px) var(--gutter);
-    position: relative;
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+  .section-alt {
+    background: var(--chalk);
   }
   .section .wrap { max-width: var(--max); margin: 0 auto; }
 
+  .section-head {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .section-head p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    max-width: 56ch;
+  }
+
+  /* ─── Portrait ─────────────────────────────────────────────────────── */
   .portrait-grid {
-    display: grid; gap: 48px;
+    display: grid;
+    gap: 48px;
     grid-template-columns: 1fr;
     align-items: start;
   }
   @media (min-width: 880px) {
-    .portrait-grid { grid-template-columns: 360px 1fr; gap: 64px; }
+    .portrait-grid { grid-template-columns: 320px 1fr; gap: 64px; }
   }
   .portrait-frame {
-    position: relative;
     aspect-ratio: 1;
-    border-radius: var(--r-lg);
+    border-radius: var(--r-xl);
     border: 1px solid var(--line);
-    background: var(--chalk);
+    background: #ffffff;
     overflow: hidden;
-    box-shadow: var(--sh-2);
   }
   .portrait-placeholder {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--coral-soft), var(--iris-soft));
-    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background: var(--chalk);
   }
   .portrait-avatar {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 16px;
+    display: grid;
+    place-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: var(--r-lg);
+    background: #09090b;
   }
   .portrait-avatar .initial {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: 6rem; line-height: 1;
-    color: var(--iris);
+    font-size: 3.4rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #ffffff;
   }
-  .portrait-dots {
-    display: flex; gap: 8px;
-  }
-  .portrait-dots span {
-    width: 8px; height: 8px; border-radius: 999px;
-    background: var(--iris);
-    opacity: 0.4;
-  }
-  .portrait-dots span:nth-child(2) { opacity: 0.6; background: var(--coral); }
-  .portrait-dots span:nth-child(3) { opacity: 0.8; }
-  .portrait-dots span:nth-child(4) { opacity: 0.6; background: var(--lime); }
-  .portrait-dots span:nth-child(5) { opacity: 0.4; background: var(--amber); }
   .portrait-links {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
   }
   .plink {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 14px;
-    font-size: 0.86rem; color: var(--ink);
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 0.85rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    background: #ffffff;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
     text-decoration: none;
-    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .plink:hover { transform: translateY(-2px); border-color: var(--iris); color: var(--iris); }
+  .plink:hover {
+    color: var(--ink);
+    border-color: #d4d4d8;
+    background: var(--chalk);
+  }
   .portrait-copy h2 {
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0 0 24px;
-  }
-  .portrait-copy h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--iris);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin: 0 0 24px;
+    text-wrap: balance;
   }
   .portrait-copy p {
-    font-size: 1.02rem; line-height: 1.7;
-    color: var(--ink-2); margin: 0 0 18px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-3);
+    margin: 0 0 16px;
     max-width: 58ch;
   }
-  .portrait-copy p.intro { font-size: 1.1rem; color: var(--ink); }
-
-  .tl-head { max-width: 640px; margin-bottom: 56px; }
-  .tl-head h2 {
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0 0 20px;
-    text-wrap: balance;
+  .portrait-copy p.intro {
+    font-size: 1.08rem;
+    color: var(--ink-2);
   }
-  .tl-head h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--coral);
-  }
-  .tl-head p { font-size: 1rem; color: var(--ink-2); max-width: 56ch; }
 
+  /* ─── Timeline — zai left rule + accent dots ───────────────────────── */
   .timeline {
     position: relative;
-    display: flex; flex-direction: column;
-    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
     max-width: 760px;
+    padding-left: 24px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
   }
-  .timeline::before {
-    content: ''; position: absolute;
-    left: 110px; top: 8px; bottom: 8px;
-    width: 2px; background: var(--line);
-  }
-  @media (max-width: 640px) { .timeline::before { left: 60px; } }
   .tl-item {
-    display: grid; grid-template-columns: 100px 1fr;
-    gap: 32px;
     position: relative;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 24px;
   }
-  @media (max-width: 640px) { .tl-item { grid-template-columns: 50px 1fr; gap: 20px; } }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tl-accent);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+  }
   .tl-year {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: 1.4rem; color: var(--iris);
-    line-height: 1.2;
-    position: relative;
-    padding-right: 24px;
-    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+    line-height: 1.4;
+    padding-top: 2px;
   }
-  .tl-year::after {
-    content: ''; position: absolute;
-    right: -6px; top: 8px;
-    width: 12px; height: 12px; border-radius: 999px;
-    background: var(--paper);
-    border: 2px solid var(--coral);
-    z-index: 1;
+  .tl-body h3 {
+    font-size: 1.08rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    color: var(--ink);
   }
-  .tl-body { padding-left: 20px; }
-  .tl-body h3 { font-size: 1.1rem; margin: 0 0 6px; color: var(--ink); }
-  .tl-body p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
-
-  .products-header {
-    display: grid; gap: 24px; align-items: end;
-    grid-template-columns: 1fr; margin-bottom: 48px;
-  }
-  @media (min-width: 760px) { .products-header { grid-template-columns: 1.4fr 1fr; gap: 48px; } }
-  .products-header h2 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0;
-    text-wrap: balance;
-  }
-  .products-header h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--coral);
-  }
-  .products-header p {
-    color: var(--ink-2); font-size: 1rem; line-height: 1.55;
-    max-width: 40ch; margin: 0;
+  .tl-body p {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin: 0;
   }
 
+  /* ─── Values ───────────────────────────────────────────────────────── */
   .values-grid {
-    display: grid; gap: 20px;
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    overflow: hidden;
     grid-template-columns: 1fr;
   }
-  @media (min-width: 720px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 720px) {
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   .value-card {
-    padding: 32px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    padding: 28px;
+    background: #ffffff;
+    border-top: var(--accent-bar) solid var(--accent-color);
   }
-  .value-card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--iris); }
   .v-letter {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: 3.2rem; line-height: 1;
-    color: var(--iris);
-    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 1.9rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 14px;
   }
-  .value-card:nth-child(2) .v-letter { color: var(--coral); }
-  .value-card:nth-child(3) .v-letter { color: var(--lime); }
-  .value-card:nth-child(4) .v-letter { color: var(--amber); }
-  .value-card h3 { font-size: 1.2rem; margin: 0 0 10px; color: var(--ink); }
-  .value-card p { font-size: 0.98rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+  .v-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-color);
+  }
+  .value-card h3 {
+    font-size: 1.12rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .value-card p {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin: 0;
+  }
 
-  /* Ops section */
-  .ops-header {
-    max-width: 640px; margin-bottom: 48px;
-  }
-  .ops-header h2 {
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0 0 16px;
-    text-wrap: balance;
-  }
-  .ops-header h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--iris);
-  }
-  .ops-header p { font-size: 1rem; color: var(--ink-2); max-width: 56ch; }
-
+  /* ─── Ops — tinted icon tiles cycling CMYK ─────────────────────────── */
   .ops-grid {
-    display: grid; gap: 16px;
+    display: grid;
+    gap: 16px;
     grid-template-columns: 1fr;
   }
   @media (min-width: 640px) { .ops-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1040px) { .ops-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .ops-card {
-    padding: 28px;
-    background: var(--paper);
+    padding: 26px;
+    background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    border-radius: var(--r-xl);
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
-  .ops-card:hover { transform: translateY(-2px); box-shadow: var(--sh-2); border-color: var(--iris); }
+  .ops-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sh-hover);
+  }
   .ops-icon {
-    width: 48px; height: 48px;
-    display: grid; place-items: center;
-    background: var(--iris-soft);
-    border-radius: var(--r-md);
-    color: var(--iris);
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--accent-color) 8%, transparent);
+    border-radius: var(--r-lg);
+    color: var(--ink);
     margin-bottom: 16px;
   }
-  .ops-card:nth-child(2) .ops-icon { background: var(--lime-soft); color: var(--lime); }
-  .ops-card:nth-child(3) .ops-icon { background: var(--coral-soft); color: var(--coral); }
-  .ops-card:nth-child(4) .ops-icon { background: var(--sky-soft); color: var(--sky); }
-  .ops-card:nth-child(5) .ops-icon { background: var(--amber-soft); color: var(--amber); }
-  .ops-card:nth-child(6) .ops-icon { background: var(--iris-soft); color: var(--iris); }
-  .ops-card h3 { font-size: 1.05rem; margin: 0 0 8px; color: var(--ink); }
-  .ops-card p { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+  .ops-card h3 {
+    font-size: 1.02rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .ops-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin: 0;
+  }
 
-  .stack-head { max-width: 640px; margin-bottom: 56px; }
-  .stack-head h2 {
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--paper); margin: 0 0 16px;
-    text-wrap: balance;
-  }
-  .stack-head h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--lime);
-  }
-  .stack-head p { color: oklch(0.82 0.01 265); font-size: 1rem; max-width: 56ch; }
+  /* ─── Stack — light mono chips ─────────────────────────────────────── */
   .stack-grid {
-    display: grid; gap: 32px;
+    display: grid;
+    gap: 32px;
     grid-template-columns: 1fr;
   }
   @media (min-width: 720px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1040px) { .stack-grid { grid-template-columns: repeat(4, 1fr); } }
-  .stack-group { border-top: 1px solid oklch(0.35 0.015 265); padding-top: 20px; }
-  .sg-label {
-    font-family: var(--font-mono); font-size: 0.72rem;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--lime); margin-bottom: 14px;
+  .stack-group {
+    border-top: var(--accent-bar) solid var(--accent-color);
+    padding-top: 18px;
   }
-  .sg-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sg-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
+    color: var(--ink-4);
+    margin-bottom: 14px;
+  }
+  .sg-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
   .sg-chip {
-    padding: 6px 12px;
-    font-size: 0.82rem;
-    color: var(--paper);
-    background: oklch(0.28 0.02 265);
-    border-radius: 999px;
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-2);
+    background: #ffffff;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-pill);
   }
 
-  .contact-cta { padding: clamp(64px, 9vw, 120px) var(--gutter); background: var(--paper); }
-  .contact-cta .wrap { max-width: var(--max); margin: 0 auto; }
-  .contact-card {
-    max-width: 760px; margin: 0 auto;
-    padding: clamp(40px, 6vw, 64px);
-    text-align: center;
-    background: linear-gradient(180deg, var(--paper), var(--chalk));
-    border: 1px solid var(--line);
-    border-radius: var(--r-xl);
-    box-shadow: var(--sh-3);
+  /* ─── Final CTA — the one dark card ────────────────────────────────── */
+  .contact-cta {
+    padding: 24px var(--gutter) 96px;
+  }
+  .contact-cta .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .cta-card {
     position: relative;
-    overflow: clip;
+    background: #09090b;
+    color: #ffffff;
+    border-radius: var(--r-mega);
+    padding: clamp(48px, 7vw, 80px) clamp(24px, 5vw, 64px);
+    text-align: center;
+    overflow: hidden;
   }
-  .contact-card::before {
-    content: ''; position: absolute;
-    inset: -40% -20% auto auto;
-    width: 70%; height: 180%;
-    background: radial-gradient(circle, var(--coral-soft) 0%, transparent 60%);
-    z-index: 0;
+  .cta-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.25;
+    pointer-events: none;
   }
-  .contact-card > * { position: relative; z-index: 1; }
-  .contact-card h2 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    margin: 0 0 14px; color: var(--ink);
+  .cta-glow-magenta {
+    background: radial-gradient(circle, #ec008c, transparent 65%);
+    top: -160px;
+    left: -80px;
   }
-  .contact-card h2 .serif {
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    color: var(--coral);
+  .cta-glow-cyan {
+    background: radial-gradient(circle, #00aeef, transparent 65%);
+    bottom: -160px;
+    right: -80px;
   }
-  .contact-card p.lead {
-    font-size: 1.05rem; color: var(--ink-2);
-    max-width: 44ch; margin: 0 auto 32px;
+  .cta-card h2 {
+    position: relative;
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+    line-height: 1.12;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    margin: 0 auto 14px;
+    max-width: 22ch;
+    color: #ffffff;
+    text-wrap: balance;
   }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .cta-card h2 .tone { color: #71717a; }
+  .cta-card p.lead {
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+    max-width: 48ch;
+    margin: 0 auto 32px;
+  }
+  .cta-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .cta-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 28px;
+    border-radius: var(--r-pill);
+    background: #ffffff;
+    color: #09090b;
+    font-size: 15px;
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    transition: box-shadow 0.2s var(--ease), transform 0.15s;
+  }
+  .cta-btn-primary:hover {
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.18);
+  }
+  .cta-btn-primary:active { transform: scale(0.98); }
+  .cta-btn-email {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #d4d4d8;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cta-btn-email:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
 </style>

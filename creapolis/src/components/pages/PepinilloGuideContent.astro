@@ -8,20 +8,30 @@ interface Props {
 }
 const { lang } = Astro.props;
 const g = getPepinilloSupportData(lang).guide;
+
+const macBadge =
+  lang === 'en'
+    ? 'Native on macOS · iOS · Android'
+    : lang === 'pt'
+      ? 'Nativo no macOS · iOS · Android'
+      : 'Nativo en macOS · iOS · Android';
 ---
 
 <section class="hub-page">
   <div class="sup-head reveal">
-    <div class="eyebrow" style="margin-bottom:14px"><span>{g.eyebrow}</span></div>
-    <h1>{g.title} <span class="serif">{g.titleSerif}</span>.</h1>
+    <div class="sup-meta-row">
+      <p class="eyebrow" style="--accent-color: var(--c-yellow); margin:0"><span>{g.eyebrow}</span></p>
+      <span class="platform-chip">{macBadge}</span>
+    </div>
+    <h1>{g.title} <span class="tone">{g.titleSerif}</span>.</h1>
     <p class="subtitle">{g.subtitle}</p>
   </div>
 
   <ol class="steps">
     {g.steps.map((step) => (
       <li class="step-card reveal">
-        <div class="step-num">{step.num}</div>
-        <div>
+        <div class="step-badge">{step.num}</div>
+        <div class="step-content">
           <h2>{step.title}</h2>
           <p>{step.desc}</p>
         </div>
@@ -29,9 +39,12 @@ const g = getPepinilloSupportData(lang).guide;
     ))}
   </ol>
 
+  <!-- Pro Tip Box -->
   <div class="pro-tip reveal">
-    <div class="tip-icon">💡</div>
-    <div>
+    <div class="tip-icon-tile">
+      <span>💡</span>
+    </div>
+    <div class="tip-content">
       <h2>{g.tipTitle}</h2>
       <p>{g.tipText.replace(g.lockScreen, '__LS__').replace(g.dynamicIsland, '__DI__').split(/(__LS__|__DI__)/g).map((part) => {
         if (part === '__LS__') return (<strong>{g.lockScreen}</strong>);
@@ -41,16 +54,18 @@ const g = getPepinilloSupportData(lang).guide;
     </div>
   </div>
 
+  <!-- Next Steps Cards -->
   <div class="sup-next reveal">
     <h3>{g.nextTitle}</h3>
     <div class="sup-link-grid">
       {g.nextCards.map((c) => (
         <a href={getLocalizedPath(lang, c.href)} class="sup-next-card">
-          <span class="next-icon">{c.icon}</span>
-          <div>
+          <span class="next-icon-box">{c.icon}</span>
+          <div class="next-text-box">
             <span class="next-title">{c.title}</span>
             <span class="next-desc">{c.desc}</span>
           </div>
+          <svg class="next-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </a>
       ))}
     </div>
@@ -58,39 +73,238 @@ const g = getPepinilloSupportData(lang).guide;
 </section>
 
 <style>
+  .tone { color: var(--ink-4); }
+
   .hub-page {
-    /* Content styling handled by ProductHubLayout */
+    max-width: 100%;
   }
+
+  /* ─── Header ─── */
+  .sup-head {
+    margin-bottom: 36px;
+  }
+  .sup-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .platform-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
+    border-radius: var(--r-pill);
+    background: var(--chalk);
+    border: 1px solid var(--line-2);
+    color: var(--ink-3);
+  }
+  .sup-head h1 {
+    font-size: clamp(2rem, 4.4vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: var(--ls-display);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .sup-head .subtitle {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin: 0;
+    max-width: 58ch;
+    text-wrap: pretty;
+  }
+
+  /* ─── Steps List ─── */
   .steps {
-    list-style: none; padding: 0; margin: 0 0 48px;
-    display: flex; flex-direction: column; gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
   .step-card {
-    display: flex; gap: 24px; padding: 28px;
-    background: var(--paper);
+    display: flex;
+    gap: 20px;
+    padding: 24px 26px;
+    background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: var(--r-lg);
+    border-radius: var(--r-xl);
     align-items: flex-start;
-    transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
   }
-  .step-card:hover { box-shadow: var(--sh-2); border-color: oklch(0.84 0.18 128 / 0.4); }
-  .step-num {
-    font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
-    color: var(--lime); line-height: 1; flex-shrink: 0; width: 48px;
+  .step-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-hover);
+    border-color: rgba(255, 196, 0, 0.4);
   }
-  .step-card h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
-  .step-card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
+  .step-badge {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: var(--fw-semibold);
+    color: var(--c-yellow-3);
+    background: var(--c-yellow-soft);
+    border: 1px solid rgba(255, 196, 0, 0.35);
+    border-radius: var(--r-pill);
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .step-content h2 {
+    font-size: 1.08rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .step-content p {
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    line-height: 1.6;
+    margin: 0;
+  }
 
+  /* ─── Pro Tip Callout ─── */
   .pro-tip {
-    display: flex; gap: 20px; padding: 28px;
-    background: var(--lime-soft);
-    border: 1px solid oklch(0.84 0.18 128 / 0.3);
-    border-radius: var(--r-lg);
-    margin-bottom: 16px;
+    display: flex;
+    gap: 18px;
+    padding: 24px 26px;
+    background: var(--c-yellow-soft);
+    border: 1px solid rgba(255, 196, 0, 0.35);
+    border-radius: var(--r-xl);
+    margin-bottom: 40px;
     align-items: flex-start;
   }
-  .tip-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .pro-tip h2 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
-  .pro-tip p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
-  .pro-tip strong { color: var(--lime); }
+  .tip-icon-tile {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-lg);
+    background: #ffffff;
+    border: 1px solid rgba(255, 196, 0, 0.3);
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .tip-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .tip-content h2 {
+    font-size: 1rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .tip-content p {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .tip-content strong {
+    color: var(--c-yellow-3);
+    font-weight: var(--fw-semibold);
+  }
+
+  /* ─── Next Steps ─── */
+  .sup-next {
+    border-top: 1px solid var(--line);
+    padding-top: 36px;
+    margin-top: 24px;
+  }
+  .sup-next h3 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
+    color: var(--ink-4);
+    margin: 0 0 16px;
+  }
+  .sup-link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 14px;
+  }
+  .sup-next-card {
+    display: flex;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    text-decoration: none;
+    color: inherit;
+    align-items: center;
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .sup-next-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-hover);
+    border-color: rgba(255, 196, 0, 0.45);
+  }
+  .next-icon-box {
+    font-size: 1.35rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: var(--chalk);
+    border-radius: var(--r-md);
+  }
+  .next-text-box {
+    flex: 1;
+    min-width: 0;
+  }
+  .next-title {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .next-desc {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+  .next-arrow {
+    color: var(--ink-4);
+    flex-shrink: 0;
+    transition: transform 0.2s var(--ease), color 0.2s;
+  }
+  .sup-next-card:hover .next-arrow {
+    color: var(--ink);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 640px) {
+    .step-card {
+      padding: 18px 20px;
+      gap: 16px;
+    }
+    .pro-tip {
+      padding: 18px 20px;
+      gap: 14px;
+    }
+  }
 </style>

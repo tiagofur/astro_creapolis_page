@@ -2,8 +2,9 @@
 import { getCollection } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Nav from '../../components/Nav.astro';
-import Ribbon from '../../components/Ribbon.astro';
-import { getPublishedCount, products } from '../../i18n/data/products';
+import CmyDots from '../../components/brand/CmyDots.astro';
+import CubePyramid from '../../components/brand/CubePyramid.astro';
+import { getHomeServices, getHomeSteps } from '../../i18n/data/home';
 import type { Lang } from '../../i18n/ui';
 import {
   formatDate,
@@ -29,863 +30,1575 @@ const latestPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const postTagColors: Record<string, string> = {
-  // device / platform
-  mobile: 'var(--iris)',
-  desktop: 'var(--sky)',
-  nativo: 'var(--sky)',
-  // tech
-  flutter: 'var(--sky)',
-  dart: 'var(--sky)',
-  react: 'var(--sky)',
-  'react-native': 'var(--sky)',
-  nextjs: 'var(--sky)',
-  astro: 'var(--lime)',
-  // web / backend / ops
-  web: 'var(--lime)',
-  backend: 'var(--amber)',
-  devops: 'var(--amber)',
-  // topics
-  ui: 'var(--iris)',
-  estado: 'var(--iris)',
-  arquitectura: 'var(--amber)',
-  testing: 'var(--lime)',
-  performance: 'var(--coral)',
-  seguridad: 'var(--coral)',
-  datos: 'var(--coral)',
-  // AI / automation
-  ia: 'var(--coral)',
-  automatizacion: 'var(--coral)',
-  // meta
-  desarrollo: 'var(--iris)',
-  tutorial: 'var(--iris)',
-  herramientas: 'var(--lime)',
-  // business
-  pricing: 'var(--amber)',
-  mvp: 'var(--amber)',
-  startup: 'var(--amber)',
-  wordpress: 'var(--lime)',
-  jamstack: 'var(--lime)',
-};
+const services = getHomeServices(lang);
+const steps = getHomeSteps(lang);
 
-const apps = [
+/* ─── Capability rows (formerly hero carousel — now calm, scannable) ─── */
+const ACCENTS = ['#00AEEF', '#EC008C', '#FFC400', '#00AEEF'] as const;
+
+const capabilities = {
+  es: [
+    {
+      num: '01',
+      title: 'Agentes de IA que atienden y agendan citas en automático',
+      desc: 'Respuesta en segundos 24/7 por WhatsApp o web, sincronizada con Google Calendar y tu CRM.',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+    {
+      num: '02',
+      title: 'IA interna para soporte, cotizaciones y operaciones',
+      desc: 'Un asistente conectado a tus documentos, precios e inventario que resuelve hasta el 80% de lo repetitivo.',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+    {
+      num: '03',
+      title: 'CRMs y sistemas web a la medida de tu operación',
+      desc: 'Deja atrás los Excel desconectados: paneles, cotizadores, contratos e inventario. Código 100% tuyo.',
+      href: getLocalizedPath(lang, '/servicios#mvp'),
+    },
+    {
+      num: '04',
+      title: 'Apps iOS y Android publicadas en tiendas oficiales',
+      desc: 'Diseño, desarrollo y publicación completa, con pagos, notificaciones y modo offline.',
+      href: getLocalizedPath(lang, '/servicios#mvp'),
+    },
+  ],
+  en: [
+    {
+      num: '01',
+      title: 'AI agents that answer and book appointments automatically',
+      desc: 'Replies in seconds 24/7 over WhatsApp or web chat, synced with Google Calendar and your CRM.',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+    {
+      num: '02',
+      title: 'Internal AI for support, quoting, and operations',
+      desc: 'An assistant connected to your documents, pricing, and inventory that resolves up to 80% of repetitive work.',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+    {
+      num: '03',
+      title: 'Custom CRMs and web systems built around your operation',
+      desc: 'Move past disconnected spreadsheets: dashboards, quoting engines, contracts, inventory. 100% your code.',
+      href: getLocalizedPath(lang, '/servicios#mvp'),
+    },
+    {
+      num: '04',
+      title: 'iOS and Android apps published to official stores',
+      desc: 'Design, engineering, and full store publishing, with payments, notifications, and offline mode.',
+      href: getLocalizedPath(lang, '/servicios#mvp'),
+    },
+  ],
+  pt: [
+    {
+      num: '01',
+      title: 'Agentes de IA que atendem e agendam reuniões no automático',
+      desc: 'Resposta em segundos 24/7 por WhatsApp ou web, sincronizada com Google Calendar e seu CRM.',
+      href: getLocalizedPath(lang, '/servicos#ai-agents'),
+    },
+    {
+      num: '02',
+      title: 'IA interna para suporte, orçamentos e operações',
+      desc: 'Um assistente conectado aos seus documentos, preços e estoque que resolve até 80% do repetitivo.',
+      href: getLocalizedPath(lang, '/servicos#ai-agents'),
+    },
+    {
+      num: '03',
+      title: 'CRMs e sistemas web sob medida para sua operação',
+      desc: 'Chega de planilhas desconectadas: painéis, orçamentos, contratos e estoque. Código 100% seu.',
+      href: getLocalizedPath(lang, '/servicos#mvp'),
+    },
+    {
+      num: '04',
+      title: 'Apps iOS e Android publicados nas lojas oficiais',
+      desc: 'Design, desenvolvimento e publicação completa, com pagamentos, notificações e modo offline.',
+      href: getLocalizedPath(lang, '/servicos#mvp'),
+    },
+  ],
+}[lang];
+
+/* ─── Own apps — concise production proof (one CMYK accent each) ─── */
+const ownApps = [
   {
     slug: 'solennix',
+    num: '01',
     name: 'Solennix',
-    tagline: t('solennix.tagline'),
-    desc: t('solennix.desc'),
-    href: '/proyectos/solennix',
-    deviceRows: [[3], [2], [1]],
+    category: lang === 'es' ? 'CRM y Operaciones para Eventos' : lang === 'en' ? 'Event CRM & Operations' : 'CRM e Operações para Eventos',
+    summary: lang === 'es' ? 'Cotizaciones, contratos, inventario y finanzas en Web, iOS y Android.' : lang === 'en' ? 'Quotes, contracts, inventory, and billing across Web, iOS, and Android.' : 'Orçamentos, contratos, inventário e finanças na Web, iOS e Android.',
+    platforms: ['Web', 'iOS', 'Android'],
+    status: 'Live',
+    accent: 'var(--c-cyan)',
+    href: getLocalizedPath(lang, '/proyectos/solennix'),
   },
   {
     slug: 'pepinillo',
+    num: '02',
     name: 'Pepinillo',
-    tagline: t('pepinillo.tagline'),
-    desc: t('pepinillo.desc'),
+    category: lang === 'es' ? 'Productividad & Enfoque' : lang === 'en' ? 'Productivity & Focus' : 'Produtividade & Foco',
+    summary: lang === 'es' ? 'Timer nativo en Kotlin Compose y SwiftUI publicado en ambas tiendas.' : lang === 'en' ? 'Native Kotlin Compose and SwiftUI timer live on both stores.' : 'Timer nativo em Kotlin Compose e SwiftUI nas duas lojas.',
+    platforms: ['iOS', 'Android'],
+    status: 'Live',
+    accent: 'var(--c-yellow)',
     href: getLocalizedPath(lang, '/proyectos/pepinillo'),
-    deviceRows: [[2], [3]],
   },
   {
     slug: 'peliculas',
+    num: '03',
     name: lang === 'es' ? 'Películas' : 'Movies',
-    tagline: t('peliculas.tagline'),
-    desc: t('peliculas.desc'),
+    category: lang === 'es' ? 'Catálogo & Entretenimiento' : lang === 'en' ? 'Entertainment Catalog' : 'Catálogo & Entretenimento',
+    summary: lang === 'es' ? 'Cartelera, trailers y listas personalizadas con Flutter.' : lang === 'en' ? 'Showtimes, trailers, and watchlists built with Flutter.' : 'Filmes em cartaz, trailers e listas com Flutter.',
+    platforms: ['Android'],
+    status: 'Live',
+    accent: 'var(--c-magenta)',
     href: getLocalizedPath(lang, '/proyectos/peliculas'),
-    deviceRows: [[3], [2]],
   },
   {
     slug: 'subscription-guardian',
+    num: '04',
     name: 'Subscription Guardian',
-    tagline: t('subscription-guardian.tagline'),
-    desc: t('subscription-guardian.desc'),
+    category: lang === 'es' ? 'Finanzas Personales iOS' : lang === 'en' ? 'iOS Personal Finance' : 'Finanças Pessoais iOS',
+    summary: lang === 'es' ? 'Control de suscripciones 100% privado con SwiftUI y SwiftData.' : lang === 'en' ? '100% private subscription tracker built with SwiftUI and SwiftData.' : 'Controle de assinaturas 100% privado em SwiftUI.',
+    platforms: ['iOS'],
+    status: 'Pre-launch',
+    accent: 'var(--key)',
     href: getLocalizedPath(lang, '/proyectos/subscription-guardian'),
-    deviceRows: [[2], [3]],
-  },
-].map((app) => {
-  const canonical = products.find((p) => p.slug === app.slug);
-  if (!canonical) return { ...app, platform: '', color: '', status: 'live' };
-  const platformStr = canonical.platforms
-    .filter((pl) => pl.available)
-    .map((pl) => pl.id.toUpperCase())
-    .join(' · ');
-  return {
-    ...app,
-    platform: platformStr,
-    color: canonical.color,
-    status: canonical.status,
-  };
-});
-
-const shelf = [
-  {
-    ring: 'Sx',
-    name: t('shelf.solennix'),
-    status: 'active',
-    statusLabel: t('shelf.solennix.status'),
-    desc: t('shelf.solennix.desc'),
-    progress: 92,
-    color: 'var(--iris)',
-    bg: 'var(--iris-soft)',
-  },
-  {
-    ring: 'Se',
-    name: t('shelf.serene'),
-    status: 'dev',
-    statusLabel: t('shelf.serene.status'),
-    desc: t('shelf.serene.desc'),
-    progress: 40,
-    color: 'var(--coral)',
-    bg: 'var(--coral-soft)',
-  },
-  {
-    ring: 'Pe',
-    name: t('shelf.pepinillo'),
-    status: 'dev',
-    statusLabel: t('shelf.pepinillo.status'),
-    desc: t('shelf.pepinillo.desc'),
-    progress: 28,
-    color: 'var(--lime)',
-    bg: 'var(--lime-soft)',
-  },
-  {
-    ring: 'SG',
-    name: t('shelf.sg'),
-    status: 'pre',
-    statusLabel: t('shelf.sg.status'),
-    desc: t('shelf.sg.desc'),
-    progress: 70,
-    color: 'var(--sky)',
-    bg: 'var(--sky-soft)',
-  },
-  {
-    ring: '?',
-    name: t('shelf.exploring'),
-    status: 'soon',
-    statusLabel: t('shelf.exploring.status'),
-    desc: t('shelf.exploring.desc'),
-    progress: 10,
-    color: 'var(--amber)',
-    bg: 'var(--amber-soft)',
   },
 ];
 
-const services = [
-  {
-    num: t('services.mobile.num'),
-    mark: 'm',
-    title: t('services.mobile.title'),
-    desc: t('services.mobile.desc'),
-  },
-  {
-    num: t('services.web.num'),
-    mark: 'w',
-    title: t('services.web.title'),
-    desc: t('services.web.desc'),
-  },
-  {
-    num: t('services.desktop.num'),
-    mark: 'd',
-    title: t('services.desktop.title'),
-    desc: t('services.desktop.desc'),
-  },
-  {
-    num: t('services.ai.num'),
-    mark: 'i',
-    title: t('services.ai.title'),
-    desc: t('services.ai.desc'),
-  },
-];
+/* ─── Hero micro-stats ─── */
+const heroStats = {
+  es: [
+    { v: '4', l: 'apps en tiendas' },
+    { v: String(allPosts.length), l: 'notas técnicas publicadas' },
+    { v: '< 24h', l: 'de respuesta' },
+    { v: '100%', l: 'código tuyo' },
+  ],
+  en: [
+    { v: '4', l: 'apps on the stores' },
+    { v: String(allPosts.length), l: 'technical notes published' },
+    { v: '< 24h', l: 'response time' },
+    { v: '100%', l: 'your code' },
+  ],
+  pt: [
+    { v: '4', l: 'apps nas lojas' },
+    { v: String(allPosts.length), l: 'notas técnicas publicadas' },
+    { v: '< 24h', l: 'de resposta' },
+    { v: '100%', l: 'código seu' },
+  ],
+}[lang];
 
-const steps = [
-  { n: '1', title: t('process.discover'), desc: t('process.discover.desc') },
-  { n: '2', title: t('process.design'), desc: t('process.design.desc') },
-  { n: '3', title: t('process.build'), desc: t('process.build.desc') },
-  { n: '4', title: t('process.launch'), desc: t('process.launch.desc') },
-];
+const lblBefore = lang === 'en' ? 'Before' : 'Antes';
+const lblAfter = lang === 'en' ? 'Now' : lang === 'pt' ? 'Agora' : 'Ahora';
 
-const publishedCount = getPublishedCount();
-const stats = [
-  { n: t('stats.years'), label: t('stats.years.label'), color: 'c1' },
-  { n: `${publishedCount} apps`, label: t('stats.apps.label'), color: 'c2' },
-  { n: t('stats.person'), label: t('stats.person.label'), color: 'c3' },
-  { n: t('stats.response'), label: t('stats.response.label'), color: 'c4' },
-];
+/* ─── Mini cases: problem → result ─── */
+const cases = {
+  es: [
+    {
+      before: 'Excel, WhatsApp y contratos en papel para organizar eventos',
+      after: 'Solennix: cotizaciones, contratos, inventario y finanzas en un sistema propio',
+      cta: 'Ver el caso',
+      href: getLocalizedPath(lang, '/proyectos/solennix'),
+    },
+    {
+      before: 'Una idea de app de enfoque sin presencia en tiendas',
+      after: 'Pepinillo: timer nativo en Kotlin & SwiftUI, publicado en App Store y Google Play',
+      cta: 'Ver la app',
+      href: getLocalizedPath(lang, '/proyectos/pepinillo'),
+    },
+    {
+      before: 'Prospectos esperando horas una respuesta por WhatsApp',
+      after: 'Un agente de IA que responde en segundos y agenda citas solo — pruébalo aquí mismo',
+      cta: 'Ver cómo funciona',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+  ],
+  en: [
+    {
+      before: 'Spreadsheets, WhatsApp, and paper contracts to run events',
+      after: 'Solennix: quotes, contracts, inventory, and billing in one owned system',
+      cta: 'See the case',
+      href: getLocalizedPath(lang, '/proyectos/solennix'),
+    },
+    {
+      before: 'A focus-app idea with no store presence',
+      after: 'Pepinillo: a native Kotlin & SwiftUI timer live on the App Store and Google Play',
+      cta: 'See the app',
+      href: getLocalizedPath(lang, '/proyectos/pepinillo'),
+    },
+    {
+      before: 'Leads waiting hours for a WhatsApp reply',
+      after: 'An AI agent that answers in seconds and books meetings on its own — try it right here',
+      cta: 'See how it works',
+      href: getLocalizedPath(lang, '/servicios#ai-agents'),
+    },
+  ],
+  pt: [
+    {
+      before: 'Planilhas, WhatsApp e contratos no papel para organizar eventos',
+      after: 'Solennix: orçamentos, contratos, inventário e finanças em um sistema próprio',
+      cta: 'Ver o caso',
+      href: getLocalizedPath(lang, '/projetos/solennix'),
+    },
+    {
+      before: 'Uma ideia de app de foco sem presença nas lojas',
+      after: 'Pepinillo: timer nativo em Kotlin & SwiftUI publicado na App Store e Google Play',
+      cta: 'Ver o app',
+      href: getLocalizedPath(lang, '/projetos/pepinillo'),
+    },
+    {
+      before: 'Prospectos esperando horas por uma resposta no WhatsApp',
+      after: 'Um agente de IA que responde em segundos e agenda reuniões sozinho — teste aqui mesmo',
+      cta: 'Ver como funciona',
+      href: getLocalizedPath(lang, '/servicos#ai-agents'),
+    },
+  ],
+}[lang];
+
+/* ─── Manifesto pull-quote ─── */
+const manifesto = {
+  es: {
+    ink: 'No vendo horas. Entrego sistemas que funcionan —',
+    muted: 'y el código es tuyo desde el día uno.',
+    cta: 'Así trabajo',
+  },
+  en: {
+    ink: "I don't sell hours. I deliver systems that work —",
+    muted: 'and the code is yours from day one.',
+    cta: 'How I work',
+  },
+  pt: {
+    ink: 'Não vendo horas. Entrego sistemas que funcionam —',
+    muted: 'e o código é seu desde o dia um.',
+    cta: 'Como trabalho',
+  },
+}[lang];
+
+/* ─── Comparison: solo studio vs agency vs no-code ─── */
+const comparison = {
+  es: {
+    eyebrow: 'Por qué un taller',
+    title: '¿Por qué un taller',
+    titleTone: 'y no una agencia?',
+    lead: 'La diferencia no es el precio — es quién controla el producto.',
+    usLabel: 'Creapolis · Taller',
+    agencyLabel: 'Agencia tradicional',
+    nocodeLabel: 'No-code / plantilla',
+    rows: [
+      { crit: 'El código y los datos son 100% tuyos', agency: false, nocode: false },
+      { crit: 'Hablas directo con quien programa', agency: false, nocode: false },
+      { crit: 'Precio cerrado por fase, sin sorpresas', agency: false, nocode: true },
+      { crit: 'Se adapta a tu flujo real de trabajo', agency: true, nocode: false },
+      { crit: 'Crece e integra tus otros sistemas', agency: true, nocode: false },
+    ],
+  },
+  en: {
+    eyebrow: 'Why a solo studio',
+    title: 'Why a solo studio',
+    titleTone: 'instead of an agency?',
+    lead: "The difference isn't price — it's who controls the product.",
+    usLabel: 'Creapolis · Studio',
+    agencyLabel: 'Traditional agency',
+    nocodeLabel: 'No-code template',
+    rows: [
+      { crit: 'The code and data are 100% yours', agency: false, nocode: false },
+      { crit: 'You talk directly to the person building it', agency: false, nocode: false },
+      { crit: 'Fixed price per phase, no surprises', agency: false, nocode: true },
+      { crit: 'Fits your real workflow', agency: true, nocode: false },
+      { crit: 'Grows and integrates your other systems', agency: true, nocode: false },
+    ],
+  },
+  pt: {
+    eyebrow: 'Por que um estúdio',
+    title: 'Por que um estúdio',
+    titleTone: 'e não uma agência?',
+    lead: 'A diferença não é o preço — é quem controla o produto.',
+    usLabel: 'Creapolis · Estúdio',
+    agencyLabel: 'Agência tradicional',
+    nocodeLabel: 'No-code / template',
+    rows: [
+      { crit: 'O código e os dados são 100% seus', agency: false, nocode: false },
+      { crit: 'Você fala direto com quem programa', agency: false, nocode: false },
+      { crit: 'Preço fechado por fase, sem surpresas', agency: false, nocode: true },
+      { crit: 'Se adapta ao seu fluxo real', agency: true, nocode: false },
+      { crit: 'Cresce e integra seus outros sistemas', agency: true, nocode: false },
+    ],
+  },
+}[lang];
+
+const heroCta = lang === 'es' ? 'Cotizar proyecto' : lang === 'en' ? 'Get a quote' : 'Orçar projeto';
+const heroCta2 = lang === 'es' ? 'Ver servicios' : lang === 'en' ? 'View services' : 'Ver serviços';
 ---
 
 <Layout lang={lang} ogImage="/og/home.svg">
   <Nav lang={lang} />
 
-  <div>
-  <!-- ═══════════════════════════════════════════════════════════════
-       HERO — full-height with ribbon + showcase cards
-       ═══════════════════════════════════════════════════════════════ -->
-  <header class="hero">
-    <Ribbon />
-    <div class="hero-grid">
-      <div class="hero-copy reveal">
-        <div class="eyebrow" style="margin-bottom:20px">
-          <span>{t('hero.eyebrow')}</span>
+  <div class="page-container">
+    <!-- ═══════════════════════════════════════════════════════════════
+         1. HERO — quiet, typographic, one ambient CMYK halo
+         ═══════════════════════════════════════════════════════════════ -->
+    <header class="hero">
+      <div class="hero-halo" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div class="hero-mark reveal" aria-hidden="true">
+          <CubePyramid size={72} variant="cmyk" class="hero-pyramid" />
         </div>
-        <h1>{t('hero.title')}<br/><span class="serif">{t('hero.title.serif')}</span> {t('hero.title.cont')}</h1>
-        <p class="lead">{t('hero.lead')}</p>
-        <div class="hero-cta">
-          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('hero.cta')}
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="hero-eyebrow reveal reveal-delay-1">
+          <CmyDots size={5} />
+          <span class="hero-eyebrow-label">
+            {lang === 'es' ? 'Agentes de IA · Automatización · Software a Medida' : lang === 'en' ? 'AI Agents · Automation · Custom Software' : 'Agentes de IA · Automação · Software sob Medida'}
+          </span>
+        </div>
+        <h1 class="hero-title reveal reveal-delay-2">
+          {lang === 'es' && <>Soluciones claras para automatizar <span class="tone">y escalar tu negocio.</span></>}
+          {lang === 'en' && <>Clear solutions to automate <span class="tone">and scale your business.</span></>}
+          {lang === 'pt' && <>Soluções claras para automatizar <span class="tone">e escalar seu negócio.</span></>}
+        </h1>
+        <p class="hero-lead reveal reveal-delay-3">
+          {lang === 'es'
+            ? 'Estudio de software en Monterrey. Construyo agentes de IA, automatización de procesos y plataformas a la medida — con entregas cada dos semanas y código 100% tuyo desde el día uno.'
+            : lang === 'en'
+              ? 'A software studio in Monterrey. I build AI agents, process automation, and custom platforms — delivered in two-week sprints with 100% your code from day one.'
+              : 'Estúdio de software em Monterrey. Construo agentes de IA, automação de processos e plataformas sob medida — com entregas a cada duas semanas e código 100% seu desde o dia um.'}
+        </p>
+        <div class="hero-actions reveal reveal-delay-4">
+          <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary" data-track-event="start_project_click">
+            {heroCta}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H4.5M11 3V9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </a>
-          <a href="#apps" class="hero-cta-ghost">{t('hero.ghost')}</a>
+          <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-secondary">{heroCta2}</a>
         </div>
-        <div class="hero-trust">
-          <span><strong>{t('hero.trust.years')}</strong> {t('hero.trust.years.label')}</span>
-          <span><strong>{publishedCount} apps {lang === 'es' ? 'propias' : lang === 'en' ? 'own' : 'próprias'}</strong> {t('hero.trust.apps.label')}</span>
-          <span><strong>{t('hero.trust.response')}</strong> {t('hero.trust.response.label')}</span>
-        </div>
-      </div>
 
-      <div class="showcase reveal reveal-delay-2">
-        <img src="/og/solennix.svg" alt="Solennix — CRM y eventos para organizadores profesionales" class="showcase-img" loading="lazy" decoding="async" />
-      </div>
-    </div>
-  </header>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       MARQUEE — trust strip
-       ═══════════════════════════════════════════════════════════════ -->
-  <section class="stamps" aria-label={t('marquee.1')}>
-    <div class="stamps-row">
-      <span>{t('marquee.1')}</span>
-      <span>{t('marquee.2')}</span>
-      <span>{t('marquee.3')}</span>
-      <span>{t('marquee.4')}</span>
-      <span>{t('marquee.5')}</span>
-      <span>{t('marquee.6')}</span>
-      <span>{t('marquee.1')}</span>
-      <span>{t('marquee.2')}</span>
-      <span>{t('marquee.3')}</span>
-      <span>{t('marquee.4')}</span>
-      <span>{t('marquee.5')}</span>
-      <span>{t('marquee.6')}</span>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       PRODUCTS — apps in production + in-dev shelf
-       ═══════════════════════════════════════════════════════════════ -->
-  <section id="apps" class="section">
-    <div class="wrap">
-      <div class="products-header">
-        <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>{t('apps.eyebrow')}</span></div>
-          <h2>{t('apps.title')}<br/><span class="serif">{t('apps.title.serif')}</span>.</h2>
-        </div>
-        <p class="reveal reveal-delay-1">{t('apps.desc')}</p>
-      </div>
-
-      <div class="products">
-        {apps.map((app, i) => (
-          <a href={app.href} class={`product reveal${i > 0 ? ` reveal-delay-${i}` : ''}`} style={`--product-color: ${app.color}`}>
-            <div class="product-vis">
-              <div class="glow"></div>
-              <div class="device">
-                <div class="title"></div>
-                {app.deviceRows.map((row) => (
-                  <div class="row">
-                    {row.map(() => <div class="bit"></div>)}
-                  </div>
-                ))}
-                <div class="big"></div>
-              </div>
-            </div>
-            <div class="product-meta">
-              <div class="head">
-                <h3>{app.name}</h3>
-                <span class={`chip ${app.status === 'live' ? 'live' : 'pre'}`}><span class="chip-dot"></span>{app.status === 'live' ? t('apps.live') : app.status === 'pre_production' ? t('apps.pre') : t('apps.dev')}</span>
-              </div>
-              <span class="tagline">{app.tagline}</span>
-              <p>{app.desc}</p>
-              <div class="foot">
-                <span class="plat">{app.platform}</span>
-                <span>{t('apps.details')}</span>
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <div class="apps-cta reveal">
-        <a href={getLocalizedPath(lang, '/proyectos')} class="btn btn-ghost">{t('apps.all')}</a>
-      </div>
-
-      <!-- In-development shelf -->
-      <div class="shelf reveal">
-        <div class="shelf-head">
-          <div>
-            <div class="eyebrow" style="margin-bottom:10px"><span>{t('apps.shelf.eyebrow')}</span></div>
-            <h3>{t('apps.shelf.title')}</h3>
-          </div>
-          <a href="#contact" class="btn btn-ghost">{t('apps.shelf.cta')}</a>
-        </div>
-        <div class="shelf-grid">
-          {shelf.map((item) => (
-            <div class="shelf-card" style={`--ring-color: ${item.color}; --ring-bg: ${item.bg}`}>
-              <div class="ring">{item.ring}</div>
-              <div class="body">
-                <div class="h">
-                  <h4>{item.name}</h4>
-                  <span class={`chip ${item.status}`}><span class="chip-dot"></span>{item.statusLabel}</span>
-                </div>
-                <p>{item.desc}</p>
-                <div class="bar"><span style={`width: ${item.progress}%`}></span></div>
-              </div>
+        <div class="hero-stats reveal">
+          {heroStats.map((s) => (
+            <div class="hero-stat">
+              <span class="hero-stat-v">{s.v}</span>
+              <span class="hero-stat-l">{s.l}</span>
             </div>
           ))}
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       SERVICES — what we build
-       ═══════════════════════════════════════════════════════════════ -->
-  <section id="services" class="section" style="background: var(--chalk)">
-    <div class="wrap">
-      <div class="products-header">
-        <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>{t('services.eyebrow')}</span></div>
-          <h2>{t('services.title')}<br/>{t('services.title.serif')}</h2>
+    <!-- ═══════════════════════════════════════════════════════════════
+         2. CAPABILITIES — discrete hairline rows (what we build)
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="section-tight" aria-label={lang === 'es' ? 'Qué construimos' : 'What we build'}>
+      <div class="wrap">
+        <div class="cap-rows reveal">
+          {capabilities.map((cap, i) => (
+            <a href={cap.href} class="cap-row" style={`--row-accent: ${ACCENTS[i]}`}>
+              <span class="cap-num">{cap.num}</span>
+              <span class="cap-dot" aria-hidden="true"></span>
+              <span class="cap-body">
+                <strong>{cap.title}</strong>
+                <small>{cap.desc}</small>
+              </span>
+              <svg class="cap-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          ))}
         </div>
-        <p class="reveal reveal-delay-1">{t('services.desc')}</p>
       </div>
+    </section>
 
-      <div class="svc-grid">
-        {services.map((s, i) => (
-          <div class={`svc reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-            <span class="mark">{s.mark}</span>
-            <span class="num">{s.num}</span>
-            <h3>{s.title}</h3>
-            <p>{s.desc}</p>
-          </div>
-        ))}
+    <!-- ═══════════════════════════════════════════════════════════════
+         3. MINI CASES — problem → result proof rows
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="casos" class="section-tight section-alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-magenta);">
+            {lang === 'es' ? 'Casos reales' : lang === 'en' ? 'Real cases' : 'Casos reais'}
+          </p>
+          <h2 class="section-title">
+            {lang === 'es' && <>De problema a producto, <span class="tone">publicado y funcionando.</span></>}
+            {lang === 'en' && <>From problem to product, <span class="tone">shipped and running.</span></>}
+            {lang === 'pt' && <>Do problema ao produto, <span class="tone">publicado e funcionando.</span></>}
+          </h2>
+        </div>
+
+        <div class="case-rows reveal">
+          {cases.map((c, i) => (
+            <a href={c.href} class="case-row" style={`--row-accent: ${ACCENTS[i % 3]}`}>
+              <span class="case-num"><i aria-hidden="true"></i>0{i + 1}</span>
+              <span class="case-body">
+                <span class="case-line"><small>{lblBefore}</small>{c.before}</span>
+                <span class="case-line case-after"><small>{lblAfter}</small>{c.after}</span>
+              </span>
+              <span class="case-link">
+                {c.cta}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
+    </section>
 
-      <div class="svc-more reveal">
-        <a href={getLocalizedPath(lang, '/servicios')} class="btn btn-primary">{t('services.more')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <!-- ═══════════════════════════════════════════════════════════════
+         4. SERVICES — cards with 3px accent bar + price pill
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="servicios" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-cyan);">
+            {lang === 'es' ? 'Servicios' : 'Services'}
+          </p>
+          <h2 class="section-title">
+            {lang === 'es' && <>Cómo podemos trabajar <span class="tone">juntos.</span></>}
+            {lang === 'en' && <>How we can work <span class="tone">together.</span></>}
+            {lang === 'pt' && <>Como podemos trabalhar <span class="tone">juntos.</span></>}
+          </h2>
+          <a href={getLocalizedPath(lang, '/servicios')} class="head-link">
+            {lang === 'es' ? 'Servicios completos y precios →' : 'Full services & pricing →'}
+          </a>
+        </div>
+
+        <div class="services-grid reveal-stagger reveal">
+          {services.map((s, i) => (
+            <a
+              href={getLocalizedPath(lang, `/servicios#${s.id}`)}
+              class="service-card"
+              style={`--accent-color: ${ACCENTS[i % 3]};`}
+            >
+              <span class="card-bar" aria-hidden="true"></span>
+              <div class="service-top">
+                <span class="service-num">{s.num}</span>
+                {s.price && <span class="service-price">{s.price}</span>}
+              </div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <span class="service-more">
+                {lang === 'es' ? 'Entregables y alcance →' : 'Deliverables & scope →'}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         5. MANIFESTO — pull-quote breathing point
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="manifesto">
+      <div class="wrap reveal">
+        <CmyDots size={5} />
+        <p class="manifesto-quote">
+          {manifesto.ink} <span class="tone">{manifesto.muted}</span>
+        </p>
+        <a href={getLocalizedPath(lang, '/sobre')} class="head-link">
+          {manifesto.cta}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════════
-       PROCESS — how we work
-       ═══════════════════════════════════════════════════════════════ -->
-  <section id="proceso" class="section">
-    <div class="wrap">
-      <div class="products-header">
-        <div class="reveal">
-          <div class="eyebrow" style="margin-bottom:18px"><span>{t('process.eyebrow')}</span></div>
-          <h2>{t('process.title')}<br/><span class="serif">{t('process.title.serif')}</span>.</h2>
+    <!-- ═══════════════════════════════════════════════════════════════
+         6. OWN APPS — concise production proof rows
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="apps" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-magenta);">
+            {lang === 'es' ? 'Proyectos propios' : 'Our own products'}
+          </p>
+          <h2 class="section-title">
+            {lang === 'es' && <>Software real, publicado <span class="tone">y en producción.</span></>}
+            {lang === 'en' && <>Real software, published <span class="tone">and in production.</span></>}
+            {lang === 'pt' && <>Software real, publicado <span class="tone">e em produção.</span></>}
+          </h2>
+          <a href={getLocalizedPath(lang, '/proyectos')} class="head-link">
+            {lang === 'es' ? 'Ver portafolio →' : 'View portfolio →'}
+          </a>
         </div>
-        <p class="reveal reveal-delay-1">{t('process.desc')}</p>      </div>
 
-      <div class="proc">
-        {steps.map((step, i) => (
-          <div class={`step reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-            <span class="bignum">{step.n}</span>
-            <h3>{step.title}</h3>
-            <p>{step.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       MISSION — who we are + stats
-       ═══════════════════════════════════════════════════════════════ -->
-  <section class="mission">
-    <div class="ribbon" aria-hidden="true">
-      <svg viewBox="0 0 1400 400" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="rib2" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="oklch(0.84 0.18 128)" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="oklch(0.72 0.18 32)" stop-opacity="0.3"/>
-          </linearGradient>
-        </defs>
-        <path d="M -100,200 C 300,50 600,350 900,150 C 1100,20 1300,250 1500,100"
-              fill="none" stroke="url(#rib2)" stroke-width="80" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="wrap">
-      <div class="reveal">
-        <div class="eyebrow" style="color: oklch(0.75 0.01 265); margin-bottom:18px"><span>{t('mission.eyebrow')}</span></div>
-        <h2>{t('mission.title.p1')}<br/>{t('mission.title.p2')} <span class="serif">{t('mission.title.serif')}</span>.</h2>
-        <p class="big">{t('mission.desc')}</p>
-        <a href={getLocalizedPath(lang, '/sobre')} class="btn btn-ghost" style="margin-top:24px;border-color:oklch(0.5 0.01 265);color:var(--paper)">{t('mission.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-      </div>
-
-      <div class="stats reveal reveal-delay-2">
-        {stats.map((stat) => (
-          <div class="stat">
-            <div class={`n ${stat.color}`}>{stat.n}</div>
-            <div class="l">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       NOTAS — latest blog posts
-       ═══════════════════════════════════════════════════════════════ -->
-  <section id="notas" class="section notes-block">
-    <div class="wrap">
-      <div class="notes-head reveal">
-        <div>
-          <div class="eyebrow" style="margin-bottom:14px"><span>{t('notes.eyebrow')}</span></div>
-          <h2>{t('notes.title')} <span class="serif">{t('notes.title.serif')}</span>.</h2>
-          <p class="notes-intro">{t('notes.desc')}</p>
+        <div class="apps-rows reveal">
+          {ownApps.map((app) => (
+            <a href={app.href} class="app-row" style={`--row-accent: ${app.accent}`}>
+              <span class="app-num">{app.num}</span>
+              <span class="app-main">
+                <span class="app-title-line">
+                  <strong>{app.name}</strong>
+                  <span class="app-status">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    {app.status}
+                  </span>
+                </span>
+                <small class="app-summary">{app.summary}</small>
+              </span>
+              <span class="app-platforms">
+                {app.platforms.map((p) => (
+                  <span class="platform-pill">{p}</span>
+                ))}
+              </span>
+              <svg class="app-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          ))}
         </div>
-        <a href={getLocalizedPath(lang, '/blog')} class="btn btn-ghost">{t('notes.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
       </div>
+    </section>
 
-      <div class="notes-grid reveal reveal-delay-2">
-        {latestPosts.map((post) => {
-          const firstTag = post.data.tags?.[0];
-          const accent = firstTag ? (postTagColors[firstTag] ?? 'var(--iris)') : 'var(--iris)';
-          return (
-            <a href={getLocalizedPath(lang, `/blog/${post.slug}`)} class="note-card" style={`--note-accent: ${accent}`}>
-              <div class="note-top">
-                <span class="note-dot" aria-hidden="true"></span>
+    <!-- ═══════════════════════════════════════════════════════════════
+         5. PROCESS — hairline grid
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="proceso" class="section section-alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-yellow);">
+            {lang === 'es' ? 'Proceso' : 'Process'}
+          </p>
+          <h2 class="section-title">
+            {lang === 'es' && <>Un proceso simple, <span class="tone">de principio a fin.</span></>}
+            {lang === 'en' && <>A simple process, <span class="tone">start to finish.</span></>}
+            {lang === 'pt' && <>Um processo simples, <span class="tone">do início ao fim.</span></>}
+          </h2>
+        </div>
+
+        <div class="hairline-grid reveal">
+          {steps.map((step) => (
+            <div class="hairline-cell">
+              <span class="step-number">0{step.n}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         8. COMPARISON — solo studio vs agency vs no-code
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="porque" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-cyan);">{comparison.eyebrow}</p>
+          <h2 class="section-title">
+            {comparison.title} <span class="tone">{comparison.titleTone}</span>
+          </h2>
+          <p>{comparison.lead}</p>
+        </div>
+
+        <div class="compare-scroll reveal">
+          <div class="compare-grid">
+            <div class="cmp-cell cmp-head" aria-hidden="true"></div>
+            <div class="cmp-cell cmp-head cmp-us">
+              <span class="cmp-us-dot" aria-hidden="true"></span>
+              {comparison.usLabel}
+            </div>
+            <div class="cmp-cell cmp-head">{comparison.agencyLabel}</div>
+            <div class="cmp-cell cmp-head">{comparison.nocodeLabel}</div>
+
+            {comparison.rows.map((row) => (
+              <>
+                <div class="cmp-cell cmp-crit">{row.crit}</div>
+                <div class="cmp-cell cmp-val cmp-us">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-label="✓"><path d="M3 8.5L6.5 12L13 4.5" stroke="var(--c-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="cmp-cell cmp-val">
+                  {row.agency ? (
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-label="✓"><path d="M3 8.5L6.5 12L13 4.5" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  ) : (
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-label="✕"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="#d4d4d8" stroke-width="2" stroke-linecap="round"/></svg>
+                  )}
+                </div>
+                <div class="cmp-cell cmp-val">
+                  {row.nocode ? (
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-label="✓"><path d="M3 8.5L6.5 12L13 4.5" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  ) : (
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-label="✕"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="#d4d4d8" stroke-width="2" stroke-linecap="round"/></svg>
+                  )}
+                </div>
+              </>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         7. BLOG NOTES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="notas" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="--accent-color: var(--c-cyan);">Blog</p>
+          <h2 class="section-title">
+            {t('notes.title')} <span class="tone">{t('notes.title.serif')}.</span>
+          </h2>
+          <a href={getLocalizedPath(lang, '/blog')} class="head-link">{t('notes.cta')} →</a>
+        </div>
+
+        <div class="notes-grid reveal">
+          {latestPosts.map((post) => (
+            <a href={getLocalizedPath(lang, `/blog/${post.slug}`)} class="note-card">
+              <div class="note-meta">
                 <span class="note-date">{formatDate(post.data.pubDate, lang)}</span>
-                {firstTag && <span class="note-tag">{firstTag}</span>}
+                {post.data.tags?.[0] && <span class="note-tag">{post.data.tags[0]}</span>}
               </div>
               <h3>{post.data.title}</h3>
               <p>{getPostDescription(post)}</p>
-              <span class="note-read">{t('notes.read')}
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </span>
+              <span class="note-read">{t('notes.read')} →</span>
             </a>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       CONTACT CTA — mini form
-       ═══════════════════════════════════════════════════════════════ -->
-  <section id="contact" class="contact-cta">
-    <div class="contact-card reveal">
-      <div class="eyebrow" style="margin-bottom:16px"><span>{t('contact.eyebrow')}</span></div>
-      <h2>{t('contact.title.p1')}<br/>{t('contact.title.p2')} <span class="serif">{t('contact.title.serif')}</span>.</h2>
-      <p class="lead">{t('contact.lead')}</p>
-
-      <div class="c-cta-row">
-        <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">{t('contact.cta')}
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </a>
-        <a href="mailto:hola@creapolis.dev" class="btn btn-ghost btn-lg">hola@creapolis.dev</a>
+    <!-- ═══════════════════════════════════════════════════════════════
+         8. FINAL CTA — the one dark card, with CMYK ambient glows
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="contacto" class="final-cta-section">
+      <div class="wrap">
+        <div class="cta-card reveal">
+          <div class="cta-glow cta-glow-magenta" aria-hidden="true"></div>
+          <div class="cta-glow cta-glow-cyan" aria-hidden="true"></div>
+          <h2>
+            {lang === 'es'
+              ? '¿Platicamos sobre tu proyecto o agente de IA?'
+              : lang === 'en'
+                ? 'Ready to discuss your project or AI agent?'
+                : 'Vamos conversar sobre seu projeto ou agente de IA?'}
+          </h2>
+          <p>
+            {lang === 'es'
+              ? 'Escríbeme o prueba el agente aquí mismo para agendar una llamada de 30 minutos sin costo.'
+              : lang === 'en'
+                ? 'Send a message or use our live AI concierge to book a free 30-minute discovery call.'
+                : 'Escreva ou teste o agente aqui mesmo para agendar uma chamada de 30 minutos sem custo.'}
+          </p>
+          <div class="cta-actions">
+            <a href={getLocalizedPath(lang, '/contacto')} class="cta-btn-primary" data-track-event="start_project_click">
+              {lang === 'es' ? 'Ir a Contacto' : 'Contact us'}
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H4.5M11 3V9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </a>
+            <a href="mailto:hola@creapolis.dev" class="cta-btn-email">hola@creapolis.dev</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   </div>
 
-  <Footer lang={lang} />
+  <Footer lang={lang} hideCta={true} />
 </Layout>
 
 <style>
+  .page-container {
+    overflow-x: clip;
+  }
+
+  .tone {
+    color: var(--ink-4);
+  }
+
   /* ═══════════════════════════════════════════════════════════════
-     HERO
+     1. HERO
      ═══════════════════════════════════════════════════════════════ */
   .hero {
     position: relative;
-    min-height: 100vh;
-    padding: 140px var(--gutter) 80px;
-    display: grid; place-items: center;
-    overflow: clip;
-    background:
-      radial-gradient(60% 50% at 80% 10%, var(--iris-soft) 0%, transparent 60%),
-      radial-gradient(50% 45% at 10% 80%, var(--coral-soft) 0%, transparent 70%),
-      radial-gradient(70% 60% at 50% 120%, var(--lime-soft) 0%, transparent 70%),
-      var(--paper);
+    padding: 168px var(--gutter) 72px;
+    text-align: center;
+    overflow: hidden;
   }
-  .hero-grid {
-    width: 100%; max-width: var(--max);
-    display: grid; gap: clamp(40px, 6vw, 80px);
-    grid-template-columns: 1fr;
-    position: relative; z-index: 2;
+
+  .hero-halo {
+    position: absolute;
+    top: -180px;
+    left: 50%;
+    width: 560px;
+    height: 560px;
+    transform: translateX(-50%);
+    background: var(--halo-conic);
+    filter: blur(90px);
+    opacity: 0.16;
+    border-radius: 50%;
+    pointer-events: none;
   }
-  @media (min-width: 980px) {
-    .hero-grid { grid-template-columns: 1.25fr 1fr; align-items: center; }
+
+  .hero-inner {
+    position: relative;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
-  .hero h1 {
-    font-size: clamp(3rem, 8vw, 6.2rem);
-    line-height: 0.95;
-    letter-spacing: -0.055em;
-    margin-bottom: 28px;
+
+  .hero-mark {
+    margin-bottom: 4px;
   }
-  .hero h1 .serif { color: var(--iris); font-size: 1.02em; }
-  .hero p.lead {
-    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-    color: var(--ink-2);
-    max-width: 52ch; margin-bottom: 36px;
+
+  .hero-pyramid {
+    animation: pyramid-float 4.6s var(--ease) infinite;
   }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .hero-cta-ghost {
+
+  @keyframes pyramid-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow-label {
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-mono);
     color: var(--ink-3);
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+    line-height: 1.04;
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-display);
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+    max-width: 16ch;
+  }
+
+  .hero-lead {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin: 0;
+    max-width: 56ch;
+    text-wrap: pretty;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .hero-stats {
+    width: 100%;
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px 10px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-stat + .hero-stat {
+    border-left: 1px solid var(--line);
+  }
+
+  .hero-stat-v {
+    font-size: 1.35rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .hero-stat-l {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-4);
+  }
+
+  @media (max-width: 640px) {
+    .hero-stats {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-stat:nth-child(odd) {
+      border-left: 0;
+    }
+    .hero-stat:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     2. CAPABILITY ROWS
+     ═══════════════════════════════════════════════════════════════ */
+  .cap-rows {
+    border-top: 1px solid var(--line);
+  }
+
+  .cap-row {
+    display: grid;
+    grid-template-columns: 34px 14px 1fr 28px;
+    gap: 14px;
+    align-items: center;
+    padding: 22px 4px;
+    border-bottom: 1px solid var(--line);
     text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
-  }
-  .hero-cta-ghost:hover { color: var(--ink); }
-  .hero-trust {
-    margin-top: 40px; padding-top: 24px;
-    border-top: 1px dashed var(--line-2);
-    display: flex; flex-wrap: wrap; gap: 18px 32px;
-    font-size: 0.85rem; color: var(--ink-3);
-  }
-  .hero-trust strong { color: var(--ink); font-weight: 500; }
-
-  /* Canvas showpiece */
-  .showcase {
-    width: 100%; max-width: 520px; margin: 0 auto;
-    border-radius: var(--r-lg);
-    overflow: hidden;
-    box-shadow: var(--sh-3);
-    border: 1px solid var(--line);
-  }
-  .showcase-img {
-    width: 100%; height: auto; display: block;
+    color: inherit;
+    transition: background 0.15s;
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     MARQUEE
-     ═══════════════════════════════════════════════════════════════ */
-  .stamps {
-    background: var(--ink); color: var(--paper);
-    padding: 28px 0; overflow: hidden;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 100px;
-  }
-  .stamps-row {
-    display: flex; gap: 64px; white-space: nowrap;
-    animation: marquee 32s linear infinite;
-    font-family: var(--font-mono); font-size: 0.82rem; color: oklch(0.75 0.01 265);
-  }
-  .stamps:hover .stamps-row { animation-play-state: paused; }
-  .stamps-row span { display: inline-flex; align-items: center; gap: 10px; }
-  .stamps-row span::before { content: "✦"; color: var(--coral); font-size: 0.7rem; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
-
-  /* ═══════════════════════════════════════════════════════════════
-     PRODUCTS
-     ═══════════════════════════════════════════════════════════════ */
-  .products-header {
-    display: grid; gap: 28px; grid-template-columns: 1fr;
-    margin-bottom: 56px; align-items: end;
-  }
-  @media (min-width: 720px) { .products-header { grid-template-columns: 1.1fr 1fr; gap: 48px; } }
-  .products-header h2 { max-width: 14ch; }
-  .products-header p { font-size: 1.05rem; max-width: 48ch; }
-
-  .products {
-    display: grid; gap: 20px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 720px) { .products { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .products { grid-template-columns: repeat(3, 1fr); } }
-
-  .apps-cta {
-    display: flex;
-    justify-content: center;
-    margin-top: 32px;
-    padding-bottom: 16px;
-  }
-
-  .product {
-    position: relative;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    overflow: hidden;
-    display: flex; flex-direction: column;
-    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
-    text-decoration: none; color: inherit;
-  }
-  .product:hover { transform: translateY(-4px); box-shadow: var(--sh-3); border-color: var(--line-2); }
-  .product-vis {
-    aspect-ratio: 4/3; position: relative; overflow: hidden;
+  .cap-row:hover {
     background: var(--chalk);
   }
-  .product-vis .glow {
-    position: absolute; inset: -20%;
-    background: radial-gradient(circle at 50% 40%, var(--product-color), transparent 60%);
-    opacity: 0.28;
-  }
-  .product-vis .device {
-    position: absolute; inset: 12% 18% 0 18%;
-    background: var(--ink); border-radius: 22px 22px 0 0;
-    padding: 14px 12px 0;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .product-vis .device::before {
-    content: ""; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
-    width: 44px; height: 5px; background: oklch(0.3 0.01 265); border-radius: 4px;
-  }
-  .product-vis .device .title { height: 10px; width: 60%; background: var(--paper); border-radius: 3px; margin-top: 10px; }
-  .product-vis .device .row { display: flex; gap: 6px; }
-  .product-vis .device .row .bit { flex: 1; height: 26px; background: color-mix(in oklch, var(--product-color) 40%, var(--ink)); border-radius: 6px; }
-  .product-vis .device .row .bit:nth-child(2) { background: color-mix(in oklch, var(--product-color) 70%, var(--ink)); }
-  .product-vis .device .big { flex: 1; background: color-mix(in oklch, var(--product-color) 80%, var(--ink)); border-radius: 10px 10px 0 0; margin-top: 2px; }
-  .product-meta { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .product-meta .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .product-meta h3 { font-size: 1.35rem; }
-  .product-meta .tagline { font-family: var(--font-serif); font-style: italic; color: var(--product-color); font-size: 1.05rem; }
-  .product-meta p { font-size: 0.92rem; color: var(--ink-2); }
-  .product-meta .foot {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.85rem;
-  }
-  .product-meta .foot a { color: var(--product-color); font-weight: 500; }
-  .product-meta .foot .plat { font-family: var(--font-mono); color: var(--ink-3); font-size: 0.78rem; }
 
-  /* Shelf */
-  .shelf {
-    background: var(--chalk);
-    border-radius: var(--r-xl);
-    padding: clamp(32px, 5vw, 56px);
-    margin-top: 48px;
-    position: relative;
-    overflow: hidden;
+  .cap-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
   }
-  .shelf-head { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; justify-content: space-between; margin-bottom: 32px; }
-  .shelf-head h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); max-width: 20ch; }
-  .shelf-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  @media (min-width: 720px) { .shelf-grid { grid-template-columns: repeat(2, 1fr); } }
-  .shelf-card {
-    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
-    padding: 20px; display: flex; gap: 16px; align-items: start;
-    transition: border-color 0.2s;
-  }
-  .shelf-card:hover { border-color: var(--line-2); }
-  .shelf-card .ring {
-    flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px;
-    background: var(--ring-bg, var(--iris-soft));
-    color: var(--ring-color, var(--iris));
-    display: grid; place-items: center;
-    font-family: var(--font-serif); font-style: italic; font-size: 1.5rem;
-    border: 1px solid color-mix(in oklch, var(--ring-color, var(--iris)) 30%, transparent);
-  }
-  .shelf-card .body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-  .shelf-card .body .h { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .shelf-card .body h4 { font-size: 1rem; }
-  .shelf-card .body p { font-size: 0.85rem; color: var(--ink-3); }
-  .shelf-card .bar { margin-top: 6px; height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; }
-  .shelf-card .bar > span { display: block; height: 100%; background: var(--ring-color, var(--iris)); border-radius: 999px; }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     SERVICES
-     ═══════════════════════════════════════════════════════════════ */
-  .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  @media (min-width: 720px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .svc-grid { grid-template-columns: repeat(4, 1fr); } }
-  .svc {
-    position: relative; padding: 28px 24px 28px;
-    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg);
-    display: flex; flex-direction: column; gap: 12px; min-height: 240px;
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+  .cap-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--row-accent);
   }
-  .svc:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--svc-color); }
-  .svc .num { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-3); letter-spacing: 0.08em; }
-  .svc h3 { font-size: 1.25rem; }
-  .svc p { font-size: 0.9rem; }
-  .svc .mark {
-    position: absolute; top: 18px; right: 18px; width: 34px; height: 34px;
-    border-radius: 10px; background: var(--svc-soft);
-    color: var(--svc-color); display: grid; place-items: center;
-    font-family: var(--font-serif); font-style: italic; font-size: 1.25rem;
-  }
-  .svc:nth-child(1) { --svc-color: var(--iris); --svc-soft: var(--iris-soft); }
-  .svc:nth-child(2) { --svc-color: var(--lime); --svc-soft: var(--lime-soft); }
-  .svc:nth-child(3) { --svc-color: var(--coral); --svc-soft: var(--coral-soft); }
-  .svc:nth-child(4) { --svc-color: var(--sky); --svc-soft: var(--sky-soft); }
 
-  .svc-more {
+  .cap-body {
     display: flex;
-    justify-content: center;
-    margin-top: 40px;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     PROCESS
-     ═══════════════════════════════════════════════════════════════ */
-  .proc {
-    display: grid; grid-template-columns: 1fr; gap: 12px;
+  .cap-body strong {
+    font-size: 1.02rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    color: var(--ink);
   }
-  @media (min-width: 720px) { .proc { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1080px) { .proc { grid-template-columns: repeat(4, 1fr); } }
-  .step {
-    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg);
-    padding: 28px 24px; position: relative; overflow: hidden;
-  }
-  .step .bignum {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: 5rem; line-height: 0.8; letter-spacing: -0.04em;
-    color: var(--step-color, var(--iris));
-  }
-  .step h4 { font-size: 1.1rem; margin: 14px 0 6px; }
-  .step p { font-size: 0.88rem; color: var(--ink-2); }
-  .step:nth-child(1) { --step-color: var(--iris); }
-  .step:nth-child(2) { --step-color: var(--coral); }
-  .step:nth-child(3) { --step-color: var(--lime); }
-  .step:nth-child(4) { --step-color: var(--amber); }
 
-  /* ═══════════════════════════════════════════════════════════════
-     MISSION
-     ═══════════════════════════════════════════════════════════════ */
-  .mission {
-    padding: clamp(56px, 8vw, 120px) var(--gutter);
-    background: var(--ink); color: var(--paper);
-    position: relative; overflow: clip;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 600px;
-  }
-  .mission .wrap { display: grid; gap: 48px; grid-template-columns: 1fr; }
-  @media (min-width: 880px) { .mission .wrap { grid-template-columns: 1.1fr 1fr; align-items: center; } }
-  .mission h2 {
-    color: var(--paper); font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1;
-    letter-spacing: -0.04em;
-  }
-  .mission h2 .serif { color: var(--lime); }
-  .mission p.big { font-size: clamp(1.1rem, 1.4vw, 1.3rem); color: oklch(0.82 0.01 265); max-width: 48ch; margin-top: 24px; }
-  .mission .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 32px; }
-  .mission .stat { border-top: 1px solid oklch(0.35 0.015 265); padding-top: 20px; }
-  .mission .stat .n { font-family: var(--font-serif); font-style: italic; font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1; color: var(--paper); }
-  .mission .stat .n.c1 { color: var(--coral); }
-  .mission .stat .n.c2 { color: var(--lime); }
-  .mission .stat .n.c3 { color: var(--sky); }
-  .mission .stat .n.c4 { color: var(--amber); }
-  .mission .stat .l { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: oklch(0.72 0.01 265); margin-top: 6px; }
-
-  /* ═══════════════════════════════════════════════════════════════
-     NOTAS — latest blog posts
-     ═══════════════════════════════════════════════════════════════ */
-  .notes-block { background: var(--chalk); content-visibility: auto; contain-intrinsic-size: auto 500px; }
-  .notes-head {
-    display: grid; gap: 24px; align-items: end;
-    grid-template-columns: 1fr; margin-bottom: 48px;
-  }
-  @media (min-width: 760px) {
-    .notes-head { grid-template-columns: 1.4fr auto; gap: 40px; }
-  }
-  .notes-head h2 {
-    font-family: var(--font-sans);
-    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
-    line-height: 1.05; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0;
-  }
-  .notes-head h2 .serif { font-family: var(--font-serif); font-style: italic; color: var(--coral); font-weight: 400; }
-  .notes-intro { margin: 18px 0 0; max-width: 52ch; color: var(--ink-2); font-size: 1.02rem; line-height: 1.55; }
-
-  .notes-grid {
-    display: grid; gap: 20px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 720px) { .notes-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1040px) { .notes-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .note-card {
-    --note-accent: var(--iris);
-    position: relative;
-    display: flex; flex-direction: column; gap: 14px;
-    padding: 28px 24px 24px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    text-decoration: none; color: inherit;
-    transition: transform var(--ease) 0.35s, box-shadow var(--ease) 0.35s, border-color var(--ease) 0.35s;
-    overflow: hidden;
-  }
-  .note-card::before {
-    content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
-    background: var(--note-accent); opacity: 0.9;
-  }
-  .note-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sh-2);
-    border-color: var(--note-accent);
-  }
-  .note-top {
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    font-family: var(--font-mono); font-size: 0.72rem;
-    text-transform: uppercase; letter-spacing: 0.08em;
+  .cap-body small {
+    font-size: 0.85rem;
     color: var(--ink-3);
+    line-height: 1.45;
   }
-  .note-dot {
-    width: 8px; height: 8px; border-radius: 999px;
-    background: var(--note-accent);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--note-accent) 18%, transparent);
+
+  .cap-arrow {
+    color: var(--ink-4);
+    transition: transform 0.2s var(--ease), color 0.2s;
+    justify-self: end;
   }
-  .note-date { color: var(--ink-3); }
-  .note-tag {
-    color: var(--note-accent);
-    background: color-mix(in oklch, var(--note-accent) 12%, var(--paper));
-    padding: 3px 10px; border-radius: 999px;
-    font-size: 0.68rem;
+
+  .cap-row:hover .cap-arrow {
+    transform: translate(2px, -2px);
+    color: var(--ink);
   }
-  .note-card h3 {
-    font-family: var(--font-sans);
-    font-size: 1.2rem; line-height: 1.25;
-    letter-spacing: -0.01em; color: var(--ink); margin: 0;
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION HEADS
+     ═══════════════════════════════════════════════════════════════ */
+  .section {
+    padding: clamp(72px, 9vw, 120px) 0;
+  }
+
+  .section-tight {
+    padding: clamp(40px, 5vw, 64px) 0;
+  }
+
+  .section-alt {
+    background: var(--chalk);
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 40px;
+    max-width: 640px;
+  }
+
+  .section-head .eyebrow {
+    margin: 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
     text-wrap: balance;
   }
-  .note-card p {
-    font-size: 0.95rem; line-height: 1.55;
-    color: var(--ink-2); margin: 0; flex: 1;
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .note-read {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--font-mono); font-size: 0.72rem;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--note-accent); margin-top: 4px;
+
+  .head-link {
+    font-size: 0.875rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--line-2);
+    transition: color 0.2s, border-color 0.2s;
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     CONTACT CTA
-     ═══════════════════════════════════════════════════════════════ */
-  .contact-cta {
-    padding: clamp(64px, 9vw, 120px) var(--gutter);
-    background: var(--paper);
-    position: relative;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 400px;
+  .head-link:hover {
+    color: var(--ink);
+    border-color: var(--ink);
   }
-  .contact-card {
-    max-width: 960px; margin: 0 auto;
-    background: linear-gradient(180deg, var(--paper), var(--chalk));
+
+  /* ═══════════════════════════════════════════════════════════════
+     3. SERVICES CARDS
+     ═══════════════════════════════════════════════════════════════ */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 16px;
+  }
+
+  .service-card {
+    position: relative;
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
-    padding: clamp(40px, 6vw, 72px);
-    position: relative; overflow: clip;
-    box-shadow: var(--sh-3);
+    padding: 26px 24px 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition:
+      transform 0.25s var(--ease),
+      box-shadow 0.25s var(--ease);
   }
-  .contact-card::before {
-    content: ""; position: absolute; inset: -40% -20% auto auto;
-    width: 70%; height: 180%;
-    background: radial-gradient(circle, var(--iris-soft) 0%, transparent 60%);
-    z-index: 0;
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sh-hover);
   }
-  .contact-card > * { position: relative; z-index: 1; }
-  .contact-card h2 { max-width: 22ch; margin-bottom: 14px; }
-  .contact-card h2 .serif { color: var(--iris); }
-  .contact-card p.lead { font-size: 1.1rem; max-width: 50ch; margin-bottom: 32px; color: var(--ink-2); }
-  .c-cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  .service-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .service-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+  }
+
+  .service-price {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    background: var(--chalk-2);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+  }
+
+  .service-card h3 {
+    font-size: 1.1rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    margin: 0 0 8px 0;
+  }
+
+  .service-card p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0 0 18px 0;
+    flex: 1;
+  }
+
+  .service-more {
+    font-size: 0.78rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+
+  .service-card:hover .service-more {
+    color: var(--ink);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     4. APPS ROWS
+     ═══════════════════════════════════════════════════════════════ */
+  .apps-rows {
+    border-top: 1px solid var(--line);
+  }
+
+  .app-row {
+    display: grid;
+    grid-template-columns: 34px 1fr auto 28px;
+    gap: 16px;
+    align-items: center;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+
+  .app-row:hover {
+    background: var(--chalk);
+  }
+
+  .app-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+  }
+
+  .app-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .app-title-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .app-title-line strong {
+    font-size: 1rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .app-summary {
+    font-size: 0.84rem;
+    color: var(--ink-3);
+    line-height: 1.45;
+  }
+
+  .app-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-4);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--row-accent);
+    position: relative;
+  }
+
+  .status-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--row-accent);
+    opacity: 0.4;
+    animation: status-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes status-ping {
+    75%, 100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+
+  .app-platforms {
+    display: flex;
+    gap: 4px;
+  }
+
+  .platform-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: #ffffff;
+    border: 1px solid var(--line-2);
+    padding: 3px 8px;
+    border-radius: var(--r-pill);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .app-arrow {
+    color: var(--ink-4);
+    transition: transform 0.2s var(--ease), color 0.2s;
+    justify-self: end;
+  }
+
+  .app-row:hover .app-arrow {
+    transform: translate(2px, -2px);
+    color: var(--ink);
+  }
+
+  @media (max-width: 720px) {
+    .app-row {
+      grid-template-columns: 1fr 28px;
+      gap: 8px;
+    }
+    .app-num,
+    .app-platforms {
+      display: none;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     5/6. HAIRLINE GRIDS — process + stats
+     ═══════════════════════════════════════════════════════════════ */
+  .hairline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+  }
+
+  .hairline-cell {
+    background: #ffffff;
+    padding: 26px 24px;
+  }
+
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .hairline-cell h3 {
+    font-size: 1.05rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    margin: 0 0 6px 0;
+  }
+
+  .hairline-cell p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     3. MINI CASES — problem → result rows
+     ═══════════════════════════════════════════════════════════════ */
+  .case-rows {
+    border-top: 1px solid var(--line);
+  }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 20px 6px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+
+  .case-row:hover {
+    background: #ffffff;
+  }
+
+  .case-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    color: var(--ink-4);
+  }
+
+  .case-num i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--row-accent);
+  }
+
+  .case-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .case-line {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--ink-3);
+  }
+
+  .case-line small {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    width: 54px;
+    flex-shrink: 0;
+  }
+
+  .case-after {
+    color: var(--ink);
+    font-weight: var(--fw-medium);
+    font-size: 0.95rem;
+  }
+
+  .case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .case-link svg {
+    transition: transform 0.2s var(--ease);
+  }
+
+  .case-row:hover .case-link {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .case-row:hover .case-link svg {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 720px) {
+    .case-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .case-num {
+      display: none;
+    }
+    .case-link {
+      width: fit-content;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     5. MANIFESTO — pull-quote
+     ═══════════════════════════════════════════════════════════════ */
+  .manifesto {
+    padding: clamp(64px, 9vw, 120px) 0;
+  }
+
+  .manifesto .wrap {
+    max-width: 860px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .manifesto-quote {
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    max-width: 26ch;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .manifesto .head-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     8. COMPARISON — hairline grid
+     ═══════════════════════════════════════════════════════════════ */
+  .compare-scroll {
+    overflow-x: auto;
+    border-radius: var(--r-xl);
+  }
+
+  .compare-grid {
+    min-width: 680px;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+  }
+
+  .cmp-cell {
+    background: #ffffff;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cmp-head {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    gap: 8px;
+  }
+
+  .cmp-us {
+    background: var(--chalk);
+  }
+
+  .cmp-head.cmp-us {
+    color: var(--ink);
+  }
+
+  .cmp-us-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-cyan);
+    flex-shrink: 0;
+  }
+
+  .cmp-crit {
+    color: var(--ink);
+    font-size: 0.92rem;
+    font-weight: var(--fw-medium);
+  }
+
+  .cmp-val {
+    justify-content: center;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     7. BLOG NOTES
+     ═══════════════════════════════════════════════════════════════ */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 16px;
+  }
+
+  .note-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition:
+      transform 0.25s var(--ease),
+      box-shadow 0.25s var(--ease);
+  }
+
+  .note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sh-hover);
+  }
+
+  .note-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .note-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-4);
+  }
+
+  .note-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--line-2);
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    color: var(--ink-3);
+  }
+
+  .note-card h3 {
+    font-size: 1rem;
+    font-weight: var(--fw-semibold);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px 0;
+  }
+
+  .note-card p {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0 0 16px 0;
+    flex: 1;
+  }
+
+  .note-read {
+    font-size: 0.78rem;
+    font-weight: var(--fw-medium);
+    color: var(--ink-2);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     8. FINAL CTA — dark mega-card with CMYK glows
+     ═══════════════════════════════════════════════════════════════ */
+  .final-cta-section {
+    padding: 24px var(--gutter) 96px;
+  }
+
+  .cta-card {
+    position: relative;
+    background: #09090b;
+    color: #ffffff;
+    border-radius: var(--r-mega);
+    padding: clamp(48px, 7vw, 88px) clamp(24px, 5vw, 64px);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .cta-glow-magenta {
+    background: radial-gradient(circle, #ec008c, transparent 65%);
+    top: -160px;
+    left: -80px;
+  }
+
+  .cta-glow-cyan {
+    background: radial-gradient(circle, #00aeef, transparent 65%);
+    bottom: -160px;
+    right: -80px;
+  }
+
+  .cta-card h2 {
+    position: relative;
+    font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.03em;
+    margin: 0 auto 14px;
+    max-width: 20ch;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+
+  .cta-card p {
+    position: relative;
+    font-size: 0.98rem;
+    color: #a1a1aa;
+    margin: 0 auto 32px;
+    max-width: 48ch;
+  }
+
+  .cta-actions {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 28px;
+    border-radius: var(--r-pill);
+    background: #ffffff;
+    color: #09090b;
+    font-size: 15px;
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    transition: box-shadow 0.2s var(--ease), transform 0.15s;
+  }
+
+  .cta-btn-primary:hover {
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.18);
+  }
+
+  .cta-btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .cta-btn-email {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #d4d4d8;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .cta-btn-email:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-pyramid,
+    .status-dot::after {
+      animation: none;
+    }
+  }
 </style>

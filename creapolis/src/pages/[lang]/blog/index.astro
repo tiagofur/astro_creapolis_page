@@ -44,20 +44,20 @@ const EDITORIAL_CATEGORIES: {
   color: string;
   icon: string;
 }[] = [
-  { key: 'Engineering', color: '--lime', icon: '⚙️' },
-  { key: 'Mobile', color: '--sky', icon: '📱' },
-  { key: 'AI/ML', color: '--coral', icon: '🤖' },
-  { key: 'Product', color: '--amber', icon: '📦' },
-  { key: 'Building Creapolis', color: '--iris', icon: '🏗️' },
+  { key: 'Engineering', color: '--c-cyan', icon: '⚙️' },
+  { key: 'Mobile', color: '--c-magenta', icon: '📱' },
+  { key: 'AI/ML', color: '--c-yellow', icon: '🤖' },
+  { key: 'Product', color: '--c-cyan', icon: '📦' },
+  { key: 'Building Creapolis', color: '--c-magenta', icon: '🏗️' },
 ];
 
 // Map editorial category → color token for accent bars
 const catColorMap: Record<string, string> = {
-  Engineering: '--lime',
-  Mobile: '--sky',
-  'AI/ML': '--coral',
-  Product: '--amber',
-  'Building Creapolis': '--iris',
+  Engineering: '--c-cyan',
+  Mobile: '--c-magenta',
+  'AI/ML': '--c-yellow',
+  Product: '--c-cyan',
+  'Building Creapolis': '--c-magenta',
 };
 
 // Featured post: explicit — most recent with longest description (or first)
@@ -90,7 +90,7 @@ const totalPosts = sortedPosts.length;
     <div class="wrap">
       <div class="reveal header-copy">
         <div class="eyebrow" style="margin-bottom:14px"><span>Notas de taller · {totalPosts} artículos</span></div>
-        <h1>Ideas sobre desarrollo<br/>y <span class="serif">tecnología</span>.</h1>
+        <h1>Ideas sobre desarrollo<br/>y <span class="tone">tecnología</span>.</h1>
         <p class="lead">Notas de producto, mejores prácticas, IA y casos de uso. Lo que aprendo construyendo apps reales — sin hype ni humo.</p>
       </div>
     </div>
@@ -239,7 +239,7 @@ const totalPosts = sortedPosts.length;
         <div class="newsletter-glow" aria-hidden="true"></div>
         <div class="newsletter-content">
           <div class="eyebrow" style="margin-bottom:14px"><span>Hablemos</span></div>
-          <h3>¿Te gustó lo que leíste <span class="serif">y tenés un proyecto</span>?</h3>
+          <h3>¿Te gustó lo que leíste <span class="tone">y tenés un proyecto</span>?</h3>
           <p>Si algo de lo que escribió te resonó y tenés una idea que querés llevar a cabo, conversemos. Te respondo el mismo día.</p>
           <div class="newsletter-form">
             <a href={getLocalizedPath(lang, '/contacto')} class="btn btn-primary btn-lg">Iniciar conversación
@@ -255,12 +255,13 @@ const totalPosts = sortedPosts.length;
 </Layout>
 
 <style>
+  .tone { color: var(--ink-4); }
   /* ═══════════════════════════════════════════════════════════════
      HEADER
      ═══════════════════════════════════════════════════════════════ */
   .blog-header {
-    padding: 120px var(--gutter) 32px;
-    background: var(--chalk);
+    padding: 160px var(--gutter) 32px;
+    background: var(--paper);
     position: relative;
     overflow: clip;
   }
@@ -270,10 +271,7 @@ const totalPosts = sortedPosts.length;
   .header-decor {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(50% 50% at 85% 10%, var(--iris-soft) 0%, transparent 60%),
-      radial-gradient(45% 40% at 5% 90%, var(--lime-soft) 0%, transparent 70%),
-      radial-gradient(40% 35% at 60% 110%, var(--coral-soft) 0%, transparent 65%);
+    background: none;
     pointer-events: none;
     z-index: 0;
   }
@@ -299,7 +297,7 @@ const totalPosts = sortedPosts.length;
     position: sticky;
     top: 0;
     z-index: 30;
-    background: color-mix(in oklch, var(--paper) 92%, transparent);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: saturate(140%) blur(10px);
     -webkit-backdrop-filter: saturate(140%) blur(10px);
     border-bottom: 1px solid var(--line);
@@ -358,21 +356,15 @@ const totalPosts = sortedPosts.length;
   }
 
   /* Accent variants — solo el texto y el contador, el fondo sigue neutro hasta activo */
-  .filter-chip--iris { color: var(--iris); }
-  .filter-chip--iris:hover { border-color: color-mix(in oklch, var(--iris) 35%, var(--line)); }
-  .filter-chip--iris.is-active { background: var(--iris); border-color: var(--iris); color: var(--paper); }
-  .filter-chip--coral { color: var(--coral); }
-  .filter-chip--coral:hover { border-color: color-mix(in oklch, var(--coral) 35%, var(--line)); }
-  .filter-chip--coral.is-active { background: var(--coral); border-color: var(--coral); color: var(--paper); }
-  .filter-chip--lime { color: oklch(0.55 0.18 128); }
-  .filter-chip--lime:hover { border-color: color-mix(in oklch, var(--lime) 45%, var(--line)); }
-  .filter-chip--lime.is-active { background: var(--lime); border-color: var(--lime); color: var(--ink); }
-  .filter-chip--sky { color: var(--sky); }
-  .filter-chip--sky:hover { border-color: color-mix(in oklch, var(--sky) 35%, var(--line)); }
-  .filter-chip--sky.is-active { background: var(--sky); border-color: var(--sky); color: var(--ink); }
-  .filter-chip--amber { color: oklch(0.5 0.14 70); }
-  .filter-chip--amber:hover { border-color: color-mix(in oklch, var(--amber) 40%, var(--line)); }
-  .filter-chip--amber.is-active { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+  .filter-chip--c-cyan { color: var(--c-cyan-3); }
+  .filter-chip--c-cyan:hover { border-color: rgba(0, 174, 239, 0.4); }
+  .filter-chip--c-cyan.is-active { background: var(--ink); border-color: var(--ink); color: #ffffff; }
+  .filter-chip--c-magenta { color: var(--c-magenta-3); }
+  .filter-chip--c-magenta:hover { border-color: rgba(236, 0, 140, 0.35); }
+  .filter-chip--c-magenta.is-active { background: var(--ink); border-color: var(--ink); color: #ffffff; }
+  .filter-chip--c-yellow { color: var(--c-yellow-3); }
+  .filter-chip--c-yellow:hover { border-color: rgba(255, 196, 0, 0.5); }
+  .filter-chip--c-yellow.is-active { background: var(--ink); border-color: var(--ink); color: #ffffff; }
 
   /* Estado oculto por filtro */
   .post-card[data-hidden="true"],
@@ -423,11 +415,9 @@ const totalPosts = sortedPosts.length;
     background: var(--paper);
     color: var(--ink-2);
   }
-  .tag-chip--iris { background: var(--iris-soft); color: var(--iris); border-color: color-mix(in oklch, var(--iris) 25%, var(--line)); }
-  .tag-chip--coral { background: var(--coral-soft); color: var(--coral); border-color: color-mix(in oklch, var(--coral) 25%, var(--line)); }
-  .tag-chip--lime { background: var(--lime-soft); color: var(--lime); border-color: color-mix(in oklch, var(--lime) 25%, var(--line)); }
-  .tag-chip--sky { background: var(--sky-soft); color: var(--sky); border-color: color-mix(in oklch, var(--sky) 25%, var(--line)); }
-  .tag-chip--amber { background: var(--amber-soft); color: var(--amber); border-color: color-mix(in oklch, var(--amber) 25%, var(--line)); }
+  .tag-chip--c-cyan { background: var(--c-cyan-soft); color: var(--c-cyan-3); border-color: rgba(0, 174, 239, 0.25); }
+  .tag-chip--c-magenta { background: var(--c-magenta-soft); color: var(--c-magenta-3); border-color: rgba(236, 0, 140, 0.25); }
+  .tag-chip--c-yellow { background: var(--c-yellow-soft); color: var(--c-yellow-3); border-color: rgba(255, 196, 0, 0.35); }
 
   .tag-chip-sm {
     padding: 2px 8px;
@@ -439,11 +429,9 @@ const totalPosts = sortedPosts.length;
     background: var(--chalk);
     color: var(--ink-3);
   }
-  .tag-chip-sm--iris { background: var(--iris-soft); color: var(--iris); border-color: color-mix(in oklch, var(--iris) 20%, var(--line)); }
-  .tag-chip-sm--coral { background: var(--coral-soft); color: var(--coral); border-color: color-mix(in oklch, var(--coral) 20%, var(--line)); }
-  .tag-chip-sm--lime { background: var(--lime-soft); color: var(--lime); border-color: color-mix(in oklch, var(--lime) 20%, var(--line)); }
-  .tag-chip-sm--sky { background: var(--sky-soft); color: var(--sky); border-color: color-mix(in oklch, var(--sky) 20%, var(--line)); }
-  .tag-chip-sm--amber { background: var(--amber-soft); color: var(--amber); border-color: color-mix(in oklch, var(--amber) 20%, var(--line)); }
+  .tag-chip-sm--c-cyan { background: var(--c-cyan-soft); color: var(--c-cyan-3); border-color: rgba(0, 174, 239, 0.2); }
+  .tag-chip-sm--c-magenta { background: var(--c-magenta-soft); color: var(--c-magenta-3); border-color: rgba(236, 0, 140, 0.2); }
+  .tag-chip-sm--c-yellow { background: var(--c-yellow-soft); color: var(--c-yellow-3); border-color: rgba(255, 196, 0, 0.3); }
 
   /* ═══════════════════════════════════════════════════════════════
      FEATURED POST
@@ -480,7 +468,7 @@ const totalPosts = sortedPosts.length;
   .featured-glow {
     position: absolute;
     inset: -30%;
-    background: radial-gradient(circle at 50% 50%, var(--iris) 0%, transparent 55%);
+    background: radial-gradient(circle at 50% 50%, rgba(0, 174, 239, 0.35) 0%, transparent 55%);
     opacity: 0.12;
   }
   .featured-device {
@@ -506,15 +494,15 @@ const totalPosts = sortedPosts.length;
   }
   .fd-bar {
     height: 12px;
-    background: color-mix(in oklch, var(--iris) 35%, var(--ink));
+    background: rgba(0, 174, 239, 0.5);
     border-radius: 4px;
     margin-top: 8px;
   }
-  .fd-bar:nth-child(2) { background: color-mix(in oklch, var(--lime) 30%, var(--ink)); }
+  .fd-bar:nth-child(2) { background: rgba(255, 196, 0, 0.5); }
   .fd-block {
     flex: 1;
     min-height: 60px;
-    background: color-mix(in oklch, var(--iris) 50%, var(--ink));
+    background: rgba(0, 174, 239, 0.7);
     border-radius: 8px 8px 0 0;
     margin-top: 4px;
   }
@@ -567,7 +555,7 @@ const totalPosts = sortedPosts.length;
     gap: 6px;
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--iris);
+    color: var(--c-cyan-3);
     white-space: nowrap;
   }
   .featured-link svg {
@@ -615,11 +603,11 @@ const totalPosts = sortedPosts.length;
     flex-shrink: 0;
     background: var(--ink-4);
   }
-  .post-accent--iris { background: var(--iris); }
-  .post-accent--coral { background: var(--coral); }
-  .post-accent--lime { background: var(--lime); }
-  .post-accent--sky { background: var(--sky); }
-  .post-accent--amber { background: var(--amber); }
+  .post-accent--c-cyan { background: var(--c-cyan); }
+  .post-accent--c-magenta { background: var(--c-magenta); }
+  .post-accent--c-yellow { background: var(--c-yellow); }
+  .post-accent--c-magenta { background: var(--c-magenta); }
+  .post-accent--c-cyan { background: var(--c-cyan); }
 
   .post-body {
     flex: 1;
@@ -650,10 +638,10 @@ const totalPosts = sortedPosts.length;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
-  .cat-badge--iris { background: var(--iris-soft); color: var(--iris); }
-  .cat-badge--coral { background: var(--coral-soft); color: var(--coral); }
+  .cat-badge--iris { background: var(--iris-soft); color: var(--c-cyan-3); }
+  .cat-badge--c-magenta { background: var(--c-magenta-soft); color: var(--c-magenta-3); }
   .cat-badge--lime  { background: var(--lime-soft);  color: oklch(0.55 0.18 128); }
-  .cat-badge--sky   { background: var(--sky-soft);   color: var(--sky); }
+  .cat-badge--c-magenta { background: var(--c-magenta-soft); color: var(--c-magenta-3); }
   .cat-badge--amber { background: var(--amber-soft); color: oklch(0.5 0.14 70); }
   .cat-badge--default { background: var(--chalk); color: var(--ink-3); }
 
@@ -697,7 +685,7 @@ const totalPosts = sortedPosts.length;
     transition: transform 0.2s var(--ease);
   }
   .post-card:hover .post-link {
-    color: var(--iris);
+    color: var(--c-cyan-3);
   }
   .post-card:hover .post-link svg {
     transform: translate(2px, -2px);
@@ -725,7 +713,7 @@ const totalPosts = sortedPosts.length;
     inset: -40% -20% auto auto;
     width: 70%;
     height: 180%;
-    background: radial-gradient(circle, color-mix(in oklch, var(--iris) 40%, var(--ink)) 0%, transparent 55%);
+    background: radial-gradient(circle, rgba(0, 174, 239, 0.3) 0%, transparent 55%);
     z-index: 0;
     opacity: 0.5;
   }
@@ -738,7 +726,7 @@ const totalPosts = sortedPosts.length;
     color: oklch(0.6 0.01 265);
   }
   .newsletter-content .eyebrow::before {
-    background: var(--lime);
+    background: var(--c-yellow);
     opacity: 1;
   }
   .newsletter-content h3 {
@@ -747,7 +735,7 @@ const totalPosts = sortedPosts.length;
     margin-bottom: 14px;
   }
   .newsletter-content h3 .serif {
-    color: var(--lime);
+    color: var(--c-yellow-3);
   }
   .newsletter-content p {
     font-size: 1rem;

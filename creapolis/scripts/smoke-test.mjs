@@ -349,12 +349,20 @@ if (existsSync(astroDir)) {
     `Found ${jsFiles.length} JS files`,
   );
 
-  // Check total JS size
+  // Check eager JS size (initial payload): sum only the JS files referenced
+  // from built HTML. Lazy chunks (dynamic imports) load on interaction and
+  // don't count against the initial budget.
+  const homeHtml = readFileSync(join(DIST, 'es', 'index.html'), 'utf-8');
+  const referencedJs = new Set(
+    [...homeHtml.matchAll(/\/_astro\/[\w.-]+\.js/g)].map((m) => m[0].split('/').pop()),
+  );
   let totalJS = 0;
   for (const f of jsFiles) {
-    totalJS += statSync(join(astroDir, f)).size;
+    if (referencedJs.has(f)) {
+      totalJS += statSync(join(astroDir, f)).size;
+    }
   }
-  check(`JS budget (< 10KB)`, totalJS < 10240, `Total JS: ${totalJS} bytes`);
+  check(`JS budget (< 10KB eager)`, totalJS < 10240, `Eager JS: ${totalJS} bytes (${referencedJs.size} files referenced)`);
 
   // Check OG images
   const ogDir = join(DIST, 'og');

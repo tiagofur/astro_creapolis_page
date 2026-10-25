@@ -24,10 +24,13 @@ export interface HomeShelf {
 }
 
 export interface HomeService {
+  id: string;
   num: string;
   mark: string;
   title: string;
   desc: string;
+  tagline?: string;
+  price?: string;
 }
 
 export interface HomeStep {
@@ -333,80 +336,170 @@ const shelf: Record<Lang, HomeShelf[]> = {
 const services: Record<Lang, HomeService[]> = {
   es: [
     {
-      num: '01 / Móvil',
-      mark: 'm',
-      title: 'Apps móviles',
-      desc: 'iOS y Android, nativas o multiplataforma. Publico, doy soporte y mantengo stores.',
+      id: 'ai-agents',
+      num: '01 / IA',
+      mark: 'a',
+      title: 'Agentes de IA & Citas',
+      desc: 'Atención 24/7 en WhatsApp/Web, calificación de prospectos, agendamiento automático en Google Calendar/Cal.com y sincronización con tu CRM.',
+      tagline: '2 a 4 semanas · Flujos autónomos',
+      price: 'Desde $2,500 USD',
     },
     {
-      num: '02 / Web',
-      mark: 'w',
-      title: 'Apps web',
-      desc: 'SPAs, e-commerce y dashboards con Next.js y Astro. Rápidas, seguras y medibles.',
-    },
-    {
-      num: '03 / Desktop',
+      id: 'discovery',
+      num: '02 / Sprint',
       mark: 'd',
-      title: 'Software de escritorio',
-      desc: 'macOS, Windows y Linux. Tauri + Rust para rendimiento nativo y bundles pequeños.',
+      title: 'Discovery & Arquitectura',
+      desc: 'Auditoría de procesos manuales, roadmap técnico con costos fijos, prototipo interactivo y cálculo de ROI antes de escribir código.',
+      tagline: '1 a 2 semanas · 100% acreditable al build',
+      price: '$1,200 – $2,000 USD',
     },
     {
-      num: '04 / IA',
-      mark: 'i',
-      title: 'Consultoría de IA',
-      desc: 'Automatización de procesos, chatbots, análisis. Implementación práctica, no teoría.',
+      id: 'mvp',
+      num: '03 / MVP',
+      mark: 'm',
+      title: 'Software & Apps a Medida',
+      desc: 'Desarrollo full-stack de Web, iOS y Android. Código 100% tuyo desde el día uno, sprints de 2 semanas y demos cada viernes.',
+      tagline: '6 a 10 semanas · Producción garantizada',
+      price: 'Desde $6,500 USD',
+    },
+    {
+      id: 'rescue',
+      num: '04 / Rescate',
+      mark: 'r',
+      title: 'Rescate de Código',
+      desc: 'Auditoría profunda y estabilización de proyectos estancados, bugs críticos, deuda técnica y modernización de arquitectura sin reescribir desde cero.',
+      tagline: '2 a 4 semanas · Estabilización urgente',
+      price: 'Desde $2,000 USD',
+    },
+    {
+      id: 'continuous',
+      num: '05 / Retainer',
+      mark: 'c',
+      title: 'Desarrollo Continuo & AI Ops',
+      desc: 'Capacidad de ingeniería senior dedicada mes a mes. Mantenimiento de agentes, optimización de modelos, nuevas features y SLA de respuesta rápida.',
+      tagline: 'Mensual · Sin contratos forzosos',
+      price: '$1,200 – $2,500 USD/mes',
+    },
+    {
+      id: 'web-desktop',
+      num: '06 / Web',
+      mark: 'w',
+      title: 'Web & Escritorio a Medida',
+      desc: 'Plataformas web, paneles internos y apps de escritorio propias: dashboards, cotizadores e inventarios sin mensualidades por usuario.',
+      tagline: '4 a 8 semanas · Sin licencias por usuario',
+      price: 'Desde $4,000 USD',
     },
   ],
   en: [
     {
-      num: '01 / Mobile',
-      mark: 'm',
-      title: 'Mobile apps',
-      desc: 'iOS and Android, native or cross-platform. I publish, support, and maintain stores.',
+      id: 'ai-agents',
+      num: '01 / AI',
+      mark: 'a',
+      title: 'AI Agents & Scheduling',
+      desc: '24/7 WhatsApp & Web support, lead qualification, automatic Google Calendar/Cal.com booking, and real-time CRM deal synchronization.',
+      tagline: '2 to 4 weeks · Autonomous workflows',
+      price: 'From $2,500 USD',
     },
     {
-      num: '02 / Web',
-      mark: 'w',
-      title: 'Web apps',
-      desc: 'SPAs, e-commerce, and dashboards with Next.js and Astro. Fast, secure, and measurable.',
-    },
-    {
-      num: '03 / Desktop',
+      id: 'discovery',
+      num: '02 / Sprint',
       mark: 'd',
-      title: 'Desktop software',
-      desc: 'macOS, Windows, and Linux. Tauri + Rust for native performance and small bundles.',
+      title: 'Discovery & Architecture',
+      desc: 'Process bottleneck audit, fixed-cost technical roadmap, interactive prototype, and ROI calculation before writing code.',
+      tagline: '1 to 2 weeks · 100% credited to build',
+      price: '$1,200 – $2,000 USD',
     },
     {
-      num: '04 / AI',
-      mark: 'i',
-      title: 'AI consulting',
-      desc: 'Process automation, chatbots, analytics. Practical implementation, not theory.',
+      id: 'mvp',
+      num: '03 / MVP',
+      mark: 'm',
+      title: 'Custom Software & Apps',
+      desc: 'End-to-end Web, iOS, and Android development. 100% client code ownership, 2-week sprints, and weekly Friday progress demos.',
+      tagline: '6 to 10 weeks · Production guaranteed',
+      price: 'From $6,500 USD',
+    },
+    {
+      id: 'rescue',
+      num: '04 / Rescue',
+      mark: 'r',
+      title: 'Codebase Rescue',
+      desc: 'In-depth audit and stabilization for stalled codebases, critical bugs, technical debt reduction, and modern CI/CD without full rewrites.',
+      tagline: '2 to 4 weeks · Urgent stabilization',
+      price: 'From $2,000 USD',
+    },
+    {
+      id: 'continuous',
+      num: '05 / Retainer',
+      mark: 'c',
+      title: 'Continuous Dev & AI Ops',
+      desc: 'Dedicated monthly senior engineering capacity. Agent maintenance, LLM prompt optimization, new product features, and fast SLA.',
+      tagline: 'Monthly · No long-term lock-in',
+      price: '$1,200 – $2,500 USD/mo',
+    },
+    {
+      id: 'web-desktop',
+      num: '06 / Web',
+      mark: 'w',
+      title: 'Custom Web & Desktop',
+      desc: 'Web platforms, internal dashboards, and desktop apps you own outright: dashboards, quoting tools, and inventories with zero per-seat fees.',
+      tagline: '4 to 8 weeks · Zero per-seat licenses',
+      price: 'From $4,000 USD',
     },
   ],
   pt: [
     {
-      num: '01 / Mobile',
-      mark: 'm',
-      title: 'Apps mobile',
-      desc: 'iOS e Android, nativos ou multiplataforma. Publico, dou suporte e mantengo nas lojas.',
+      id: 'ai-agents',
+      num: '01 / IA',
+      mark: 'a',
+      title: 'Agentes de IA & Agendamento',
+      desc: 'Atendimento 24/7 no WhatsApp e Web, qualificação de leads, agendamento automático no Google Calendar/Cal.com e sincronização com CRM.',
+      tagline: '2 a 4 semanas · Fluxos autônomos',
+      price: 'A partir de $2,500 USD',
     },
     {
-      num: '02 / Web',
-      mark: 'w',
-      title: 'Apps web',
-      desc: 'SPAs, e-commerce e dashboards com Next.js e Astro. Rápidos, seguros e mensuráveis.',
-    },
-    {
-      num: '03 / Desktop',
+      id: 'discovery',
+      num: '02 / Sprint',
       mark: 'd',
-      title: 'Software desktop',
-      desc: 'macOS, Windows e Linux. Tauri + Rust para performance nativa e bundles pequenos.',
+      title: 'Discovery & Arquitetura',
+      desc: 'Auditoria de gargalos operacionais, roadmap técnico com custos fixos, protótipo interativo e cálculo de ROI antes de programar.',
+      tagline: '1 a 2 semanas · 100% creditável ao build',
+      price: '$1,200 – $2,000 USD',
     },
     {
-      num: '04 / IA',
-      mark: 'i',
-      title: 'Consultoria de IA',
-      desc: 'Automação de processos, chatbots, analytics. Implementação prática, não teoria.',
+      id: 'mvp',
+      num: '03 / MVP',
+      mark: 'm',
+      title: 'Software & Apps sob Medida',
+      desc: 'Desenvolvimento full-stack de Web, iOS e Android. Código 100% seu desde o primeiro dia, sprints quinzenais e demos toda sexta-feira.',
+      tagline: '6 a 10 semanas · Produção garantida',
+      price: 'A partir de $6,500 USD',
+    },
+    {
+      id: 'rescue',
+      num: '04 / Resgate',
+      mark: 'r',
+      title: 'Resgate de Código',
+      desc: 'Auditoria profunda e estabilização de projetos travados, bugs críticos, dívida técnica e modernização sem reescrever do zero.',
+      tagline: '2 a 4 semanas · Estabilização urgente',
+      price: 'A partir de $2,000 USD',
+    },
+    {
+      id: 'continuous',
+      num: '05 / Retainer',
+      mark: 'c',
+      title: 'Desenvolvimento Contínuo & IA Ops',
+      desc: 'Capacidade sênior dedicada mês a mês. Manutenção de agentes, ajuste fino de modelos, novas features e resposta rápida.',
+      tagline: 'Mensal · Sem contratos forçados',
+      price: '$1,200 – $2,500 USD/mês',
+    },
+    {
+      id: 'web-desktop',
+      num: '06 / Web',
+      mark: 'w',
+      title: 'Web & Desktop sob Medida',
+      desc: 'Plataformas web, painéis internos e apps de desktop próprios: dashboards, orçadores e inventários sem mensalidade por usuário.',
+      tagline: '4 a 8 semanas · Sem licenças por usuário',
+      price: 'A partir de $4,000 USD',
     },
   ],
 };
@@ -501,31 +594,17 @@ const stats: Record<Lang, HomeStat[]> = {
   ],
 };
 
-export function getHomeData(lang: Lang) {
-  const localizedApps = apps[lang];
+export function getHomeServices(lang: Lang): HomeService[] {
+  return services[lang];
+}
 
-  // Enrich localized app data with canonical product data from products.ts
-  const enrichedApps = localizedApps.map((app) => {
-    const canonical = products.find((p) => p.name === app.name);
-    if (!canonical) return app;
+export function getHomeSteps(lang: Lang): HomeStep[] {
+  return steps[lang];
+}
 
-    // Derive platform string from canonical platforms
-    const availablePlatforms = canonical.platforms
-      .filter((pl) => pl.available)
-      .map((pl) => pl.id.toUpperCase());
-    const platformStr = availablePlatforms.join(' · ');
-
-    return {
-      ...app,
-      status: canonical.status,
-      platform: platformStr || app.platform,
-      color: canonical.color,
-    };
-  });
-
-  // Derive published count from canonical product data
+export function getHomeStats(lang: Lang): HomeStat[] {
   const publishedCount = getPublishedCount();
-  const localizedStats = stats[lang].map((stat) => {
+  return stats[lang].map((stat) => {
     if (
       stat.label.includes('tiendas') ||
       stat.label.includes('stores') ||
@@ -535,12 +614,4 @@ export function getHomeData(lang: Lang) {
     }
     return stat;
   });
-
-  return {
-    apps: enrichedApps,
-    shelf: shelf[lang],
-    services: services[lang],
-    steps: steps[lang],
-    stats: localizedStats,
-  };
 }

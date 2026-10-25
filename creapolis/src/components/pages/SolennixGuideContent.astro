@@ -12,7 +12,7 @@ const g = getSolennixSupportData(lang).guide;
 <section class="hub-page">
   <div class="sup-head reveal">
     <div class="eyebrow" style="margin-bottom:14px"><span>{g.eyebrow}</span></div>
-    <h1>{g.title} <span class="serif">{g.titleSerif}</span>.</h1>
+    <h1>{g.title} <span class="tone">{g.titleSerif}</span>.</h1>
     <p class="subtitle">{g.subtitle}</p>
   </div>
 
@@ -53,6 +53,7 @@ const g = getSolennixSupportData(lang).guide;
 </section>
 
 <style>
+  .tone { color: var(--ink-4); }
   .steps {
     list-style: none; padding: 0; margin: 0 0 48px;
     display: flex; flex-direction: column; gap: 16px;
@@ -65,18 +66,18 @@ const g = getSolennixSupportData(lang).guide;
     align-items: flex-start;
     transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
   }
-  .step-card:hover { box-shadow: var(--sh-2); border-color: oklch(0.62 0.2 285 / 0.4); }
+  .step-card:hover { box-shadow: var(--sh-2); border-color: rgba(0, 174, 239, 0.3); }
   .step-num {
-    font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
-    color: var(--iris); line-height: 1; flex-shrink: 0; width: 48px;
+    font-family: var(--font-mono); font-size: 1.1rem; font-weight: var(--fw-medium);
+    color: var(--c-cyan); line-height: 1; flex-shrink: 0; width: 48px;
   }
   .step-card h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
   .step-card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
 
   .pro-tip {
     display: flex; gap: 20px; padding: 28px;
-    background: var(--iris-soft);
-    border: 1px solid oklch(0.62 0.2 285 / 0.3);
+    background: var(--c-cyan-soft);
+    border: 1px solid rgba(0, 174, 239, 0.3);
     border-radius: var(--r-lg);
     margin-bottom: 16px;
     align-items: flex-start;
@@ -84,5 +85,5 @@ const g = getSolennixSupportData(lang).guide;
   .tip-icon { font-size: 1.5rem; flex-shrink: 0; }
   .pro-tip h2 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
   .pro-tip p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
-  .pro-tip strong { color: var(--iris); }
+  .pro-tip strong { color: var(--c-cyan); }
 </style>

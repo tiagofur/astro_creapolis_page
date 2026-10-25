@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
 import LanguageBanner from '../components/LanguageBanner.astro';
+import AgentWidget from '../components/ai/AgentWidget.astro';
 import { defaultLang, type Lang } from '../i18n/ui';
 import { getAlternateLink, getLangFromUrl } from '../i18n/utils';
 
@@ -146,23 +147,23 @@ const jsonLd = article
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#5B4FBE" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
 
-    <!-- Google Fonts — Geist + Geist Mono + Instrument Serif -->
+    <!-- Google Fonts — Geist + Geist Mono only (v3: no serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Non-blocking font loading: media=print + onload switches to all -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       />
     </noscript>
     <!-- Font metrics fallback — reduces CLS while web fonts load -->
@@ -229,7 +230,8 @@ const jsonLd = article
       <slot />
     </main>
     <LanguageBanner lang={lang} />
-    <CookieConsent />
+    <CookieConsent lang={lang} />
+    <AgentWidget lang={lang} variant="floating" />
   </body>
 </html>
 

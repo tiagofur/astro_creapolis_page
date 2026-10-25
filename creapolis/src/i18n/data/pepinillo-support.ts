@@ -83,17 +83,17 @@ const data: Record<Lang, PepinilloSupportData> = {
         {
           num: '01',
           title: 'Elegí un modo',
-          desc: 'Deslizá entre Pomodoro, Flowtime, Time Block o Cronómetro. Cada modo está pensado para un estilo distinto de trabajo profundo.',
+          desc: 'Elegí entre Pomodoro, Flowtime, Time Block o Cronómetro. Cada modo está pensado para un estilo distinto de trabajo profundo.',
         },
         {
           num: '02',
           title: 'Vinculá una tarea',
-          desc: 'Tocá "Vincular tarea" para elegir en qué estás trabajando. Esto te ayuda a saber a dónde se va tu tiempo.',
+          desc: 'Elegí en qué estás trabajando para medir a dónde se va tu tiempo. Tus tareas se sincronizan automáticamente entre tu Mac, iPhone y iPad vía iCloud.',
         },
         {
           num: '03',
           title: 'Empezá a enfocarte',
-          desc: 'Tocá el botón grande de Start y metele. Pepinillo se encarga del resto — incluyendo tus descansos.',
+          desc: 'Tocá Start o usá el atajo de teclado en Mac. Pepinillo se encarga del cronometraje y de avisarte cuando llegue la pausa.',
         },
         {
           num: '04',
@@ -101,11 +101,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           desc: 'Cuando termina el timer, seguí las actividades de descanso sugeridas. Estirate, respirá, hidratate.',
         },
       ],
-      tipTitle: 'Pro tip: Live Activities y notificaciones',
+      tipTitle: 'Pro tip: Barra de menú en Mac y Live Activities en iOS',
       tipText:
-        'No necesitás tener la app abierta. En iOS, tu timer aparece en la Pantalla de bloqueo y Dynamic Island. En Android, sigue corriendo en segundo plano con notificaciones. Arrancá la sesión y dejá el teléfono.',
-      lockScreen: 'Pantalla de bloqueo / Notificaciones',
-      dynamicIsland: 'Dynamic Island / Segundo plano',
+        'En macOS, Pepinillo vive de forma discreta en tu barra de menú con atajos rápidos y sincronización iCloud en tiempo real. En iOS, tu timer aparece en la Pantalla de bloqueo y Dynamic Island; en Android, sigue en segundo plano con notificaciones. Arrancá tu bloque y trabajá sin distracciones.',
+      lockScreen: 'Pantalla de bloqueo',
+      dynamicIsland: 'Dynamic Island',
       nextTitle: '¿Y ahora?',
       nextCards: [
         {
@@ -158,6 +158,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           icon: '📊',
           title: 'Revisá tu semana',
           desc: 'Mirá tu historial de focus al final de la semana. Ves a dónde se fue tu tiempo y ajustás. Lo que se mide, se puede mejorar.',
+        },
+        {
+          icon: '💻',
+          title: 'Enfoque en Mac & atajos',
+          desc: 'Minimizá Pepinillo a la barra de menú para trabajar a pantalla completa sin cambiar de ventana. Usá los atajos globales para pausar o saltar descansos con una sola tecla.',
         },
       ],
       nextTitle: 'Seguí aprendiendo',
@@ -241,17 +246,17 @@ const data: Record<Lang, PepinilloSupportData> = {
         {
           num: '01',
           title: 'Pick a Mode',
-          desc: 'Swipe between Pomodoro, Flowtime, Time Block, or Stopwatch. Each mode is designed for a different style of deep work.',
+          desc: 'Choose between Pomodoro, Flowtime, Time Block, or Stopwatch. Each mode is designed for a different style of deep work.',
         },
         {
           num: '02',
           title: 'Link a Task',
-          desc: 'Tap "Link Task" to select what you\'re working on. This helps you track where your time goes.',
+          desc: 'Choose what you\'re working on to track where your time goes. Tasks sync automatically across your Mac, iPhone, and iPad via iCloud.',
         },
         {
           num: '03',
           title: 'Start Focusing',
-          desc: 'Hit the big Start button and dive in. Pepinillo takes care of the rest — including your breaks.',
+          desc: 'Hit Start or press the keyboard shortcut on Mac. Pepinillo takes care of tracking focus and notifying you when break time arrives.',
         },
         {
           num: '04',
@@ -259,11 +264,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           desc: 'When the timer ends, follow the suggested break activities to recharge. Stretch, breathe, hydrate.',
         },
       ],
-      tipTitle: 'Pro Tip: Live Activities & Notifications',
+      tipTitle: 'Pro Tip: Menu Bar on Mac & Live Activities on iOS',
       tipText:
-        "You don't need to keep the app open. On iOS, your timer appears on the Lock Screen and Dynamic Island. On Android, it keeps running in the background with notifications. Start a session and put your phone down.",
-      lockScreen: 'Lock Screen / Notifications',
-      dynamicIsland: 'Dynamic Island / Background',
+        "On macOS, Pepinillo lives quietly in your menu bar with quick keyboard shortcuts and real-time iCloud sync. On iOS, your session shows on the Lock Screen and Dynamic Island; on Android, it runs in the background with notifications. Start your block and work distraction-free.",
+      lockScreen: 'Lock Screen',
+      dynamicIsland: 'Dynamic Island',
       nextTitle: "What's next?",
       nextCards: [
         {
@@ -316,6 +321,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           icon: '📊',
           title: 'Review Your Week',
           desc: 'Check your focus history at the end of each week. See where your time went and adjust. What gets measured gets managed.',
+        },
+        {
+          icon: '💻',
+          title: 'Mac Workflow & Shortcuts',
+          desc: 'Keep Pepinillo in your menu bar to work in full-screen without context switching. Use global shortcuts to pause or skip breaks with a single keystroke.',
         },
       ],
       nextTitle: 'Keep going',
@@ -399,17 +409,17 @@ const data: Record<Lang, PepinilloSupportData> = {
         {
           num: '01',
           title: 'Escolha um modo',
-          desc: 'Deslize entre Pomodoro, Flowtime, Time Block ou Cronômetro. Cada modo é pensado para um estilo diferente de trabalho profundo.',
+          desc: 'Escolha entre Pomodoro, Flowtime, Time Block ou Cronômetro. Cada modo é pensado para um estilo diferente de trabalho profundo.',
         },
         {
           num: '02',
           title: 'Vincule uma tarefa',
-          desc: 'Toque em "Vincular tarefa" para escolher no que está trabalhando. Isso ajuda a saber para onde vai seu tempo.',
+          desc: 'Escolha no que está trabalhando para registrar seu tempo. Suas tarefas sincronizam automaticamente entre seu Mac, iPhone e iPad via iCloud.',
         },
         {
           num: '03',
           title: 'Comece a focar',
-          desc: 'Toque no botão grande de Start e mande ver. Pepinillo cuida do resto — incluindo suas pausas.',
+          desc: 'Toque em Start ou use o atalho de teclado no Mac. Pepinillo cuida da contagem e avisa quando chegar a pausa.',
         },
         {
           num: '04',
@@ -417,11 +427,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           desc: 'Quando o timer termina, siga as atividades de pausa sugeridas. Alongue, respire, hidrate.',
         },
       ],
-      tipTitle: 'Pro tip: Live Activities e notificações',
+      tipTitle: 'Pro tip: Barra de menus no Mac e Live Activities no iOS',
       tipText:
-        'Não precisa manter o app aberto. No iOS, seu timer aparece na Tela de bloqueio e Dynamic Island. No Android, continua rodando em segundo plano com notificações. Comece a sessão e deixe o telefone.',
-      lockScreen: 'Tela de bloqueio / Notificações',
-      dynamicIsland: 'Dynamic Island / Segundo plano',
+        'No macOS, o Pepinillo fica discreto na barra de menus com atalhos de teclado e sincronização iCloud em tempo real. No iOS, sua sessão aparece na Tela de bloqueio e Dynamic Island; no Android, roda em segundo plano com notificações. Inicie o bloco e foque sem distrações.',
+      lockScreen: 'Tela de bloqueio',
+      dynamicIsland: 'Dynamic Island',
       nextTitle: 'E agora?',
       nextCards: [
         {
@@ -474,6 +484,11 @@ const data: Record<Lang, PepinilloSupportData> = {
           icon: '📊',
           title: 'Revise sua semana',
           desc: 'Olhe seu histórico de foco no final da semana. Veja para onde foi seu tempo e ajuste. O que se mede, se pode melhorar.',
+        },
+        {
+          icon: '💻',
+          title: 'Foco no Mac e atalhos',
+          desc: 'Minimize o Pepinillo na barra de menus para trabalhar em tela cheia sem trocar de janela. Use atalhos globais para pausar ou pular pausas com uma única tecla.',
         },
       ],
       nextTitle: 'Continue aprendendo',

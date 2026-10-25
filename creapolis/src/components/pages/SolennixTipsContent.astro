@@ -12,7 +12,7 @@ const tp = getSolennixSupportData(lang).tips;
 <section class="hub-page">
   <div class="sup-head reveal">
     <div class="eyebrow" style="margin-bottom:14px"><span>{tp.eyebrow}</span></div>
-    <h1>{tp.title} <span class="serif">{tp.titleSerif}</span>.</h1>
+    <h1>{tp.title} <span class="tone">{tp.titleSerif}</span>.</h1>
     <p class="subtitle">{tp.subtitle}</p>
   </div>
 
@@ -43,6 +43,7 @@ const tp = getSolennixSupportData(lang).tips;
 </section>
 
 <style>
+  .tone { color: var(--ink-4); }
   .tips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -56,7 +57,7 @@ const tp = getSolennixSupportData(lang).tips;
     border-radius: var(--r-lg);
     transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
   }
-  .tip-card:hover { box-shadow: var(--sh-2); border-color: oklch(0.62 0.2 285 / 0.4); }
+  .tip-card:hover { box-shadow: var(--sh-2); border-color: rgba(0, 174, 239, 0.3); }
   .tip-icon { font-size: 1.8rem; margin-bottom: 12px; }
   .tip-card h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
   .tip-card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; margin: 0; }
