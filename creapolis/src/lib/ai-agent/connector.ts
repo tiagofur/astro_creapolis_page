@@ -28,14 +28,12 @@ export interface AgentSessionPayload {
 }
 
 export interface AgentConnectorConfig {
-  mode: 'webhook' | 'local_demo_fallback';
   endpointUrl: string;
   calendarBookingUrl: string;
 }
 
 export const defaultAgentConfig: AgentConnectorConfig = {
-  mode: (typeof process !== 'undefined' && process.env?.PUBLIC_AI_AGENT_WEBHOOK_URL) ? 'webhook' : 'local_demo_fallback',
-  endpointUrl: (typeof process !== 'undefined' && process.env?.PUBLIC_AI_AGENT_WEBHOOK_URL) || '/api/agent/chat',
+  endpointUrl: 'https://crm.creapolis.dev/api/public/chat',
   calendarBookingUrl: 'https://calendly.com/creapolis/30min',
 };
 
@@ -47,34 +45,51 @@ export async function sendAgentMessage(
   payload: AgentSessionPayload,
   config: AgentConnectorConfig = defaultAgentConfig
 ): Promise<AgentMessage> {
-  if (config.mode === 'webhook' && config.endpointUrl && !config.endpointUrl.startsWith('/api/agent')) {
+  const lastUserMsg = [...payload.messages].reverse().find(m => m.role === 'user')?.content || '';
+
+  // 1. Primary real agent connection
+  if (config.endpointUrl) {
     try {
+      // Use threadId from sessionStorage if available
+      let storedThreadId: string | null = null;
+      if (typeof window !== 'undefined') {
+        storedThreadId = window.sessionStorage.getItem('creapolis_chat_thread_id');
+      }
+
       const res = await fetch(config.endpointUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          message: lastUserMsg,
+          threadId: storedThreadId || undefined,
+        }),
       });
+
       if (res.ok) {
         const data = await res.json();
-        return {
-          id: data.id || `agent-${Date.now()}`,
-          role: 'assistant',
-          content: data.content || data.message || 'He recibido tu mensaje.',
-          timestamp: new Date().toISOString(),
-          actionCard: data.actionCard,
-        };
+        if (data.threadId && typeof window !== 'undefined') {
+          window.sessionStorage.setItem('creapolis_chat_thread_id', data.threadId);
+        }
+        if (data.reply) {
+          return {
+            id: `agent-${Date.now()}`,
+            role: 'assistant',
+            content: data.reply,
+            timestamp: new Date().toISOString(),
+          };
+        }
       }
     } catch (err) {
-      console.warn('[Creapolis Agent Connector] Webhook error, falling back to local simulation:', err);
+      console.warn('[Creapolis Agent Connector] Live agent failed, falling back to local simulation:', err);
     }
   }
 
-  // Smart local simulation fallback
-  const lastUserMsg = [...payload.messages].reverse().find(m => m.role === 'user')?.content.toLowerCase() || '';
+  // 2. Smart local simulation fallback
   const isEn = payload.locale === 'en';
   const isPt = payload.locale === 'pt';
+  const fallbackMsg = lastUserMsg.toLowerCase();
 
-  if (lastUserMsg.includes('cita') || lastUserMsg.includes('agenda') || lastUserMsg.includes('calendario') || lastUserMsg.includes('book') || lastUserMsg.includes('schedule') || lastUserMsg.includes('reuni')) {
+  if (fallbackMsg.includes('cita') || fallbackMsg.includes('agenda') || fallbackMsg.includes('calendario') || fallbackMsg.includes('book') || fallbackMsg.includes('schedule') || fallbackMsg.includes('reuni')) {
     const slots = [
       { iso: '2026-10-26T15:00:00Z', label: isEn ? 'Mon Oct 26' : 'Lun 26 Oct', time: '10:00 AM CST' },
       { iso: '2026-10-27T16:30:00Z', label: isEn ? 'Tue Oct 27' : 'Mar 27 Oct', time: '11:30 AM CST' },
@@ -97,7 +112,7 @@ export async function sendAgentMessage(
     };
   }
 
-  if (lastUserMsg.includes('precio') || lastUserMsg.includes('cost') || lastUserMsg.includes('cuanto') || lastUserMsg.includes('preço')) {
+  if (fallbackMsg.includes('precio') || fallbackMsg.includes('cost') || fallbackMsg.includes('cuanto') || fallbackMsg.includes('preço')) {
     return {
       id: `agent-${Date.now()}`,
       role: 'assistant',
