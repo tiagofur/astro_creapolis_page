@@ -321,52 +321,53 @@ const labels = {
     gap: 12px;
     background: #ffffff;
   }
-  .agent-msg {
+  /* ─── Messages — bubbles (chat rows are JS-injected, so these stay global too) ─── */
+  :global(.agent-msg) {
     display: flex;
     flex-direction: column;
     max-width: 85%;
   }
-  .agent-msg.assistant {
+  :global(.agent-msg.assistant) {
     align-self: flex-start;
   }
-  .agent-msg.user {
+  :global(.agent-msg.user) {
     align-self: flex-end;
   }
-  .agent-msg .msg-bubble {
+  :global(.agent-msg .msg-bubble) {
     padding: 10px 14px;
     border-radius: var(--r-md);
     font-size: 0.8125rem;
     line-height: 1.5;
   }
-  .agent-msg.assistant .msg-bubble {
+  :global(.agent-msg.assistant .msg-bubble) {
     background: var(--chalk);
     color: var(--ink);
     border-bottom-left-radius: 4px;
   }
-  .agent-msg.user .msg-bubble {
+  :global(.agent-msg.user .msg-bubble) {
     background: var(--ink);
     color: #ffffff;
     border-bottom-right-radius: 4px;
   }
-  .msg-bubble p {
+  :global(.msg-bubble p) {
     margin: 0;
   }
 
-  /* ─── Calendar action cards (JS-injected) ─── */
-  .agent-action-card {
+  /* ─── JS-injected nodes never get Astro's scope attribute, so these must stay global ─── */
+  :global(.agent-action-card) {
     margin-top: 8px;
     background: #ffffff;
     border: 1px solid var(--line-2);
     border-radius: var(--r-md);
     padding: 12px;
   }
-  .agent-slots-grid {
+  :global(.agent-slots-grid) {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-top: 8px;
   }
-  .slot-btn {
+  :global(.slot-btn) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -380,12 +381,12 @@ const labels = {
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
   }
-  .slot-btn:hover {
+  :global(.slot-btn:hover) {
     background: var(--c-cyan);
     color: #ffffff;
     border-color: var(--c-cyan);
   }
-  .action-calendar-link {
+  :global(.action-calendar-link) {
     display: inline-block;
     margin-top: 8px;
     font-size: 0.75rem;
@@ -394,8 +395,44 @@ const labels = {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-  .action-calendar-link:hover {
+  :global(.action-calendar-link:hover) {
     text-decoration-thickness: 2px;
+  }
+
+  /* ─── Typing indicator — CMY dots in an assistant bubble (JS-injected) ─── */
+  :global(.agent-msg.typing .msg-bubble) {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 13px 14px;
+  }
+  :global(.typing-dot) {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+  :global(.typing-dot:nth-child(1)) { background: var(--c-cyan); }
+  :global(.typing-dot:nth-child(2)) { background: var(--c-magenta); animation-delay: 0.15s; }
+  :global(.typing-dot:nth-child(3)) { background: var(--c-yellow); animation-delay: 0.3s; }
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+  :global(.agent-chips.is-busy .chip-btn),
+  :global(.agent-send-btn.is-busy) {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-dot::after,
+    :global(.typing-dot) {
+      animation: none;
+    }
+    :global(.typing-dot) {
+      opacity: 0.6;
+    }
   }
 
   /* ─── Scenario chips — mono zinc pills ─── */
@@ -487,12 +524,6 @@ const labels = {
     }
     .agent-panel--floating {
       max-width: calc(100vw - 24px);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pulse-dot::after {
-      animation: none;
     }
   }
 </style>

@@ -18,6 +18,9 @@ function initAgentWidgets() {
 
     const sessionId = `sess-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     const messages: AgentMessage[] = [];
+    const sendBtn = widget.querySelector<HTMLButtonElement>('[data-agent-form] .agent-send-btn');
+    const chipsBar = widget.querySelector<HTMLElement>('[data-agent-chips]');
+    let isBusy = false;
 
     // Open/close toggle
     if (toggleBtn) {
@@ -84,8 +87,36 @@ function initAgentWidgets() {
       });
     }
 
+    function showTypingIndicator() {
+      if (!msgContainer || msgContainer.querySelector('.agent-msg.typing')) return;
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'agent-msg assistant typing';
+      typingDiv.setAttribute('role', 'status');
+      typingDiv.setAttribute('aria-label', 'El agente está escribiendo');
+      typingDiv.innerHTML = `
+        <div class="msg-bubble">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      `;
+      msgContainer.appendChild(typingDiv);
+      msgContainer.scrollTop = msgContainer.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      msgContainer?.querySelector('.agent-msg.typing')?.remove();
+    }
+
+    function setBusy(busy: boolean) {
+      isBusy = busy;
+      sendBtn?.classList.toggle('is-busy', busy);
+      chipsBar?.classList.toggle('is-busy', busy);
+    }
+
     async function submitMessage(userText: string) {
-      if (!userText.trim()) return;
+      if (!userText.trim() || isBusy) return;
+      setBusy(true);
       appendMessage('user', userText);
       messages.push({
         id: `usr-${Date.now()}`,
@@ -103,7 +134,15 @@ function initAgentWidgets() {
         messages,
       };
 
-      const reply = await sendAgentMessage(payload);
+      showTypingIndicator();
+      // Keep the indicator visible for a beat even on instant fallback replies,
+      // so it never flashes as a glitch.
+      const [reply] = await Promise.all([
+        sendAgentMessage(payload),
+        new Promise((resolve) => setTimeout(resolve, 450)),
+      ]);
+      removeTypingIndicator();
+      setBusy(false);
       messages.push(reply);
       appendMessage('assistant', reply.content, reply.actionCard);
     }
