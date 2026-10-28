@@ -21,6 +21,20 @@ function initAgentWidgets() {
     const sendBtn = widget.querySelector<HTMLButtonElement>('[data-agent-form] .agent-send-btn');
     const chipsBar = widget.querySelector<HTMLElement>('[data-agent-chips]');
     let isBusy = false;
+    let cmyIndex = 0;
+    const typingSoonText = widget.getAttribute('data-typing-soon') || '';
+    const typingLongText = widget.getAttribute('data-typing-long') || '';
+    let typingTimers: number[] = [];
+
+    function escapeHtml(text: string) {
+      return text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string);
+    }
+
+    function renderMessageText(text: string) {
+      return escapeHtml(text)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+    }
 
     // Open/close toggle
     if (toggleBtn) {
@@ -50,6 +64,11 @@ function initAgentWidgets() {
       if (!msgContainer) return;
       const msgDiv = document.createElement('div');
       msgDiv.className = `agent-msg ${role}`;
+      // User bubbles rotate through the CMYK brand inks (cyan → magenta → yellow).
+      if (role === 'user') {
+        msgDiv.classList.add(`cmy-${cmyIndex % 3}`);
+        cmyIndex += 1;
+      }
 
       let cardHtml = '';
       if (actionCard && actionCard.type === 'calendar_slots' && actionCard.slots) {
@@ -70,7 +89,7 @@ function initAgentWidgets() {
 
       msgDiv.innerHTML = `
         <div class="msg-bubble">
-          <p>${text.replace(/\n/g, '<br>')}</p>
+          <p>${renderMessageText(text)}</p>
           ${cardHtml}
         </div>
       `;
@@ -98,13 +117,29 @@ function initAgentWidgets() {
           <span class="typing-dot"></span>
           <span class="typing-dot"></span>
           <span class="typing-dot"></span>
+          <span class="typing-label" aria-hidden="true"></span>
         </div>
       `;
       msgContainer.appendChild(typingDiv);
       msgContainer.scrollTop = msgContainer.scrollHeight;
+      // Reassure the visitor on slower turns (the agent routinely needs ~15s).
+      if (typingSoonText) {
+        typingTimers.push(window.setTimeout(() => {
+          const label = typingDiv.querySelector('.typing-label');
+          if (label) label.textContent = typingSoonText;
+        }, 4000));
+      }
+      if (typingLongText) {
+        typingTimers.push(window.setTimeout(() => {
+          const label = typingDiv.querySelector('.typing-label');
+          if (label) label.textContent = typingLongText;
+        }, 10000));
+      }
     }
 
     function removeTypingIndicator() {
+      typingTimers.forEach((t) => clearTimeout(t));
+      typingTimers = [];
       msgContainer?.querySelector('.agent-msg.typing')?.remove();
     }
 

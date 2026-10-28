@@ -37,6 +37,8 @@ export const defaultAgentConfig: AgentConnectorConfig = {
   calendarBookingUrl: 'https://calendly.com/creapolis/30min',
 };
 
+const AGENT_TIMEOUT_MS = 45_000;
+
 /**
  * Sends a message to the agent webhook or returns an interactive fallback simulation
  * with calendar slot options and CRM sync simulation.
@@ -46,6 +48,8 @@ export async function sendAgentMessage(
   config: AgentConnectorConfig = defaultAgentConfig
 ): Promise<AgentMessage> {
   const lastUserMsg = [...payload.messages].reverse().find(m => m.role === 'user')?.content || '';
+  const isEn = payload.locale === 'en';
+  const isPt = payload.locale === 'pt';
 
   // 1. Primary real agent connection
   if (config.endpointUrl) {
@@ -56,14 +60,24 @@ export async function sendAgentMessage(
         storedThreadId = window.sessionStorage.getItem('creapolis_chat_thread_id');
       }
 
-      const res = await fetch(config.endpointUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: lastUserMsg,
-          threadId: storedThreadId || undefined,
-        }),
-      });
+      // Real agent turns routinely need ~15s; bail out gracefully beyond that
+      // instead of leaving the visitor on an endless typing indicator.
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), AGENT_TIMEOUT_MS);
+      let res: Response;
+      try {
+        res = await fetch(config.endpointUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: lastUserMsg,
+            threadId: storedThreadId || undefined,
+          }),
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
       if (res.ok) {
         const data = await res.json();
@@ -80,13 +94,23 @@ export async function sendAgentMessage(
         }
       }
     } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return {
+          id: `agent-${Date.now()}`,
+          role: 'assistant',
+          content: isEn
+            ? 'Sorry — that took too long and I would rather not keep you waiting. Could you send your message again?'
+            : isPt
+            ? 'Desculpa — demorei demais e prefiro não te deixar esperando. Pode enviar sua mensagem de novo?'
+            : 'Perdona — tardé demasiado en responderte y prefiero no dejarte esperando. ¿Me repites tu mensaje?',
+          timestamp: new Date().toISOString(),
+        };
+      }
       console.warn('[Creapolis Agent Connector] Live agent failed, falling back to local simulation:', err);
     }
   }
 
   // 2. Smart local simulation fallback
-  const isEn = payload.locale === 'en';
-  const isPt = payload.locale === 'pt';
   const fallbackMsg = lastUserMsg.toLowerCase();
 
   if (fallbackMsg.includes('cita') || fallbackMsg.includes('agenda') || fallbackMsg.includes('calendario') || fallbackMsg.includes('book') || fallbackMsg.includes('schedule') || fallbackMsg.includes('reuni')) {
